@@ -1,0 +1,9 @@
+OutputTool/MergedFiles/
+*~
+*/*~
+*/*/*~
+*/*/*/*/*.pdf
+*/*/*/*.pdf
+*/*/*/*/*/*.pdf
+*/*/*.pdf
+*/*.pdf
