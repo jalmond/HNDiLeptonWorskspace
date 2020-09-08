@@ -89,12 +89,12 @@ void           OutMessage(TString s_code, TString  s_file){
   cout << s_code << " : created file " << s_file << endl;
 }
 
-vector<TString> GetMassType1Strings(TString ignore_masses){
+vector<TString> GetMassType1Strings(vector<TString> ignore_masses){
 
-  TString split_string = ignore_masses;
-  split_string= split_string.ReplaceAll("/"," ");
+  //TString split_string = ignore_masses;
+  //split_string= split_string.ReplaceAll("/"," ");
   TH1* h;
-  vector<string> v{_getsplit(string(split_string), ' ')};
+  //vector<TString> v//{_getsplit(string(split_string), ' ')};
 
 
   vector <TString> masses ;
@@ -102,7 +102,7 @@ vector<TString> GetMassType1Strings(TString ignore_masses){
   masses.push_back("125");
   masses.push_back("200");
   masses.push_back("250");
-  //  masses.push_back("300");
+  masses.push_back("300");
   masses.push_back("400");
   masses.push_back("600");
   masses.push_back("700");
@@ -115,12 +115,12 @@ vector<TString> GetMassType1Strings(TString ignore_masses){
   vector <TString> _masses ;
   for(unsigned int i=0; i < masses.size(); i++){
     bool ignore=false;
-    for(unsigned int j=0; j < v.size(); j++){
-      if(masses[i] == v[j]) ignore=true;
+    for(unsigned int j=0; j < ignore_masses.size(); j++){
+      if(masses[i] == ignore_masses[j]) ignore=true;
     }
     if (!ignore) _masses.push_back(masses[i]);
   }
-  return masses;
+  return _masses;
 
 }
 
@@ -130,12 +130,12 @@ double Stod(string word){
   return lol;
 }
 
-vector<double> GetMassType1Doubles(TString ignore_masses){
+vector<double> GetMassType1Doubles(vector<TString> ignore_masses){
 
-  TString split_string = ignore_masses;
-  split_string= split_string.ReplaceAll("/"," ");
+  //TString split_string = ignore_masses;
+  //split_string= split_string.ReplaceAll("/"," ");
   TH1* h;
-  vector<string> v{_getsplit(string(split_string), ' ')};
+  //vector<string> v{_getsplit(string(split_string), ' ')};
   
   
   vector <TString> masses ;
@@ -143,7 +143,7 @@ vector<double> GetMassType1Doubles(TString ignore_masses){
   masses.push_back("125");
   masses.push_back("200");
   masses.push_back("250");
-  //  masses.push_back("300");
+  masses.push_back("300");
   masses.push_back("400");
   masses.push_back("600");
   masses.push_back("700");
@@ -156,8 +156,8 @@ vector<double> GetMassType1Doubles(TString ignore_masses){
   vector <double> _masses ;
   for(unsigned int i=0; i < masses.size(); i++){
     bool ignore=false;
-    for(unsigned int j=0; j < v.size(); j++){
-      if(masses[i] == v[j]) ignore=true;
+    for(unsigned int j=0; j < ignore_masses.size(); j++){
+      if(masses[i] == ignore_masses[j]) ignore=true;
     }
     if (!ignore) _masses.push_back(atof(masses[i]));
   }

@@ -181,7 +181,8 @@ TGraphAsymmErrors* Get2016SigEff(TString sr, TString channel, vector<double> mas
   TGraphAsymmErrors *out = new TGraphAsymmErrors(Nbins, x, y, xlow, xup, ylow, yup);
   //out->SetLineWidth(2.0);
   //out->SetMarkerSize(0.);
-
+  out->GetHistogram()->GetXaxis()->SetTitle("m_{N} (GeV)");
+  out->GetHistogram()->GetYaxis()->SetTitle("#epsilon");
   out->SetTitle("");
   return out;
   
@@ -291,7 +292,16 @@ TH1* GetHist(TFile* file, TString name ){
   
   
 }
-	     
+
+double GetMaximum(TGraphAsymmErrors* g1, vector<TGraphAsymmErrors*> grs){
+
+  double _max= g1->GetHistogram()->GetMaximum();
+  for(unsigned int ig=0; ig < grs.size(); ig++){
+    if (grs[ig]->GetHistogram()->GetMaximum() > _max) _max = grs[ig]->GetHistogram()->GetMaximum();
+  }
+  return _max;
+}
+
 TGraphAsymmErrors* v_to_graph(int Nbins,  vector<double> vx,  vector<double> vxup, vector<double> vxdown, vector<double> vy,  vector<double> vyup,  vector<double> vydown, Color_t col){
 
   TH1::SetDefaultSumw2(true);
