@@ -6,12 +6,13 @@ Channel =[ ["MuMu", ["MumMum" , "MupMup"]],
            ["EE"  , ["EmEm","EpEp"]]]
 
 Type=["Schannel","Tchannel"]
-mass = ["100","200","300","400","600","700","800","900","1000","1100","1200","1300","1400","1500","1700","2000"]
+mass = ["100","125","200","250","300","400","600","700","800","900","1000","1100","1200","1300","1400","1500","1700","2000"]
 
 charge= ["Signal__/","SignalOS__/"]
 
+
 for y in years:
-    outpath = "/Users/john/Type1/MergedFiles/" + y + "/SIG/"
+    outpath = "/Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/" + y + "/SIG/"
 
 
     for m in mass:
@@ -26,7 +27,7 @@ for y in years:
                 sigs=[]
                 for s in c[1]:
                     for ch in charge:
-                        inpath = "/Users/john/Type1/Files/HNtypeI_JA/2016/"+ch
+                        inpath = "/Users/john/HNDiLeptonWorskspace/Files/HNtypeI_JA/2016/"+ch
 
                         if os.path.exists(inpath +"HNtypeI_JA_HN_"+t+"_" + s + "_" + m + "_nlo.root"):
                             sigs.append(inpath +"HNtypeI_JA_HN_"+t+"_" + s + "_" + m + "_nlo.root")

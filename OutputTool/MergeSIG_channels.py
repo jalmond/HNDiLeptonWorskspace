@@ -12,7 +12,7 @@ mass = ["100","200","300","400","600","700","800","900","1000","1100","1200","13
 charge= ["Signal__/","SignalOS__/"]
 
 for y in years:
-    outpath = "/Users/john/Type1/MergedFiles/" + y + "/SIG/"
+    outpath = "/Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/" + y + "/SIG/"
 
 
     for m in mass:
@@ -28,7 +28,7 @@ for y in years:
                 for s in c[1]:
                     for ch in charge:
                         for st in SType:
-                            inpath = "/Users/john/Type1/Files/HNtypeI_JA/2016/"+ch
+                            inpath = "/Users/john/HNDiLeptonWorskspace/Files/HNtypeI_JA/2016/"+ch
 
                             if os.path.exists(inpath +"HNtypeI_JA_HN_"+st+"_" + s + "_" + m + "_nlo.root"):
                                 sigs.append(inpath +"HNtypeI_JA_HN_"+st+"_" + s + "_" + m + "_nlo.root")
