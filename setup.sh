@@ -6,7 +6,7 @@ then
     export PLOTTER_WORKING_DIR=`pwd`
     export PLOT_PATH=$PWD/Plots/
     export OUTFILE_PATH=$PLOTTER_WORKING_DIR/rootfiles/
-    export INFILE_MERGED_PATH=/data6/User/$USER/HNDiLep/MergedFiles/
+    export INFILE_MERGED_PATH=$PLOTTER_WORKING_DIR/OutputTool/MergedFiles/ 
     export INFILE_PATH=$SKFlatOutputDir/
     export SCRIPT_DIR=$PLOTTER_WORKING_DIR/script/
     export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$PLOTTER_WORKING_DIR/include/:$PLOTTER_WORKING_DIR/src/:$PLOTTER_WORKING_DIR/SignalEfficiency:$PLOTTER_WORKING_DIR/SignalRegionPlotter:$PLOTTER_WORKING_DIR/MakeCards:$PLOTTER_WORKING_DIR/OutputTool
