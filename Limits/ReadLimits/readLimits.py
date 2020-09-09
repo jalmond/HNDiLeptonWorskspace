@@ -36,7 +36,7 @@ Years =   ["2016","2017","2018"]
 Charges = ["SS","OS_SS"]
 Channels = ["","_VBF","_combined"] 
 Flavours= ["MuMu","EE"]
-Masses =  ["100","200","300","400","500","600","700","800","900","1000","1100","1200","1500"]
+Masses =  ["100","200","300","400","500","600","700","800","900","1000","1100","1200","1300","1400","1500"]
 
 
 
@@ -63,6 +63,9 @@ for year in Years:
                     Expected_2sdUp = "--"
                     Expected_2sdDn = "--"
                     tag = "card_combined"+charge+"_"+flavour+"_N"+mass+"_"+year
+                    if mass == "1300" or mass == "1400":
+                           tag = "card_combined"+charge+"_"+flavour+"_N1200_"+year
+
                     Found=False
                     for line in fulllog:
                         if "Input datacard" in line:

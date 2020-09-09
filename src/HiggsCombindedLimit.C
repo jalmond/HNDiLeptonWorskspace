@@ -20,8 +20,8 @@ void  HiggsCombindedLimit(int i=0, int j=0, TString dirname="", int ReturnWhat=0
   TString ENV_FILE_PATH = WORKING_DIR;
   TString ENV_PLOT_PATH = getenv("PLOT_PATH");
 
-  TString filepath = ENV_FILE_PATH+dataset+"Limit/ReadLimits/out/";
-  TString plotpath = ENV_PLOT_PATH+dataset+"Limit/";
+  TString filepath = ENV_FILE_PATH+dataset+"/Limits/ReadLimits/out/";
+  TString plotpath = ENV_PLOT_PATH+dataset+"/Limits/";
 
   if(dirname!=""){
   
@@ -57,7 +57,7 @@ void  HiggsCombindedLimit(int i=0, int j=0, TString dirname="", int ReturnWhat=0
   filepath = filepath + WhichYear + "/"+ WhichDirectoryInCutop;
 
   TString channel = "MuMu";
-  if(WhichDirectoryInCutop.Contains("ElEl")) channel = "ElEl";
+  if(WhichDirectoryInCutop.Contains("ElEl")) channel = "EE";
   if(WhichDirectoryInCutop.Contains("MuEl")) channel = "MuEl";
 
   if( !gSystem->mkdir(plotpath, kTRUE) ){
@@ -79,7 +79,7 @@ void  HiggsCombindedLimit(int i=0, int j=0, TString dirname="", int ReturnWhat=0
 
   string elline;
   ifstream in(filepath+ "/result.txt");
-  int n_central = 28; //28, but now removing 80 Gev
+  int n_central = 16; //28, but now removing 80 Gev
   double mass[n_central], obs[n_central], limit[n_central], onesig_left[n_central], onesig_right[n_central], twosig_left[n_central], twosig_right[n_central];
 
   int dummyint=0;
@@ -89,32 +89,33 @@ void  HiggsCombindedLimit(int i=0, int j=0, TString dirname="", int ReturnWhat=0
   cout << filepath+ "/result.txt"<< endl;
   while(getline(in,elline)){
     std::istringstream is( elline );
-    cout <<  "Test " << mass[dummyint] << " " << limit[dummyint] << endl;
     is >> mass[dummyint];
     is >> obs[dummyint];
     is >> limit[dummyint];
-    is >> onesig_left[dummyint];
     is >> onesig_right[dummyint];
-    is >> twosig_left[dummyint];
+    is >> onesig_left[dummyint];
     is >> twosig_right[dummyint];
+    is >> twosig_left[dummyint];
+
   //==== skip points
     if(obs[dummyint]<=0 || limit[dummyint]<=0 || onesig_left[dummyint]<=0 || onesig_right[dummyint]<=0 || twosig_left[dummyint]<=0 || twosig_right[dummyint]<=0){
       n_central--;
       continue;
     }
-
+    
     double scale=0.01; //mixing squared is 0.01 now
     if(mass[dummyint]<=60) scale *= 0.01;
-    else if(mass[dummyint]<=100) scale *= 0.1;
-    else if(mass[dummyint]<=300) scale *= 1.;
-    else if(mass[dummyint]<=700) scale *= 10.;
-    else scale *= 100.;
+    else if(mass[dummyint]<=200) scale *= 0.001;
+    else if(mass[dummyint]<=600) scale *= 0.1;
+    else if(mass[dummyint]<=1000) scale *= 1.;
+    else scale *= 10.;
 
-    scale = 0.01; //FIXME
+    //    scale*=  0.01; //FIXME
 
     if(channel=="MuEl") scale *= 0.5;
 
     obs[dummyint] *= scale;
+
     limit[dummyint] *= scale;
     onesig_left[dummyint] *= scale;
     onesig_right[dummyint] *= scale;
@@ -144,6 +145,13 @@ void  HiggsCombindedLimit(int i=0, int j=0, TString dirname="", int ReturnWhat=0
     dummyint++;
 
   }
+
+  cout << "n_central = " << n_central << " mass size = " << mass << endl;
+  for(unsigned int k = 0; k < n_central ; k++){
+
+    cout << "Mass = " << mass[k] << " expected = " << limit[k] << " + 1sigma = " << onesig_right[k] << " -1sigma = "  << onesig_left[k] << " + 2 sigma = " << twosig_right[k] << " - 2 sigam = " << twosig_left[k] << endl;
+  }
+  
   cout << "Max : " << max_obs_mass << "\t" << max_obs << endl;
   cout << "Min : " << min_obs_mass << "\t" << min_obs << endl;
 
@@ -266,11 +274,13 @@ void  HiggsCombindedLimit(int i=0, int j=0, TString dirname="", int ReturnWhat=0
 
 
   //=== EXO-17-028 overlay
-  const int nm_17028 = 17;
+  const int nm_17028 = 19;
   double mass_17028[nm_17028] = {
-    100, 125, 150, 175,
-    200, 250, 300, 350, 400, 500,
-    600,700,800,900,1000,1100,1200
+    100, 125, 150,200,
+    250, 300, 400, 500,
+    600, 700, 800, 900,
+    1000, 1100, 1200, 1300,
+    1400, 1500, 1700
   };
 
   
@@ -279,38 +289,46 @@ void  HiggsCombindedLimit(int i=0, int j=0, TString dirname="", int ReturnWhat=0
   vector<double> scales_17028;
   if(channel=="MuMu"){
     tempvec_exp_17028 = {
-      175.333,21.5041,32.925,56.3397,70.80,81,99.3095,20.4264,42.5126,
-      60.1695,116.721,15.8605,25.8407, 38.43,64.346,100.265
+      175.333, 21.5041, 32.925, 56.3397,
+      70.8081, 99.3095, 20.4264, 42.5126,
+      60.1695, 116.721, 15.8605, 25.8407,
+      38.43, 64.346, 100.265, 151.699,
+      247.709, 340.424, 1340.34
     } ;
     scales_17028 = {
-      0.001, 0.01, 0.01,0.01,0.01,0.01,0.1, 0.1,0.1,0.1,0.1,1,1,1,1,1
+		    0.001, 0.01, 0.01,0.01,0.01,0.01,0.1, 0.1,0.1,0.1,1,1,1,1,1,1,1,1,1,1
     };
     tempvec_obs_17028 = {
       215.218, 23.0424,41.8101,49.4399,57.1134,84.404,39.6932,
-      44.5303,81.4561,195.31,16.3137,42.605,61.6358,103.589,150.295
+      44.5303,81.4561,195.31,16.3137,42.605,61.6358,103.589,150.295,
+      220.286, 365.037, 516.2, 1408.5
+
     };
   }
   else   if(channel=="ElEl"){
     //https://github.com/jedori0228/HiggsAnalysis-CombinedLimit/blob/2016Data_HNDilepton_Limit/data/2016_HNDiLepton/Outputs_Tool/ElEl_Combined/result.txt
     tempvec_exp_17028 = {
       467.448, 65.4099, 90.4068, 159.838,216.957, 284.563, 59.74, 94.6793, 
-      104.302, 183.121, 30.189, 47.1442, 72.0759, 117.305, 183.214
+      104.302, 183.121, 30.189, 47.1442, 72.0759, 117.305, 183.214,
+      285.811, 434.08, 644.258, 2506.94
     };
     scales_17028 = {
       0.001, 0.01, 0.01,0.01,0.01,0.01,0.1, 0.1,0.1,0.1,0.1,1,1,1,1,1
     };
     tempvec_obs_17028 = {
       368.924, 63.3389, 61.9159, 151.2, 206.654, 254.261, 68.8604, 95.9664, 
-      123.0, 274.57, 24.8148, 46.0243, 95.1426, 164.011, 252.706 
+      123.0, 274.57, 24.8148, 46.0243, 95.1426, 164.011, 252.706,
+      379.988, 419.316, 631.767, 2486.31
+      
     };
   }
   for(unsigned int j=0; j<tempvec_obs_17028.size(); j++){
     
-    obs_17028[j] = scales_17028[j]*tempvec_obs_17028.at(j);
-    exp_17028[j] = scales_17028[j]*tempvec_exp_17028.at(j);
+    obs_17028[j] = scales_17028[j]*tempvec_obs_17028.at(j)*0.01;
+    exp_17028[j] = scales_17028[j]*tempvec_exp_17028.at(j)*0.01;
   }
 
-  TGraph *gr_17028_exp = new TGraph(nm_17028, mass_17028, obs_17028);
+  TGraph *gr_17028_exp = new TGraph(nm_17028, mass_17028, exp_17028);
   gr_17028_exp->SetLineColor(kRed);
   //gr_8TeV_exp->SetLineStyle(10);                                            
   gr_17028_exp->SetLineWidth(3);
@@ -837,6 +855,7 @@ void  HiggsCombindedLimit(int i=0, int j=0, TString dirname="", int ReturnWhat=0
   //======================
 
   //=== Legend
+  cout << "S-ch only limit  " << endl;
   TLegend *lg = new TLegend(0.48, 0.15, 0.66, 0.45);
   lg->SetBorderSize(0);
   lg->SetFillStyle(0);
@@ -848,30 +867,29 @@ void  HiggsCombindedLimit(int i=0, int j=0, TString dirname="", int ReturnWhat=0
   lg->AddEntry(gr_band_1sigma,"68% expected", "f");
   lg->AddEntry(gr_band_2sigma,"95% expected", "f");
   lg->AddEntry(hist_emptylegend,"","l");
-  //lg->AddEntry(gr_8and13TeV_obs, "CMS 8/13 TeV Combined", "l");
 
   TLegend *lg_Alt = new TLegend(0.65, 0.15, 0.93, 0.48);
   lg_Alt->SetBorderSize(0);
   lg_Alt->SetFillStyle(0);
   if(channel=="MuMu"){
-    lg_Alt->AddEntry(gr_DELPHILimit, "DELPHI prompt", "l");
-    lg_Alt->AddEntry(gr_L3Limit, "L3", "l");
+    //lg_Alt->AddEntry(gr_DELPHILimit, "DELPHI prompt", "l");
+    //lg_Alt->AddEntry(gr_L3Limit, "L3", "l");
 
     //lg_Alt->AddEntry(gr_EWPD_mm, "EWPD (90% CL)", "l");
     lg_Alt->AddEntry(gr_EWPD_mm, "EWPD", "l");
 
-    lg_Alt->AddEntry(gr_ATLAS_MuMu, "ATLAS 8 TeV", "l");
+    //lg_Alt->AddEntry(gr_ATLAS_MuMu, "ATLAS 8 TeV", "l");
     lg_Alt->AddEntry(gr_17028_exp, "CMS 13 TeV dilepton", "l");
     lg_Alt->AddEntry(gr_trilepLimit, "CMS 13 TeV trilepton", "l");
   }
   if(channel=="ElEl"){
-    lg_Alt->AddEntry(gr_DELPHILimit, "DELPHI prompt", "l");
-    lg_Alt->AddEntry(gr_L3_2Limit, "L3", "l");
+    //lg_Alt->AddEntry(gr_DELPHILimit, "DELPHI prompt", "l");
+    //lg_Alt->AddEntry(gr_L3_2Limit, "L3", "l");
 
     //lg_Alt->AddEntry(gr_EWPD_ee, "EWPD (90% CL)", "l");
     lg_Alt->AddEntry(gr_EWPD_ee, "EWPD", "l");
 
-    lg_Alt->AddEntry(gr_ATLAS_ElEl, "ATLAS 8 TeV", "l");
+    //lg_Alt->AddEntry(gr_ATLAS_ElEl, "ATLAS 8 TeV", "l");
     lg_Alt->AddEntry(gr_17028_exp, "CMS 13 TeV dilepton", "l");
     lg_Alt->AddEntry(gr_trilepLimit, "CMS 13 TeV trilepton", "l");
     //lg_Alt->AddEntry(gr_dbeta, "Neutrino-less double beta dacay", "l");
@@ -884,6 +902,7 @@ void  HiggsCombindedLimit(int i=0, int j=0, TString dirname="", int ReturnWhat=0
     lg_Alt->AddEntry(hist_emptylegend,"#color[0]{CMS 13 TeV trilepton}","l");
     lg_Alt->AddEntry(hist_emptylegend,"#color[0]{CMS 13 TeV trilepton}","l");
   }
+
   TLegend *lg_Alt_SandT = (TLegend *)lg_Alt->Clone();
 
   TCanvas *c_SOnly = new TCanvas("c_SOnly", "", 900, 800);
@@ -905,30 +924,31 @@ void  HiggsCombindedLimit(int i=0, int j=0, TString dirname="", int ReturnWhat=0
     dummy->GetYaxis()->SetTitleSize(0.04);
   }
   dummy->GetXaxis()->SetTitle("m_{N} (GeV)");
-  dummy->GetXaxis()->SetRangeUser(20., 2000);
+  dummy->GetXaxis()->SetRangeUser(20., 1500);
   dummy->GetYaxis()->SetRangeUser(0.000005, 1.);
   dummy->SetTitle("");
   dummy->Draw("hist");
 
   gr_band_2sigma->Draw("3same");
   gr_band_1sigma->Draw("3same");
+  cout << "Drawing gr_13TeV_exp" << endl;
   gr_13TeV_exp->Draw("lsame");
   gr_17028_exp->Draw("lsame");
   //gr_8and13TeV_obs->Draw("lsame");
   if(channel=="MuMu"){
-    gr_L3Limit->Draw("lsame");
-    gr_DELPHILimit->Draw("lsame");
+    //gr_L3Limit->Draw("lsame");
+    //gr_DELPHILimit->Draw("lsame");
     gr_trilepLimit->Draw("lsame");
     gr_EWPD_mm->Draw("lsame");
-    gr_ATLAS_MuMu->Draw("lsame");
+    //gr_ATLAS_MuMu->Draw("lsame");
   }
   if(channel=="ElEl"){
-    gr_L3_2Limit->Draw("lsame");
-    gr_DELPHILimit->Draw("lsame");
+    //gr_L3_2Limit->Draw("lsame");
+    //gr_DELPHILimit->Draw("lsame");
     gr_trilepLimit->Draw("lsame");
     //gr_dbeta->Draw("lsame");
     gr_EWPD_ee->Draw("lsame");
-    gr_ATLAS_ElEl->Draw("lsame");
+    //gr_ATLAS_ElEl->Draw("lsame");
   }
 
   if(DrawObserved) gr_13TeV_obs->Draw("lsame");
@@ -947,16 +967,16 @@ void  HiggsCombindedLimit(int i=0, int j=0, TString dirname="", int ReturnWhat=0
 
   c_SOnly->SetLogx();
   dummy->Draw("axissame");
-  c_SOnly->SaveAs(plotpath+"/"+channel+"_13TeV_mixing_logx.pdf");
-  c_SOnly->SaveAs(plotpath+"/"+channel+"_13TeV_mixing_logx.png");
+  //  c_SOnly->SaveAs(plotpath+"/"+channel+"_13TeV_mixing_logx.pdf");
+  //c_SOnly->SaveAs(plotpath+"/"+channel+"_13TeV_mixing_logx.png");
 
   //==== HighMass
-  dummy->GetXaxis()->SetRangeUser(90,2000);
-  dummy->GetYaxis()->SetRangeUser(1E-4,3);
+  dummy->GetXaxis()->SetRangeUser(90,1500);
+  dummy->GetYaxis()->SetRangeUser(1E-4,1.);
   dummy->Draw("axissame");
-  c_SOnly->SaveAs(plotpath+"/"+channel+"_13TeV_mixing_logx_HighMass.pdf");
-  c_SOnly->SaveAs(plotpath+"/"+channel+"_13TeV_mixing_logx_HighMass.png");
+  c_SOnly->SaveAs(plotpath+"/"+WhichYear+"_"+channel+"_13TeV_mixing_logx_HighMass"+WhichDirectoryInCutop+".pdf");
 
+  return;
 
   //==== S+T limit
   //======================
@@ -991,19 +1011,19 @@ void  HiggsCombindedLimit(int i=0, int j=0, TString dirname="", int ReturnWhat=0
   gr_17028_exp->Draw("lsame");
   //gr_8and13TeV_obs->Draw("lsame");
   if(channel=="MuMu"){
-    gr_L3Limit->Draw("lsame");
-    gr_DELPHILimit->Draw("lsame");
+    //gr_L3Limit->Draw("lsame");
+    //gr_DELPHILimit->Draw("lsame");
     gr_trilepLimit->Draw("lsame");
     gr_EWPD_mm->Draw("lsame");
-    gr_ATLAS_MuMu->Draw("lsame");
+    //gr_ATLAS_MuMu->Draw("lsame");
   }
   if(channel=="ElEl"){
-    gr_L3_2Limit->Draw("lsame");
-    gr_DELPHILimit->Draw("lsame");
+    //gr_L3_2Limit->Draw("lsame");
+    //gr_DELPHILimit->Draw("lsame");
     gr_trilepLimit->Draw("lsame");
     //gr_dbeta->Draw("lsame");
     gr_EWPD_ee->Draw("lsame");
-    gr_ATLAS_ElEl->Draw("lsame");
+    //gr_ATLAS_ElEl->Draw("lsame");
   }
   if(DrawObserved) gr_13TeV_obs_SandT->Draw("lsame");
 
