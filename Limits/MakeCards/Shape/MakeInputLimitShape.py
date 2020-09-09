@@ -171,7 +171,7 @@ for year in years:
                     limitfile.write("ElectronE	shapeN2 1       1       1       1\n") 
                     limitfile.write("JES	shapeN2 1       1       1       1\n") 
                     limitfile.write("JER	shapeN2 1       1       1       1\n") 
-                    limitfile.write("* autoMCStats 1 0 0 0\n")
+                    limitfile.write("* autoMCStats 0 0 1 \n")
                     
                     limitfile.close()
 
