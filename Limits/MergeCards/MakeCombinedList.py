@@ -68,11 +68,11 @@ for c in cards:
             ospath3="/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsCutCount/2018/"+channel+"_CombinedOS_SS/card_combinedOS_SS_"+channel + "_N"+mass+c+".txt"
 
             
-            if not os.path.exists("/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsCutCount/AllYears/"):
-                os.system("mkdir  " + "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsCutCount/AllYears/")
+            if not os.path.exists("/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsCutCount/CombinedYears/"):
+                os.system("mkdir  " + "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsCutCount/CombinedYears/")
 
-            out1="/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsCutCount/AllYears/"+channel+"_CombinedSS_"+channel + "_N"+mass+c+"allyears.txt"
-            osout1="/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsCutCount/AllYears/"+channel+"_CombinedOS_SS_"+channel + "_N"+mass+c+"allyears.txt"
+            out1="/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsCutCount/CombinedYears/"+channel+"_CombinedSS_"+channel + "_N"+mass+c+"allyears.txt"
+            osout1="/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsCutCount/CombinedYears/"+channel+"_CombinedOS_SS_"+channel + "_N"+mass+c+"allyears.txt"
             
             #ss_list.write("combine -M AsymptoticLimits " + out1 + " -n HNCombinedYearsOS_SS_"+channel+"_"+c+"_N"+mass+" --run blind  &> out/log_combinedyears_"+channel+"_CombinedSS_"+channel + "_N"+mass+c + "\n")
             #osss_list.write("combine -M AsymptoticLimits " + osout1 + " -n HNCombinedYearsOS_SS_"+channel+"_"+c+"_N"+mass+" --run blind &> out/log_combinedyears_"+channel+"_CombinedOS_SS_"+channel + "_N"+mass+c +"  \n")

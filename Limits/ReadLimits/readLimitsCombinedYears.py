@@ -7,8 +7,16 @@ parser.add_option("-x", "--x", dest="x", default="123",help="tag")
 (options, args) = parser.parse_args()
 limit_dir=options.x
 
-file_limit_path= "/data6/Users/jalmond/Limits/CMSSW_10_2_13/src/HiggsAnalysis/CombinedLimit/data/2016_HNDiLepton/batch/"+limit_dir+"/"
+file_limit_path= str(os.getenv("LIMIT_PATH")) +limit_dir+\
+"/"
+if str(os.getenv("LIMIT_PATH")) == "None":
+       print "setup enviroment...."
+       exit()
 
+if not os.path.exists(file_limit_path):
+    print "Need dir input from following..."
+    os.system("ls " + str(os.getenv("LIMIT_PATH")))
+    exit()
 
 
 counter=0
@@ -30,45 +38,51 @@ Years =   [""]
 Charges = ["SS","OS_SS"]
 Flavours= ["MuMu","EE"]
 Masses =  ["100","200","300","400","500","600","700","800","900","1000","1100","1200","1500"]
-
-
+Channels = ["","_VBF","_combined"]
 
 for year in Years:
     for charge in Charges:
         for flavour in Flavours:
+            for channel in Channels:
+                nbin = "SSCombined"
+                if charge == "OS_SS":
+                    nbin = "OSSSCombined"
 
-            _allmassfilename = "log_"+flavour+"_"+charge+"_"+flavour
+                _allmassfilename = flavour + "_"+ nbin
+                if not os.path.exists("out/CombinedYears"):
+                    os.mkdir("out/CombinedYears")
+                if not os.path.exists("out/CombinedYears/"+_allmassfilename):
+                    os.mkdir ("out/CombinedYears/"+_allmassfilename)
 
-            outfile = open("out/"+_allmassfilename+'.txt','w')
+                outfile = open("out/"+_allmassfilename+'.txt','w')
 
-            for mass in Masses:
+                for mass in Masses:
                 
-                Expected_Central = ""
-                Expected_1sdUp = ""
-                Expected_1sdDn = ""
-                Expected_2sdUp = ""
-                Expected_2sdDn = ""
-                tag = flavour+"_Combined"+charge+"_"+flavour+"_N"+mass+"_combinedallyears"
-                print tag 
-                Found=False
-                for line in fulllog:
-                    print line
-                    if "Input datacard" in line:
-                        if tag in line:
-                            Found=True
-                    if "Done in" in line:
-                        Found=False
-                    if Found:
-                        if "Expected 50.0%" in line:
-                            Expected_Central = line.split()[4]
-                        if "Expected 84.0%" in line:
-                            Expected_1sdUp = line.split()[4]
-                        if "Expected 16.0%" in line:
-                            Expected_1sdDn = line.split()[4]
-                        if "Expected 97.5%" in line:
-                            Expected_2sdUp = line.split()[4]
-                        if "Expected  2.5%" in line:
-                            Expected_2sdDn = line.split()[4]
+                    Expected_Central = ""
+                    Expected_1sdUp = ""
+                    Expected_1sdDn = ""
+                    Expected_2sdUp = ""
+                    Expected_2sdDn = ""
+                    tag = "Combined"+charge+"_"+flavour+"_N"+mass+"_"+channel
+
+                    Found=False
+                    for line in fulllog:
+                        if "Input datacard" in line:
+                            if tag in line:
+                                Found=True
+                        if "Done in" in line:
+                            Found=False
+                        if Found:
+                            if "Expected 50.0%" in line:
+                                Expected_Central = line.split()[4]
+                            if "Expected 84.0%" in line:
+                                Expected_1sdUp = line.split()[4]
+                            if "Expected 16.0%" in line:
+                                Expected_1sdDn = line.split()[4]
+                            if "Expected 97.5%" in line:
+                                Expected_2sdUp = line.split()[4]
+                            if "Expected  2.5%" in line:
+                                Expected_2sdDn = line.split()[4]
 
                             
                 outfile.write(mass + '\t' + Expected_Central+'\t' + Expected_Central+'\t'+Expected_1sdUp+'\t'+Expected_1sdDn+'\t'+Expected_2sdUp+'\t'+Expected_2sdDn+'\n')
