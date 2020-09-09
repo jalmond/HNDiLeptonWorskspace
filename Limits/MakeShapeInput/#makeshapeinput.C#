@@ -1,0 +1,141 @@
+
+
+
+
+#include "base_functions.h"
+#include "Macros.h"
+#include "mylib.h"
+#include "canvas_margin.h"
+
+void makeshapeinput(){
+
+
+  // check which pc is running script to setup local paths                                                                                                                   
+  TString s_hostname = GetHostname();
+
+  
+  // local path names                                                                                                                                                        
+  TString ENV_FILE_PATH= getenv("INFILE_PATH");
+  TString ENV_MERGEDFILE_PATH = getenv("INFILE_MERGED_PATH");
+  TString ENV_PLOT_PATH = getenv("PLOT_PATH");
+  TString FLATVERSION = getenv("FLATVERSION");
+
+  TString analysername="HNtypeI_JA";
+
+  TString input_path = ENV_FILE_PATH + FLATVERSION+"/"+analysername+"/";
+  TString output = ENV_PLOT_PATH + FLATVERSION + "/"+analysername+"/";
+
+
+  if(s_hostname == "JohnMB2018s-MacBook-Pro.local"){
+     input_path = "/Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/";
+  }
+   
+  // Set Plotting style                                                                                                                                                      
+  setTDRStyle();
+  gStyle->SetPalette(1);
+  
+  vector<TString> ignore_masses = {"100"};//,"125","150","200","250","300"};
+  //  if (_chan=="Schannel") ignore_masses = {"300"};
+  vector <TString> masses = GetMassType1Strings(ignore_masses);
+  vector <double> d_masses = GetMassType1Doubles(ignore_masses);
+
+  vector<TString>  Years = {"2016"};
+  vector<TString> Bins={"SR1"};
+  vector<TString> Channels={"MuMu"};
+  vector<TString> Card={""};
+  vector<TString> Charge={"same_sign"};
+
+  vector<TString> muIDs={"HNTightV1"};
+  vector<TString> elIDs={"HNTight2016"};
+
+
+  for(const auto& year: Years) {
+    for(const auto& bin: Bins) {
+      for(const auto& channel: Channels) {
+	vector<TString> IDs = (channel == "MuMu") ? muIDs: elIDs; 
+	vector<TString> systs;
+	if (channel == "MuMu") systs= {"","JERdown","JERup","JERup","JERdown","MUIDdown","MUIDup"};
+	else  systs= {"","ELIDdown","ELIDup","JERdown","JERup","JERup","JERdown"};
+	for(const auto& id: IDs) {
+	  for(const auto& card: Card) {
+	    for(const auto& charge: Charge) {
+
+	        vector<pair<TString, TString> > samples;
+		if(charge=="same_sign"){
+		  samples.push_back(make_pair("cf","CF"));
+		  samples.push_back(make_pair("fake","Fake"+channel));
+		  samples.push_back(make_pair("prompt","SSPrompt"));
+		}
+		else {
+		  samples.push_back(make_pair("fake","FakeOS"));
+		  samples.push_back(make_pair("prompt","OSPrompt"));
+		  samples.push_back(make_pair("cf","OSCF"));
+		}
+		
+		for(const auto& mass: masses) {
+		
+		  TString outfile = ENV_PLOT_PATH+ FLATVERSION+"/Limit/";
+		  MakeDir(outfile);
+		  outfile+="Shape/";	      MakeDir(outfile);
+		  outfile+=year+"/";	      MakeDir(outfile);
+		  outfile+=channel+"_"+bin+"/";	      MakeDir(outfile);
+		  
+		  
+		  outfile+= "HN"+mass+"_highmass_"+FLATVERSION+"_"+year+"_"+bin+"_"+channel+"_"+card+".root";
+		  cout << "Creating file " << outfile << endl;
+		  TFile* fout = new TFile(outfile.Data(),"RECREATE");
+		
+		  TString input_hist=bin+"_"+channel+"_highmass_"+charge+"/"+bin+"_"+channel+"_highmass_"+charge+"_reco_ml1jj_HNtypeI_JA_"+channel+"_"+id+"_";
+		  
+		  cout << outfile  << " ----  writing " << endl;
+		  WriteToFile(fout, ENV_MERGEDFILE_PATH+ "/"+year+"/"+analysername+"_SkimTree_SSNonIso_", samples,input_hist,systs );
+		  cout <<"             ----  written " << endl;
+
+		  fout->Close();
+		  delete fout;
+		  cout <<" closed file"<< endl;
+		}
+	    }
+	  }
+	}
+      }
+    }
+  }
+}
+  
+
+/*
+SRs = ["Bin1","Bin2","Bin3","Bin4"]
+masses = ["100" ,"200","300","400","500","600","700","800","900","1000","1100","1200","1500"]
+channels = ["MuMu", "EE"]
+cards = ["_combined","_VBF",""]
+years = ["2016", "2017","2018"]
+
+
+ssOther = ["Other", ["VBF_HToZZTo4L","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","WpWp_EWK","WpWp_QCD","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu"]]
+ssprompt = ["SSPrompt",  ["WWTo2L2Nu_DS","ZG",ZZ ,"ggZZTo4e","WG", WZ, "VBF_HToZZTo4L","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","WpWp_EWK","WpWp_QCD","ttWToLNu","TG\
+","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu"]]
+ssFakesMuon_list = ["FakeMuMu", ["DY", "TTLJ_powheg", "WJets_MG","SingleTop","TTLL_powheg"]]
+ssFakesEl_list = ["FakeEE", [ "TTLJ_powheg", "WJets_MG","SingleTop"]]
+osFakesOS_list = ["FakeOS", [ "TTLJ_powheg", "WJets_MG","SingleTop"]]
+ssCF = ["CF", ["DYJets","DYJets10to50_MG", "TTLL_powheg"]]
+osCF = [ "OSCF", ["WpWp_EWK","WpWp_QCD"]]
+
+allSS = ["SS", ["WWTo2L2Nu_DS","WWTo2L2Nu_powheg","ZG",ZZ,"WWToLNuQQ_powheg","ggZZTo4e","WGToLNuG", WZ ,"VBF_HToZZTo4L","WWTo2L2Nu_DS","ZZZ","ttHToNonbb","ttZ","VHToNonbb",\
+"WWW","WZZ","WpWp_EWK","WpWp_QCD","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu", "DY", "TTLJ_powheg", "WJets_MG","SingleTop","TTLL_powheg"]]
+
+osprompt = ["OSPrompt", ["DYJets","DYJets10to50_MG", "WWTo2L2Nu_DS","WWTo2L2Nu_powheg","ZG",ZZ,"WWToLNuQQ_powheg","ggZZTo4e","WGToLNuG", WZ, "VBF_HToZZTo4L","WWTo2L2Nu_DS",\
+"ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu","TTLL_powheg"]]
+
+
+SSLists = [ ssDiboson , ssOther, ssprompt, osFakesOS_list,  ssFakesMuon_list, ssFakesEl_list , allSS,ssCF, osprompt,osCF]
+
+
+
+
+#KEY: TH1F      signal;1        Histogram of signal__#x                                                                                                                      
+#  KEY: TH1F    signal_sigmaUp;1        Histogram of signal__x                                                                                                               
+#  KEY: TH1F    signal_sigmaDown;1      Histogram of signal__x                                                                                                               
+#  KEY: TH1F    background;1    Histogram of background__x                                                                                                                   
+#  KEY: TH1F    background_alphaUp;1    Histogram of background__x      
+ */

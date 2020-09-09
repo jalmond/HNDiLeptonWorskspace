@@ -293,6 +293,36 @@ TH1* GetHist(TFile* file, TString name ){
   
 }
 
+void WriteToFile(TFile* fo, TString path_, vector<pair<TString,TString> > samples, TString histname, vector<TString> systs){
+
+  for (unsigned int i = 0 ; i < samples.size(); i++){
+    for(const auto& _syst: systs) {
+
+    TString h_path =  path_ + samples[i].second + ".root";
+    TFile * file_ = new TFile((h_path).Data());
+    
+    TH1* hist = GetHist(file_, histname+_syst);
+    if (!hist){
+      double ml1jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+      double ml2jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+      double mlljbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+      TH1D* this_hist = new TH1D(histname+"__", "", 6, ml1jbins);
+      fo->cd();
+      this_hist->SetName(samples[i].first+"_"+_syst);
+      this_hist->Write();
+      delete this_hist;
+    }
+    else{
+      fo->cd();
+      cout << "Writing " << samples[i].first+"_"+_syst << endl;
+      hist->SetName(samples[i].first+"_"+_syst);
+      hist->Write();
+    }
+    file_->Close();
+    }
+  }
+}
+
 double GetMaximum(TGraphAsymmErrors* g1, vector<TGraphAsymmErrors*> grs){
 
   double _max= g1->GetHistogram()->GetMaximum();
