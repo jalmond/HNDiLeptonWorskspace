@@ -15,6 +15,7 @@
 #include "TFile.h"
 #include "TGraphAsymmErrors.h"
 #include "TROOT.h"
+#include "TH1D.h"
 
 //using namespace std;
 

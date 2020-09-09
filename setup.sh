@@ -38,7 +38,7 @@ if [[ $HOST == "JohnMB2018s-MacBook-Pro.local" ]];then
     export INFILE_PATH=$SKFlatOutputDir/Files/HNtypeI_JA/
     export SCRIPT_DIR=$PLOTTER_WORKING_DIR/script/
     export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$PLOTTER_WORKING_DIR/include/:$PLOTTER_WORKING_DIR/src/:$PLOTTER_WORKING_DIR/SignalEfficiency:$PLOTTER_WORKING_DIR/SignalRegionPlotter:$PLOTTER_WORKING_DIR/MakeCards:$PLOTTER_WORKING_DIR/OutputTool
-    export LIMIT_PATH=$PLOTTER_WORKING_DIR/LimitCode/CMS-StatisticalTools/
+    export LIMIT_PATH=$PLOTTER_WORKING_DIR/LimitCode/CMS-StatisticalTools/:$PLOTTER_WORKING_DIR/Limits/MakeShapeInput
 
 fi    
 alias run="bash "$SCRIPT_DIR"/run.sh"
