@@ -20,7 +20,7 @@ def GetHistName(channel,SR, mass,year):
         histname+= "/"+ histname +"_nevent_HNtypeI_JA_"+channel+"_HNTightV1_"
     return histname
 
-def GetMassBin(mass):
+def GetMassBin(mass, VBF):
 
     masses = ["100",
               "125",
@@ -40,8 +40,27 @@ def GetMassBin(mass):
               "1400",
               "1500",
               "1700"]
+
+    masses_vbf =  [   "300",
+              "400",
+              "500",
+              "600",
+              "700",
+              "800",
+              "900",
+              "1000",
+              "1100",
+              "1200",
+              "1300",
+              "1400",
+              "1500",
+              "1700"]
+
     counter = 0
-    for m in masses:
+    _masses= masses
+    if VBF == "_VBF":
+        _masses = masses_vbf
+    for m in _masses:
         counter = counter +1
         if m == mass:
             return counter
@@ -54,15 +73,16 @@ def GetSignalEvents(channel,SR, mass,year, VBF):
     histname=GetHistName(channel,SR, mass,year)
 
     filepaths = []
-    if(VBF == "_DY"):
+    if VBF == "_DY":
         filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/2016/SIG/HNtypeI_JA_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
-    else if(VBF == "_VBF"):
-         filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/2016/SIG/HNtypeI_JA_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
+    elif VBF == "_VBF":
+        filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/2016/SIG/HNtypeI_JA_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
     else :
-    filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/2016/SIG/HNtypeI_JA_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
- filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/2016/SIG/HNtypeI_JA_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
+        filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/2016/SIG/HNtypeI_JA_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
+        if int(mass) > 250:
+            filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/2016/SIG/HNtypeI_JA_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
 
-    total=:0
+    total=0
 
     for _filename in filepaths:
         _file = ROOT.TFile(_filename)
@@ -75,14 +95,17 @@ def GetSignalEvents(channel,SR, mass,year, VBF):
     if total < 0:
         return 0.
 
+    print total
     # copy scale used by JS in 2016        
     scale_ = 1.
-    if int(mass) < 300:
+    if int(mass) <= 200:
+        scale_ = 0.001
+    elif int(mass) <= 600:
+        scale_ = 0.1
+    elif int(mass) <=1000:
         scale_ = 1.
-    elif int(mass)< 700:
-        scale_ = 10.
     else:
-        scale_ = 100.
+        scale_ = 10.
 
 
     #since only 2016 samples available use these and scale to lumi for now
@@ -102,7 +125,7 @@ def GetFakeCount(channel, SR, mass,year):
     if SR == "Bin1" or SR == "Bin2":
         filepaths.append(os.getenv("INFILE_MERGED_PATH")  + year + "/HNtypeI_JA_SkimTree_SSNonIso_Fake"+channel+".root"  )
     else:
-        filepaths.append(os.getenv("INFILE_MERGED_PATH")  + year + "/HNtypeI_JA_SkimTree_SSNonIso_OSFake.root"  )
+        filepaths.append(os.getenv("INFILE_MERGED_PATH")  + year + "/HNtypeI_JA_SkimTree_SSNonIso_FakeOS.root"  )
 
 
     total=0
@@ -118,10 +141,14 @@ def GetFakeCount(channel, SR, mass,year):
 
 
 def GetCFCount(channel,SR, mass,year):
+
+    if channel == "MuMu":
+        return 0.
+
     histname=GetHistName(channel,SR, mass,year)
     filepaths =[]
     if SR == "Bin1" or SR == "Bin2":
-        filepaths.append(os.getenv("INFILE_MERGED_PATH")  + year + "/HNtypeI_JA_SkimTree_SSNonIso_SSCF.root"  )
+        filepaths.append(os.getenv("INFILE_MERGED_PATH")  + year + "/HNtypeI_JA_SkimTree_SSNonIso_CF.root"  )
     else:
         filepaths.append(os.getenv("INFILE_MERGED_PATH")  + year + "/HNtypeI_JA_SkimTree_SSNonIso_OSCF.root"  )
 
@@ -167,7 +194,7 @@ _channels = ["Schannel","Tchannel", "Combinedchannel"]
 channels = ["MuMu", "EE"]
 years = ["2016","2017","2018"]
 SRs = ["Bin1","Bin2","Bin3","Bin4"]
-masses = ["100" ,"200","400", "600","700","800","900","1000","1100", "1200","1500"]
+masses = ["100" ,"200","200", "400", "500", "600","700","800","900","1000","1100", "1200","1500"]
 masses_t = [ "600","700","800","900","1000","1100", "1200","1500"]
 
 for year in years:
@@ -178,8 +205,8 @@ for year in years:
                 if _channel == "Tchannel":
                     _masses = masses_t
 
-                for mass in masses:
-                    pinput = os.getend("PLOTTER_WORKING_DIR")+"/Limits/DataCardsCutCount/"
+                for mass in _masses:
+                    pinput = os.getenv("PLOTTER_WORKING_DIR")+"/Limits/DataCardsCutCount/"
                     if not os.path.exists(pinput):
                         os.system("mkdir " + pinput)
 
@@ -212,8 +239,8 @@ for year in years:
                     limitfile.write("bin	sr1	sr1	sr1	sr1\n")
                     limitfile.write("process	prompt	fake	cf	HN"+mass+"\n")
                     limitfile.write("process	1	2	3	0\n")
-                    rate_line = "rate  " + GetPromptCount(channel,SR, mass,year) + " " + GetFakeCount(channel,SR, mass,year) + " " + GetCFCount(channel,SR,mass,year)  + " " + str(GetSignalEvents(channel,SR,mass,year, _channel))
-
+                    rate_line = "rate  " + str(GetPromptCount(channel,SR, mass,year)) + " " + str(GetFakeCount(channel,SR, mass,year)) + " " + str(GetCFCount(channel,SR,mass,year)) + " " + str(GetSignalEvents(channel,SR,mass,year, _channel))
+                    print  pinput + year+"/"+ channel + "_" + SR + "/card_"+channel + "_" + SR+"_N" + mass + isVBF+".txt" + str(GetSignalEvents(channel,SR,mass,year, _channel))
                     rate_line += "\n"
                     limitfile.write(rate_line)
                     limitfile.write("Lumi	lnN	1.025	-	-	1.025\n")
