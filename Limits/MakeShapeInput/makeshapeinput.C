@@ -35,7 +35,7 @@ void makeshapeinput(){
   vector <TString> masses = GetMassType1Strings(ignore_masses);
   vector <double> d_masses = GetMassType1Doubles(ignore_masses);
 
-  vector<TString>  Years = {"2016","2017","2018"};
+  vector<TString>  Years = {"2016"};//,"2017","2018"};
   vector<TString> Bins={"SR1","SR2","SR3","SR4"};
   vector<TString> Channels={"MuMu","EE"};
   vector<TString> Card={""};
@@ -90,7 +90,11 @@ void makeshapeinput(){
 		  TString input_hist=bin+"_"+channel+"_highmass_"+charge+"/"+bin+"_"+channel+"_highmass_"+charge+"_reco_ml1jj_HNtypeI_JA_"+channel+"_"+id+"_";
 		  
 		  cout << outfile  << " ----  writing " << endl;
-		  WriteToFile(fout, ENV_MERGEDFILE_PATH+ "/"+year+"/"+analysername+"_SkimTree_SSNonIso_", samples,input_hist,systs );
+		  TString signalpath= ENV_MERGEDFILE_PATH + "/2016/SIG/HNtypeI_JA_HN_Schannel_" + channel + "_"+mass + "_nlo.root";
+		    
+		  WriteToFile(mass, year, signalpath, fout, ENV_MERGEDFILE_PATH+ "/"+year+"/"+analysername+"_SkimTree_SSNonIso_", samples,input_hist,systs );
+		  
+		  
 		  cout <<"             ----  written " << endl;
 
 		  fout->Close();

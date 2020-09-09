@@ -293,14 +293,42 @@ TH1* GetHist(TFile* file, TString name ){
   
 }
 
-void WriteToFile(TFile* fo, TString path_, vector<pair<TString,TString> > samples, TString histname, vector<TString> systs){
+double SignalScale(TString year, TString mass){
+
+  float scale = 1.;
+  if(mass == "100") scale = 0.001;
+  if(mass == "200") scale = 0.001;
+  if(mass == "300") scale = 0.1;
+  if(mass == "400") scale = 0.1;
+  if(mass == "500") scale = 0.1;
+  if(mass == "600") scale = 0.1;
+  if(mass == "700") scale = 1.;
+  if(mass == "800") scale = 1.;
+  if(mass == "900") scale = 1.;
+  if(mass == "1000") scale = 1.;
+  if(mass == "1100") scale = 1.;
+  if(mass == "1200") scale = 10.;
+  if(mass == "1300") scale = 10.;
+  if(mass == "1400") scale = 10.;
+  if(mass == "1500") scale = 10.;
+
+  if (year == "2017") scale *= 41.54/36.47;
+  if (year == "2018") scale *= 59.96/36.47;
+
+  return scale;
+
+  
+}
+void WriteToFile(TString mass, TString year, TString signal, TFile* fo, TString path_, vector<pair<TString,TString> > samples, TString histname, vector<TString> systs){
 
   for (unsigned int i = 0 ; i < samples.size(); i++){
     for(const auto& _syst: systs) {
 
     TString h_path =  path_ + samples[i].second + ".root";
     TFile * file_ = new TFile((h_path).Data());
-    
+
+    TString _systname = "";
+    if (_syst != "") _systname = "_"+_syst;
     TH1* hist = GetHist(file_, histname+_syst);
     if (!hist){
       double ml1jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
@@ -308,19 +336,49 @@ void WriteToFile(TFile* fo, TString path_, vector<pair<TString,TString> > sample
       double mlljbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
       TH1D* this_hist = new TH1D(histname+"__", "", 6, ml1jbins);
       fo->cd();
-      this_hist->SetName(samples[i].first+"_"+_syst);
+      this_hist->SetName(samples[i].first+_systname);
       this_hist->Write();
       delete this_hist;
     }
     else{
       fo->cd();
-      cout << "Writing " << samples[i].first+"_"+_syst << endl;
-      hist->SetName(samples[i].first+"_"+_syst);
+      cout << "Writing " << samples[i].first+"_"+_systname << endl;
+      hist->SetName(samples[i].first+_systname);
       hist->Write();
     }
     file_->Close();
     }
   }
+
+  for(const auto& _syst: systs) {
+
+    TString h_path = signal;
+    TFile * file_ = new TFile((h_path).Data());
+
+    TString _systname =	"";
+    if (_syst != "") _systname = "_"+_syst;
+
+    TH1* hist = GetHist(file_, histname+_syst);
+    if (!hist){
+      double ml1jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+      double ml2jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+      double mlljbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+      TH1D* this_hist = new TH1D(histname+"__", "", 6, ml1jbins);
+      fo->cd();
+      this_hist->SetName("signal"+_systname);
+      this_hist->Write();
+      delete this_hist;
+    }
+    else{
+      fo->cd();
+      hist->SetName("signal" +_systname);
+      double _scale= SignalScale(year,mass);
+      hist->Scale(_scale);
+      hist->Write();
+    }
+    file_->Close();
+    }
+
 }
 
 double GetMaximum(TGraphAsymmErrors* g1, vector<TGraphAsymmErrors*> grs){
