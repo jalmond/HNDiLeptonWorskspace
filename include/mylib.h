@@ -14,6 +14,23 @@ void SetBinLabels(TH1D* hist, std::vector<TString> list){
            
 }
 
+
+void WriteToFile(TFile* fo, TString path_, vector<pair<TString,TString> > samples, TString histname, vector<TString> systs){
+  
+  for (unsigned int i = 0 ; i < samples.size(); i++){
+    for(const auto& _syst: systs) {
+    
+    TString h_path =  _ath_ + samples[i].second + ".root";
+    TFile * file_ = new TFile((h_path).Data());
+
+    TH1* hist = GetHist(file_, histname+_syst);
+    fo->cd();
+    hist->SetName(samples[i].first);
+    hist->Write();
+  }
+}
+
+
 TGraphAsymmErrors* Get2016SigEff(TString sr, TString channel, vector<double> masses){
 
   map<double, double>  tempvec_exo17028_ee_schannel_sr1_Eff;
