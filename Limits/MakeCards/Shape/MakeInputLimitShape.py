@@ -183,4 +183,3 @@ for year in years:
                         limitfile.write("* autoMCStats 0 0 1\n")
                         
                         limitfile.close()
-
