@@ -1,0 +1,20 @@
+Combination of Name1=/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2016/MuMu_SR1/card_MuMu_SR1_N100_HNTightV1_ml1jj.txt  Name2=/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2016/MuMu_SR2/card_MuMu_SR2_N100_HNTightV1_ml1J.txt
+imax 2 number of bins
+jmax 3 number of processes minus 1
+kmax 2 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes *      Name1  /data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2016/MuMu_SR1/HN100_highmass_Run2Legacy_v4_2016_SR1_MuMu__HNTightV1_ml1jj.root $PROCESS $PROCESS_$SYSTEMATIC
+shapes *      Name2  /data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2016/MuMu_SR2/HN100_highmass_Run2Legacy_v4_2016_SR2_MuMu__HNTightV1_ml1J.root $PROCESS $PROCESS_$SYSTEMATIC
+----------------------------------------------------------------------------------------------------------------------------------
+bin          Name1  Name2
+observation  -1     -1   
+----------------------------------------------------------------------------------------------------------------------------------
+bin                             Name1         Name1         Name1         Name1         Name2         Name2         Name2         Name2       
+process                         signal        prompt        cf            fake          signal        prompt        cf            fake        
+process                         0             1             2             3             0             1             2             3           
+rate                            0.1297944842  126.7645      82.6781       0             0.0031782151  13.3177       2.8354        0           
+----------------------------------------------------------------------------------------------------------------------------------
+CF                      lnN     -             -             1.439         -             -             -             1.439         -           
+Lumi                    lnN     1.05          1.05          -             -             1.05          1.05          -             -           
+Name2 autoMCStats 0 0 1
+Name1 autoMCStats 0 0 1

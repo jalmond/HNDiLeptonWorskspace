@@ -1,0 +1,22 @@
+imax 1  number of channels
+jmax 3  number of backgrounds
+kmax *  number of nuisance parameters (sources of systematical uncertainties)
+------------
+shapes * * HN1200_highmass_Run2Legacy_v4_2017_SR1_MuMu__HNTightV1_ml2jj.root $PROCESS $PROCESS_$SYSTEMATIC
+------------
+# we have just one channel, in which we observe 0 events
+bin bin1
+observation -1
+------------
+# now we list the expected events for signal and all backgrounds in that bin
+# the second 'process' line must have a positive number for backgrounds, and 0 for signal
+# then we list the independent sources of uncertainties, and give their effect (syst. error)
+# on each process and bin
+bin	bin1	bin1	bin1	bin1
+process	prompt	fake	cf	signal
+process	1	2	3	0
+rate  152.7707 0.0 56.254 0.0477005064961
+Lumi	lnN	1.05	-	-	1.05
+Fake	lnN	-	1.3	-	-
+CF	        lnN	-	-	1.439	-
+* autoMCStats 0 0 1

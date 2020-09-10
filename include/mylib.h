@@ -14,23 +14,6 @@ void SetBinLabels(TH1D* hist, std::vector<TString> list){
            
 }
 
-
-void WriteToFile(TFile* fo, TString path_, vector<pair<TString,TString> > samples, TString histname, vector<TString> systs){
-  
-  for (unsigned int i = 0 ; i < samples.size(); i++){
-    for(const auto& _syst: systs) {
-    
-    TString h_path =  _ath_ + samples[i].second + ".root";
-    TFile * file_ = new TFile((h_path).Data());
-
-    TH1* hist = GetHist(file_, histname+_syst);
-    fo->cd();
-    hist->SetName(samples[i].first);
-    hist->Write();
-  }
-}
-
-
 TGraphAsymmErrors* Get2016SigEff(TString sr, TString channel, vector<double> masses){
 
   map<double, double>  tempvec_exo17028_ee_schannel_sr1_Eff;
@@ -251,9 +234,40 @@ bool FileHasDir(TFile* file, TString name){
     return false;
 }
 
-
+ 
+bool CheckHist(TFile* file, TString name ){
   
-TH1* GetHist(TFile* file, TString name ){
+  TString name_fix = name;
+  name_fix = name_fix.ReplaceAll("/"," ");
+  TH1* h;
+  vector<string> v{_getsplit(string(name_fix), ' ')};
+  TList* list ;
+  if(v.size() == 2){
+    if(FileHasDir(file, TString(v[0])))list = file->GetDirectory(TString(v[0]))->GetListOfKeys() ;
+    //name= v[1];                                                                                                                 
+    else return false;
+  }
+  else{
+    list = file->GetListOfKeys() ;
+  }
+  
+  
+  TIter next(list) ;
+  TKey* key ;
+  TObject* obj ;
+
+  bool hist_found=false;
+  while ( (key = (TKey*)next()) ) {
+    obj = key->ReadObj() ;
+    TString hname = obj->GetName();
+    TString objname= obj->ClassName();
+    if(hname == name) hist_found=true;
+  }
+  if(!hist_found) return false;
+  return true;
+}
+
+TH1* GetHist(TFile* file, TString name , bool debug=false){
   
   TString name_fix = name;
   name_fix = name_fix.ReplaceAll("/"," ");
@@ -263,6 +277,7 @@ TH1* GetHist(TFile* file, TString name ){
   if(v.size() == 2){
     if(FileHasDir(file, TString(v[0])))list = file->GetDirectory(TString(v[0]))->GetListOfKeys() ;
     //name= v[1];
+    else return h;
   }
   else{
     list = file->GetListOfKeys() ;
@@ -297,7 +312,7 @@ TH1* GetHist(TFile* file, TString name ){
 	obj = key->ReadObj() ;
 	TString hname = obj->GetName();
 	TString objname= obj->ClassName();
-	cout << "Possible hist names are " << hname << endl;
+	if(debug)cout << "Possible hist names are " << hname << endl;
 	
       }
       return h;
@@ -340,33 +355,39 @@ void WriteToFile(TString mass, TString year, TString signal, TFile* fo, TString 
 
   for (unsigned int i = 0 ; i < samples.size(); i++){
     for(const auto& _syst: systs) {
-
-    TString h_path =  path_ + samples[i].second + ".root";
-    TFile * file_ = new TFile((h_path).Data());
-
-    TString _systname = "";
-    if (_syst != "") _systname = "_"+_syst;
-    TH1* hist = GetHist(file_, histname+_syst);
-    if (!hist){
-      double ml1jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-      double ml2jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-      double mlljbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-      TH1D* this_hist = new TH1D(histname+"__", "", 6, ml1jbins);
-      fo->cd();
-      this_hist->SetName(samples[i].first+_systname);
-      this_hist->Write();
-      delete this_hist;
-    }
-    else{
-      fo->cd();
-      cout << "Writing " << samples[i].first+"_"+_systname << endl;
-      hist->SetName(samples[i].first+_systname);
-      hist->Write();
-    }
-    file_->Close();
+      
+      if(samples[i].first.Contains("data") && _syst!= "")continue;
+      TString h_path =  path_ + samples[i].second + ".root";
+      TFile * file_ = new TFile((h_path).Data());
+      
+      TString _systname = "";
+      if (_syst != "") _systname = "_"+_syst;
+      cout << histname+_syst << endl;
+      bool ishist=CheckHist(file_, histname+_syst);
+      if (!ishist){
+	double ml1jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+	double ml2jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+	double mlljbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+	TH1D* this_hist = new TH1D(histname+"__", "", 6, ml1jbins);
+	fo->cd();
+	this_hist->SetName(samples[i].first+_systname);
+	this_hist->Write();
+	delete this_hist;
+      }
+      else{
+	TH1* hist = GetHist(file_, histname+_syst);
+	fo->cd();
+	cout << "Writing " << samples[i].first+_systname << endl;
+	cout << hist->Integral() << endl;
+	hist->SetName(samples[i].first+_systname);
+	hist->Scale(0.8);
+	hist->Write();
+	cout << h_path << " " << samples[i].first+_systname << " " << hist->Integral() << endl;
+      }
+      file_->Close();
     }
   }
-
+  
   for(const auto& _syst: systs) {
 
     TString h_path = signal;
@@ -375,8 +396,9 @@ void WriteToFile(TString mass, TString year, TString signal, TFile* fo, TString 
     TString _systname =	"";
     if (_syst != "") _systname = "_"+_syst;
 
-    TH1* hist = GetHist(file_, histname+_syst);
-    if (!hist){
+    bool ishist=CheckHist(file_, histname+_syst);
+
+    if (!ishist){
       double ml1jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
       double ml2jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
       double mlljbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
@@ -387,11 +409,16 @@ void WriteToFile(TString mass, TString year, TString signal, TFile* fo, TString 
       delete this_hist;
     }
     else{
+    TH1* hist = GetHist(file_, histname+_syst);
+    TH1* hist_tmp = (TH1*)hist->Clone(histname+_syst+"_nocale");
+
       fo->cd();
-      hist->SetName("signal" +_systname);
+      hist->SetName("signal" +_systname+"_noscale");
       double _scale= SignalScale(year,mass);
-      hist->Scale(_scale);
       hist->Write();
+      hist_tmp->Scale(_scale);
+      hist_tmp->SetName("signal" +_systname);
+      hist_tmp->Write();
     }
     file_->Close();
     }
