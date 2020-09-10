@@ -1,0 +1,28 @@
+Combination of Name1=/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2016/MuMu_CombinedSS/card_combinedSS_MuMu_N500_HNTightV2_mlljj_2016.txt  Name2=/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2017/MuMu_CombinedSS/card_combinedSS_MuMu_N500_HNTightV2_mlljj_2017.txt  Name3=/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2018/MuMu_CombinedSS/card_combinedSS_MuMu_N500_HNTightV2_mlljj_2018.txt
+imax 6 number of bins
+jmax 3 number of processes minus 1
+kmax 2 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes *            Name1_Name1  /data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2016/MuMu_CombinedSS//data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2016/MuMu_SR1/HN500_highmass_Run2Legacy_v4_2016_SR1_MuMu__HNTightV2_mlljj.root $PROCESS $PROCESS_$SYSTEMATIC
+shapes *            Name1_Name2  /data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2016/MuMu_CombinedSS//data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2016/MuMu_SR2/HN500_highmass_Run2Legacy_v4_2016_SR2_MuMu__HNTightV2_mllJ.root $PROCESS $PROCESS_$SYSTEMATIC
+shapes *            Name2_Name1  /data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2017/MuMu_CombinedSS//data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2017/MuMu_SR1/HN500_highmass_Run2Legacy_v4_2017_SR1_MuMu__HNTightV2_mlljj.root $PROCESS $PROCESS_$SYSTEMATIC
+shapes *            Name2_Name2  /data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2017/MuMu_CombinedSS//data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2017/MuMu_SR2/HN500_highmass_Run2Legacy_v4_2017_SR2_MuMu__HNTightV2_mllJ.root $PROCESS $PROCESS_$SYSTEMATIC
+shapes *            Name3_Name1  /data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2018/MuMu_CombinedSS//data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2018/MuMu_SR1/HN500_highmass_Run2Legacy_v4_2018_SR1_MuMu__HNTightV2_mlljj.root $PROCESS $PROCESS_$SYSTEMATIC
+shapes *            Name3_Name2  /data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2018/MuMu_CombinedSS//data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/2018/MuMu_SR2/HN500_highmass_Run2Legacy_v4_2018_SR2_MuMu__HNTightV2_mllJ.root $PROCESS $PROCESS_$SYSTEMATIC
+----------------------------------------------------------------------------------------------------------------------------------
+bin          Name1_Name1  Name1_Name2  Name2_Name1  Name2_Name2  Name3_Name1  Name3_Name2
+observation  -1           -1           -1           -1           -1           -1         
+----------------------------------------------------------------------------------------------------------------------------------
+bin                             Name1_Name1   Name1_Name1   Name1_Name1   Name1_Name1   Name1_Name2   Name1_Name2   Name1_Name2   Name1_Name2   Name2_Name1   Name2_Name1   Name2_Name1   Name2_Name1   Name2_Name2   Name2_Name2   Name2_Name2   Name2_Name2   Name3_Name1   Name3_Name1   Name3_Name1   Name3_Name1   Name3_Name2   Name3_Name2   Name3_Name2   Name3_Name2 
+process                         signal        prompt        cf            fake          signal        prompt        cf            fake          signal        prompt        cf            fake          signal        prompt        cf            fake          signal        prompt        cf            fake          signal        prompt        cf            fake        
+process                         0             1             2             3             0             1             2             3             0             1             2             3             0             1             2             3             0             1             2             3             0             1             2             3           
+rate                            0.055225261   121.4433      78.4396       0             0.0964294247  12.8047       2.4609        0             0.0629025868  146.823       23.686        0             0.1098348861  8.5716        0.3938        0             0.0907953539  150.9223      13.7458       0             0.1585387478  10.0431       0.8594        0           
+----------------------------------------------------------------------------------------------------------------------------------
+CF                      lnN     -             -             1.439         -             -             -             1.439         -             -             -             1.439         -             -             -             1.439         -             -             -             1.439         -             -             -             1.439         -           
+Lumi                    lnN     1.05          1.05          -             -             1.05          1.05          -             -             1.05          1.05          -             -             1.05          1.05          -             -             1.05          1.05          -             -             1.05          1.05          -             -           
+Name2_Name1 autoMCStats 0 0 1
+Name2_Name2 autoMCStats 0 0 1
+Name3_Name1 autoMCStats 0 0 1
+Name3_Name2 autoMCStats 0 0 1
+Name1_Name2 autoMCStats 0 0 1
+Name1_Name1 autoMCStats 0 0 1

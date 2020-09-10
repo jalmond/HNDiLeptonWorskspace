@@ -3,8 +3,13 @@
 #include "mylib.h"
 #include "canvas_margin.h"
 
-void makeshapeinput(){
+void makeshapeinput(int k=0){
 
+  TString var = "";
+  if (k == 0) var = "reco_ml1jj";
+  if (k == 1) var = "reco_ml2jj";
+  if (k == 2) var = "reco_mlljj";
+  if (k == 3) var = "signalbin";
 
   // check which pc is running script to setup local paths                                                                                                                   
   TString s_hostname = GetHostname();
@@ -30,20 +35,21 @@ void makeshapeinput(){
   setTDRStyle();
   gStyle->SetPalette(1);
   
-  vector<TString> ignore_masses = {"100"};//,"125","150","200","250","300"};
-  //  if (_chan=="Schannel") ignore_masses = {"300"};
+  vector<TString> ignore_masses = {"100","125","150","200","250","300"};
+  //  if (_chan=="Schannel") 
+  ignore_masses = {"300"};
   vector <TString> masses = GetMassType1Strings(ignore_masses);
   vector <double> d_masses = GetMassType1Doubles(ignore_masses);
 
-  vector<TString>  Years = {"2016"};//,"2017","2018"};
-  vector<TString> Bins={"SR1","SR2","SR3","SR4"};
-  vector<TString> Channels={"MuMu","EE"};
+  vector<TString>  Years = {"2016","2017","2018"};
+  vector<TString> Bins={"SR1","SR2"};//,"SR3","SR4"};
+  vector<TString> Channels={"MuMu"};
   vector<TString> Card={""};
   vector<TString> Charge={""};
 //same_sign","opposite_sign"};
 
-  vector<TString> muIDs={"HNTightV1"};
-  vector<TString> elIDs={"HNTight2016"};
+  vector<TString> muIDs={"HNTightV1","HNTightV2","POGTightWithTightIso"};
+  vector<TString> elIDs={"HNTight2016","passTightID_nocc","passMVAID_iso_WP80","passMVAID_iso_WP90","passMediumID","passTightID"};
 
 
   for(const auto& year: Years) {
@@ -51,8 +57,8 @@ void makeshapeinput(){
       for(const auto& channel: Channels) {
 	vector<TString> IDs = (channel == "MuMu") ? muIDs: elIDs; 
 	vector<TString> systs;
-	if (channel == "MuMu") systs= {"","JERdown","JERup","JESup","JESdown","MUIDdown","MUIDup"};
-	else  systs= {"","ELIDdown","ELIDup","JERdown","JERup","JERup","JERdown"};
+	if (channel == "MuMu") systs= {""};//,"JERDown","JERUp","JESUp","JESDown","MUIDDown","MUIDUp"};
+	else  systs= {""};//,"ELIDDown","ELIDUp","JERDown","JERUp","JERUp","JERDown"};
 	for(const auto& id: IDs) {
 	  for(const auto& card: Card) {
 	    for(const auto& _charge: Charge) {
@@ -67,11 +73,13 @@ void makeshapeinput(){
 		  samples.push_back(make_pair("cf","CF"));
 		  samples.push_back(make_pair("fake","Fake"+channel));
 		  samples.push_back(make_pair("prompt","SSPrompt"));
+		  samples.push_back(make_pair("data_obs","SS"));
 		}
 		else {
 		  samples.push_back(make_pair("fake","FakeOS"));
 		  samples.push_back(make_pair("prompt","OSPrompt"));
 		  samples.push_back(make_pair("cf","OSCF"));
+                  samples.push_back(make_pair("data_obs","OSPrompt"));
 		}
 		
 		for(const auto& mass: masses) {
@@ -80,14 +88,18 @@ void makeshapeinput(){
 		  MakeDir(outfile);
 		  outfile+="Shape/";	      MakeDir(outfile);
 		  outfile+=year+"/";	      MakeDir(outfile);
-		  outfile+=channel+"_"+bin+"/";	      MakeDir(outfile);
+		  outfile+=channel+"_"+_bin+"/";	      MakeDir(outfile);
 		  
 		  
-		  outfile+= "HN"+mass+"_highmass_"+FLATVERSION+"_"+year+"_"+bin+"_"+channel+"_"+card+"_"+id+".root";
+
+                  if (_bin == "SR2") var = var.ReplaceAll("jj","J");
+                  if (_bin == "SR4") var = var.ReplaceAll("jj","J");
+
+		  outfile+= "HN"+mass+"_highmass_"+FLATVERSION+"_"+year+"_"+_bin+"_"+channel+"_"+card+"_"+id+"_"+var+".root";
 		  cout << "Creating file " << outfile << endl;
 		  TFile* fout = new TFile(outfile.Data(),"RECREATE");
 		
-		  TString input_hist=bin+"_"+channel+"_highmass_"+charge+"/"+bin+"_"+channel+"_highmass_"+charge+"_reco_ml1jj_HNtypeI_JA_"+channel+"_"+id+"_";
+		  TString input_hist=bin+"_"+channel+"_highmass_"+charge+"/"+bin+"_"+channel+"_highmass_"+charge+"_"+var+"_HNtypeI_JA_"+channel+"_"+id+"_";
 		  
 		  cout << outfile  << " ----  writing " << endl;
 		  TString signalpath= ENV_MERGEDFILE_PATH + "/2016/SIG/HNtypeI_JA_HN_Schannel_" + channel + "_"+mass + "_nlo.root";

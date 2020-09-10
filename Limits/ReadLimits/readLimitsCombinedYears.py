@@ -64,10 +64,11 @@ for year in Years:
                     Expected_2sdUp = ""
                     Expected_2sdDn = ""
                     tag = "Combined"+charge+"_"+flavour+"_N"+mass+"_"+channel
-
                     Found=False
                     for line in fulllog:
                         if "Input datacard" in line:
+                            print tag 
+                            print line
                             if tag in line:
                                 Found=True
                         if "Done in" in line:

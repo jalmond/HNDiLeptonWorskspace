@@ -105,6 +105,7 @@ vector<TString> GetMassType1Strings(vector<TString> ignore_masses){
   masses.push_back("250");
   masses.push_back("300");
   masses.push_back("400");
+  masses.push_back("500");
   masses.push_back("600");
   masses.push_back("700");
   masses.push_back("800");
@@ -146,6 +147,7 @@ vector<double> GetMassType1Doubles(vector<TString> ignore_masses){
   masses.push_back("250");
   masses.push_back("300");
   masses.push_back("400");
+  masses.push_back("500");
   masses.push_back("600");
   masses.push_back("700");
   masses.push_back("800");
