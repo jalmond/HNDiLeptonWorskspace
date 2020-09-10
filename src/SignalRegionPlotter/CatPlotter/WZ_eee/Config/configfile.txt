@@ -1,0 +1,23 @@
+# Specify_location_of_data/mc
+mcpath          /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/2016/
+datapath          /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/2016/HNtypeI_JA_SkimTree_SSNonIso_DoubleEG.root
+datadrivenpath          /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles//
+# Specify_the_list_of_hists_to_plot 
+plottingpath    dat/histfile.txt 
+cutpath         dat/cutfile.txt
+# file_prefix
+id          EE_passMVAID_iso_WP90
+prefix          HNtypeI_JA_SkimTree_SSNonIso_
+postfix            .root
+# NAME_THE_OUTPUT_DIR
+outputdir  HN13TeV_HNtypeI_JA_2016__WZ_cr_EE
+histdir    SK2016_test
+# CONFIGURE_HISTOGRAMS
+showdata   true 
+usenp      false 
+ylog       true 
+# List_the_samples_to_be_includedv
+samples    SSPrompt
+samples    CF
+samples    FakeEE
+END

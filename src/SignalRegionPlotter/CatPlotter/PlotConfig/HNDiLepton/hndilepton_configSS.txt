@@ -1,0 +1,15 @@
+#######################################################################################
+#**************************************************************************************
+# cut WZ_cr_EE
+# samples HNDiLepton/hndilepton_ss_config_allmc.txt
+# hists: HNDiLepton/hndilepton_wz_hists.txt
+# ID EE_passMVAID_iso_WP90
+# skim SkimTree_SSNonIso
+# datetag 2020_09
+# year 2016
+# stream DoubleEG
+# analyzer HNtypeI_JA
+# plottag test
+# DrawSig HNDiLepton/NoMass.txt
+######################################################################################
+END
