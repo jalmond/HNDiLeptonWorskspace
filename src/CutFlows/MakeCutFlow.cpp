@@ -1,5 +1,5 @@
 //// Code makes directory of histograms and cutflow. 
-#include "MakeDataMCCompPlots.h"
+#include "MakeCutFlow.h"
 #include "Math/QuantFuncMathCore.h"
 #include "TMath.h"
 #include "TGraphAsymmErrors.h"
@@ -7,15 +7,6 @@
 
 
 int main(int argc, char *argv[]) {
-  
-  /////////////////////////////////////////////////////
-  //
-  //  3 stages to setup : 
-  //  1: McatNloWZ specifies with WZ MC we plot
-  //  2: reg: specifies which fake region is plotted
-  //  3: BM specifies if we plot 1.2 or 4.7 fb-1
-  //
-  //////////////////////////////////////////////////////
   
   TH1::SetDefaultSumw2(true);
   
@@ -33,16 +24,16 @@ int main(int argc, char *argv[]) {
   for (int i = 1; i < argc; ++i) {
     string configfile = argv[i];   
     SetUpMasterConfig(configfile);
-    int a =MakeCutFlow_Plots(configfile);
+    MakeCutFlowTMP(configfile);
   }
-  //system(("scp -r " + output_path + " jalmond@lxplus.cern.ch:~/www/SNU/SKAnalyzer/").c_str());
+  system(("scp -r " + output_path + " jalmond@lxplus.cern.ch:~/www/SNU/SKAnalyzer/").c_str());
 
-
+  
   cout << "Local directory = ~/SKAnalyzer/" + path +  "/histograms/" + histdir  << endl;
   return 0;
 }
 
-int MakeCutFlow_Plots(string configfile){
+void  MakeCutFlowTMP(string configfile){
   
   std::string pname = string(getenv("HOME") )+"/SKAnalyzer/"+ path + "/indexCMS.html";
   std::string phistname = string(getenv("HOME") )+"/SKAnalyzer/"+ path + "/histograms/" + histdir  + "/indexCMS.html";
@@ -52,155 +43,13 @@ int MakeCutFlow_Plots(string configfile){
   system(("mkdir " + string(getenv("HOME") )+"/SKAnalyzer/" + path+ "/histograms/").c_str());
   system(("mkdir " + string(getenv("HOME") )+"/SKAnalyzer/" + path+"/histograms/" + histdir + "/").c_str());
 
-  histpage.open(phistname.c_str());
-  page.open(pname.c_str());
-  
-  page << "<html><font face=\"Helvetica\"><head><title> HvyN Analysis </title></head>" << endl;
-  page << "<body>" << endl;
-  page << "<h1> HvyN Analysis Plots </h1>" << endl;
-  page << "<br> <font size=\"4\"><b> " << message <<  " </b></font> <br><br>" << endl;
-  page << "<a href=\"histograms/" +histdir + "/indexCMS.html\">"+ histdir + "</a><br>"; 
-  
   MakeCutFlow(histdir);  
-  int M=MakePlots(histdir);  
 
-  return 1;
 
+  return;
 }
 
 
-int MakePlots(string hist) {
-
-
-  
-  ////////////////////// ////////////////
-  ////  MAIN PART OF CODE for user/
-  ///////////////////////////////////////
-  //// What samples to use in histogram
-  vector<pair<pair<vector<pair<TString,float> >, int >, TString > > samples;  
-  vector<pair<pair<vector<pair<TString,float> >, int >, TString > > samples_ss;  
-  vector<string> cut_label;
-  //// Sets flags for using CF/NP/logY axis/plot data/ and which mc samples to use
-  
-  SetUpConfig( samples, samples_ss, cut_label);  
-  cuts.clear();
-
-  // ----------Get list of cuts to plot  ----------------------
-  ifstream cut_name_file(cutfile.c_str());
-  if(!cut_name_file) {
-    cerr << "Did not find " + cutfile + ", exiting ..." << endl;
-    return 1;
-  }
-  while(!cut_name_file.eof()) {
-    string cutname;
-    cut_name_file >> cutname;
-    if(cutname=="END") break;
-    //cutname = cutname + "POGTight";
-    allcuts.push_back(cutname);
-  }
-  
-
-  ifstream histo_name_file(histfile.c_str());
-  if(!histo_name_file) {
-    cerr << "Did not find " << histfile << ", exiting ..." << endl;
-    return 1;
-  }
-  
-  histpage << "<table border = 1><tr>"
-	   << "<th> <a name=\"PlotName (variable_Cut)\"> PlotName (variable_Cut) </a> </th>"
-	   << "<th> Data/MC Plot </th>"
-	   << "<th> Data/MC LogPlots </th>"
-	   << "</tr>" << endl;
-  
-  while(!histo_name_file.eof()) {
-    string h_name;
-    int rebin;
-    double xmin,xmax;
-    histo_name_file >> h_name;
-    if(repeat(h_name))continue;
-    if(h_name=="END") break;
-    histo_name_file >> rebin;
-    histo_name_file >> xmin;
-    histo_name_file >> xmax;
-    
-    if(h_name.find("#")!=string::npos) continue;
-
-    //WZ_cr_EE_njets_HNtypeI_JAEE_HNTight2016
-    //WZ_cr_EE_njets_HNtypeI_JA_EE_HNTight2016
-    for(unsigned int ncut=0; ncut<allcuts.size();  ncut++){
-      TString hfix = TString(h_name);
-      hfix=hfix.ReplaceAll("h_","");
-      string name = allcuts.at(ncut) + "/" +allcuts.at(ncut) + "_"+ string(hfix)+ "_HNtypeI_JA_" + id;
-      bool isSS(false);
-
-      cout << "###################### " << name << " ###########################"<< endl;
-      
-      /// Make nominal histogram stack
-      map<TString, TH1*> legmap;
-      THStack* mstack;
-      mstack= MakeStack(samples , "Nominal",name, xmin, xmax, legmap, rebin , true);
-      cout << "TEST" << endl;
-
-      
-      THStack* mstack_nostat;
-      if(!isSS)mstack_nostat = MakeStack(samples , "Nominal",name, xmin, xmax, legmap, rebin , false);
-	else mstack_nostat = MakeStack(samples_ss , "Nominal",name, xmin, xmax, legmap, rebin , false);
-
-	//// mhist sets error config
-	map<TString,TH1*> mhist;
-	mhist["Nominal"] = MakeSumHist(mstack);
-	
-	map<TString,TH1*> mhist_nostat;
-	mhist_nostat["Nominal"] = MakeSumHist(mstack_nostat);
-
-	TH1* hup = MakeStackUp(mhist, name+"UP");
-	TH1* hup_nostat = MakeStackUp(mhist_nostat, name+"UPnostat");
-	TH1* hdown = MakeStackDown(mhist, name+"DOWN");
-	
-	cout << "Final Background Integral = " <<  MakeSumHist(mstack)->Integral() << " : Up = " << hup->Integral() << " : Down= " << hdown->Integral() << endl;
-	
-
-	TH1* hdata = MakeDataHist(name, xmin, xmax, hup, ylog, rebin);
-	CheckHist(hdata);	
-	float ymin (2.), ymax( 0.);
-	
-	ymax = GetMaximum(hdata, hup, ylog, name, xmax, xmin);
-	
-	if(showdata)cout << "Total data = " <<  hdata->Integral() << endl;
-	scale = 1.;
-
-
-	/// SIGNAL 
-
-	vector<TH1*> hsig ;
-	float int_bkg = hup->Integral()/2.; 
-	
-	unsigned int outputWidth = 1200;
-	unsigned int outputHeight = 1200;
-
-	/// Make legend
-	TLegend* legend = MakeLegend(legmap, hdata, showdata, ylog, ymax, xmax);       		
-	
-        vector<THStack*> vstack;		
-	vstack.push_back(mstack);   	
-	vstack.push_back(mstack_nostat);   	
-
-	
-	cout << "TEST" << endl;
-
-	TCanvas* c = CompDataMC(hdata,hsig,vstack,hup,hdown, hup_nostat, legend,name,rebin,xmin,xmax, ymin,ymax, path, histdir,ylog, showdata, channel);      	
-
-	string canvasname = c->GetName();
-	canvasname.erase(0,4);
-
-	
-	PrintCanvas(c, histdir, canvasname, c->GetName());
-    }
-  }            
-  page.close();
-  
-  return 0;
-}
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -433,6 +282,7 @@ void MakeCutFlow(string type){
   return;
 }
 
+
 bool repeat (string hname){
   map<string,int>::iterator mit = norepeatplot.find(hname);
   if(mit!=norepeatplot.end())return true;
@@ -600,7 +450,6 @@ TH1* MakeDataHist(string name, double xmin, double xmax, TH1* hup, bool ylog, in
 
   /// Set Ranges / overflows
 
-  FixOverUnderFlows(hdata, xmax);  
    
   hdata->GetXaxis()->SetRangeUser(xmin,xmax);
   hdata->GetYaxis()->SetRangeUser(ymin, ymax);
@@ -742,7 +591,6 @@ THStack* MakeStack(vector<pair<pair<vector<pair<TString,float> >, int >, TString
     }	  	  
     
     /// TH1* is now made. Now make pretty
-    FixOverUnderFlows(h_tmp, xmax);	  
     ///Set colors
     h_tmp->SetFillColor(it->first.second);
     //h_tmp->SetLineColor(it->first.second);	  
@@ -1747,9 +1595,8 @@ bool drawsig=true;
   TLegend* legendr = MakeRatioLegend(hdev_err,hdev_err_stat);
   if(showdata)legendr->Draw();
   
-  if(loc_.Contains("2016")) CMS_lumi( canvas_log, 4, 2 );
-  if(loc_.Contains("2017")) CMS_lumi( canvas_log, 5, 2 );
-  if(loc_.Contains("2018")) CMS_lumi( canvas_log, 6, 2 );
+
+  CMS_lumi( canvas_log, 4, 2 );
   canvas_log->Update();
   canvas_log->RedrawAxis();
   canvas_log->Print(tlogpng.c_str(), ".png");
@@ -1836,127 +1683,6 @@ void MakeLabel(float rhcol_x, float rhcol_y){
   label.DrawLatex(rhcol_x, rhcol_y + 0.09,"CMS Preliminary");
 
   return;
-}
-
-
-
-void
-CMS_lumi( TPad* pad, int iPeriod, int iPosX )
-{
-  bool outOfFrame    = false;
-  if( iPosX/10==0 )
-    {
-      outOfFrame = true;
-    }
-  int alignY_=3;
-  int alignX_=2;
-  if( iPosX/10==0 ) alignX_=1;
-  if( iPosX==0    ) alignY_=1;
-  if( iPosX/10==1 ) alignX_=1;
-  if( iPosX/10==2 ) alignX_=2;
-  if( iPosX/10==3 ) alignX_=3;
-  int align_ = 10*alignX_ + alignY_;
-
-  float H = pad->GetWh();
-  float W = pad->GetWw();
-  float l = pad->GetLeftMargin();
-  float t = pad->GetTopMargin();
-  float r = pad->GetRightMargin();
-  float b = pad->GetBottomMargin();
-  float e = 0.025;
-
-  if(iPosX!=2) t*= 0.7;
-
-  pad->cd();
-
-  TString lumiText;
-  if( iPeriod==1 )
-    {
-      lumiText += lumi_7TeV;
-      lumiText += " (7 TeV)";
-    }
-  else if ( iPeriod==2 )
-    {
-      lumiText += lumi_8TeV;
-      lumiText += " (8 TeV)";
-    }
-  else if( iPeriod==3 )
-    {
-      lumiText = lumi_8TeV;
-      lumiText += " (8 TeV)";
-      lumiText += " + ";
-      lumiText += lumi_7TeV;
-      lumiText += " (7 TeV)";
-    }
-  else if ( iPeriod==4 )
-    {
-      lumiText += lumi_13TeV_2016;
-      lumiText += " (13 TeV)";
-    }
-   else if ( iPeriod==5 )
-    {
-      lumiText += lumi_13TeV_2017;
-      lumiText += " (13 TeV)";
-    }
-   else if ( iPeriod==6 )
-    {
-      lumiText += lumi_13TeV_2018;
-      lumiText += " (13 TeV)";
-    }
-  else if ( iPeriod==7 )
-    {
-      if( outOfFrame ) lumiText += "#scale[0.85]{";
-      lumiText += lumi_13TeV_2016;
-      lumiText += " (13 TeV)";
-      lumiText += " + ";
-      lumiText += lumi_8TeV;
-      lumiText += " (8 TeV)";
-      lumiText += " + ";
-      lumiText += lumi_7TeV;
-      lumiText += " (7 TeV)";
-      if( outOfFrame) lumiText += "}";
-    }
-  else if ( iPeriod==12 )
-    {
-      lumiText += "8 TeV";
-    }
-
-
-  TLatex latex;
-  latex.SetNDC();
-  latex.SetTextAngle(0);
-  latex.SetTextColor(kBlack);
-
-  float extraTextSize = extraOverCmsTextSize*cmsTextSize;
-
-  latex.SetTextFont(42);
-  latex.SetTextAlign(31);
-  latex.SetTextSize(lumiTextSize*t);
-  latex.DrawLatex(1-r,1-t+lumiTextOffset*t,lumiText);
-
-  if(iPosX==2)  latex.DrawLatex(1-r-0.22,1-t+lumiTextOffset*t, "#mu^{#pm}#mu^{#pm} channel,");
-  else  latex.DrawLatex(1-r-0.4,1-t+lumiTextOffset*t, "#mu^{#pm}#mu^{#pm} channel,");
-
-  
-
-  latex.SetTextFont(cmsTextFont);
-  latex.SetTextAlign(11);
-  latex.SetTextSize(cmsTextSize*t);
-  latex.DrawLatex(l,1-t+lumiTextOffset*t,cmsText);
-  
-
-
-  float posY_ = 1-t+lumiTextOffset*t;
-  
-  
-  latex.SetTextAlign(11);
-  float posX_ = l +  relPosX*(1-l-r) + 0.06;
-  latex.SetTextFont(extraTextFont);
-  latex.SetTextSize(extraTextSize*t);
-  //latex.SetTextAlign(align_);
-  latex.DrawLatex(posX_, posY_, extraText);
-
-return;
 }
 
 

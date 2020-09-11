@@ -14,6 +14,310 @@ void SetBinLabels(TH1D* hist, std::vector<TString> list){
            
 }
 
+
+double GetLumi(TString year){
+
+  if  (year == "2016")  return 35600;
+  if  (year == "2017")  return 41540;
+  if  (year == "2018")  return 59960;
+  
+  return 35600+41540+59960;
+}
+
+double GetXsec(int mass){
+
+    if(mass==100) return 7.77E-02;
+  if(mass==125) return 2.45E-02;
+  if(mass==150) return 1.10E-02;
+  if(mass==200) return 3.40E-03;
+  if(mass==250) return 1.43E-03;
+  if(mass==300) return 7.13E-04;
+  if(mass==400) return 2.37E-04;
+  if(mass==500) return 9.86E-05;
+  if(mass==600) return 4.72E-05;
+  if(mass==700) return 2.47E-05;
+  if(mass==800) return 1.38E-05;
+  if(mass==900) return 8.11E-06;
+  if(mass==1000) return 4.96E-06;
+  if(mass==1100) return 3.12E-06;
+  if(mass==1200) return 2.02E-06;
+  if(mass==1300) return 1.33E-06;
+  if(mass==1400) return 8.91E-07;
+  if(mass==1500) return 6.05E-07;
+  if(mass==1700) return 2.90E-07;
+  if(mass==2000) return 1.02E-07;
+
+  cout << "[GetXsec] Mass Wrong : " << mass << endl;
+  return 0.;
+
+}
+TGraphAsymmErrors*  Get2016SoverSB(TString year ,TString sr, TString channel, vector<double> masses){
+   map<double, double>  tempvec_exo17028_ee_schannel_sr1_Eff;
+  tempvec_exo17028_ee_schannel_sr1_Eff[100]= 1.1;
+  tempvec_exo17028_ee_schannel_sr1_Eff[125]= 2.6;
+  tempvec_exo17028_ee_schannel_sr1_Eff[150]= 3.1;
+  tempvec_exo17028_ee_schannel_sr1_Eff[200]= 4.9;
+  tempvec_exo17028_ee_schannel_sr1_Eff[250]= 5.9;
+  tempvec_exo17028_ee_schannel_sr1_Eff[300]= 7.6;
+  tempvec_exo17028_ee_schannel_sr1_Eff[400]= 6.6;
+  tempvec_exo17028_ee_schannel_sr1_Eff[500]= 5.5;
+  tempvec_exo17028_ee_schannel_sr1_Eff[600]= 3.8;
+  tempvec_exo17028_ee_schannel_sr1_Eff[700]= 4.0;
+  tempvec_exo17028_ee_schannel_sr1_Eff[800]= 3.6;
+  tempvec_exo17028_ee_schannel_sr1_Eff[900]= 3.2 ;
+  tempvec_exo17028_ee_schannel_sr1_Eff[1000]= 2.6;
+  tempvec_exo17028_ee_schannel_sr1_Eff[1100]= 2.2;
+  tempvec_exo17028_ee_schannel_sr1_Eff[1200]= 2.0;
+  tempvec_exo17028_ee_schannel_sr1_Eff[1300]= 1.8;
+  tempvec_exo17028_ee_schannel_sr1_Eff[1400]= 1.5;
+  tempvec_exo17028_ee_schannel_sr1_Eff[1500]= 1.3;
+
+   map<double, double>  tempvec_exo17028_ee_schannel_sr2_Eff;
+  tempvec_exo17028_ee_schannel_sr2_Eff[100]= 0.005;
+  tempvec_exo17028_ee_schannel_sr2_Eff[125]= 0.04;
+  tempvec_exo17028_ee_schannel_sr2_Eff[150]= 0.19;
+  tempvec_exo17028_ee_schannel_sr2_Eff[200]= 0.6;
+  tempvec_exo17028_ee_schannel_sr2_Eff[250]= 2.2;
+  tempvec_exo17028_ee_schannel_sr2_Eff[300]= 3.5;
+  tempvec_exo17028_ee_schannel_sr2_Eff[400]= 9.1;
+  tempvec_exo17028_ee_schannel_sr2_Eff[500]= 14.3;
+  tempvec_exo17028_ee_schannel_sr2_Eff[600]= 17.4;
+  tempvec_exo17028_ee_schannel_sr2_Eff[700]= 19.4;
+  tempvec_exo17028_ee_schannel_sr2_Eff[800]= 20.8;
+  tempvec_exo17028_ee_schannel_sr2_Eff[900]= 19.2;
+  tempvec_exo17028_ee_schannel_sr2_Eff[1000]= 21.5;
+  tempvec_exo17028_ee_schannel_sr2_Eff[1100]= 20.3;
+  tempvec_exo17028_ee_schannel_sr2_Eff[1200]= 20.8;
+  tempvec_exo17028_ee_schannel_sr2_Eff[1300]= 20.5;
+  tempvec_exo17028_ee_schannel_sr2_Eff[1400]= 19.6;
+  tempvec_exo17028_ee_schannel_sr2_Eff[1500]= 19.5;
+
+  map<double, double>  tempvec_exo17028_mm_schannel_sr1_Eff;
+  tempvec_exo17028_mm_schannel_sr1_Eff[100]= 2.6;
+  tempvec_exo17028_mm_schannel_sr1_Eff[125]= 5.1;
+  tempvec_exo17028_mm_schannel_sr1_Eff[150]= 6.6;
+  tempvec_exo17028_mm_schannel_sr1_Eff[200]= 8.1;
+  tempvec_exo17028_mm_schannel_sr1_Eff[250]= 11;
+  tempvec_exo17028_mm_schannel_sr1_Eff[300]= 13.2;
+  tempvec_exo17028_mm_schannel_sr1_Eff[400]= 11.7;
+  tempvec_exo17028_mm_schannel_sr1_Eff[500]= 8.6;
+  tempvec_exo17028_mm_schannel_sr1_Eff[600]= 7.4;
+  tempvec_exo17028_mm_schannel_sr1_Eff[700]= 6.7;
+  tempvec_exo17028_mm_schannel_sr1_Eff[800]= 6.0;
+  tempvec_exo17028_mm_schannel_sr1_Eff[900]= 5.4;
+  tempvec_exo17028_mm_schannel_sr1_Eff[1000]= 4.6;
+  tempvec_exo17028_mm_schannel_sr1_Eff[1100]= 4.1;
+  tempvec_exo17028_mm_schannel_sr1_Eff[1200]= 3.6;
+  tempvec_exo17028_mm_schannel_sr1_Eff[1300]= 3.2;
+  tempvec_exo17028_mm_schannel_sr1_Eff[1400]= 2.7;
+  tempvec_exo17028_mm_schannel_sr1_Eff[1500]= 2.5;
+
+  map<double, double>  tempvec_exo17028_mm_schannel_sr2_Eff;
+  tempvec_exo17028_mm_schannel_sr2_Eff[100]= 0.006;
+  tempvec_exo17028_mm_schannel_sr2_Eff[125]= 0.08;
+  tempvec_exo17028_mm_schannel_sr2_Eff[150]= 0.28;
+  tempvec_exo17028_mm_schannel_sr2_Eff[200]= 1.4;
+  tempvec_exo17028_mm_schannel_sr2_Eff[250]= 3;
+  tempvec_exo17028_mm_schannel_sr2_Eff[300]= 5.4;
+  tempvec_exo17028_mm_schannel_sr2_Eff[400]= 13.3;
+  tempvec_exo17028_mm_schannel_sr2_Eff[500]= 22.4;
+  tempvec_exo17028_mm_schannel_sr2_Eff[600]= 30.2;
+  tempvec_exo17028_mm_schannel_sr2_Eff[700]= 34.6;
+  tempvec_exo17028_mm_schannel_sr2_Eff[800]= 34.8;
+  tempvec_exo17028_mm_schannel_sr2_Eff[900]= 35.8;
+  tempvec_exo17028_mm_schannel_sr2_Eff[1000]= 38.4;
+  tempvec_exo17028_mm_schannel_sr2_Eff[1100]= 36.7;
+  tempvec_exo17028_mm_schannel_sr2_Eff[1200]= 38.5;
+  tempvec_exo17028_mm_schannel_sr2_Eff[1300]= 38.5;
+  tempvec_exo17028_mm_schannel_sr2_Eff[1400]= 35.9;
+  tempvec_exo17028_mm_schannel_sr2_Eff[1500]= 36.4;
+
+
+  map<double, double>  tempvec_exo17028_ee_tchannel_sr1_Eff;
+  tempvec_exo17028_ee_tchannel_sr1_Eff[300]= 3.0;
+  tempvec_exo17028_ee_tchannel_sr1_Eff[400]= 3.0;
+  tempvec_exo17028_ee_tchannel_sr1_Eff[500]= 2.7;
+  tempvec_exo17028_ee_tchannel_sr1_Eff[600]= 1.7;
+  tempvec_exo17028_ee_tchannel_sr1_Eff[700]= 2.8;
+  tempvec_exo17028_ee_tchannel_sr1_Eff[800]= 3.0;
+  tempvec_exo17028_ee_tchannel_sr1_Eff[900]= 2.9;
+  tempvec_exo17028_ee_tchannel_sr1_Eff[1000]= 2.4;
+  tempvec_exo17028_ee_tchannel_sr1_Eff[1100]= 2.0;
+  tempvec_exo17028_ee_tchannel_sr1_Eff[1200]= 1.8;
+  tempvec_exo17028_ee_tchannel_sr1_Eff[1300]= 1.6;
+  tempvec_exo17028_ee_tchannel_sr1_Eff[1400]= 1.3;
+  tempvec_exo17028_ee_tchannel_sr1_Eff[1500]= 1.2;
+
+  map<double, double>  tempvec_exo17028_ee_tchannel_sr2_Eff;
+  tempvec_exo17028_ee_tchannel_sr2_Eff[300]= 0.6;
+  tempvec_exo17028_ee_tchannel_sr2_Eff[400]= 2.9;
+  tempvec_exo17028_ee_tchannel_sr2_Eff[500]= 6.1;
+  tempvec_exo17028_ee_tchannel_sr2_Eff[600]= 11;
+  tempvec_exo17028_ee_tchannel_sr2_Eff[700]= 13.1;
+  tempvec_exo17028_ee_tchannel_sr2_Eff[800]= 14;
+  tempvec_exo17028_ee_tchannel_sr2_Eff[900]= 13.2;
+  tempvec_exo17028_ee_tchannel_sr2_Eff[1000]= 15.3;
+  tempvec_exo17028_ee_tchannel_sr2_Eff[1100]= 14.7;
+  tempvec_exo17028_ee_tchannel_sr2_Eff[1200]= 15.3;
+  tempvec_exo17028_ee_tchannel_sr2_Eff[1300]= 15.5;
+  tempvec_exo17028_ee_tchannel_sr2_Eff[1400]= 15.1;
+  tempvec_exo17028_ee_tchannel_sr2_Eff[1500]= 15.2;
+
+  map<double, double>  tempvec_exo17028_mm_tchannel_sr1_Eff;
+  tempvec_exo17028_mm_tchannel_sr1_Eff[300]= 5.2;
+  tempvec_exo17028_mm_tchannel_sr1_Eff[400]= 5.1;
+  tempvec_exo17028_mm_tchannel_sr1_Eff[500]= 4.1;
+  tempvec_exo17028_mm_tchannel_sr1_Eff[600]= 4.1;
+  tempvec_exo17028_mm_tchannel_sr1_Eff[700]= 3.9;
+  tempvec_exo17028_mm_tchannel_sr1_Eff[800]= 5.4;
+  tempvec_exo17028_mm_tchannel_sr1_Eff[900]= 5.0;
+  tempvec_exo17028_mm_tchannel_sr1_Eff[1000]= 4.2;
+  tempvec_exo17028_mm_tchannel_sr1_Eff[1100]= 3.8;
+  tempvec_exo17028_mm_tchannel_sr1_Eff[1200]= 3.4;
+  tempvec_exo17028_mm_tchannel_sr1_Eff[1300]= 3.0;
+  tempvec_exo17028_mm_tchannel_sr1_Eff[1400]= 2.7;
+  tempvec_exo17028_mm_tchannel_sr1_Eff[1500]= 2.3;
+
+  map<double, double>  tempvec_exo17028_mm_tchannel_sr2_Eff;
+  tempvec_exo17028_mm_tchannel_sr2_Eff[300]= 0.7;
+  tempvec_exo17028_mm_tchannel_sr2_Eff[400]= 2.7;
+  tempvec_exo17028_mm_tchannel_sr2_Eff[500]= 6.8;
+  tempvec_exo17028_mm_tchannel_sr2_Eff[600]= 20.4;
+  tempvec_exo17028_mm_tchannel_sr2_Eff[700]= 24.7;
+  tempvec_exo17028_mm_tchannel_sr2_Eff[800]= 24.9;
+  tempvec_exo17028_mm_tchannel_sr2_Eff[900]= 26.9;
+  tempvec_exo17028_mm_tchannel_sr2_Eff[1000]= 28.9;
+  tempvec_exo17028_mm_tchannel_sr2_Eff[1100]= 29.2;
+  tempvec_exo17028_mm_tchannel_sr2_Eff[1200]= 30.1;
+  tempvec_exo17028_mm_tchannel_sr2_Eff[1300]= 30.7;
+  tempvec_exo17028_mm_tchannel_sr2_Eff[1400]= 29.4;
+  tempvec_exo17028_mm_tchannel_sr2_Eff[1500]= 30.0;
+
+
+  ///////
+  map<double, double>  tempvec_exo17028_ee_schannel_sr1_Bkg;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[100]= 20.3;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[125]= 17.7;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[150]= 14.7;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[200]= 12.4;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[250]= 6.0;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[300]= 8.2;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[400]= 2.5;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[500]= 1.5;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[600]= 0.9;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[700]= 1.7;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[800]= 1.7;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[900]= 1.7;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[1000]=1.7;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[1100]=1.7;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[1200]=1.7;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[1300]=1.7;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[1400]=1.7;
+  tempvec_exo17028_ee_schannel_sr1_Bkg[1500]=1.7;
+
+  map<double, double>  tempvec_exo17028_ee_schannel_sr2_Bkg;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[100]= 3.4;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[125]= 0.2;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[150]= 1.3;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[200]= 0.8;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[250]= 2.1;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[300]= 1.3;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[400]= 3.1;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[500]= 2.8;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[600]= 0.8;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[700]= 0.8;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[800]= 0.9;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[900]= 0.2;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[1000]= 0.3;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[1100]=0.1;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[1200]=0.1;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[1300]=0.1;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[1400]=0.1;
+  tempvec_exo17028_ee_schannel_sr2_Bkg[1500]=0.1;
+
+  map<double, double>  tempvec_exo17028_mm_schannel_sr1_Bkg;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[100]= 18.6;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[125]= 11.7;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[150]= 8.9;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[200]= 4.6;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[250]= 3.0;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[300]= 2.6;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[400]= 0.9;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[500]= 0.4;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[600]= 0.3;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[700]= 0.2;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[800]= 0.2;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[900]= 0.2;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[1000]=0.2;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[1100]=0.2;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[1200]=0.2;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[1300]=0.2;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[1400]=0.2;
+  tempvec_exo17028_mm_schannel_sr1_Bkg[1500]=0.2;
+
+  map<double, double>  tempvec_exo17028_mm_schannel_sr2_Bkg;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[100]= 1.0;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[125]= 0.8;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[150]= 1.0;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[200]= 1.3;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[250]= 0.3;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[300]= 0.4;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[400]= 0.5;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[500]= 0.8;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[600]= 0.7;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[700]= 0.8;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[800]= 0.4;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[900]= 0.2;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[1000]=0.1;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[1100]=0.1;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[1200]=0.2;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[1300]=0.3;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[1400]=0.1;
+  tempvec_exo17028_mm_schannel_sr2_Bkg[1500]=0.1;
+
+
+
+  
+  map<double, double> tmpM ;
+  if(sr == "SR1" && channel == "MuMu") tmpM = tempvec_exo17028_mm_schannel_sr1_Eff;
+  if(sr == "SR2" && channel == "MuMu") tmpM = tempvec_exo17028_mm_schannel_sr2_Eff;
+  if(sr == "SR1" && channel == "EE") tmpM = tempvec_exo17028_ee_schannel_sr1_Eff;
+  if(sr == "SR2" && channel == "EE") tmpM = tempvec_exo17028_ee_schannel_sr2_Eff;
+
+  map<double, double> tmpMBkg ;
+  if(sr == "SR1" && channel == "MuMu") tmpMBkg = tempvec_exo17028_mm_schannel_sr1_Bkg;
+  if(sr == "SR2" && channel == "MuMu") tmpMBkg = tempvec_exo17028_mm_schannel_sr2_Bkg;
+  if(sr == "SR1" && channel == "EE") tmpMBkg = tempvec_exo17028_ee_schannel_sr1_Bkg;
+  if(sr == "SR2" && channel == "EE") tmpMBkg = tempvec_exo17028_ee_schannel_sr2_Bkg;
+
+  int Nbins = masses.size();
+  double x[Nbins], y[Nbins], xlow[Nbins], xup[Nbins], ylow[Nbins], yup[Nbins];
+
+  for(Int_t i=0; i<Nbins; i++){
+
+    map<double, double>::iterator its = tmpM.find(masses[i]);
+    map<double, double>::iterator itb = tmpMBkg.find(masses[i]);
+    x[i] = masses[i];
+    y[i] = 0.01*its->second / sqrt(itb->second);
+    cout << "EXO 17-028 " << masses[i] << " " << its->second  << " " << itb->second <<  " s/sb = " << 0.01*its->second / sqrt(itb->second) <<endl;
+    xlow[i]=  0.;
+    xup[i] = 0.;
+    ylow[i] = 0.;
+    yup[i] = 0.;
+  }
+
+
+  TGraphAsymmErrors *out = new TGraphAsymmErrors(Nbins, x, y, xlow, xup, ylow, yup);
+  //out->SetLineWidth(2.0);                                                                                                                                                                                                                   
+  //out->SetMarkerSize(0.);                                                                                                                                                                                                                   
+  out->GetHistogram()->GetXaxis()->SetTitle("m_{N} (GeV)");
+  out->GetHistogram()->GetYaxis()->SetTitle("#epsilon");
+  out->SetTitle("");
+  return out;
+
+
+}
+
 TGraphAsymmErrors* Get2016SigEff(TString sr, TString channel, vector<double> masses){
 
   map<double, double>  tempvec_exo17028_ee_schannel_sr1_Eff;
@@ -217,7 +521,7 @@ bool FileHasDir(TFile* file, TString name){
       if(hname == name && objname.Contains("Dir")) dir_found=true;
     }
     if(dir_found) return true;
-    cout << "File " << file->GetName() << " missing directory " << name << endl;
+    //scout << "File " << file->GetName() << " missing directory " << name << endl;
 
     TIter next2(list) ;
     TKey* key2 ;
@@ -227,7 +531,7 @@ bool FileHasDir(TFile* file, TString name){
         obj2 = key2->ReadObj() ;
         TString hname2 = obj2->GetName();
         TString objname2= obj2->ClassName();
-        cout << "Possible directory names are " << hname2 << endl;
+        //cout << "Possible directory names are " << hname2 << endl;
 
       }
 
@@ -267,7 +571,7 @@ bool CheckHist(TFile* file, TString name ){
   return true;
 }
 
-TH1* GetHist(TFile* file, TString name , bool debug=false){
+TH1* GetHist(TFile* file, TString name , bool return_void=true, bool debug=false){
   
   TString name_fix = name;
   name_fix = name_fix.ReplaceAll("/"," ");
@@ -298,6 +602,9 @@ TH1* GetHist(TFile* file, TString name , bool debug=false){
 
     cout << "File " << file->GetName() << " missing file " << name << endl;
 
+    TH1D* this_hist = new TH1D(name+"__", name+"__",1,0.,1);
+    return this_hist;
+    
 
     vector<TList*> lists;
     TList* list2  = file->GetListOfKeys() ;
@@ -312,10 +619,14 @@ TH1* GetHist(TFile* file, TString name , bool debug=false){
 	obj = key->ReadObj() ;
 	TString hname = obj->GetName();
 	TString objname= obj->ClassName();
-	if(debug)cout << "Possible hist names are " << hname << endl;
+	//if(debug)cout << "Possible hist names are " << hname << endl;
 	
       }
-      return h;
+      double ml1jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+      
+      TH1D* this_hist = new TH1D(name+"__", "", 6, ml1jbins);
+      if(return_void) return h;
+      else       return this_hist;
     }
   }
   h =   (TH1F*)file->Get(name);
@@ -324,6 +635,31 @@ TH1* GetHist(TFile* file, TString name , bool debug=false){
   
   
 }
+
+double GetSignalIntegral( double mass, TString year, TString sigpath,  TString n_sr_hist, TString hist_all){
+  
+  TFile * filemm = new TFile((sigpath).Data());
+  if(CheckFile(filemm) > 0)  return 0.;
+  TH1*  hpass = GetHist(filemm, n_sr_hist);
+  TH1*  hall = GetHist(filemm, hist_all);
+
+  return ( hpass->Integral()/hall->Integral()) * GetLumi(year)*GetXsec(mass) ;
+
+}
+double GetIntegral( TString sigpath,  TString n_sr_hist){
+
+  TFile * filemm = new TFile((sigpath).Data());
+  if(CheckFile(filemm) > 0)  return 0.;
+  if(!CheckHist(filemm, n_sr_hist)) return 0.;
+  TH1*  hpass = GetHist(filemm, n_sr_hist,true);
+  double tot = hpass->Integral();
+  filemm->Close();
+  delete filemm;
+
+  return tot;
+
+}
+
 
 double SignalScale(TString year, TString mass){
 

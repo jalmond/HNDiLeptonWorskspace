@@ -11,7 +11,7 @@ prefix          HNtypeI_JA_SkimTree_SSNonIso_
 postfix            .root
 # NAME_THE_OUTPUT_DIR
 outputdir  HN13TeV_HNtypeI_JA_2017__WZ_cr_EE
-histdir    SK2018_test
+histdir    SK2017_test
 # CONFIGURE_HISTOGRAMS
 showdata   true 
 usenp      false 
