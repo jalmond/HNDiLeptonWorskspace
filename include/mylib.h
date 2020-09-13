@@ -493,16 +493,27 @@ TGraphAsymmErrors* Get2016SigEff(TString sr, TString channel, vector<double> mas
   
 }
 
-void FormatHist(TH1* h , bool fill, Color_t t){
+void FormatHist(TH1* h , TString fill, Color_t t){
 
-  if(fill){
+
+  if(fill.Contains("f")){
     h->SetFillColor(t);
+    h->SetLineColor(t);
+  h->SetLineWidth(10);    
   }
-  h->SetLineColor(t);
+  if(fill.Contains("l")){
+
+    h->SetLineWidth(10);
+
+    h->SetLineColor(t);
+  }
+  if(fill.Contains("p")){
+
   h->SetMarkerColor(t);
   h->SetMarkerStyle(20);
   h->SetMarkerSize(1.6);
   h->SetLineWidth(10);
+  }
   
 }
 

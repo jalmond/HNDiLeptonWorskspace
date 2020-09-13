@@ -21,7 +21,7 @@ then
     export PLOT_PATH=$PWD/Plots/
     export OUTFILE_PATH=$PLOTTER_WORKING_DIR/rootfiles/
     export INFILE_MERGED_PATH=$PLOTTER_WORKING_DIR/OutputTool/MergedFiles/ 
-    export INFILE_PATH=$PLOTTER_WORKING_DIR/Run2Legacy_v4/HNtypeI_JA/
+    export INFILE_PATH=/data6/Users/jalmond/SKFlatOutput/Run2Legacy_v4/HNtypeI_JA/
     export SCRIPT_DIR=$PLOTTER_WORKING_DIR/script/
     export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$PLOTTER_WORKING_DIR/include/:$PLOTTER_WORKING_DIR/src/:$PLOTTER_WORKING_DIR/SignalEfficiency:$PLOTTER_WORKING_DIR/SignalRegionPlotter:$PLOTTER_WORKING_DIR/MakeCards:$PLOTTER_WORKING_DIR/OutputTool
     export LIMIT_PATH="/data6/Users/jalmond/Limits/CMSSW_10_2_13/src/HiggsAnalysis/CombinedLimit/data/2016_HNDiLepton/batch/"
