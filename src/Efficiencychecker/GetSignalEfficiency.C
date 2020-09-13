@@ -41,21 +41,18 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
   vector<TString> SR;
   SR.push_back("SR1");
   SR.push_back("SR2");
-  //  SR.push_back("SR3");
-  //SR.push_back("SR4");
+  SR.push_back("SR3");
+  SR.push_back("SR4");
   
   vector <TString> channel;
   channel.push_back("MuMu");
-  //channel.push_back("MupMup");
-  //channel.push_back("MumMum");
   channel.push_back("EE");
-  //channel.push_back("EpEp");
-  //channel.push_back("EmEm");
 
   vector<TString> muIDs;
-  muIDs.push_back("HNTightV1");
-  muIDs.push_back("HNTightV2");
-  muIDs.push_back("POGTightWithTightIso");
+  muIDs.push_back("POGTightPFIsoLoose");
+  muIDs.push_back("POGTightPFIsoMedium");
+  muIDs.push_back("POGTightPFIsoTight");
+  muIDs.push_back("HNTight2016");
   
   vector<TString> elIDs;
   elIDs.push_back("passTightID_nocc");
@@ -83,10 +80,6 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
       TString _sr = SR[j];
       TString _channel = channel[k];
       
-      TString sign = "same_sign";
-      if(_sr == "SR3") { _sr = "SR1"; sign = "opposite_sign";}
-      if(_sr == "SR4") { _sr = "SR2"; sign= "opposite_sign"; }
-
       // hist leg
       TLegend *legend = MakeLegend(0.65, 0.65, 0.9, 0.92);
       // graph leg
@@ -98,6 +91,7 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
 
       vector<Color_t> histcolors = GetHistColors(IDs.size());
       vector<TGraphAsymmErrors*> _vgraphs;
+      
       
       for(unsigned int l = 0 ; l < IDs.size(); l++){
 
@@ -124,8 +118,8 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
 	  TFile * filemm = new TFile((sigpath).Data());	  
 	  if(CheckFile(filemm) > 0) continue;
 
-	  
-	  TString n_sr_hist = _sr + "_"+_channel + "_highmass_"+sign +"/"+_sr+"_"+_channel +"_highmass_"+sign +"_njets_HNtypeI_JA_"+_channel+"_" + _id +"_";	  
+	  //SR1_highmass_njets_HNtypeI_JA_EE
+	  TString n_sr_hist = _sr + "_highmass/"+_sr+"_highmass_njets_HNtypeI_JA_"+_channel+"_" + _id +"_";	  
 
 	  TString n_all_hist="CutFlow/NoCut_HNtypeI_JA_"+_channel + "_"+ _id;
 	  TH1* hnsig = GetHist(filemm,n_all_hist);
@@ -137,7 +131,7 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
 	  
 	  TH1*  hpass = GetHist(filemm, n_sr_hist);
 	  //if(l==0) cout << "--------------------------------------------------------------------------------------- " << endl;
-	  cout  << "Channel " << _chan << " : "  << _channel << " SR = " << _sr << " Charge = " << sign << "  ID " << _id << "  Mass = " << masses.at(i) << " Ncounts = " << hpass->Integral() << " / " << nsig << " acceptance = " << hpass->Integral()/nsig << endl;
+	  cout  << "Channel " << _chan << " : "  << _channel << " SR = " << _sr << " Charge = " << sign << "  ID " << _id << "  Mass = " << masses.at(i) << " Ncounts = " << hpass->Integral() << " / " << nsig << " acceptance = " << 100*hpass->Integral()/nsig << endl;
 	
 	  double err ;
 	  hpass->IntegralAndError(1, hpass->GetNbinsX()+1, err    , "");
@@ -146,7 +140,7 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
           _yup.push_back(0);
 	  this_hist->Fill(im, hpass->Integral()/(nsig));
 	  filemm->Close();
-	}
+	}// mass loop
 	// add entry for legend for each ID hist
 
 	// Create graph
@@ -158,7 +152,7 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
 	fout->cd();
 	this_hist->Write();
 	this_hist->GetYaxis()->SetRangeUser(0.01,0.3);
-      }
+      } // ID loop
       // make output dir if needed
       MakeDir(ENV_PLOT_PATH+FLATVERSION+"/"+_sr);
       MakeDir(ENV_PLOT_PATH+FLATVERSION+"/"+_sr+"/"+_channel);

@@ -44,7 +44,8 @@ Color_t GetHistColor(int nth_samples){
   _colors.push_back(800);
   _colors.push_back(870);
   _colors.push_back(kSpring-1);
-  _colors.push_back(74);
+  _colors.push_back(kGray);
+  _colors.push_back(kViolet);
   _colors.push_back(kYellow+4);
 
   if(nth_samples > _colors.size()) return _colors[0];
@@ -61,6 +62,42 @@ vector<Color_t>  GetHistColors(int nsamples){
   
 }
  
+void MakeLatex(TString name, TString input , TString output ){
+
+  TString ENV_FILE_PATH= getenv("OUTFILE_PATH");
+  
+  TString workdir = ENV_FILE_PATH+ "Latex/workspace/";
+  TString texfile = ENV_FILE_PATH+ "Latex/workspace/"+name+".tex";
+  TString dvifile = ENV_FILE_PATH+ "Latex/workspace/"+name+".dvi"; 
+  TString pdffile = ENV_FILE_PATH+ "Latex/workspace/"+name+".pdf"; 
+
+  //// Make TEX file
+  ofstream ofile_tex;
+
+  ofile_tex.open(texfile.Data());
+  ofile_tex.setf(ios::fixed,ios::floatfield);
+  ofile_tex << "\\documentclass[10pt]{article}" << endl;
+  ofile_tex << "\\usepackage{epsfig,subfigure,setspace,xtab,xcolor,array,colortbl}" << endl;
+
+  ofile_tex << "\\begin{document}" << endl;
+  ofile_tex << "\\input{" + input << endl;
+  ofile_tex << "\\end{document}" << endl;
+
+  string latex_command = "latex " + texfile;
+  string dvi_command = "dvipdf " + dvifile;
+  string mv_command = "mv " + pdffile + " " + output;
+
+  system((latex_command.c_str()));
+  system((dvi_command.c_str()));
+  system((mv_command.c_str()));
+  system(("rm *aux"));
+  system(("rm " + workdir + "/*aux"));
+  system(("rm *log"));
+  system(("rm " + workdir + "/*log"));
+  system(("rm *dvi"));
+  system(("rm " + workdir + "/*dvi"));
+
+}
 
 void AllLegendEntry(TLegend* leg, TGraphAsymmErrors* g, TString name, TString type){
     leg->AddEntry(g, name, type);
