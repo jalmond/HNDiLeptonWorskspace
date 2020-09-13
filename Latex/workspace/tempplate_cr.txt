@@ -1,0 +1,31 @@
+\begin{table}
+\centering
+\begin{tabular}{|c c c c|}
+\hline
+Channel & Control region &   Estimated background & Observed \\
+\hline
+%\multirow{6}{*}{$ee$} & 1  & \phantom{0}365.9 $\pm$ 72.8\phantom{0} & \phantom{0}378 \\
+\multirow{6}{*}{$ee$} & 1 & 1 & 1 \\
+& 2  & \phantom{0}694.0 $\pm$ 101.8 & \phantom{0}671 \\
+ & 3  & \phantom{0}221.7 $\pm$ 41.9\phantom{0} & \phantom{0}242 \\
+ & 4  & \phantom{0}\phantom{0}48.4 $\pm$ 10.7\phantom{0} & \phantom{0}\phantom{0}38 \\
+ & 5  & \phantom{0}334.3 $\pm$ 55.9\phantom{0} & \phantom{0}347 \\
+ & 6  & \phantom{0}\phantom{0}25.7 $\pm$ 4.3\phantom{0}\phantom{0} & \phantom{0}\phantom{0}28 \\
+\hline
+%\multirow{6}{*}{$\mu\mu$} & 1  & \phantom{0}883.8 $\pm$ 230.0 & \phantom{0}925 \\
+ & 2  & \phantom{0}885.5 $\pm$ 201.7 & 1013 \\
+ & 3  & \phantom{0}422.5 $\pm$ 100.2 & \phantom{0}439 \\
+ & 4  & \phantom{0}156.2 $\pm$ 41.9\phantom{0} & \phantom{0}174 \\
+ & 5  & \phantom{0}556.9 $\pm$ 122.1 & \phantom{0}568 \\
+ & 6  & \phantom{0}\phantom{0}35.1 $\pm$ 7.0\phantom{0}\phantom{0} & \phantom{0}\phantom{0}38 \\
+\hline
+%\multirow{6}{*}{$\Pe\mu$} & 1  & 1014.2 $\pm$ 235.1 & 1106 \\
+ & 2  & 1354.3 $\pm$ 232.1 & 1403 \\
+ & 3  & \phantom{0}650.5 $\pm$ 140.2 & \phantom{0}706 \\
+ & 4  & \phantom{0}142.8 $\pm$ 32.4\phantom{0} & \phantom{0}150 \\
+ & 5  & \phantom{0}918.1 $\pm$ 175.7 & \phantom{0}988 \\
+ & 6  & \phantom{0}\phantom{0}62.2 $\pm$ 11.1\phantom{0} & \phantom{0}\phantom{0}64 \\
+\hline
+\end{tabular}
+\label{tab:bkg_val}
+\end{table}
