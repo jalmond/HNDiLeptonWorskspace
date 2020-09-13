@@ -7,19 +7,25 @@ datalist = [ ["2016" , [ "DoubleEG", "DoubleMuon"]],
              ["2018",  [ "EGamma",  "DoubleMuon"]]]
 
 for d in datalist:
-    year = d[0]
-    if not os.path.exists("/Users/john/Type1/MergedFiles/" + year + "/"):
-        os.system("mkdir " + "/Users/john/Type1/MergedFiles/" + year + "/")
-    for dataset in d[1]:
-        if not os.path.exists("/Users/john/Type1/MergedFiles/" + year + "/" + dataset):
-            os.system("mkdir " + "/Users/john/Type1/MergedFiles/" + year + "/" + dataset)
+    
+    outpath = os.getenv("INFILE_MERGED_PATH") + d[0] + "/"
+    if not os.path.exists(outpath):
+        os.system("mkdir "  +outpath)
 
-                    
-        outpath = "/Users/john/Type1/MergedFiles/" + year + "/"
+
+    year = d[0]
+    if not os.path.exists(outpath):
+        os.system("mkdir " + outpath)
+    for dataset in d[1]:
+        if not os.path.exists(outpath + dataset):
+            os.system("mkdir " + outpath + dataset)
+
+        
+        outpath = outpath
         if not os.path.exists(outpath):
             os.system("mkdir " + outpath)
-            
-        inpath = "/Users/john/Type1/Files/HNtypeI_JA/"+year + "/"
+
+        inpath = os.getenv("INFILE_PATH") +d[0] +"/"
         if dataset == "DoubleMuon" :
             inpath += "isMM__/DATA/"
         else:
