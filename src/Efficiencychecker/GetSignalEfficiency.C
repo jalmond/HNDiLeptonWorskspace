@@ -20,6 +20,7 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
   TString output = ENV_PLOT_PATH + FLATVERSION + "/"+analysername+"/";
 
   MakeDir(ENV_PLOT_PATH + FLATVERSION);
+  MakeDir(ENV_PLOT_PATH + FLATVERSION+"/SignalEfficiency");
   
   if(s_hostname == "JohnMB2018s-MacBook-Pro.local"){
     input_path = "/Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/";
@@ -86,7 +87,7 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
       TLegend *legend_g = MakeLegend(0.65, 0.75, 0.9, 0.92);
 
       // canvas for hists
-      TString canvasname=_sr+"_"+_channel +"_highmass_"+sign +"_njets_"+analysername+"_JA_"+_channel;
+      TString canvasname=_sr+"_"+_channel +"_highmass_njets_"+analysername+"_JA_"+_channel;
       TCanvas* c1 = new TCanvas(canvasname,canvasname, 800,800);
 
       vector<Color_t> histcolors = GetHistColors(IDs.size());
@@ -131,7 +132,7 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
 	  
 	  TH1*  hpass = GetHist(filemm, n_sr_hist);
 	  //if(l==0) cout << "--------------------------------------------------------------------------------------- " << endl;
-	  cout  << "Channel " << _chan << " : "  << _channel << " SR = " << _sr << " Charge = " << sign << "  ID " << _id << "  Mass = " << masses.at(i) << " Ncounts = " << hpass->Integral() << " / " << nsig << " acceptance = " << 100*hpass->Integral()/nsig << endl;
+	  cout  << "Channel " << _chan << " : "  << _channel << " SR = " << _sr << "  ID " << _id << "  Mass = " << masses.at(i) << " Ncounts = " << hpass->Integral() << " / " << nsig << " acceptance = " << 100*hpass->Integral()/nsig << endl;
 	
 	  double err ;
 	  hpass->IntegralAndError(1, hpass->GetNbinsX()+1, err    , "");
@@ -154,19 +155,19 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
 	this_hist->GetYaxis()->SetRangeUser(0.01,0.3);
       } // ID loop
       // make output dir if needed
-      MakeDir(ENV_PLOT_PATH+FLATVERSION+"/"+_sr);
-      MakeDir(ENV_PLOT_PATH+FLATVERSION+"/"+_sr+"/"+_channel);
+      MakeDir(ENV_PLOT_PATH+FLATVERSION+"/SignalEfficiency/"+_sr);
+      MakeDir(ENV_PLOT_PATH+FLATVERSION+"/SignalEfficiency/"+_sr+"/"+_channel);
 
       legend->Draw();
-      TString save_s=ENV_PLOT_PATH+FLATVERSION+"/"+ _sr+"/"+_channel +"/hist_highmass_"+sign +"_njets_HNtypeI_JA_"+_channel+"_"+_chan+".pdf";
+      TString save_s=ENV_PLOT_PATH+FLATVERSION+"/"+ _sr+"/"+_channel +"/hist_highmass_njets_HNtypeI_JA_"+_channel+"_"+_chan+".pdf";
       //OutMessage("GetSignalEfficiency",save_s);
       //c1->SaveAs(save_s);
 
-      TString canvasname2=_sr+"_"+_channel +"_highmass2_"+sign +"_njets_"+analysername+"_JA_"+_channel;
+      TString canvasname2=_sr+"_highmass2_njets_"+analysername+"_JA_"+_channel;
       TCanvas* c2 = new TCanvas(canvasname2,canvasname2, 800,800);
       c2->cd();
       
-      TGraphAsymmErrors*  old_gr = Get2016SigEff(_sr, _channel,d_masses);
+      TGraphAsymmErrors*  old_gr = Get2016SigEffHighMass(_sr, _channel,d_masses);
 
       old_gr->SetLineStyle(10);
       old_gr->SetLineColor(kRed);
@@ -177,8 +178,7 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
       
       
       old_gr->Draw("AC*");
-      //old_gr->Draw("p0Al");
-      AllLegendEntry(legend_g,old_gr,"EXO-17-028(FINAL)","pl");
+      AllLegendEntry(legend_g,old_gr,"EXO-17-028","pl");
       for (unsigned int ig = 0 ; ig < _vgraphs.size(); ig++){
 	_vgraphs[ig]->Draw("lp0same");
 	AllLegendEntry(legend_g,_vgraphs[ig],_sr+":"+IDs[ig],"lp");
@@ -186,11 +186,10 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
 
 
       legend_g->Draw();
-      TString save_sg=ENV_PLOT_PATH+FLATVERSION+"/"+ _sr+"/"+_channel +"/grapgh_highmass_"+sign +"_njets_HNtypeI_JA_"+_channel+"_"+_chan+".pdf";
+      TString save_sg=ENV_PLOT_PATH+FLATVERSION+"/SignalEfficiency/"+ _sr+"/"+_channel +"/graph_highmass_njets_HNtypeI_JA_"+_channel+"_"+_chan+".pdf";
       c2->SaveAs(save_sg);
-
       
-    }
-  }
+    } // channel 
+  } // SR 
   fout->Close();
 }

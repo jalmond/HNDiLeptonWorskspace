@@ -51,7 +51,8 @@ double GetXsec(int mass){
   return 0.;
 
 }
-TGraphAsymmErrors*  Get2016SoverSB(TString year ,TString sr, TString channel, vector<double> masses){
+
+TGraphAsymmErrors*  Get2016SoverSB(bool massbinned, TString year ,TString sr, TString channel, vector<double> masses){
    map<double, double>  tempvec_exo17028_ee_schannel_sr1_Eff;
   tempvec_exo17028_ee_schannel_sr1_Eff[100]= 1.1;
   tempvec_exo17028_ee_schannel_sr1_Eff[125]= 2.6;
@@ -298,8 +299,21 @@ TGraphAsymmErrors*  Get2016SoverSB(TString year ,TString sr, TString channel, ve
     map<double, double>::iterator its = tmpM.find(masses[i]);
     map<double, double>::iterator itb = tmpMBkg.find(masses[i]);
     x[i] = masses[i];
-    y[i] = 0.01*its->second / sqrt(itb->second);
-    cout << "EXO 17-028 " << masses[i] << " " << its->second  << " " << itb->second <<  " s/sb = " << 0.01*its->second / sqrt(itb->second) <<endl;
+    if(massbinned){
+      y[i] = 0.01*its->second / sqrt(itb->second);
+      cout << "EXO 17-028 " << masses[i] << " " << its->second  << " " << itb->second <<  " s/sb = " << 0.01*its->second / sqrt(itb->second) <<endl;
+    }
+    else{
+      float bkg = 502.;
+      if(sr == "SR1" && channel == "MuMu")bkg = 502.;
+      if(sr == "SR1" && channel == "EE")bkg = 382.;
+      if(sr == "SR2" && channel == "MuMu")bkg = 13.;
+      if(sr == "SR2" && channel == "EE")bkg = 10.;
+
+      y[i] = 0.;//0.01*its->second / sqrt(itb->second);
+      cout << "EXO 17-028 " << masses[i] << " " << its->second  << " " << itb->second <<  " s/sb = " << 0.01*its->second / sqrt(bkg) <<endl;
+      
+    }
     xlow[i]=  0.;
     xup[i] = 0.;
     ylow[i] = 0.;
@@ -311,7 +325,7 @@ TGraphAsymmErrors*  Get2016SoverSB(TString year ,TString sr, TString channel, ve
   //out->SetLineWidth(2.0);                                                                                                                                                                                                                   
   //out->SetMarkerSize(0.);                                                                                                                                                                                                                   
   out->GetHistogram()->GetXaxis()->SetTitle("m_{N} (GeV)");
-  out->GetHistogram()->GetYaxis()->SetTitle("#epsilon");
+  out->GetHistogram()->GetYaxis()->SetTitle("#epsilon/sqrt(B)");
   out->SetTitle("");
   return out;
 
@@ -339,7 +353,7 @@ TGraphAsymmErrors* Get2016SigEff(TString sr, TString channel, vector<double> mas
   tempvec_exo17028_ee_schannel_sr1_Eff[1300]= 1.8;
   tempvec_exo17028_ee_schannel_sr1_Eff[1400]= 1.5;
   tempvec_exo17028_ee_schannel_sr1_Eff[1500]= 1.3;
-  
+
   map<double, double>  tempvec_exo17028_ee_schannel_sr2_Eff;
   tempvec_exo17028_ee_schannel_sr2_Eff[100]= 0.005;
   tempvec_exo17028_ee_schannel_sr2_Eff[125]= 0.04;
@@ -400,7 +414,7 @@ TGraphAsymmErrors* Get2016SigEff(TString sr, TString channel, vector<double> mas
   tempvec_exo17028_mm_schannel_sr2_Eff[1400]= 35.9;
   tempvec_exo17028_mm_schannel_sr2_Eff[1500]= 36.4;
 
-  
+
   map<double, double>  tempvec_exo17028_ee_tchannel_sr1_Eff;
   tempvec_exo17028_ee_tchannel_sr1_Eff[300]= 3.0;
   tempvec_exo17028_ee_tchannel_sr1_Eff[400]= 3.0;
@@ -415,7 +429,7 @@ TGraphAsymmErrors* Get2016SigEff(TString sr, TString channel, vector<double> mas
   tempvec_exo17028_ee_tchannel_sr1_Eff[1300]= 1.6;
   tempvec_exo17028_ee_tchannel_sr1_Eff[1400]= 1.3;
   tempvec_exo17028_ee_tchannel_sr1_Eff[1500]= 1.2;
-  
+
   map<double, double>  tempvec_exo17028_ee_tchannel_sr2_Eff;
   tempvec_exo17028_ee_tchannel_sr2_Eff[300]= 0.6;
   tempvec_exo17028_ee_tchannel_sr2_Eff[400]= 2.9;
@@ -466,6 +480,85 @@ TGraphAsymmErrors* Get2016SigEff(TString sr, TString channel, vector<double> mas
   if(sr == "SR2" && channel == "MuMu") tmpM = tempvec_exo17028_mm_schannel_sr2_Eff;
   if(sr == "SR1" && channel == "EE") tmpM = tempvec_exo17028_ee_schannel_sr1_Eff;
   if(sr == "SR2" && channel == "EE") tmpM = tempvec_exo17028_ee_schannel_sr2_Eff;
+
+  int Nbins = masses.size();
+  double x[Nbins], y[Nbins], xlow[Nbins], xup[Nbins], ylow[Nbins], yup[Nbins];
+
+  for(Int_t i=0; i<Nbins; i++){
+
+    map<double, double>::iterator it = tmpM.find(masses[i]);
+    x[i] = masses[i];
+    y[i] = it->second/100.;
+    xlow[i]=  0.;
+    xup[i] = 0.;
+    ylow[i] = 0.;
+    yup[i] = 0.;
+  }
+
+
+  TGraphAsymmErrors *out = new TGraphAsymmErrors(Nbins, x, y, xlow, xup, ylow, yup);
+  //out->SetLineWidth(2.0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+  //out->SetMarkerSize(0.);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+  out->GetHistogram()->GetXaxis()->SetTitle("m_{N} (GeV)");
+  out->GetHistogram()->GetYaxis()->SetTitle("#epsilon");
+  out->SetTitle("");
+  return out;
+
+
+}
+
+
+
+TGraphAsymmErrors* Get2016SigEffHighMass(TString sr, TString channel, vector<double> masses){
+
+  map<double, double>  tempvec_exo17028_ee_schannel_sr1_Eff;
+  tempvec_exo17028_ee_schannel_sr1_Eff[100]= 3.6;
+  tempvec_exo17028_ee_schannel_sr1_Eff[125]= 10;
+  tempvec_exo17028_ee_schannel_sr1_Eff[150]= 14.;
+  tempvec_exo17028_ee_schannel_sr1_Eff[200]= 19.;
+  tempvec_exo17028_ee_schannel_sr1_Eff[250]= 22.;
+  tempvec_exo17028_ee_schannel_sr1_Eff[300]= 24.;
+  tempvec_exo17028_ee_schannel_sr1_Eff[400]= 27.;
+  tempvec_exo17028_ee_schannel_sr1_Eff[500]= 28.;
+  tempvec_exo17028_ee_schannel_sr1_Eff[600]= 30;
+  tempvec_exo17028_ee_schannel_sr1_Eff[700]= 30.;
+  tempvec_exo17028_ee_schannel_sr1_Eff[800]= 30.;
+  tempvec_exo17028_ee_schannel_sr1_Eff[900]= 29.;
+  tempvec_exo17028_ee_schannel_sr1_Eff[1000]= 29.;
+  tempvec_exo17028_ee_schannel_sr1_Eff[1100]=28.;
+  tempvec_exo17028_ee_schannel_sr1_Eff[1200]=28.;
+  tempvec_exo17028_ee_schannel_sr1_Eff[1300]=27.;
+  tempvec_exo17028_ee_schannel_sr1_Eff[1400]=26.;
+  tempvec_exo17028_ee_schannel_sr1_Eff[1500]=26.;
+  
+  map<double, double>  tempvec_exo17028_mm_schannel_sr1_Eff;
+  tempvec_exo17028_mm_schannel_sr1_Eff[100]= 7.6;
+  tempvec_exo17028_mm_schannel_sr1_Eff[125]= 17.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[150]= 23.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[200]= 30.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[250]= 35.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[300]= 40.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[400]= 45.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[500]= 48.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[600]= 51.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[700]= 51.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[800]= 52.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[900]= 52.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[1000]=52.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[1100]=51.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[1200]=51.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[1300]=51.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[1400]=50.;
+  tempvec_exo17028_mm_schannel_sr1_Eff[1500]=49;
+
+
+  map<double, double> tmpM ;
+  if(sr == "SR1" && channel == "MuMu") tmpM = tempvec_exo17028_mm_schannel_sr1_Eff;
+  else if(sr == "SR2" && channel == "MuMu") tmpM = tempvec_exo17028_mm_schannel_sr1_Eff;
+  else if(sr == "SR1" && channel == "EE") tmpM = tempvec_exo17028_ee_schannel_sr1_Eff;
+  else if(sr == "SR2" && channel == "EE") tmpM = tempvec_exo17028_ee_schannel_sr1_Eff;
+  else if (channel == "MuMu") tmpM = tempvec_exo17028_mm_schannel_sr1_Eff;
+  else if (channel == "EE") tmpM = tempvec_exo17028_ee_schannel_sr1_Eff;
   
   int Nbins = masses.size();
   double x[Nbins], y[Nbins], xlow[Nbins], xup[Nbins], ylow[Nbins], yup[Nbins];

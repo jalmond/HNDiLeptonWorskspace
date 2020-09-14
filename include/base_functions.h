@@ -83,13 +83,13 @@ void MakeLatex(TString name, TString input , TString output ){
   ofile_tex << "\\input{" + input << endl;
   ofile_tex << "\\end{document}" << endl;
 
-  string latex_command = "latex " + texfile;
-  string dvi_command = "dvipdf " + dvifile;
-  string mv_command = "mv " + pdffile + " " + output;
+  TString latex_command = "latex " + texfile;
+  TString dvi_command = "dvipdf " + dvifile;
+  TString mv_command = "mv " + pdffile + " " + output;
 
-  system((latex_command.c_str()));
-  system((dvi_command.c_str()));
-  system((mv_command.c_str()));
+  system((latex_command.Data()));
+  system((dvi_command.Data()));
+  system((mv_command.Data()));
   system(("rm *aux"));
   system(("rm " + workdir + "/*aux"));
   system(("rm *log"));

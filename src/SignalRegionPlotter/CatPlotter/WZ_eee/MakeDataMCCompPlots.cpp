@@ -51,6 +51,7 @@ int MakeCutFlow_Plots(string configfile){
   system(("mkdir " + string(getenv("HOME") )+"/SKAnalyzer/" + path).c_str());
   system(("mkdir " + string(getenv("HOME") )+"/SKAnalyzer/" + path+ "/histograms/").c_str());
   system(("mkdir " + string(getenv("HOME") )+"/SKAnalyzer/" + path+"/histograms/" + histdir + "/").c_str());
+  system(("mkdir " + string(getenv("HOME") )+"/SKAnalyzer/" + path+"/histograms/" + histdir + "/").c_str());
 
   histpage.open(phistname.c_str());
   page.open(pname.c_str());
@@ -1345,6 +1346,8 @@ TCanvas* CompDataMC(TH1* hdata,  vector<TH1*> hsigs ,vector<THStack*> mcstack,TH
 
   
   std::string title=canvas->GetName();
+  system(("mkdir " + string(getenv("HOME") )+"/SKAnalyzer/" + path+"/histograms/" + folder + "/").c_str());
+
   std::string tpng = string(getenv("HOME") )+"/SKAnalyzer/"+ path + "/histograms/"+folder+"/"+title+".png";
   std::string tlogpng = string(getenv("HOME") )+"/SKAnalyzer/"+ path + "/histograms/"+folder+"/"+title+"_log.png";
   std::string tlogpdf = string(getenv("HOME") )+"/SKAnalyzer/"+ path + "/histograms/"+folder+"/"+title+"_log.pdf";
