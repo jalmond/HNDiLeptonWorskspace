@@ -1,0 +1,19 @@
+Combination of Name1=/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsCutCount/MCBased/2016/EE_SR1/card_2016_EE_SR1_N1500_combined_passTightID.txt  Name2=/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsCutCount/MCBased/2016/EE_SR2/card_2016_EE_SR2_N1500_combined_passTightID.txt
+imax 2 number of bins
+jmax 3 number of processes minus 1
+kmax 6 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+bin          Name1   Name2 
+observation  -1      -1    
+----------------------------------------------------------------------------------------------------------------------------------
+bin                             Name1   Name1   Name1   Name1   Name2   Name2   Name2   Name2 
+process                         HN1500  prompt  cf      fake    HN1500  prompt  cf      fake  
+process                         0       1       2       3       0       1       2       3     
+rate                            0.019   0.6552  0       0       0.3772  0.4767  0       0     
+----------------------------------------------------------------------------------------------------------------------------------
+ElectronE               lnN     1.0191  1.0251  -       -       1.0191  1.0251  -       -     
+JER                     lnN     1.0385  1.0706  -       -       1.0385  1.0706  -       -     
+JES                     lnN     1.0154  1.2491  -       -       1.0154  1.2491  -       -     
+Lumi                    lnN     1.025   1.025   -       -       1.025   1.025   -       -     
+MCNorm                  lnN     -       1.135   -       -       -       1.135   -       -     
+MuonID                  lnN     1.0054  1.02    -       -       1.0054  1.02    -       -     
