@@ -3,6 +3,8 @@
 #include "mylib.h"
 #include "canvas_margin.h"
 
+void MakeLatexFile(TString latex_file, TString latex_path,  vector<pair<TString, vector<pair< TString, double> > > >  siglist);
+
 void GetSignalEfficiency(TString _chan = "Schannel"){ 
 
   // check which pc is running script to setup local paths
@@ -53,6 +55,8 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
   muIDs.push_back("POGTightPFIsoLoose");
   muIDs.push_back("POGTightPFIsoMedium");
   muIDs.push_back("POGTightPFIsoTight");
+  muIDs.push_back("POGTightPFIsoVeryTight");
+  //muIDs.push_back("HNTight2016VQ");
   muIDs.push_back("HNTight2016");
   
   vector<TString> elIDs;
@@ -92,8 +96,9 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
 
       vector<Color_t> histcolors = GetHistColors(IDs.size());
       vector<TGraphAsymmErrors*> _vgraphs;
-      
-      
+
+      vector<pair<TString, vector<pair< TString, double> > > >  siglist;
+      /// loop over IDs
       for(unsigned int l = 0 ; l < IDs.size(); l++){
 
 	TString _id = IDs[l];
@@ -107,7 +112,10 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
 	int _Nbins = d_masses.size();
 	vector<double> _x, _y, _xlow, _xup, _ylow, _yup;
 
-	// loop over masses 
+	vector<pair< TString, double> > siglist_id;
+	// loop over masses
+	//vector<double> _eff;
+	//_eff.clear();
 	for(unsigned int i = 0 ; i < masses.size(); ++i){
 
 	  _x.push_back(d_masses[i]);
@@ -127,10 +135,12 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
 	  FormatHist(hnsig,false, histcolors[l]);
 
 	  float nsig = float(hnsig->Integral());
+
 	  // since signal for OS+SS are merged the cutcount is doubled
 	  nsig=nsig/2.;
 	  
 	  TH1*  hpass = GetHist(filemm, n_sr_hist);
+	  float npass = float(hpass->Integral());
 	  //if(l==0) cout << "--------------------------------------------------------------------------------------- " << endl;
 	  cout  << "Channel " << _chan << " : "  << _channel << " SR = " << _sr << "  ID " << _id << "  Mass = " << masses.at(i) << " Ncounts = " << hpass->Integral() << " / " << nsig << " acceptance = " << 100*hpass->Integral()/nsig << endl;
 	
@@ -141,9 +151,16 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
           _yup.push_back(0);
 	  this_hist->Fill(im, hpass->Integral()/(nsig));
 	  filemm->Close();
+
+	  float eff = npass / nsig;
+
+	  //_eff.push_back(hpass->Integral()/(nsig));
+	  
+	  siglist_id.push_back(make_pair(im, eff));
 	}// mass loop
 	// add entry for legend for each ID hist
 
+	siglist.push_back(make_pair(_id, siglist_id));
 	// Create graph
 	TGraphAsymmErrors * gtmp = v_to_graph(_Nbins, _x, _xup, _xlow, _y, _yup, _ylow,histcolors[l]);
 	gtmp->SetLineColor(histcolors[l]);
@@ -158,6 +175,16 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
       MakeDir(ENV_PLOT_PATH+FLATVERSION+"/SignalEfficiency/"+_sr);
       MakeDir(ENV_PLOT_PATH+FLATVERSION+"/SignalEfficiency/"+_sr+"/"+_channel);
 
+      TString ENV_FILE_PATH= getenv("PLOTTER_WORKING_DIR");
+      TString workdir = ENV_FILE_PATH+ "/Latex/workspace/";
+      
+      
+      MakeLatexFile(workdir + _sr + _channel + ".tex",workdir + _sr + _channel + ".txt",siglist);
+      cout << "Making   " << workdir + _sr + _channel + ".tex" << "  " << workdir + _sr + _channel + ".txt" << endl;
+      
+      MakeLatex(_sr+_channel,workdir + _sr + _channel + ".txt", ENV_PLOT_PATH+FLATVERSION+"/SignalEfficiency/"+_sr+"/"+_channel+"/" +_sr + _channel + ".pdf");
+	
+      
       legend->Draw();
       TString save_s=ENV_PLOT_PATH+FLATVERSION+"/"+ _sr+"/"+_channel +"/hist_highmass_njets_HNtypeI_JA_"+_channel+"_"+_chan+".pdf";
       //OutMessage("GetSignalEfficiency",save_s);
@@ -192,4 +219,67 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
     } // channel 
   } // SR 
   fout->Close();
+}
+
+
+void MakeLatexFile(TString latex_file, TString latex_path,  vector<pair<TString, vector<pair< TString, double> > > > siglist){
+  //// Make TEX file                                                        
+  ofstream ofile_tex;
+  ofile_tex.open(latex_file.Data());
+  ofile_tex.setf(ios::fixed,ios::floatfield);
+  ofile_tex << "\\documentclass[10pt]{article}" << endl;
+  ofile_tex << "\\usepackage{epsfig,subfigure,setspace,xtab,xcolor,array,colortbl}" << endl;
+  
+  ofile_tex << "\\begin{document}" << endl;
+
+  ofile_tex << "\\input{" <<  latex_path  << "}" << endl;
+  ofile_tex << "\\end{document}" << endl;
+  
+  /// Make text file                                                        
+  ofstream ofile;
+  ofile.open(latex_path.Data());
+  ofile.setf(ios::fixed,ios::floatfield);
+
+
+  ofile.precision(4);
+  ofile << "\\begin{table}[h]" << endl;
+  ofile << "\\begin{center}" << endl;
+  TString lates_col = "";
+  for (unsigned int isig =0; isig < siglist.size(); isig++)lates_col+="l";
+
+  ofile << "\\begin{tabular}{lll"<< lates_col.Data()<<"r@{\\hspace{0.5mm}}c@{\\hspace{0.5mm}}c@{\\hspace{0.5mm}}l}" << endl;
+  ofile << "\\hline" << endl;
+  ofile << "\\hline" << endl;
+
+  TString IDs =  "";
+  
+  for (unsigned int id=0; id < siglist.size(); id++) {
+    TString _id = siglist[id].first;
+    _id = _id.ReplaceAll("_","\\_");
+    IDs+= _id + "  &";
+  }
+  ofile<< "$m_{N}$ GeV & " <<  IDs.Data() <<  "\\"<< "\\" <<  endl;
+  ofile << "\\hline" << endl;
+
+  int nmasses = siglist[0].second.size();
+  for (unsigned int imass =0; imass < nmasses; imass++){
+    ofile <<  siglist[0].second[imass].first << " & ";
+    for (unsigned int isig =0; isig < siglist.size(); isig++){
+      ofile <<  siglist[isig].second[imass].second << " & ";
+    }
+    ofile << "\\"<< "\\" <<  endl;
+  }
+  
+  ofile << "\\hline" << endl;
+  ofile << "\\hline" << endl;
+  ofile << "\\hline" << endl;
+  ofile << "\\end{tabular}" << endl;
+  ofile << "\\caption{""}" << endl;
+  ofile << "\\end{center}" << endl;
+  ofile << "\\end{table}" << endl;
+
+
+  return;
+  
+  
 }

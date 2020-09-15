@@ -5,13 +5,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string>
+#include <fstream>
 #include <string>       // std::string
 #include <iostream>     // std::cout
 #include <sstream>  
 #include <iomanip>
 #include "TString.h"
 #include "TSystem.h"
+#include "TLegend.h"
 #include "TFile.h"
 #include "TGraphAsymmErrors.h"
 #include "TROOT.h"
@@ -48,7 +49,7 @@ Color_t GetHistColor(int nth_samples){
   _colors.push_back(kViolet);
   _colors.push_back(kYellow+4);
 
-  if(nth_samples > _colors.size()) return _colors[0];
+  if(nth_samples > int(_colors.size())) return _colors[0];
   return _colors[nth_samples];
   
 }
@@ -64,12 +65,12 @@ vector<Color_t>  GetHistColors(int nsamples){
  
 void MakeLatex(TString name, TString input , TString output ){
 
-  TString ENV_FILE_PATH= getenv("OUTFILE_PATH");
+  TString ENV_FILE_PATH= getenv("PLOTTER_WORKING_DIR");
   
-  TString workdir = ENV_FILE_PATH+ "Latex/workspace/";
-  TString texfile = ENV_FILE_PATH+ "Latex/workspace/"+name+".tex";
-  TString dvifile = ENV_FILE_PATH+ "Latex/workspace/"+name+".dvi"; 
-  TString pdffile = ENV_FILE_PATH+ "Latex/workspace/"+name+".pdf"; 
+  TString workdir = ENV_FILE_PATH+ "/Latex/workspace/";
+  TString texfile = ENV_FILE_PATH+ "/Latex/workspace/"+name+".tex";
+  TString dvifile = name+".dvi"; 
+  TString pdffile = name+".pdf"; 
 
   //// Make TEX file
   ofstream ofile_tex;
@@ -78,9 +79,11 @@ void MakeLatex(TString name, TString input , TString output ){
   ofile_tex.setf(ios::fixed,ios::floatfield);
   ofile_tex << "\\documentclass[10pt]{article}" << endl;
   ofile_tex << "\\usepackage{epsfig,subfigure,setspace,xtab,xcolor,array,colortbl}" << endl;
+  ofile_tex << "\\usepackage{adjustbox}" << endl;   
 
+  ofile_tex << "\\usepackage{pdflscape}" << endl;
   ofile_tex << "\\begin{document}" << endl;
-  ofile_tex << "\\input{" + input << endl;
+  ofile_tex << "\\input{" + input + "}" << endl;
   ofile_tex << "\\end{document}" << endl;
 
   TString latex_command = "latex " + texfile;
