@@ -675,17 +675,21 @@ bool CheckHist(TFile* file, TString name ){
   return true;
 }
 
-TH1* GetHist(TFile* file, TString name , bool return_void=true, bool debug=false){
+TH1D* GetHist(TFile* file, TString name , bool return_void=true, bool debug=false){
   
   TString name_fix = name;
   name_fix = name_fix.ReplaceAll("/"," ");
-  TH1* h;
+  //TH1* h = new TH1(name);
   vector<string> v{_getsplit(string(name_fix), ' ')};
   TList* list ;
   if(v.size() == 2){
     if(FileHasDir(file, TString(v[0])))list = file->GetDirectory(TString(v[0]))->GetListOfKeys() ;
     //name= v[1];
-    else return h;
+    else {
+      TH1D* this_hist = new TH1D(name+"__"+file->GetName(), name+"__"+file->GetName(),1,0.,1);
+      return this_hist;
+
+    }
   }
   else{
     list = file->GetListOfKeys() ;
@@ -706,7 +710,7 @@ TH1* GetHist(TFile* file, TString name , bool return_void=true, bool debug=false
 
     cout << "File " << file->GetName() << " missing file " << name << endl;
 
-    TH1D* this_hist = new TH1D(name+"__", name+"__",1,0.,1);
+    TH1D* this_hist = new TH1D(name+"__"+file->GetName(), name+"__"+file->GetName(),1,0.,1);
     return this_hist;
     
 
@@ -728,14 +732,18 @@ TH1* GetHist(TFile* file, TString name , bool return_void=true, bool debug=false
       }
       double ml1jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
       
-      TH1D* this_hist = new TH1D(name+"__", "", 6, ml1jbins);
-      if(return_void) return h;
+      TH1D* this_hist = new TH1D(name+"__"+file->GetName(), "", 6, ml1jbins);
+
+      TH1D* this_hist2 = new TH1D(name+"__2"+file->GetName(), name+"__",1,0.,1);
+      if(return_void) return this_hist2;
       else       return this_hist;
     }
   }
-  h =   (TH1F*)file->Get(name);
-  
-  return h;
+  TH1* h = (TH1F*)(file->Get(name));
+
+  TH1D* h_C = (TH1D*)h_C->Clone(name+"clone"+file->GetName());
+
+  return h_C;
   
   
 }

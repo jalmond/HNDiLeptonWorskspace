@@ -45,7 +45,7 @@ void MakeSignalRegionPlots(TString _chan = "Schannel"){
   //SR.push_back("SR4");
   
   vector <TString> channel;
-  channel.push_back("MuMu");
+  //channel.push_back("MuMu");
   //channel.push_back("MupMup");
   //channel.push_back("MumMum");
   channel.push_back("EE");
@@ -53,8 +53,8 @@ void MakeSignalRegionPlots(TString _chan = "Schannel"){
   //channel.push_back("EmEm");
 
   vector<TString> muIDs;
-  muIDs.push_back("HNTightV1");
-  muIDs.push_back("HNTightV2");
+  //muIDs.push_back("HNTightV1");
+  //muIDs.push_back("HNTightV2");
   muIDs.push_back("POGTightWithTightIso");
   
   vector<TString> elIDs;
@@ -67,8 +67,8 @@ void MakeSignalRegionPlots(TString _chan = "Schannel"){
 
   vector<TString>  Years = {"2016","2017","2018"};
 
-  vector<TString>  Hists = {"reco_ml1jj","reco_ml2jj","reco_mlljj","signalbin"};
-			    
+  //vector<TString>  Hists = {"reco_ml1jj","reco_ml2jj","reco_mlljj","signalbin"};
+  vector<TString>  Hists = {"signalbin"};
   
   // loop over SR1/2/3/4
   for(unsigned int y = 0 ; y < Years.size(); ++y){
@@ -90,7 +90,7 @@ void MakeSignalRegionPlots(TString _chan = "Schannel"){
 	if(_sr == "SR4") { _sr = "SR2"; sign= "opposite_sign"; }
 	
 	// canvas for hists
-	TString canvasname=_sr+"_"+_channel +"_highmass_"+sign +"_njets_"+analysername+"_JA_"+_channel;
+	TString canvasname=_sr+"_highmass_"+sign +"_njets_"+analysername+"_JA_"+_channel;
 	//	TCanvas* c1 = new TCanvas(canvasname,canvasname, 800,800);
 	//c1->SetLogy();
 	vector<Color_t> sighistcolors = GetHistColors(masses.size());
@@ -102,41 +102,55 @@ void MakeSignalRegionPlots(TString _chan = "Schannel"){
 
 	  for(unsigned int h = 0 ; h < Hists.size(); h++){
 	    // setup hist
-	    
+
+
 	    TString histlabel= _sr+"_"+_channel +  +"_nevent_HNtypeI_JA_"+_channel+"_"+_id+"_"+Hists[h];
 	    
 	    TString sigpath1 = ENV_MERGEDFILE_PATH+ "/2016/SIG/"+analysername+"_HN_"+_chan+"_"+_channel+"_100_nlo.root";
 	    TString sigpath2 = ENV_MERGEDFILE_PATH+ "/2016/SIG/"+analysername+"_HN_"+_chan+"_"+_channel+"_400_nlo.root";
 	    TString sigpath3 = ENV_MERGEDFILE_PATH+ "/2016/SIG/"+analysername+"_HN_"+_chan+"_"+_channel+"_1000_nlo.root";
 	    TString promptpath = ENV_MERGEDFILE_PATH+ "/"+Years[y]+"/HNtypeI_JA_SkimTree_SSNonIso_SSPrompt.root";
+	    TString cfpath = ENV_MERGEDFILE_PATH+ "/"+Years[y]+"/HNtypeI_JA_SkimTree_SSNonIso_CF.root";
 	    TString fakepath = ENV_MERGEDFILE_PATH+ "/"+Years[y]+"/HNtypeI_JA_SkimTree_SSNonIso_Fake"+_channel+".root";
 	    
 	    TFile * fileS1 = new TFile((sigpath1).Data());
 	    TFile * fileS2 = new TFile((sigpath2).Data());
 	    TFile * fileS3 = new TFile((sigpath3).Data());	  
 	    if(CheckFile(fileS1) > 0) continue;
+	    if(CheckFile(fileS2) > 0) continue;
+	    if(CheckFile(fileS3) > 0) continue;
 	    TFile * file_prompt = new TFile((promptpath).Data());
 	    TFile * file_fake = new TFile((fakepath).Data());
-	    
+	    TFile * file_cf = new TFile((cfpath).Data());
+
+	    if(CheckFile(file_prompt) > 0) continue;
+	    if(CheckFile(file_fake) > 0) continue;
+	    if(CheckFile(file_cf) > 0) continue;
+
 	    //SR2_MuMu_highmass_same_sign_reco_mllJ_HNtypeI_JA_MuMu_HNTightV1_
 
 	    
 	    TString _hist = Hists[h];
 	    if (_sr == "SR2") _hist = _hist.ReplaceAll("jj","J");
-	    TString n_sr_hist = _sr + "_"+_channel + "_highmass_"+sign +"/" + _sr + "_"+_channel + "_highmass_"+sign + "_"+_hist+"_HNtypeI_JA_" + _channel + "_"+_id + "_";
-	    
+	    TString n_sr_hist = _sr + "_"+_channel + "_highmass/" + _sr + "_highmass_"+_hist+"_HNtypeI_JA_" + _channel + "_"+_id + "_";
+	    //SR1_highmass_signalbin_HNtypeI_JA_EE
+
 	    TH1* hnsig1 = GetHist(fileS1,n_sr_hist);
 	    TH1* hnsig2 = GetHist(fileS2,n_sr_hist);
 	    TH1* hnsig3 = GetHist(fileS3,n_sr_hist);
 	    //FormatHist(hnsig,false, sighistcolors[l]);
-	    
+
 	    TH1* hnprompt = GetHist(file_prompt,n_sr_hist);
+	    TH1* hncf = GetHist(file_cf,n_sr_hist);
 	    //FormatHist(hnprompt,false, 870);
-	    
 	    TH1* hnfake = GetHist(file_fake,n_sr_hist);
 	    //FormatHist(hnfake,false, 900);
 	    hnprompt->SetFillColor(kSpring-1);
 	    hnprompt->SetLineColor(kSpring-1);
+	    hncf->SetFillColor(kOrange-1);
+            hncf->SetLineColor(kOrange-1);
+
+
 	    hnfake->SetFillColor(870);
 	    hnfake->SetLineColor(870);
 	    
@@ -150,6 +164,7 @@ void MakeSignalRegionPlots(TString _chan = "Schannel"){
 
 	    hnsig2->Scale(10.);
 	    hnsig3->Scale(1000.);
+
 	    THStack *hs = new THStack(_sr+"_"+_channel +"_highmass"+sign +"_nevent_HNtypeI_JA_"+_channel+"_" + _id+"_"+Hists[h],"");
 	    
 	    hs->Add(hnprompt);
@@ -230,10 +245,11 @@ void MakeSignalRegionPlots(TString _chan = "Schannel"){
 	    
 	    
 	    //dummy->Draw("histsame");
-	    MakeDir(ENV_PLOT_PATH+FLATVERSION+"/" + Years[y]);
-	    MakeDir(ENV_PLOT_PATH+FLATVERSION+"/" + Years[y]+  "/" + _sr);
+	    MakeDir(ENV_PLOT_PATH+FLATVERSION+"/SignalPlots/");
+	    MakeDir(ENV_PLOT_PATH+FLATVERSION+"/SignalPlots/" + Years[y]);
+	    MakeDir(ENV_PLOT_PATH+FLATVERSION+"/SignalPlots/" + Years[y]+  "/" + _sr);
 	    
-	    TString save_sg=ENV_PLOT_PATH+FLATVERSION+"/" + Years[y] + "/" + _sr+"/hist_highmass_"+sign +"_nevents_HNtypeI_JA_"+_channel+"_"+_chan+_id+"_"+_hist+".pdf";
+	    TString save_sg=ENV_PLOT_PATH+FLATVERSION+"/SignalPlots/" + Years[y] + "/" + _sr+"/hist_highmass_"+sign +"_nevents_HNtypeI_JA_"+_channel+"_"+_chan+_id+"_"+_hist+".pdf";
 	    c_SOnly->SaveAs(save_sg);
 	  }
 	}

@@ -1,6 +1,7 @@
 import os
 
 years = ["2016", "2017", "2018"]
+analyzer="HNtypeI_JA"
 
 ##################################################
 ##### code to merge bkgs to use for limit code
@@ -44,17 +45,17 @@ for y in years:
     outpath = os.getenv("INFILE_MERGED_PATH") + y + "/"
     if not os.path.exists(outpath):
         os.system("mkdir "  +outpath)
-    inpath = os.getenv("INFILE_PATH") +y +"/"  
+    inpath = os.getenv("INFILE_PATH") + "/"+ analyzer+"/" +y +"/"  
     for list in SSLists:
         file_s  = list[0]
         
-        hadd = "hadd " + outpath + "HNtypeI_JA_SkimTree_SSNonIso_"+file_s + ".root "
+        hadd = "hadd " + outpath + analyzer + "_SkimTree_SSNonIso_"+file_s + ".root "
         for s in list[1]:
-            hadd = hadd + inpath +"HNtypeI_JA_SkimTree_SSNonIso_"+s + "* " 
+            hadd = hadd + inpath +analyzer + "_SkimTree_SSNonIso_"+s + "* " 
 
         print " "
         print hadd
-        if os.path.exists(outpath + "HNtypeI_JA_SkimTree_SSNonIso_"+file_s + ".root"):
-            os.system("rm " + outpath + "HNtypeI_JA_SkimTree_SSNonIso_"+file_s + ".root")
+        if os.path.exists(outpath + analyzer + "_SkimTree_SSNonIso_"+file_s + ".root"):
+            os.system("rm " + outpath + analyzer + "_SkimTree_SSNonIso_"+file_s + ".root")
         os.system(hadd)
 
