@@ -45,57 +45,57 @@ IDEl = ["passTightID","HNTight2016","passTightID_noccb","passTightID_nocc"]
 bins = ["SR1","SR2"]
 
 for year in Years:
-     for flavour in Flavours:
-       IDs=[]
-       if flavour == "MuMu":
-              IDs=IDMu
-       else:
-              IDs=IDEl
+       for flavour in Flavours:
+              IDs=[]
+              if flavour == "MuMu":
+                     IDs=IDMu
+              else:
+                     IDs=IDEl
 
-       for _id in IDs:
-              for _bin in bins:
+              for _id in IDs:
+                     for _bin in bins:
+                     
+                            _allmassfilename = flavour + "_"+ _bin
+                            if not os.path.exists("out/HNTypeI_JA/"):
+                                   os.mkdir("out/HNTypeI_JA/")
+                            if not os.path.exists("out/HNTypeI_JA/"+ year):
+                                   os.mkdir("out/HNTypeI_JA/"+ year)
+                            if not os.path.exists("out/HNTypeI_JA/"+ year+"/"+_allmassfilename):
+                                   os.mkdir ("out/HNTypeI_JA/"+ year+"/"+_allmassfilename)
 
-                     _allmassfilename = flavour + "_"+ _bin
-                     if not os.path.exists("out/HNTypeI_JA/"):
-                            os.mkdir("out/HNTypeI_JA/")
-                     if not os.path.exists("out/HNTypeI_JA/"+ year):
-                            os.mkdir("out/HNTypeI_JA/"+ year)
-                     if not os.path.exists("out/HNTypeI_JA/"+ year+"/"+_allmassfilename):
-                            os.mkdir ("out/HNTypeI_JA/"+ year+"/"+_allmassfilename)
-
-                     outfile = open("out/HNTypeI_JA/"+ year+"/"+_allmassfilename +"/result"+channel+".txt","w")
-                     print "Creating file  out/HNTypeI_JA/"+ year+"/"+_allmassfilename +"/result"+channel+".txt"
-                     for mass in Masses:
+                            outfile = open("out/HNTypeI_JA/"+ year+"/"+_allmassfilename +"/result"+channel+".txt","w")
+                            print "Creating file  out/HNTypeI_JA/"+ year+"/"+_allmassfilename +"/result"+channel+".txt"
+                            for mass in Masses:
                 
-                            Expected_Central = "--"
-                            Expected_1sdUp = "--"
-                            Expected_1sdDn = "--"
-                            Expected_2sdUp = "--"
-                            Expected_2sdDn = "--"
-                            tag = "card_"+year+"_"+flavour+")"+_bin+"_N"+mass+"_combined"+"_"+_id
-         
-                            if mass == "1300" or mass == "1200" :
-                                   tag = "card_combined"+charge+"_"+flavour+"_N1200_"+year
+                                   Expected_Central = "--"
+                                   Expected_1sdUp = "--"
+                                   Expected_1sdDn = "--"
+                                   Expected_2sdUp = "--"
+                                   Expected_2sdDn = "--"
+                                   tag = "card_"+year+"_"+flavour+")"+_bin+"_N"+mass+"_combined"+"_"+_id
+                                   
+                                   if mass == "1300" or mass == "1200" :
+                                          tag = "card_combined"+charge+"_"+flavour+"_N1200_"+year
                            
-                            if mass == "125": 
-                                   tag = "card_combined"+charge+"_"+flavour+"_N100_"+year
-                            if mass == "250":
-                                   tag = "card_combined"+charge+"_"+flavour+"_N200_"+year
+                                          if mass == "125": 
+                                                 tag = "card_combined"+charge+"_"+flavour+"_N100_"+year
+                                          if mass == "250":
+                                                 tag = "card_combined"+charge+"_"+flavour+"_N200_"+year
 
-                            Found=False
-                            for line in fulllog:
-                                   if "Input datacard" in line:
-                                          if tag in line:
-                                                 Found=True
-                                   if "Done in" in line:
                                           Found=False
-                                   if Found:
-                                          if "Limit: r" in line:
-                                                 Expected_Central = line.split()[4]
-                                                 Expected_1sdUp = line.split()[4]
-                                                 Expected_1sdDn = line.split()[4]
-                                                 Expected_2sdUp = line.split()[4]
-                                                 Expected_2sdDn = line.split()[4]
-                            outfile.write(mass + '\t' + Expected_Central+'\t' + Expected_Central+'\t'+Expected_1sdUp+'\t'+Expected_1sdDn+'\t'+Expected_2sdUp+'\t'+Expected_2sdDn+'\n')
-                outfile.close()
-
+                                          for line in fulllog:
+                                                 if "Input datacard" in line:
+                                                        if tag in line:
+                                                               Found=True
+                                                 if "Done in" in line:
+                                                        Found=False
+                                                 if Found:
+                                                        if "Limit: r" in line:
+                                                               Expected_Central = line.split()[4]
+                                                               Expected_1sdUp = line.split()[4]
+                                                               Expected_1sdDn = line.split()[4]
+                                                               Expected_2sdUp = line.split()[4]
+                                                               Expected_2sdDn = line.split()[4]
+                                          outfile.write(mass + '\t' + Expected_Central+'\t' + Expected_Central+'\t'+Expected_1sdUp+'\t'+Expected_1sdDn+'\t'+Expected_2sdUp+'\t'+Expected_2sdDn+'\n')
+                                          outfile.close()
+                

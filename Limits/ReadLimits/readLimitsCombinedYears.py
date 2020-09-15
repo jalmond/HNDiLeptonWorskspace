@@ -7,8 +7,7 @@ parser.add_option("-x", "--x", dest="x", default="123",help="tag")
 (options, args) = parser.parse_args()
 limit_dir=options.x
 
-file_limit_path= str(os.getenv("LIMIT_PATH")) +limit_dir+\
-"/"
+file_limit_path= str(os.getenv("LIMIT_PATH")) +limit_dir+"/"
 if str(os.getenv("LIMIT_PATH")) == "None":
        print "setup enviroment...."
        exit()
