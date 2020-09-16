@@ -1,0 +1,6 @@
+root -l -q -b 'MakeFRFileEE.C("2016","DoubleEG")'
+root -l -q -b 'MakeFRFileEE.C("2017","SingleElectron")'
+root -l -q -b 'MakeFRFileEE.C("2018","EGamma")'
+root -l -q -b 'MakeFRFileMM.C("2016")'
+root -l -q -b 'MakeFRFileMM.C("2017")'
+root -l -q -b 'MakeFRFileMM.C("2018")'
