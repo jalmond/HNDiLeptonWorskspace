@@ -9,7 +9,7 @@
 
 TGraphAsymmErrors*  GetTGraph(TString input_path, int nbins, int i);
 
-void  CompareShapeCombindedLimit(int i=0, int j=0,int k=0, TString dirname="", int ReturnWhat=0, bool RunFullCLs=true){
+void  CompareShapeCombindedLimitSR1EECutCount(int i=0, int j=0, TString dirname="", int ReturnWhat=0, bool RunFullCLs=true){
 
   bool DrawObserved = false;
 
@@ -23,9 +23,9 @@ void  CompareShapeCombindedLimit(int i=0, int j=0,int k=0, TString dirname="", i
   TString ENV_FILE_PATH = WORKING_DIR;
   TString ENV_PLOT_PATH = getenv("PLOT_PATH");
   //out/HNTypeI_JA/2016/MuMu_SR1/result_combined_HNTight2016.txt
-  TString filepath = ENV_FILE_PATH+dataset+"/Limits/ReadLimits/out_/HNTypeI_JA/";
+  TString filepath = ENV_FILE_PATH+dataset+"/Limits/ReadLimits/out_v2/HNTypeI_JA/";
   TString plotpath = ENV_PLOT_PATH+dataset+"/Limits/";
-
+  ///data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/ReadLimits/out_v2
   if(dirname!=""){
   
     filepath = ENV_FILE_PATH+dataset+"Limit/"+dirname+"/";
@@ -37,32 +37,16 @@ void  CompareShapeCombindedLimit(int i=0, int j=0,int k=0, TString dirname="", i
   if (j==3) WhichYear = "CombinedYears";
 
   
-  TString WhichDirectoryInCutop = "MuMu_SSCombined";
-  if (i == 0) WhichDirectoryInCutop = "MuMu_SR1";
-  if (i == 1) WhichDirectoryInCutop = "MuMu_SR2";
-  if (i == 2) WhichDirectoryInCutop = "EE_SR1";
-  if (i == 3) WhichDirectoryInCutop = "EE_SR2";
-  if (i == 4) WhichDirectoryInCutop = "EE_SSCombined";
+  TString WhichDirectoryInCutop = "EE_SR1_SR2";
+  if (i == 1) WhichDirectoryInCutop = "EE_SR1";
+  if (i == 2) WhichDirectoryInCutop = "EE_SR2";;
+  if (i == 3) WhichDirectoryInCutop = "EE_SR1_SR2";
 
   //result_combined_HNTight2016.txt  result_combined_passTightID.txt  result_combined_passTightID_nocc.txt  result_combined_passTightID_noccb.txt
 
   bool EEchannel = (i < 2);
 
-  TString WhichID="";
-  
-  if (k == 0) WhichID="HNTightV1";
-  if (k == 1) WhichID="POGTightWithVeryTightIso";
-  if (k == 2) WhichID="HNTight2016";
- 
-
-  if (k == 3) WhichID="HNTight2016";
-  if (k == 4) WhichID="passTightID";
-  if (k == 5) WhichID="passTightID_nocc";
-  if (k == 6) WhichID="passTightID_noccb";
-  
-
-  vector<TString> IDs ;
-  if(EEchannel) IDs = {"HNTight2016","passTightID","passTightID_nocc","passTightID_noccb"};
+  //  if(EEchannel) IDs = {"HNTight2016","passTightID","passTightID_nocc","passTightID_noccb"};
   filepath = filepath + WhichYear + "/"+ WhichDirectoryInCutop;
 
   TString channel = "MuMu";
@@ -163,6 +147,8 @@ void  CompareShapeCombindedLimit(int i=0, int j=0,int k=0, TString dirname="", i
   if(j==2) lumi = "59.9";
   if(j==3) lumi = "137.9";
   
+  latex_title.DrawLatex(0.64, 0.64, WhichDirectoryInCutop);
+
 
   latex_Lumi.DrawLatex(0.735, 0.96, lumi+" fb^{-1} (13 TeV)");
   latex_title.SetTextSize(0.04);

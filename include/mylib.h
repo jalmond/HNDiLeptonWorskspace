@@ -739,11 +739,11 @@ TH1D* GetHist(TFile* file, TString name , bool return_void=true, bool debug=fals
       else       return this_hist;
     }
   }
-  TH1* h = (TH1F*)(file->Get(name));
+  TH1D* h = (TH1D*)(file->Get(name));
 
-  TH1D* h_C = (TH1D*)h_C->Clone(name+"clone"+file->GetName());
+  //TH1D* h_C = (TH1D*)h_C->Clone(name+"clone2"+file->GetName());
 
-  return h_C;
+  return h;
   
   
 }
@@ -807,35 +807,57 @@ void WriteToFile(TString mass, TString year, TString signal, TFile* fo, TString 
       if(samples[i].first.Contains("data") && _syst!= "")continue;
       TString h_path =  path_ + samples[i].second + ".root";
       TFile * file_ = new TFile((h_path).Data());
-      
+      cout << h_path << endl;
       TString _systname = "";
       if (_syst != "") _systname = "_"+_syst;
       cout << histname+_syst << endl;
       bool ishist=CheckHist(file_, histname+_syst);
       if (!ishist){
-	double ml1jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-	double ml2jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-	double mlljbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-	TH1D* this_hist = new TH1D(histname+"__", "", 6, ml1jbins);
-	fo->cd();
-	this_hist->SetName(samples[i].first+_systname);
-	this_hist->Write();
-	delete this_hist;
+	cout << "missing histname " << histname << endl;
+	if(histname.Contains("reco")){
+	  if(!histname.Contains("fine")){
+	    double ml1jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+	    double ml2jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+	    double mlljbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+	    TH1D* this_hist = new TH1D(histname+"__", "", 6, ml1jbins);
+	    fo->cd();
+	    this_hist->SetName(samples[i].first+_systname);
+	    this_hist->Write();
+	    delete this_hist;
+
+	  }
+	}
+	else{
+	  
+	  TH1D* this_hist = new TH1D(histname+"__", "", 24, 0.,24.);
+	  fo->cd();
+	  this_hist->SetName(samples[i].first+_systname);
+	  this_hist->Write();
+	  delete this_hist;
+	  
+	}
+	
       }
       else{
-	TH1* hist = GetHist(file_, histname+_syst);
+	cout << "found" << endl;
+	//TH1* hist = GetHist(file_, histname+_syst);
+	TH1D* hist = (TH1D*)(file_->Get(histname+_syst));
+
+	cout << hist << endl;
 	fo->cd();
 	cout << "Writing " << samples[i].first+_systname << endl;
 	cout << hist->Integral() << endl;
 	hist->SetName(samples[i].first+_systname);
-	hist->Scale(0.8);
+	int _int = int(hist->Integral());
+	if(samples[i].first.Contains("data"))hist->Scale(_int/hist->Integral());
+	//else  hist->Scale(0.8);
 	hist->Write();
 	cout << h_path << " " << samples[i].first+_systname << " " << hist->Integral() << endl;
       }
       file_->Close();
     }
   }
-  
+
   for(const auto& _syst: systs) {
 
     TString h_path = signal;
@@ -847,30 +869,55 @@ void WriteToFile(TString mass, TString year, TString signal, TFile* fo, TString 
     bool ishist=CheckHist(file_, histname+_syst);
 
     if (!ishist){
-      double ml1jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-      double ml2jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-      double mlljbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-      TH1D* this_hist = new TH1D(histname+"__", "", 6, ml1jbins);
-      fo->cd();
-      this_hist->SetName("signal"+_systname);
-      this_hist->Write();
-      delete this_hist;
+      if(histname.Contains("reco")){
+	double ml1jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+	double ml2jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+	double mlljbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
+	TH1D* this_hist = new TH1D(histname+"__", "", 6, ml1jbins);
+	fo->cd();
+	this_hist->SetName("signal"+_systname);
+	this_hist->Write();
+	delete this_hist;
+	
+      }
+      else{
+
+	TH1D* this_hist = new TH1D(histname+"__", "", 24, 0.,24.);
+	fo->cd();
+	this_hist->SetName("signal"+_systname);
+	this_hist->Write();
+	delete this_hist;
+
+      }      
     }
     else{
-    TH1* hist = GetHist(file_, histname+_syst);
-    TH1* hist_tmp = (TH1*)hist->Clone(histname+_syst+"_nocale");
+      
+      //TH1* hist = GetHist(file_, histname+_syst);
+      
 
-      fo->cd();
-      hist->SetName("signal" +_systname+"_noscale");
-      double _scale= SignalScale(year,mass);
-      hist->Write();
-      hist_tmp->Scale(_scale);
-      hist_tmp->SetName("signal" +_systname);
-      hist_tmp->Write();
+
+    TH1D* hist = (TH1D*)(file_->Get(histname+_syst));
+
+    hist->SetName("signal" +_systname+"_noscale");   
+    double _scale= SignalScale(year,mass);
+    hist->Scale(_scale);
+
+    fo->cd();
+    //hist->Write();
+    
+    int _int = int(hist->Integral());
+   
+    TH1* hist_tmp = (TH1*)hist->Clone(histname+_syst+"_nocale");       
+
+    hist_tmp->Scale(_scale);
+    hist_tmp->SetName("signal" +_systname);
+    hist_tmp->Write();
+    cout << "Signal integral = " << hist_tmp->Integral() << " " << histname <<" " << h_path <<  endl;
+						       
     }
     file_->Close();
-    }
-
+  }
+  
 }
 
 double GetMaximum(TGraphAsymmErrors* g1, vector<TGraphAsymmErrors*> grs){
