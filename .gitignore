@@ -1,3 +1,6 @@
+src/FakeRates/CreateInput/FakeFiles
+Latex/workspace/*.tex
+Latex/workspace/*.txt
 src/LimitPlotter/out/
 Plots/Run2Legacy_v4/
 OutputTool/MergedFiles/
