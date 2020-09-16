@@ -3,8 +3,9 @@
 #include "mylib.h"
 #include "canvas_margin.h"
 
-void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString flavour = "MuMu", TString _id = "HNTight2016", TString analysername="HNtypeI_JA", TString _sr="SR1", TString mass="100"){ 
+void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString flavour = "MuMu", TString _id = "HNTight2016", TString analysername="HNtypeI_JA", TString _sr="SR1", TString mass="100", TString outpath=""){ 
 
+  
   // check which pc is running script to setup local paths
   TString s_hostname = GetHostname();
   
@@ -36,8 +37,9 @@ void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString
   vector<TGraphAsymmErrors*> _vgraphs;
   
   
-  TString histlabel= _sr+analysername+"_"+flavour+"_"+_id+"exo_17_028_EE_SR4";
-
+  TString histlabel= "FillEventCutflow/"+_sr+analysername+"_"+flavour+"_"+_id+"exo_17_028_"+flavour+"_"+_sr;
+  if(_sr == "SR1" && flavour == "MuMu") histlabel= "FillEventCutflow/"+_sr+analysername+"_"+flavour+"_"+_id+"exo_17_028_"+flavour;
+  //FillEventCutflow/SR1HNtypeI_JA_MuMu_HNTight2016exo_17_028_MuMu
   
   TString promptpath = ENV_MERGEDFILE_PATH+ "/"+analysername+"/"+year+"/"+analysername+"_SkimTree_SSNonIso_SSPrompt.root";
   TString fakepath = ENV_MERGEDFILE_PATH+ "/"+analysername+"/"+year+"/"+analysername+"_SkimTree_SSNonIso_Fake"+flavour+".root";
@@ -49,8 +51,19 @@ void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString
   if(CheckFile(filemm) > 0) return;
   
   TString n_sr_hist=histlabel;
+
   TH1* this_hist_sig = GetHist(filemm,n_sr_hist);
-  
+
+  TFile*  file_cf;
+  TH1* this_hist_cf;
+
+  bool isee = (flavour=="EE");
+  if(isee) {
+      TString fakepath = ENV_MERGEDFILE_PATH+ "/"+analysername+"/"+year+"/"+analysername+"_SkimTree_SSNonIso_CF.root";
+      file_cf= TFile::Open((promptpath).Data());
+      this_hist_cf = GetHist(file_cf,n_sr_hist);
+
+  }
   TFile*  file_prompt  = TFile::Open((promptpath).Data());
   TFile*  file_fake = TFile::Open((fakepath).Data());
   TH1* this_hist_prompt = GetHist(file_prompt,n_sr_hist);
@@ -67,7 +80,11 @@ void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString
   this_hist_prompt->SetLineColor(kSpring-1);
   this_hist_fake->SetFillColor(870);
   this_hist_fake->SetLineColor(870);
+  if(isee){
+    this_hist_cf->SetFillColor(kBlue-2);
+    this_hist_cf->SetLineColor(kBlue-2);
   
+  }
   
   
   
@@ -78,7 +95,7 @@ void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString
   
   hs->Add(this_hist_prompt);
   hs->Add(this_hist_fake);
-  //	  hs->Add(this_hist_cf);
+  if(isee)hs->Add(this_hist_cf);
   
   
   TCanvas *c_SOnly = new TCanvas("c_SOnly", "", 900, 800);
@@ -86,25 +103,46 @@ void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString
   c_SOnly->cd();
   c_SOnly->Draw();
   c_SOnly->SetLogy();
+
   
-  this_hist_sig->Draw("hist");                                                                                                                            
+
   this_hist_sig->GetYaxis()->SetTitle("Events / bin " );
-  this_hist_sig->GetYaxis()->SetRangeUser(0.05, 10000.);
-  
-  TString save_sg=ENV_PLOT_PATH+FLATVERSION+"/" + year + "/" + _sr+"/hist_highmass_nevents_HNtypeI_JA_"+flavour+"_"+_id+".pdf";
-	 
-  hs->Draw("histsame");
-  this_hist_sig->Draw("histsame");
-  c_SOnly->SaveAs(save_sg,".pdf");	  
-  
-  
-  this_hist_sig->SetLineColor(kRed);
-  this_hist_sig->GetYaxis()->SetTitle("Events / bin " );
-  this_hist_sig->Draw("hist");
-  
   this_hist_sig->SetLineColor(kRed);
   this_hist_sig->SetLineWidth(4.);
+  this_hist_sig->GetYaxis()->SetRangeUser(0.05, 10000.);
+
+  this_hist_sig->Draw("hist");
+  
+  TString save_sg=ENV_PLOT_PATH+FLATVERSION+"/" + year + "/" + _sr+"/hist_highmass_nevents_HNtypeI_JA_"+flavour+"_"+_id+".pdf";
+  if(outpath!="") save_sg=outpath;
+  
+  hs->Draw("histsame");
   this_hist_sig->Draw("histsame");
+   
+
+  TLatex latex_CMSPriliminary, latex_Lumi, latex_title;
+  latex_CMSPriliminary.SetNDC();
+  latex_Lumi.SetNDC();
+  latex_title.SetNDC();
+
+  latex_Lumi.SetTextSize(0.035);
+  latex_Lumi.SetTextFont(42);
+  TString lumi = "36.5";
+  if(year=="2017") lumi = "41.5";
+  if(year=="2018") lumi = "59.9";
+  if(year=="Combined") lumi = "137.9";
+
+  latex_title.DrawLatex(0.64, 0.64, flavour + " " + _sr);
+
+
+  latex_Lumi.DrawLatex(0.735, 0.96, lumi+" fb^{-1} (13 TeV)");
+  latex_title.SetTextSize(0.04);
+  latex_title.SetLineWidth(2);
+  //latex_title.DrawLatex(0.25, 0.84, "#font[41]{95% CL upper limit}");
+  //latex_title.SetTextSize(0.05);
+  latex_title.DrawLatex(0.25, 0.96, "#font[62]{CMS}");
+
+  gPad->RedrawAxis();
   
   TLegend* legendH;
   legendH = new TLegend(0.65, 0.75, 0.85, 0.9);
@@ -116,7 +154,7 @@ void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString
   legendH->AddEntry(this_hist_sig, "m_{N} Bin GeV","l");
   legendH->AddEntry(this_hist_prompt,"Prompt","f");
   legendH->AddEntry(this_hist_fake,"Fake","f");
-  
+  if(isee)legendH->AddEntry(this_hist_cf,"CF","f");
   
   //AllLegendEntry(legend,this_hist,_id,"l");
   
@@ -127,6 +165,7 @@ void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString
   MakeDir(ENV_PLOT_PATH+FLATVERSION+"/" + year);
   MakeDir(ENV_PLOT_PATH+FLATVERSION+"/" + year+  "/" + _sr);
 
+  c_SOnly->SaveAs(save_sg,".pdf");	  
   delete hs;
   delete this_hist_sig;
   delete this_hist_fake;

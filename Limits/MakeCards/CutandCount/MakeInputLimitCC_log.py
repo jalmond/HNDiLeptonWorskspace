@@ -71,6 +71,11 @@ for _iter in range(0,niter):
               limitfile.write("Mass mN   | Nprompt   | NFake    | NCF      |  Total Bkg  | Nsignal   || EXO-17-028 Eff  | EXO-17-028 Bkg \n")
               limitfile.write("-"*len("Mass mN   | Nprompt   | NFake    | NCF      |  Total Bkg  | Nsignal   || EXO-17-028 Eff  | EXO-17-028 Bkg  \n")+"\n")
               for mass in _masses:
+                     
+                     os.system("root -l -q -b 'MakeBinnedSignalBkg.C(\"Schannel\",\""+year+"\",\""+flavour+"\",\""+_id+"\", \""+Analyzer+"\", \""+SR+"\", \""+mass+"\")'")
+                     
+                     exit()
+                     
                      nprompt = GetPromptCountSRMassBin(flavour,SR, mass,year,_id,Analyzer)
                      nfake = GetFakeCountSRMassBin(flavour,SR, mass,year,_id,Analyzer)
                      ncf = GetCFCountSRMassBin(flavour,SR,mass,year,_id,Analyzer)
@@ -87,9 +92,7 @@ for _iter in range(0,niter):
                                           
 
               limitfile.close()
-              #os.system("enscript -p  " + _ps + " " + _txt)
-              #os.system("ps2pdf " + _ps + " " + _pdf) 
-              #os.system("pdf2png " + _pdf + " " + _png) 
+
 
 webfile = open("index.html","w")
 webfile.write('<html><font face="Helvetica"><head><title> HNTypeI Event Yields HighMass </title></head>\n')
