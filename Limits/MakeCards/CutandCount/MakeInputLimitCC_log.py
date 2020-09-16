@@ -1,6 +1,5 @@
 from HNType1_config import *
-import os,  ROOT
-
+import os
 
 from optparse import OptionParser
 parser = OptionParser()
@@ -34,7 +33,7 @@ print "Running with setup:"
 PrintSetup(_setup)
 
 
-Outputdir = os.getenv("PLOTTER_WORKING_DIR")+"/"+ Outdir + "/"+BkgType+"/run/"
+Outputdir = os.getenv("PLOTTER_WORKING_DIR")+"/"+ str(Outdir[0]) + "/"+str(BkgType[0])+"/run/"
 MakeDirectory(Outputdir)
 
        
@@ -42,48 +41,37 @@ outname="AllCards"
 for s in SRs:
        outname+="_"+s
 
-for year in years:
-    for _channel in _channels:
-        for flavour in flavours:
-            IDs=[]
-            if flavour == "MuMu":
-                IDs = IDMu
-            else:
-                IDs=IDEl
-            for SR in SRs:
-                _masses = masses
-                if flavour == "TChannel":
-                    _masses = masses_t
-                for _id in IDs:
-                       for mass in _masses:
-                              pinput = os.getenv("PLOTTER_WORKING_DIR")+"/"+ Outdir + "/"+BkgType+"/"
+niter = NIteration([years, _channels, flavours])     
+for _iter in range(0,niter):
+       GetIter = SumIteration(_iter, [years, _channels, flavours])
+       year    = GetIter[0]
+       _channel = GetIter[1]
+       flavour = GetIter[2]
+       print year + " "  + _channel + " " + flavour
+       continue
+       
+       IDs=[]
+       if flavour == "MuMu":
+              IDs = IDMu
+       else:
+              IDs=IDEl
+       for SR in SRs:
+              _masses = masses
+              if flavour == "TChannel":
+                     _masses = masses_t
+              for _id in IDs:
+                     for mass in _masses:
+                            pinput = os.getenv("PLOTTER_WORKING_DIR")+"/"+ Outdir + "/"+BkgType+"/"
                       
-                      isVBF=""
-                        if _channel == "TChannel":
-                            isVBF="_VBF"
-                        if _channel == "Combinedflavour":
-                            isVBF="_combined"
+                            isVBF=""
+                            if _channel == "TChannel":
+                                   isVBF="_VBF"
+                            if _channel == "Combinedflavour":
+                                   isVBF="_combined"
 
-                     
-                        if not os.path.exists(pinput+year+"/"):
-                            os.system("mkdir " + pinput +year+"/")
-                        if not os.path.exists(pinput+year+"/" + flavour + "_" + SR ):
-                            os.system("mkdir " + pinput +year+"/"+ flavour + "_" + SR )
-                      
-                     
-                        rate_line = "rate  " + str(GetPromptCount(flavour,SR, mass,year,_id)) + " " + str(GetFakeCount(flavour,SR, mass,year,_id)) + " " + str(GetCFCount(flavour,SR,mass,year,_id)) + " " + str(GetSignalEvents(flavour,SR,mass,year, _channel,_id))
-                        print  pinput + year+"/"+ flavour + "_" + SR + "/card_"+flavour + "_" + SR+"_N" + mass + isVBF+".txt" + str(GetSignalEvents(flavour,SR,mass,year, _channel,_id))
-                        rate_line += "\n"
-                        limitfile.write(rate_line)
-                        limitfile.write("Lumi	lnN	1.025	-	-	1.025\n")
-                        limitfile.write("MCNorm	lnN	1.135	-	-	-\n")
-                        limitfile.write("Fake	lnN	-	1.3	-	-\n")
-                        limitfile.write("CF	        lnN	-	-	1.439	-\n")
-                        limitfile.write("MuonID	lnN	1.02	-	-	1.0054\n")
-                        limitfile.write("ElectronE	lnN	1.0251	-	-	1.0191\n")
-                        limitfile.write("JES	lnN	1.2491	-	-	1.0154\n")
-                        limitfile.write("JER	lnN	1.0706	-	-	1.0385\n")
+                            MakeDirectory(pinput+year+"/")
+                            MakeDirectory(pinput+year+"/"+flaovur+"_"+SR)
+                            
+                            
                 
-                
-                    limitfile.close()
-allcards.close()
+                            limitfile.close()

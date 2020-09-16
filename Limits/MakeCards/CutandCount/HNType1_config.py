@@ -1,6 +1,40 @@
+import os
 def MakeDirectory(path):
     if not os.path.exists(path):
         os.mkdir(path)
+
+
+def NIteration(samples):
+    niter =0
+    for x in samples:
+        niter+= len(x)
+    return niter
+
+
+def SumIteration(i, lists):
+    if len(lists) == 3:
+        niter = NIteration(lists)
+        return SumIteration3(i, lists[0],lists[1],lists[2],niter)
+
+    return [0,0,0]
+    
+def SumIteration3(i, list1, list2, list3,nmax):
+
+    iter_1=0
+    iter_2=0
+    iter_3=0
+
+    for x in range(0, nmax):
+        if x == i :
+            return [list1[iter_1],list2[iter_2],  list3[iter_3] ]
+
+        iter_3=iter_3+1
+        if iter_3 == len(list3):
+            iter_3=0
+            iter_2=iter_2+1
+            if iter_2 == len(list2):
+                iter_2=0
+                iter_1=iter_1+1         
 
 
 def PrintSetup(setupconfig):
