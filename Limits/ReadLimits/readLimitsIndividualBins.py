@@ -50,8 +50,6 @@ for x in fulllog:
                     
               Found=False
        
-for x in _Fulllog:
-       print x
 
 print "Number of jobs in dir " +  file_limit_path + " is " + str(counter)
 
@@ -64,7 +62,7 @@ Masses =  ["100","200","300","400","500","600","700","800","900","1000","1100","
 IDMu = ["POGTightPFIsoVeryTight","HNTight2016"]
 
 IDEl = ["passTightID","HNTight2016","passTightID_noccb","passTightID_nocc"]
-bins = ["SR1_SR2"]
+bins = ["SR1","SR2"]
 
 for year in Years:
        for flavour in Flavours:
@@ -94,17 +92,16 @@ for year in Years:
                                    Expected_1sdDn = "--"
                                    Expected_2sdUp = "--"
                                    Expected_2sdDn = "--"
-                                   #card_combinedSS_MuMu_N125_combined_2016_POGTightPFIsoVeryTight.txt
-                                   #card_combinedSS_EE_N1500_combined_2018_passTightID_nocc.txt
-                                   tag = "card_combinedSS_"+flavour+"_N"+mass+"_combined_"+year+"_"+_id
+                                   tag = "card_"+year+"_"+flavour+"_"+_bin+"_N"+mass+"_combined"+"_"+_id
                                    
                                    if mass == "1300" or mass == "1200" :
-                                          tag = "card_combinedSS_"+flavour+"_N1100_combined_"+year+"_"+_id
+                                          tag = "card_"+year+"_"+flavour+"_"+_bin+"_N1100_combined"+"_"+_id
                            
                                    if mass == "125": 
-                                          tag = "card_combinedSS_"+flavour+"_N100_combined_"+year+"_"+_id
+                                          tag = "card_"+year+"_"+flavour+"_"+_bin+"_100_combined"+"_"+_id
                                    if mass == "250":
-                                          tag = "card_combinedSS_"+flavour+"_N250_combined_"+year+"_"+_id
+                                          tag = "card_"+year+"_"+flavour+"_"+_bin+"_200_combined"+"_"+_id
+
 
                                    Found=False
                                    for line in _Fulllog:
