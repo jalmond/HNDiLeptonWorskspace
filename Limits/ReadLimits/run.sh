@@ -1,0 +1,3 @@
+python readLimitsShape.py -x 2020_09_16_140103__Shapev2_HNSR12comb_MM
+python readLimitsShape.py -x 2020_09_16_131419__Shapev2_HNSR1_2_MM
+python readLimitsShape.py -x 2020_09_16_144657__Shapev2_HNSR12comb_years

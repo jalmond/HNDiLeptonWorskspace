@@ -1,22 +1,31 @@
+#!/usr/bin/env python
+
+import os
+import sys
+import argparse
+import datetime
+
+sys.path.insert(1, '/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/python')
+from GeneralSetup import *
+
+args = setupargs()
+if args.Full:
+       check_lxplus_connection()
+       print "Connected to " + get_lxplus_host()
+
+exit()
+
+pwd = os.getcwd()
+
+config_file= args.ConfigFile
+
+# now import analysis functions
 from HNType1_config import *
-import os, ROOT
 
-lxplus="lxplus785.cern.ch"
 
-from optparse import OptionParser
-parser = OptionParser()
-parser.add_option("-x", "--x", dest="x", default="123",help="tag")
-
-(options, args) = parser.parse_args()
-
-config_file= options.x
-
-if str(os.getenv("PLOTTER_WORKING_DIR")) == "None":
-       print "setup enviroment...."
-       exit()
-if config_file == "123":
+if config_file == "None":
     print "Need input file to configure job"
-    print "python MakeInputLimitCC_log.py -x config.txt"
+    print "python MakeInputLimitCC_log.py -c config.txt"
     exit()
 
 _setup=[]
@@ -45,6 +54,7 @@ for s in SRs:
 
 niter = NIteration([years, _channels, flavours,SRs])     
 outfiles = []
+files_tocopy=[]
 for _iter in range(0,niter):
 
        GetIter  = SumIteration(_iter, [years, _channels, flavours,SRs])
@@ -71,10 +81,9 @@ for _iter in range(0,niter):
               limitfile.write("Mass mN   | Nprompt   | NFake    | NCF      |  Total Bkg  | Nsignal   || EXO-17-028 Eff  | EXO-17-028 Bkg \n")
               limitfile.write("-"*len("Mass mN   | Nprompt   | NFake    | NCF      |  Total Bkg  | Nsignal   || EXO-17-028 Eff  | EXO-17-028 Bkg  \n")+"\n")
               for mass in _masses:
-                     
-                     os.system("root -l -q -b 'MakeBinnedSignalBkg.C(\"Schannel\",\""+year+"\",\""+flavour+"\",\""+_id+"\", \""+Analyzer+"\", \""+SR+"\", \""+mass+"\")'")
-                     
-                     exit()
+                     if args.Plots:
+                            os.system("root -l -q -b 'MakePlot/MakeBinnedSignalBkg.C(\"Schannel\",\""+year+"\",\""+flavour+"\",\""+_id+"\", \""+Analyzer+"\", \""+SR+"\", \""+mass+"\",\"event_counts_"+year+"_N"+mass+"_"+SR+"_" +_id+"_"+flavour+"_cutcount.png\")'")
+                            files_tocopy.append(["event_counts_"+year+"_N" +mass+"_"+SR+"_"+_id+"_"+flavour+"_cutcount.png", flavour])
                      
                      nprompt = GetPromptCountSRMassBin(flavour,SR, mass,year,_id,Analyzer)
                      nfake = GetFakeCountSRMassBin(flavour,SR, mass,year,_id,Analyzer)
@@ -93,31 +102,41 @@ for _iter in range(0,niter):
 
               limitfile.close()
 
+if args.Full:
+       
+       webfile = open("index.html","w")
+       webfile.write('<html><font face="Helvetica"><head><title> HNTypeI Event Yields HighMass </title></head>\n')
+       webfile.write("<body>\n")
+       webfile.write("<h1> High Mass SR </h1>\n")
+       webfile.write('<br> <font size="4"><b>  </b></font> <br><br>\n')
+       webfile.write("<a href=MuMu/indexMuMu.html> MuMu </a><br>\n")
+       webfile.write("<a href=EE/indexEE.html> EE </a><br>\n")
+       webfile.close()
+       lxplus=get_lxplus_host()
+       os.system("scp index.html jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/MCBased/HighMassSR/")
+       
+       for x in files_tocopy:
+              os.system("scp " + x[0] +  " jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/MCBased/HighMassSR/"+x[1]+"/")
+              os.system("rm " + x[0])
 
-webfile = open("index.html","w")
-webfile.write('<html><font face="Helvetica"><head><title> HNTypeI Event Yields HighMass </title></head>\n')
-webfile.write("<body>\n")
-webfile.write("<h1> High Mass SR </h1>\n")
-webfile.write('<br> <font size="4"><b>  </b></font> <br><br>\n')
-webfile.write("<a href=MuMu/indexMuMu.html> MuMu </a><br>\n")
-webfile.write("<a href=EE/indexEE.html> EE </a><br>\n")
-webfile.close()
-os.system("scp index.html jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/MCBased/HighMassSR/")
+       webfileEE = open("indexEE.html","w")
+       webfileMuMu = open("indexMuMu.html","w")
+       for x in outfiles:
+              if "MuMu" in x[0]:
+                     os.system("scp " + x[0] +  " jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/MCBased/HighMassSR/MuMu/")
+                     webfileMuMu.write('<a href='+x[1]+'> '+x[2]+' </a><br>\n')
 
+              if "EE" in x[0]:
+                     os.system("scp " + x[0] +  " jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/MCBased/HighMassSR/EE/")
+                     webfileEE.write('<a href='+x[1]+'> '+x[2]+' </a><br> \n'        )
+       for x in files_tocopy:
+              if x[1] == "EE":
+                     webfileEE.write('<a href='+x[0]+'> '+x[0]+' </a><br> \n'        )
+              else:
+                     webfileMuMu.write('<a href='+x[0]+'> '+x[0]+' </a><br> \n'        )
 
-webfileEE = open("indexEE.html","w")
-webfileMuMu = open("indexMuMu.html","w")
-for x in outfiles:
-       if "MuMu" in x[0]:
-              os.system("scp " + x[0] +  " jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/MCBased/HighMassSR/MuMu/")
-              webfileMuMu.write('<a href='+x[1]+'> '+x[2]+' </a><br>\n')
-
-       if "EE" in x[0]:
-              os.system("scp " + x[0] +  " jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/MCBased/HighMassSR/EE/")
-              webfileEE.write('<a href='+x[1]+'> '+x[2]+' </a><br> \n'        )
-
-webfileEE.close()
-webfileMuMu.close()
-os.system("scp indexEE.html jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/MCBased/HighMassSR/EE/")
-os.system("scp indexMuMu.html jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/MCBased/HighMassSR/MuMu/")
-os.system("rm  index*.html")
+       webfileEE.close()
+       webfileMuMu.close()
+       os.system("scp indexEE.html jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/MCBased/HighMassSR/EE/")
+       os.system("scp indexMuMu.html jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/MCBased/HighMassSR/MuMu/")
+       os.system("rm  index*.html")

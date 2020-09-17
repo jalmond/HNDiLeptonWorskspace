@@ -1,3 +1,4 @@
+python/*.pyc
 src/FakeRates/CreateInput/FakeFiles
 Latex/workspace/*.tex
 Latex/workspace/*.txt
