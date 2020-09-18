@@ -48,8 +48,8 @@ void makeshapeinput(int k=0,TString analysername="HNtypeI_JA"){
   vector<TString> Flavours={"MuMu","EE"};
   vector<TString> Channels={"_DY","_VBF","_DYVBF"};
 
-  vector<TString> muIDs={"HNTight2016","POGTightPFIsoVeryTight");
-  vector<TString> elIDs={"HNTight2016","passTightID_nocc","passTightID_noccb","passMVAID_iso_WP80","passMVAID_iso_WP90","passMediumID","passTightID"};
+  vector<TString> muIDs={"POGTightPFIsoVeryTight","HNTight2016","HNTightV1","POGTightPFIsoVeryVeryTight","POGTightPFIsoTight","POGTightPFIsoMedium","POGTightPFIsoLoose"};
+  vector<TString> elIDs={"passTightID","passMediumID","HNTight2016","passTightID_noccb","passTightID_nocc"};
 
 
   for(const auto& year: Years) {
@@ -86,7 +86,7 @@ void makeshapeinput(int k=0,TString analysername="HNtypeI_JA"){
 		
 		for(const auto& mass: masses) {
 		
-		  TString outfile = DATACARD_SHAPE_PATH;
+		  TString outfile = getenv("DATACARD_SHAPE_PATH");
 		  MakeDir(outfile);
 		  outfile+= analysername+"/";  MakeDir(outfile);
 		  //outfile+= "Workspace/";  MakeDir(outfile);

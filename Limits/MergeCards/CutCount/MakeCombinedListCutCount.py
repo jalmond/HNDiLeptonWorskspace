@@ -22,11 +22,13 @@ if config_file == "None":
     exit()
 _setup=[]
 
+
 _channels =  GetConfig("channels",    config_file,_setup)
 flavours  =  GetConfig("flavours",    config_file,_setup)
 years     =  GetConfig("years",       config_file,_setup)
 SRs       =  GetConfig("SRs",         config_file,_setup)
-masses_s  =  GetConfig("masses_s",      config_file,_setup)
+masses_s  =  GetConfig("masses_s",    config_file,_setup)
+masses_t  =  GetConfig("masses_t",    config_file,_setup)
 masses_t  =  GetConfig("masses_t",    config_file,_setup)
 IDMu      =  GetConfig("IDMu",        config_file,_setup)
 IDEl      =  GetConfig("IDEl",        config_file,_setup)

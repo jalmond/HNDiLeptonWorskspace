@@ -37,12 +37,14 @@ void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString
   vector<Color_t> sighistcolors = GetHistColors(1);
   vector<TGraphAsymmErrors*> _vgraphs;
   
+  TString infile = getenv("DATACARD_SHAPE_PATH");
+  infile+= analysername+"/";  MakeDir(infile);
+  infile+=year+"/";          MakeDir(infile);
+  infile+=flavour+"_"+_sr+"/";              MakeDir(infile);
+
 
   TString  input_rootfile = "HN"+ mass + "_highmass_Run2Legacy_v4_"+year + "_"+_sr + "_"+ flavour + "_"+_id + "_"+_var+".root";
-  TString  input_filepath = getenv("PLOT_PATH");
-  input_filepath = input_filepath + "/Run2Legacy_v4/Limit/Shape/"+ year + "/" + flavour + "_"+ _sr + "/"+ input_rootfile;
-
-  
+  TString  input_filepath infile + input_rootfile;
   
   TFile* file = TFile::Open((input_filepath).Data());	  
   if(CheckFile(file) > 0) return;

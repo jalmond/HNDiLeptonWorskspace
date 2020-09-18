@@ -10,10 +10,6 @@ sys.path.insert(1, '/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorsks
 from GeneralSetup import *
 
 args = setupargs()
-if args.Full:
-       check_lxplus_connection()
-       print "Connected to " + get_lxplus_host()
-
 
 #set current directory to memory                                                                            
 pwd = os.getcwd()
@@ -44,17 +40,17 @@ Analyzer  =  GetSConfig("Analyzer",    config_file,_setup)
 BkgType   =  GetSConfig("BkgType",     config_file,_setup)
 Outdir    =  GetSConfig("OutDir",      config_file,_setup)
 Vars      =  GetConfig("Vars",        config_file,_setup)
-Workspace =  GetSConfig("Workspace", config_file,_setup)
+
 print "Running with setup:"
 PrintSetup(_setup)
 
 
 # setup output path                                                                                      
-Outputdir = os.getenv("PLOTTER_WORKING_DIR")+"/"+ str(Outdir) 
+Outputdir = os.getenv("HNDILEPTONWORKSPACE_DIR")+"/"+ str(Outdir) 
 MakeDirectory(Outputdir)
-runOutputdir = os.getenv("PLOTTER_WORKING_DIR")+"/"+ str(Outdir)+ "/run/"
+RunOutputdir = os.getenv("HNDILEPTONWORKSPACE_DIR")+"/"+ str(Outdir)+ "/run/"
 MakeDirectory(RunOutputdir)
-WorkSpaceDirectory= os.getenv("PLOTTER_WORKING_DIR")+"/"+ str(Outdir)+"/Workspace/"
+WorkSpaceDirectory= os.getenv("HNDILEPTONWORKSPACE_DIR")+"/"+ str(Outdir)+"/Workspace/"
 MakeDirectory(WorkSpaceDirectory)
 
 outname="AllCards"

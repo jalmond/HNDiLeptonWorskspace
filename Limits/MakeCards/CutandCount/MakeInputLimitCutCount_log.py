@@ -43,14 +43,11 @@ print "Running with setup:"
 PrintSetup(_setup)
 
 
-Outputdir = os.getenv("PLOTTER_WORKING_DIR")+"/"+ str(Outdir) + "/"+str(Analyzer)+"/run/"
+RunOutputdir = os.getenv("HNDILEPTONWORKSPACE_DIR")+"/"+ str(Outdir) + "/run/"
+Outputdir = os.getenv("HNDILEPTONWORKSPACE_DIR")+"/"+ str(Outdir) 
 MakeDirectory(Outputdir)
-
+MakeDirectory(RunOutputdir)
        
-outname="AllCards"
-for s in SRs:
-       outname+="_"+s
-
 niter = NIteration([years, _channels, flavours,SRs])     
 outfiles = []
 files_tocopy=[]
@@ -67,7 +64,7 @@ for _iter in range(0,niter):
        IDs     = ChooseID(IDMu, IDEl, flavour, 1)
        _masses = ChooseMassList(masses_s, masses_t,masses_c, _channel, 1)
 
-       file_output = os.getenv("PLOTTER_WORKING_DIR")+"/"+ Outdir + "/"+str(Analyzer)+"/" + year+"/"
+       file_output = os.getenv("HNDILEPTONWORKSPACE_DIR")+"/"+ Outdir + "/" + year+"/"
        MakeDirectory(file_output)
        file_output=file_output+ flavour + "_" + SR
        MakeDirectory(file_output)

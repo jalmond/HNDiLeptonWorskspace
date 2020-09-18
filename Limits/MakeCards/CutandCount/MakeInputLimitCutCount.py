@@ -31,23 +31,22 @@ _channels =  GetConfig("channels",    config_file,_setup)
 flavours  =  GetConfig("flavours",    config_file,_setup)
 years     =  GetConfig("years",       config_file,_setup)
 SRs       =  GetConfig("SRs",         config_file,_setup)
-masses_s  =  GetConfig("masses_s",      config_file,_setup)
+masses_s  =  GetConfig("masses_s",    config_file,_setup)
 masses_t  =  GetConfig("masses_t",    config_file,_setup)
 masses_c  =  GetConfig("masses_c",    config_file,_setup)
 IDMu      =  GetConfig("IDMu",        config_file,_setup)
 IDEl      =  GetConfig("IDEl",        config_file,_setup)
-Analyzer  =  GetSConfig("Analyzer",    config_file,_setup)
-BkgType   =  GetSConfig("BkgType",     config_file,_setup)
-Outdir    =  GetSConfig("OutDir",      config_file,_setup)
+Analyzer  =  GetSConfig("Analyzer",   config_file,_setup)
+Outdir    =  GetSConfig("OutDir",     config_file,_setup)
 print "Running with setup:"
 PrintSetup(_setup)
 
 
 # setup output path
-Outputdir = os.getenv("PLOTTER_WORKING_DIR")+"/"+ str(Outdir) + "/run/"
-MakeDirectory( os.getenv("PLOTTER_WORKING_DIR")+"/"+ str(Outdir))
+RunOutputdir = os.getenv("HNDILEPTONWORKSPACE_DIR")+"/"+ str(Outdir) + "/run/"
+Outputdir = os.getenv("HNDILEPTONWORKSPACE_DIR")+"/"+ str(Outdir)
 MakeDirectory(Outputdir)
-
+MakeDirectory(RunOutputdir)
 
 # create file of all datacard names used as input to batch jobs       
 outname="AllCards"
@@ -55,7 +54,7 @@ for s in SRs:
        outname+="_"+s
 
 niter = NIteration([years, _channels, flavours,SRs])     
-allcards= open(os.getenv("PLOTTER_WORKING_DIR")+OutDir+"/"+Analyzer + "/run/"+outname".txt","w")
+allcards= open(os.getenv("HNDILEPTONWORKSPACE_DIR")+OutDir+"/run/"+outname".txt","w")
 cardlist=[]
 for _iter in range(0,niter):
 
@@ -71,22 +70,19 @@ for _iter in range(0,niter):
        _masses = ChooseMassList(masses_s, masses_t,masses_c, _channel, 1)
 
        file_output = Outputdir + year+"/"
+       MakeDirectory(file_output)
        file_output = file_output+ flavour + "_" + SR
        MakeDirectory(file_output)
+
        for _id in IDs:
               for mass in _masses:
-                     pinput = os.getenv("PLOTTER_WORKING_DIR")+OutDir+"/"+Analyzer
-                     MakeDirectory(pinput)
-
 
                      isVBF=ChooseTag(_channel)
-                     MakeDirectory(pinput+year+"/")
-                     MakeDirectory(pinput+year+"/"+ flavour + "_" + SR)
                      # cardname read into MakeCombinedListCutCount.py
                      cardname="card_"+year+"_"+flavour + "_" + SR+"_N" + mass + isVBF+"_"+_id+".txt"
-                     allcards.write(pinput + year+"/"+ flavour + "_" + SR + "/"+cardname,"w") 
-                     cardlist.append(pinput + year+"/"+ flavour + "_" + SR + "/"+cardname)
-                     limitfile = open(pinput + year+"/"+ flavour + "_" + SR + "/"+cardname ,"w") 
+                     allcards.write(file_output + +cardname)
+                     cardlist.append(file_output+ +cardname)
+                     limitfile = open(file_output+ +cardname,"w")
 
                      limitfile.write("imax 1  number of channels\n")
                      limitfile.write("jmax 3  number of backgroundss\n")

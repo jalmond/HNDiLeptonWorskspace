@@ -17,15 +17,15 @@ then
     
     export VERSION="Initial"
     export FLATVERSION="Run2Legacy_v4"
-    export PLOTTER_WORKING_DIR=`pwd`
+    export HNDILEPTONWORKSPACE_DIR=`pwd`
     export PLOT_PATH=$PWD/Plots/
-    export OUTFILE_PATH=$PLOTTER_WORKING_DIR/rootfiles/
-    export DATACARD_SHAPE_PATH=$PLOTTER_WORKING_DIR/Limits/DataCardsShape/
-    export INFILE_MERGED_PATH=$PLOTTER_WORKING_DIR/OutputTool/MergedFiles/ 
+    export OUTFILE_PATH=$HNDILEPTONWORKSPACE_DIR/rootfiles/
+    export DATACARD_SHAPE_PATH=$HNDILEPTONWORKSPACE_DIR/Limits/DataCardsShape/
+    export INFILE_MERGED_PATH=$HNDILEPTONWORKSPACE_DIR/OutputTool/MergedFiles/ 
     export INFILE_PATH=/data6/Users/jalmond/SKFlatOutput/Run2Legacy_v4/
     
-    export SCRIPT_DIR=$PLOTTER_WORKING_DIR/script/
-    export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$PLOTTER_WORKING_DIR/include/:$PLOTTER_WORKING_DIR/src/:$PLOTTER_WORKING_DIR/SignalEfficiency:$PLOTTER_WORKING_DIR/SignalRegionPlotter:$PLOTTER_WORKING_DIR/MakeCards:$PLOTTER_WORKING_DIR/OutputTool
+    export SCRIPT_DIR=$HNDILEPTONWORKSPACE_DIR/script/
+    export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$HNDILEPTONWORKSPACE_DIR/include/:$HNDILEPTONWORKSPACE_DIR/src/:$HNDILEPTONWORKSPACE_DIR/SignalEfficiency:$HNDILEPTONWORKSPACE_DIR/SignalRegionPlotter:$HNDILEPTONWORKSPACE_DIR/MakeCards:$HNDILEPTONWORKSPACE_DIR/OutputTool
     export LIMIT_PATH="/data6/Users/jalmond/Limits/CMSSW_10_2_13/src/HiggsAnalysis/CombinedLimit/data/2016_HNDiLepton/batch/"
 
 fi
@@ -33,14 +33,14 @@ if [[ $HOST == "JohnMB2018s-MacBook-Pro.local" ]];then
 
     export VERSION="Initial"
     export FLATVERSION="Run2Legacy_v4"
-    export PLOTTER_WORKING_DIR=`pwd`
+    export HNDILEPTONWORKSPACE_DIR=`pwd`
     export PLOT_PATH=$PWD/Plots/
-    export OUTFILE_PATH=$PLOTTER_WORKING_DIR/rootfiles/
+    export OUTFILE_PATH=$HNDILEPTONWORKSPACE_DIR/rootfiles/
     export INFILE_MERGED_PATH=$HOME/HNDiLeptonWorskspace/OutputTool/MergedFiles/
-    export INFILE_PATH=$PLOTTER_WORKING_DIR/Files/
-    export SCRIPT_DIR=$PLOTTER_WORKING_DIR/script/
-    export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$PLOTTER_WORKING_DIR/include/:$PLOTTER_WORKING_DIR/src/:$PLOTTER_WORKING_DIR/SignalEfficiency:$PLOTTER_WORKING_DIR/SignalRegionPlotter:$PLOTTER_WORKING_DIR/MakeCards:$PLOTTER_WORKING_DIR/OutputTool
-    export LIMIT_PATH=$PLOTTER_WORKING_DIR/LimitCode/CMS-StatisticalTools/:$PLOTTER_WORKING_DIR/Limits/MakeShapeInput
+    export INFILE_PATH=$HNDILEPTONWORKSPACE_DIR/Files/
+    export SCRIPT_DIR=$HNDILEPTONWORKSPACE_DIR/script/
+    export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$HNDILEPTONWORKSPACE_DIR/include/:$HNDILEPTONWORKSPACE_DIR/src/:$HNDILEPTONWORKSPACE_DIR/SignalEfficiency:$HNDILEPTONWORKSPACE_DIR/SignalRegionPlotter:$HNDILEPTONWORKSPACE_DIR/MakeCards:$HNDILEPTONWORKSPACE_DIR/OutputTool
+    export LIMIT_PATH=$HNDILEPTONWORKSPACE_DIR/LimitCode/CMS-StatisticalTools/:$HNDILEPTONWORKSPACE_DIR/Limits/MakeShapeInput
 
 fi    
 alias run="bash "$SCRIPT_DIR"/run.sh"

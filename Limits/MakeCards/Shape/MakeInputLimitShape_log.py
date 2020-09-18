@@ -24,36 +24,30 @@ from HNType1_config import *
 
 if config_file == "None":
     print "Need input file to configure job"
-    print "python MakeInputLimitCC_log.py -c config.txt"
+    print "python MakeInputLimitShape_log.py -c config.txt"
     exit()
 
 _setup=[]
+### lists
 _channels =  GetConfig("channels",    config_file,_setup)
 flavours  =  GetConfig("flavours",    config_file,_setup)
 years     =  GetConfig("years",       config_file,_setup)
 SRs       =  GetConfig("SRs",         config_file,_setup)
 masses_s  =  GetConfig("masses_s",      config_file,_setup)
 masses_t  =  GetConfig("masses_t",    config_file,_setup)
+masses_c  =  GetConfig("masses_c",    config_file,_setup)
 IDMu      =  GetConfig("IDMu",        config_file,_setup)
 IDEl      =  GetConfig("IDEl",        config_file,_setup)
+Vars      =  GetConfig("Vars",        config_file,_setup)
+### strings
 Analyzer  =  GetSConfig("Analyzer",    config_file,_setup)
 Outdir    =  GetSConfig("OutDir",      config_file,_setup)
-Vars      =  GetConfig("Vars",        config_file,_setup)
-Workspace =  GetSConfig("Workspace", config_file,_setup)
 
 print "Running with setup:"
 PrintSetup(_setup)
 
-
-Outputdir = os.getenv("PLOTTER_WORKING_DIR")+"/"+ str(Outdir) + "/"+str(Analyzer)+"/run/"
-MakeDirectory(os.getenv("PLOTTER_WORKING_DIR")+"/"+ str(Outdir))
-
+Outputdir=os.getenv("HNDILEPTONWORKSPACE_DIR")+"/"+ str(Outdir)
 MakeDirectory(Outputdir)
-
-       
-outname="AllCards"
-for s in SRs:
-       outname+="_"+s
 
 list_liters = [years, _channels, flavours,SRs,Vars]
 niter = NIteration(list_liters)
@@ -73,9 +67,9 @@ for _iter in range(0,niter):
        print year + " " + _channel + " " + flavour + " " + SR + " " + _var
 
        IDs     = ChooseID(IDMu, IDEl, flavour, 1)
-       _masses = ChooseMassList(masses_s, masses_t, _channel, 1)
+       _masses = ChooseMassList(masses_s, masses_t,masses_c, _channel, 1)
 
-       file_output = os.getenv("PLOTTER_WORKING_DIR")+"/"+ Outdir + "/"+str(Analyzer)+"/" + year+"/"
+       file_output = os.getenv("HNDILEPTONWORKSPACE_DIR")+"/"+ Outdir + "/" + year+"/"
        MakeDirectory(file_output)
        file_output=file_output+ flavour + "_" + SR
        MakeDirectory(file_output)
@@ -97,7 +91,7 @@ for _iter in range(0,niter):
                      nfake   = GetCountShape("Fake",flavour,SR, mass,year,_id,_var)
                      ncf     = GetCountShape("cf",flavour,SR,mass,year,_id,_var) 
                      nsig    = GetSignalEventsShape(flavour,SR,mass,year, _channel,_id,_var)
-                     sifeff  = str(GetSignalEventsShape(flavour,SR,mass,year, _channel,_id,_var)
+                     sifeff  = str(GetSignalEventsShape(flavour,SR,mass,year, _channel,_id,_var))
                      bkg     = nprompt+ nfake +ncf
 
                      bkg_exo_17_028=GetEXO_17_028_Bkg(flavour,SR,mass)

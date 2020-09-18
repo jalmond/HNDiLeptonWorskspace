@@ -6,11 +6,13 @@ LimitDir = /data6/Users/jalmond/Limits/CMSSW_10_2_13/src/HiggsAnalysis/CombinedL
 channels = Combinedchannel 
 flavours = MuMu,EE
 years 	 = 2016,2017,2018
-SRs   	 = SR1,SR2
+SRs   	 = SR1,SR2,SR3,SR4
 masses_s = 100,125,200,250,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500
 masses_t = 600,700,800,900,1000,1100,1200,1500
-IDMu 	 = POGTightPFIsoVeryTight,HNTight2016
-IDEl	 = passTightID,HNTight2016,passTightID_noccb,passTightID_nocc
+masses_c = 100,125,200,250,300,400,500,600,700,800,900,1000,1100,1200,1500
+IDMu     = POGTightPFIsoVeryTight,HNTight2016,HNTightV1,POGTightPFIsoVeryVeryTight,POGTightPFIsoTight,POGTightPFIsoMedium,POGTightPFIsoLoos
+IDEl     = passTightID,passMediumID,HNTight2016,passTightID_noccb,passTightID_nocc
+
 batch_tag_combinedyears = HN_SRComb_SR1SR2_EE_MM
 batch_tag_combbins      = HN_SRComb_SR1SR2_EE_MM
 batch_tag_bins          = HN_SR_SR1_SR2_EE_MM
