@@ -12,31 +12,31 @@ Contains Codes for:
  Steps to get limits Cut and Count:
 ----------------------------------------------------
 
-[1] Merge output from SKAnalyzer \n
-- cd $HNDILEPTONWORKSPACE_DIR/OutputTool/$Analyzer \n
+[1] Merge output from SKAnalyzer 
+- cd $HNDILEPTONWORKSPACE_DIR/OutputTool/$Analyzer 
 - source run.sh
-    >>>>>>> Files are merged and sent to $HNDILEPTONWORKSPACE_DIR/OutputTool/MergedFiles/$Analyzer
-    >>>>>>> i.e, one for each bkg SSPrompt,CF,FakeMu, OSPrompt
+    >> Files are merged and sent to $HNDILEPTONWORKSPACE_DIR/OutputTool/MergedFiles/$Analyzer
+    >> i.e, one for each bkg SSPrompt,CF,FakeMu, OSPrompt
 
 [2] Make cards
---- cd $HNDILEPTONWORKSPACE_DIR/Limits/MakeCards/CutandCount
---- source run.sh $config 
-    >>>>>>> $config found in configfiles dir
-    >>>>>>> script produces datacards for each SR bin depending on the instructions in $config, options are
-    	        >  channels = Combinedchannel,SChannel,TChannel  (as long as signals are ran, combined adds s+t)
-		>  flavours = EE,MuMu   (names given in analyzer for channels)    
-		>  years    = 2016,2017,2018 
-		>  SRs      = SR1,SR2  (names of SR in analyzer)
-		>  masses_s = 100,125,200,250,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500 (mass for s-channel)
-		>  masses_t = 600,700,800,900,1000,1100,1200,1500  (masses of signal t-channel)
-		>  masses_c = 100,125,200,250,300,400,500,600,700,800,900,1000,1100,1200,1500 (masses with combined)
-		>  IDMu     = POGTightPFIsoVeryTight  (name of ID in analyzer)
-		>  IDEl     = passTightID  ( (name of ID in analyzer))
+- cd $HNDILEPTONWORKSPACE_DIR/Limits/MakeCards/CutandCount
+- source run.sh $config 
+  >> $config found in configfiles dir
+  >> script produces datacards for each SR bin depending on the instructions in $config, options are
+     >  channels = Combinedchannel,SChannel,TChannel  (as long as signals are ran, combined adds s+t)	
+     >  flavours = EE,MuMu   (names given in analyzer for channels)    
+     >  years    = 2016,2017,2018 
+     >  SRs      = SR1,SR2  (names of SR in analyzer)
+     >  masses_s = 100,125,200,250,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500 (mass for s-channel)
+     >  masses_t = 600,700,800,900,1000,1100,1200,1500  (masses of signal t-channel)
+     >  masses_c = 100,125,200,250,300,400,500,600,700,800,900,1000,1100,1200,1500 (masses with combined)
+     >  IDMu     = POGTightPFIsoVeryTight  (name of ID in analyzer)
+     >  IDEl     = passTightID  ( (name of ID in analyzer))
 
-    >>>>>>> datacards sent to  $HNDILEPTONWORKSPACE_DIR/Limits/DataCardsCutCount/HNtypeI_JA/Year/Channel+SR
-    >>>>>>> list of all datacards to run combined in $HNDILEPTONWORKSPACE_DIR/Limits/DataCardsCutCount/HNtypeI_JA/run/
-    >>>>>>> signals are scaled to get r param in limit code
-    >>>>>>> configure to set systematics
+  >>>>>>> datacards sent to  $HNDILEPTONWORKSPACE_DIR/Limits/DataCardsCutCount/HNtypeI_JA/Year/Channel+SR
+  >>>>>>> list of all datacards to run combined in $HNDILEPTONWORKSPACE_DIR/Limits/DataCardsCutCount/HNtypeI_JA/run/
+  >>>>>>> signals are scaled to get r param in limit code
+  >>>>>>> configure to set systematics
     
     >>>>>>> Also produces txt files and plots for all datacards, sent to lxplus website
     >>>>>>> Txt files sent to $HNDILEPTONWORKSPACE_DIR/Limits/DataCardsCutCount/HNtypeI_JA/Year/Channel+SR
