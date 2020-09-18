@@ -1,0 +1,13 @@
+Two scripts:
+[1] MakeInputLimitCutCount_log.py
+[2] MakeInputLimitCutCount.py
+
+To Run:
+python [1]/[2]  -c configfiles/X
+
+[1]+[2] runs over merged samples. Requires Merge*.py scirpts to be ran first
+
+[1] runs over samples for setup as defined in configfile and creates datacards for each bin/year/SR etc
+[1] cards sent to Limits/DataCardsCutCount/
+
+[2] runs over the samples and creates tables of yields used in the datacards and plots the histogram versions

@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "/data6/Users/jalmond/Limits/CMSSW_10_2_13/bin/slc7_amd64_gcc700/combineCards.py", line 69, in <module>
-    DC = parseCard(file, options)
-  File "/data6/Users/jalmond/Limits/CMSSW_10_2_13/python/HiggsAnalysis/CombinedLimit/DatacardParser.py", line 320, in parseCard
-    if np_bin == 0: raise RuntimeError, "Bin %s has no processes contributing to it" % b
-RuntimeError: Bin sr1 has no processes contributing to it

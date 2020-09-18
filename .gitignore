@@ -1,3 +1,4 @@
+Limits/DataCardsCutCount/*/*/*/*.root
 python/*.pyc
 src/FakeRates/CreateInput/FakeFiles
 Latex/workspace/*.tex

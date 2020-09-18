@@ -1,12 +1,13 @@
 ### Make sure no spaces in lists 2016,2017,2018 not 2016,2017, 2018
 Analyzer = HNtypeI_JA
-OutDir   = Limits/DataCardsCutCount/
+OutDir   = Limits/DataCardsCutCount/HNtypeI_JA/
 BkgType  = MCBased 
 channels = Combinedchannel 
 flavours = MuMu,EE
 years 	 = 2016,2017,2018
 SRs   	 = SR1,SR2
 masses_s = 100,125,200,250,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500
-masses_t  =  600,700,800,900,1000,1100,1200,1500
-IDMu 	  =  POGTightPFIsoVeryTight,HNTight2016
-IDEl	  = passTightID,HNTight2016,passTightID_noccb,passTightID_nocc
+masses_t = 600,700,800,900,1000,1100,1200,1500
+masses_c = 100,125,200,250,300,400,500,600,700,800,900,1000,1100,1200,1500
+IDMu 	 = POGTightPFIsoVeryTight,HNTight2016
+IDEl	 = passTightID,HNTight2016,passTightID_noccb,passTightID_nocc

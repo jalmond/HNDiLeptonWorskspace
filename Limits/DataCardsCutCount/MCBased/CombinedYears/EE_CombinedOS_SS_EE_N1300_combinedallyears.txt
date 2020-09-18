@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/data6/Users/jalmond/Limits/CMSSW_10_2_13/bin/slc7_amd64_gcc700/combineCards.py", line 68, in <module>
-    file = open(fname, "r")
-IOError: [Errno 2] No such file or directory: '/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsCutCount/MCBased/2016/EE_CombinedOS_SS/card_combinedOS_SS_EE_N1300_combined.txt'

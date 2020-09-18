@@ -194,15 +194,19 @@ def GetEXO_17_028_Eff(channel,SR,mass):
 def PrintList(_list):
     for x in _list:
         print x
-def ChooseMassList(list1, list2, channel,order_sc):
+def ChooseMassList(list1, list2,list3, channel,order_sc):
 
     if order_sc == 1:
-        if channel == "TChannel":
+        if channel == "Combinedchannel":
+            return list3
+        elif channel == "TChannel":
             return list2
-        else:
+        else:            
             return list1
     else:
-        if channel == "TChannel":
+        if channel == "Combinedchannel":
+            return list3
+        elif channel == "TChannel":
             return list1
         else:
             return list2
@@ -211,11 +215,11 @@ def ChooseMassList(list1, list2, channel,order_sc):
 def ChooseTag(channel):
     
     if channel == "TChannel":
-        return "_VBF"
+        return "_VBFOnly"
     elif channel == "CombinedChannel":
-        return "_combined"
+        return "_VBF"
     else:
-        return ""
+        return "_DY"
         
 def ChooseID(list1, list2, flavour,order_mu):
     if order_mu == 1:
@@ -250,6 +254,9 @@ def SumIteration(i, lists):
     elif len(lists) == 4:
         niter = NIteration(lists)
         return SumIteration4(i, lists[0],lists[1],lists[2],lists[3],niter)
+    elif len(lists) == 5:
+        niter = NIteration(lists)
+        return SumIteration5(i, lists[0],lists[1],lists[2],lists[3],lists[4],niter)
 
     return [0,0,0]
     
@@ -298,6 +305,38 @@ def SumIteration4(i, list1, list2, list3,list4,nmax):
                     iter_1=iter_1+1
                     
     return ["","","",""]
+
+
+def SumIteration4(i, list1, list2, list3,list4,list5,nmax):
+
+    iter_1=0
+    iter_2=0
+    iter_3=0
+    iter_4=0
+    iter_5=0
+
+    for x in range(0, nmax):
+        if x == i :
+            return [list1[iter_1],list2[iter_2],  list3[iter_3] , list4[iter_4], list5[iter_5] ]
+
+
+        iter_5=iter_5+1
+        if iter_5 == len(list5):
+            iter_5=0
+            iter_4=iter_4+1
+            if iter_4 == len(list4):
+                iter_4=0
+                iter_3=iter_3+1
+                if iter_3 == len(list3):
+                    iter_3=0
+                    iter_2=iter_2+1
+                    if iter_2 == len(list2):
+                        iter_2=0
+                        iter_1=iter_1+1
+
+
+    return ["","","","",""]
+
 def PrintSetup(setupconfig):
 
     for x in setupconfig:
@@ -439,13 +478,13 @@ def GetSignalEffSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
 
     filepaths = []
     if VBF == "_DY":
-        filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
+        filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/"+year+"/SIG/"+Analyzer+"_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
     elif VBF == "_VBF":
-        filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
+        filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/"+year+"/SIG/"+Analyzer+"_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
     else :
-        filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
-        if int(mass) > 250:
-            filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
+        filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/"+year+"/SIG/"+Analyzer+"_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
+        if int(mass) > 500:
+            filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/"+year+"/SIG/"+Analyzer+"_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
 
     total=0
 
@@ -467,6 +506,45 @@ def GetSignalEffSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
         _file.Close()
     return round((float(total)/float(no_cut)),4)
 
+
+def GetSignalEventsShape(channel,SR, mass,year, VBF,_id,_var):
+
+    histname="signal"
+
+    filepath = os.getenv("PLOT_PATH") + "Run2Legacy_v4/Limit/Shape/"+ year + "/" + flavour + "_"+ SR + "/HN"+ mass + "_highmass_Run2Legacy_v4_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+ _var+".root"
+
+    total=0
+
+    _file = ROOT.TFile(filepath)
+    if _file:
+        hist=_file.Get(histname)
+        if hist:
+            total += hist.Integral()
+    _file.Close()
+
+    if total < 0:
+        return 0.
+
+    return round(total,4)
+
+
+
+def GetCountShape(histname,flavour,SR, mass,year,_id,_var):
+
+    filepath = os.getenv("PLOT_PATH") + "Run2Legacy_v4/Limit/Shape/"+ year + "/" + flavour + "_"+ SR + "/HN"+ mass + "_highmass_Run2Legacy_v4_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+_var+".root"
+    total=0
+    _file = ROOT.TFile(filepath)
+    if _file:
+        hist=_file.Get(histname)
+        if hist:
+            total += hist.Integral()
+    _file.Close()
+
+    return round(total,4)
+
+
+
+
 def GetSignalEventsSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
 
     histname=GetHistNameSRMassBin(channel,SR, mass,year,_id,Analyzer)
@@ -478,7 +556,7 @@ def GetSignalEventsSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
         filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
     else :
         filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
-        if int(mass) > 250:
+        if int(mass) > 500:
             filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
 
     total=0
@@ -498,13 +576,13 @@ def GetSignalEventsSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
                                                                                                      
     scale_ = 1.
     if int(mass) <= 200:
-        scale_ = 0.001
-    elif int(mass) <= 600:
         scale_ = 0.1
+    elif int(mass) <= 600:
+        scale_ = 1
     elif int(mass) <=1000:
-        scale_ = 1.
-    else:
         scale_ = 10.
+    else:
+        scale_ = 100.
 
 
     #since only 2016 samples available use these and scale to lumi for now                          \
@@ -542,6 +620,18 @@ def GetFakeCountSRMassBin(channel, SR, mass,year,_id,Analyzer):
 
 
     return round(total,4)
+
+
+def GetVariableName(_var, signalregion):
+    _vartmp = _var
+    if signalregion == "SR2":
+        _vartmp=_vartmp.replace('jj','J')
+    if signalregion == "SR4":
+        _vartmp=_vartmp.replace('jj','J')
+
+    return _vartmp
+    
+    
 
 def GetCFCountSRMassBin(channel,SR, mass,year,_id,Analyzer):
 

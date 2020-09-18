@@ -1,184 +1,143 @@
+#!/usr/bin/env python                                                                                       
+
+### makes cards with names card_2016_EE_SR1_N200_combined_passTightID.txt                                   
 import os
+import sys
+import argparse
+import datetime
 
-def GetMassBin(mass, VBF):
+sys.path.insert(1, '/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/python')
+from GeneralSetup import *
 
-    masses = ["100",
-              "125",
-              "200",
-              "250",
-              "300",
-              "400",
-              "500",
-              "600",
-              "700",
-              "800",
-              "900",
-              "1000",
-              "1100",
-              "1200",
-              "1300",
-              "1400",
-              "1500",
-              "1700"]
-
-    masses_vbf =  [   "300",
-              "400",
-              "500",
-              "600",
-              "700",
-              "800",
-              "900",
-              "1000",
-              "1100",
-              "1200",
-              "1300",
-              "1400",
-              "1500",
-              "1700"]
-
-    counter = 0
-    _masses= masses
-    if VBF == "_VBF":
-        _masses = masses_vbf
-    for m in _masses:
-        counter = counter +1
-        if m == mass:
-            return counter
+args = setupargs()
+if args.Full:
+       check_lxplus_connection()
+       print "Connected to " + get_lxplus_host()
 
 
-    return -1
+#set current directory to memory                                                                            
+pwd = os.getcwd()
 
-def GetSignalEvents(channel,SR, mass,year, VBF,_id,_var):
+# get config file name                                                                                      
+config_file= args.ConfigFile
 
-    histname="signal"
-
-    filepath = os.getenv("PLOT_PATH") + "Run2Legacy_v4/Limit/Shape/"+ year + "/" + flavour + "_"+ SR + "/HN"+ mass + "_highmass_Run2Legacy_v4_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+_var+".root"
-
-    total=0
-
-    _file = ROOT.TFile(filepath)
-    if _file:
-        hist=_file.Get(histname)
-        if hist:
-            total += hist.Integral()
-    _file.Close()
-
-    if total < 0:
-        return 0.
-
-    return total
+# now import analysis functions                                                                             
+from HNType1_config import *
 
 
+if config_file == "None":
+    print "Need input file to configure job"
+    print "python MakeInputLimitShape.py -c config.txt"
+    exit()
 
-        
-def GetCount(histname,flavour,SR, mass,year,_id,_var):
+_setup=[]
+_channels =  GetConfig("channels",    config_file,_setup)
+flavours  =  GetConfig("flavours",    config_file,_setup)
+years     =  GetConfig("years",       config_file,_setup)
+SRs       =  GetConfig("SRs",         config_file,_setup)
+masses_s  =  GetConfig("masses_s",      config_file,_setup)
+masses_t  =  GetConfig("masses_t",    config_file,_setup)
+masses_c  =  GetConfig("masses_c",    config_file,_setup)
+IDMu      =  GetConfig("IDMu",        config_file,_setup)
+IDEl      =  GetConfig("IDEl",        config_file,_setup)
+Analyzer  =  GetSConfig("Analyzer",    config_file,_setup)
+BkgType   =  GetSConfig("BkgType",     config_file,_setup)
+Outdir    =  GetSConfig("OutDir",      config_file,_setup)
+Vars      =  GetConfig("Vars",        config_file,_setup)
+Workspace =  GetSConfig("Workspace", config_file,_setup)
+print "Running with setup:"
+PrintSetup(_setup)
 
-    
-    
-    filepath = os.getenv("PLOT_PATH") + "Run2Legacy_v4/Limit/Shape/"+ year + "/" + flavour + "_"+ SR + "/HN"+ mass + "_highmass_Run2Legacy_v4_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+_var+".root"
-    total=0
-    _file = ROOT.TFile(filepath)
-    if _file:
-        hist=_file.Get(histname)
-        if hist:
-            total += hist.Integral()
-    _file.Close()
 
-    return round(total,4)
+# setup output path                                                                                      
+Outputdir = os.getenv("PLOTTER_WORKING_DIR")+"/"+ str(Outdir) 
+MakeDirectory(Outputdir)
+runOutputdir = os.getenv("PLOTTER_WORKING_DIR")+"/"+ str(Outdir)+ "/run/"
+MakeDirectory(RunOutputdir)
+WorkSpaceDirectory= os.getenv("PLOTTER_WORKING_DIR")+"/"+ str(Outdir)+"/Workspace/"
+MakeDirectory(WorkSpaceDirectory)
 
+outname="AllCards"
+for s in SRs:
+       outname+="_"+s
+all_list = open(RunOutputdir + outname + ".txt","w")
 
-import ROOT
+list_liters = [years, _channels, flavours,SRs,Vars]
+niter = NIteration(list_liters)
+outfiles = []
+files_tocopy=[]
+for _iter in range(0,niter):
 
-_channels = ["reco_ml1jj","reco_ml2jj","reco_mlljj","signalbin"]#"reco_finebin_ml1jj","reco_finebin_ml2jj","reco_finebin_mlljj","signalbin"]#,"Tchannel"]#, "Combinedchannel"]
-flavours = ["MuMu", "EE"]
-years = ["2016","2017","2018"]
+       GetIter  = SumIteration(_iter, list_liters)
+       year     = GetIter[0]
+       _channel = GetIter[1]
+       flavour  = GetIter[2]
+       SR       = GetIter[3]
+       _var     = GetIter[4] 
+       print year + " " + _channel + " " + flavour + " " + SR + " " + _var
 
-SRs = ["SR1","SR2"] #,"SR3","SR4"]
-masses = ["100" ,"200","200", "400", "500", "600","700","800","900","1000","1100", "1200","1500"]
-masses_t = [ "600","700","800","900","1000","1100", "1200","1500"]
-#_channels =  ["ml1jj","ml2jj","mlljj","signalbin", "finebin_ml1jj","finebin_ml2jj","finebin_mlljj"]
+       IDs     = ChooseID(IDMu, IDEl, flavour, 1)
+       _masses = ChooseMassList(masses_s, masses_t,masses_c, _channel, 1)
+       
+       for _id in IDs:
+           for mass in _masses:
+               isVBF=ChooseTag(_channel)
+               _var = GetVariableName(_var,SR)
+               
+               #card_2016_EE_SR1_N200_combined_passTightID.txt
+               cardname = "/card_"+year+"_"+flavour + "_" + SR+"_N" + mass + isVBF+"_" +_id+"_"+_var+".txt"
+               card_output_dir=Outputdir+year + "/"
+               MakeDirector(card_output_dir)
+               card_output_dir = card_output_dir+flavour + "_"+ SR + "/"
+               MakeDirector(card_output_dir)
 
-IDMu = ["POGTightPFIsoVeryTight","HNTight2016"]
-IDEl = ["passTightID","HNTight2016","passTightID_noccb","passTightID_nocc"]
-if not os.path.exists(os.getenv("PLOTTER_WORKING_DIR")+"/Limits/DataCardsShape/MCBased/run/"):
-    os.mkdir(os.getenv("PLOTTER_WORKING_DIR")+"/Limits/DataCardsShape/MCBased/run/")
+               limitfile = open(card_output_dir + cardname,"w")
+               print card_output_dir + cardname
+               all_list.write(card_output_dir + cardname + " \n") 
+               
+               input_rootfile = "HN"+ mass + "_highmass_Run2Legacy_v4_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+_var+".root"
+               input_filepath =  card_output_dir +input_rootfile
+               
+               #input_filepath ="HN"+mass+"_highmass_Run2Legacy_v4_"+year+"_"+SR+"_"+flavour+"_"+_id+"_"+_var+".root"
+               
+               #os.system("cp " + input_filepath + " " + WorkSpaceDirectory)
+               
+               limitfile.write("imax 1  number of channels\n")
+               limitfile.write("jmax 3  number of backgrounds\n")
+               limitfile.write("kmax *  number of nuisance parameters (sources of systematical uncertainties)\n")
+               limitfile.write("------------\n")
+               limitfile.write("shapes * * "+ " " + input_filepath  + " $PROCESS $PROCESS_$SYSTEMATIC\n")
+               limitfile.write("------------\n")
+               limitfile.write("# we have just one channel, in which we observe 0 events\n")
+               limitfile.write("bin bin1\n")
 
-all_list = open("/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/MCBased/run/AllCards_SR1_SR2_SR3_SR4.txt","w")
+               
+               limitfile.write("observation "+str(GetCountShape("data_obs",flavour,SR, mass,year,_id,_var))+"\n")
+               print str(GetCountShape("data_obs",flavour,SR, mass,year,_id,_var))
+               limitfile.write("------------\n")
+               limitfile.write("# now we list the expected events for signal and all backgrounds in that bin\n")
+               limitfile.write("# the second 'process' line must have a positive number for backgrounds, and 0 for signal\n")
+               limitfile.write("# then we list the independent sources of uncertainties, and give their effect (syst. error)\n")
+               limitfile.write("# on each process and bin\n")
+               limitfile.write("bin	bin1	bin1	bin1	bin1\n")
+               limitfile.write("process	prompt	fake	cf	signal\n")
+               limitfile.write("process	1	2	3	0\n")
+               rate_line = "rate  " + str(GetCountShape("prompt",flavour,SR, mass,year,_id,_var)) + " " + str(GetCountShape("Fake",flavour,SR, mass,year,_id,_var)) + " " + str(GetCountShape("cf",flavour,SR,mass,year,_id,_var)) + " " + str(GetSignalEventsShape(flavour,SR,mass,year, _channel,_id,_var))
 
-for year in years:
-    for _channel in _channels:
-        for flavour in flavours:
-            IDs = []
-            if flavour == "EE":
-                IDs = IDEl
-            else:
-                IDs = IDMu
-         
-            for SR in SRs:
-                
- 
-                _masses = masses
-                if _channel == "Tchannel":
-                    _masses = masses_t
-
-                for _id in IDs:
-                    for mass in _masses:
-                        
-             
-                        isVBF=""
-                        if _channel == "Tchannel":
-                            isVBF="_VBF"
-                        if _channel == "Combinedchannel":
-                            isVBF="_combined"
-
-             
-                        _var=_channel  
-                        if SR == "SR2":
-                           _var=_channel.replace('jj','J')
-        
-                           
-                           
-                        pinput="/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Plots/Run2Legacy_v4/Limit/Shape/Workspace/"
-                        limitfile = open(pinput + "/card_"+year+"_"+flavour + "_" + SR+"_N" + mass + isVBF+"_"+_id+"_"+_var+".txt","w")
-                        print pinput + "/card_"+year+"_"+flavour + "_" + SR+"_N" + mass + isVBF+"_"+_id+"_"+_var+".txt"
-                        all_list.write(pinput + "/card_"+year+"_"+flavour + "_" + SR+"_N" + mass + isVBF+"_"+_id+"_"+_var+".txt \n")
-                        
-                        input_filepath = os.getenv("PLOT_PATH") + "Run2Legacy_v4/Limit/Shape/"+ year + "/" + flavour + "_"+ SR + "/HN"+ mass + "_highmass_Run2Legacy_v4_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+_var+".root"
-                        #input_filepath ="HN"+mass+"_highmass_Run2Legacy_v4_"+year+"_"+SR+"_"+flavour+"_"+_id+"_"+_var+".root"
-
-                        #os.system("cp " + input_filepath + " " + pinput + year+"/"+ flavour + "_" + SR + "/")
-                        limitfile.write("imax 1  number of channels\n")
-                        limitfile.write("jmax 3  number of backgrounds\n")
-                        limitfile.write("kmax *  number of nuisance parameters (sources of systematical uncertainties)\n")
-                        limitfile.write("------------\n")
-                        limitfile.write("shapes * * "+ " " + input_filepath  + " $PROCESS $PROCESS_$SYSTEMATIC\n")
-                        limitfile.write("------------\n")
-                        limitfile.write("# we have just one channel, in which we observe 0 events\n")
-                        limitfile.write("bin bin1\n")
-                        limitfile.write("observation "+str(GetCount("data_obs",flavour,SR, mass,year,_id,_var))+"\n")
-                        print str(GetCount("data_obs",flavour,SR, mass,year,_id,_var))
-                        limitfile.write("------------\n")
-                        limitfile.write("# now we list the expected events for signal and all backgrounds in that bin\n")
-                        limitfile.write("# the second 'process' line must have a positive number for backgrounds, and 0 for signal\n")
-                        limitfile.write("# then we list the independent sources of uncertainties, and give their effect (syst. error)\n")
-                        limitfile.write("# on each process and bin\n")
-                        limitfile.write("bin	bin1	bin1	bin1	bin1\n")
-                        limitfile.write("process	prompt	fake	cf	signal\n")
-                        limitfile.write("process	1	2	3	0\n")
-                        rate_line = "rate  " + str(GetCount("prompt",flavour,SR, mass,year,_id,_var)) + " " + str(GetCount("Fake",flavour,SR, mass,year,_id,_var)) + " " + str(GetCount("cf",flavour,SR,mass,year,_id,_var)) + " " + str(GetSignalEvents(flavour,SR,mass,year, _channel,_id,_var))
-
-                        rate_line += "\n"
-                        limitfile.write(rate_line)
-                        limitfile.write("Lumi	lnN	1.05	-	-	1.05\n")
-                        limitfile.write("Fake	lnN	-	1.3	-	-\n")
-                        limitfile.write("CF	        lnN	-	-	1.439	-\n")
-                        lepid = "MUID"
-                        #if flavour == "EE":
-                        #    lepid = "ELID"
-                        #limitfile.write(lepid + "	shapeN2 1       1       1       1\n")
-                        #limitfile.write("JES	shapeN2 1       1       1       1\n") 
-                        #limitfile.write("JER	shapeN2 1       1       1       1\n") 
-                        limitfile.write("* autoMCStats 0 0 1\n")
-                        
-                        limitfile.close()
+               rate_line += "\n"
+               limitfile.write(rate_line)
+               limitfile.write("Lumi	lnN	1.05	-	-	1.05\n")
+               limitfile.write("Fake	lnN	-	1.3	-	-\n")
+               limitfile.write("CF	        lnN	-	-	1.439	-\n")
+               lepid = "MUID"
+               #if flavour == "EE":
+               #    lepid = "ELID"
+               #limitfile.write(lepid + "	shapeN2 1       1       1       1\n")
+               #limitfile.write("JES	shapeN2 1       1       1       1\n") 
+               #limitfile.write("JER	shapeN2 1       1       1       1\n") 
+               limitfile.write("* autoMCStats 0 0 1\n")
+               
+               limitfile.close()
+               os.system("cp " + card_output_dir + cardname + " " + WorkSpaceDirectory)    
 all_list.close()
+

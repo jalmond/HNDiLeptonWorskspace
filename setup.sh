@@ -20,6 +20,7 @@ then
     export PLOTTER_WORKING_DIR=`pwd`
     export PLOT_PATH=$PWD/Plots/
     export OUTFILE_PATH=$PLOTTER_WORKING_DIR/rootfiles/
+    export DATACARD_SHAPE_PATH=$PLOTTER_WORKING_DIR/Limits/DataCardsShape/
     export INFILE_MERGED_PATH=$PLOTTER_WORKING_DIR/OutputTool/MergedFiles/ 
     export INFILE_PATH=/data6/Users/jalmond/SKFlatOutput/Run2Legacy_v4/
     

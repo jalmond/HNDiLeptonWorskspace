@@ -776,24 +776,25 @@ double GetIntegral( TString sigpath,  TString n_sr_hist){
 double SignalScale(TString year, TString mass){
 
   float scale = 1.;
-  if(mass == "100") scale = 0.001;
-  if(mass == "200") scale = 0.001;
-  if(mass == "300") scale = 0.1;
-  if(mass == "400") scale = 0.1;
-  if(mass == "500") scale = 0.1;
-  if(mass == "600") scale = 0.1;
-  if(mass == "700") scale = 1.;
-  if(mass == "800") scale = 1.;
-  if(mass == "900") scale = 1.;
-  if(mass == "1000") scale = 1.;
-  if(mass == "1100") scale = 1.;
-  if(mass == "1200") scale = 10.;
-  if(mass == "1300") scale = 10.;
-  if(mass == "1400") scale = 10.;
-  if(mass == "1500") scale = 10.;
-
-  if (year == "2017") scale *= 41.54/36.47;
-  if (year == "2018") scale *= 59.96/36.47;
+  if(mass == "100") scale = 0.1;
+  else if(mass == "200") scale = 0.1;
+  else if(mass == "300") scale = 1.;
+  else if(mass == "400") scale = 1.;
+  else if(mass == "500") scale = 1.;
+  else if(mass == "600") scale = 1.;
+  else if(mass == "700") scale = 10.;
+  else if(mass == "800") scale = 10.;
+  else if(mass == "900") scale = 10.;
+  else if(mass == "1000") scale = 10.;
+  else if(mass == "1100") scale = 100.;
+  else if(mass == "1200") scale = 100.;
+  else if(mass == "1300") scale = 100.;
+  else if(mass == "1400") scale = 100.;
+  else if(mass == "1500") scale = 100.;
+  else scale = 100.;
+  
+  //if (year == "2017") scale *= 41.54/36.47;
+  //if (year == "2018") scale *= 59.96/36.47;
 
   return scale;
 
