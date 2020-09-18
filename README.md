@@ -9,12 +9,12 @@ Contains Codes for:
 - making cards for limits
 
 ----------------------------------------------------
-- Steps to get limits Cut and Count:
+ Steps to get limits Cut and Count:
 ----------------------------------------------------
 
-[1] Merge output from SKAnalyzer
---- cd $HNDILEPTONWORKSPACE_DIR/OutputTool/$Analyzer
---- source run.sh
+[1] Merge output from SKAnalyzer \n
+- cd $HNDILEPTONWORKSPACE_DIR/OutputTool/$Analyzer \n
+- source run.sh
     >>>>>>> Files are merged and sent to $HNDILEPTONWORKSPACE_DIR/OutputTool/MergedFiles/$Analyzer
     >>>>>>> i.e, one for each bkg SSPrompt,CF,FakeMu, OSPrompt
 
@@ -68,11 +68,11 @@ Contains Codes for:
 
 
 ----------------------------------------------------
-- Steps to get limits Shape:
+ Steps to get limits Shape:
 ----------------------------------------------------
-Mcopy steps [1] from Cut Count
+- copy steps [1] from Cut Count
 
-[2] Making datacards
+- [2] Making datacards
 
 --- produce root files for input
     >>>>>>> cd /data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/MakeShapeInput/
