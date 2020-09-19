@@ -40,11 +40,10 @@ Contains Codes for:
  	- list of all datacards to run combined in $HNDILEPTONWORKSPACE_DIR/Limits/DataCardsCutCount/HNtypeI_JA/run/
   	- signals are scaled to get r param in limit code
   	- configure to set systematics
-    
   	- Also produces txt files and plots for all datacards, sent to lxplus website
   	- Txt files sent to $HNDILEPTONWORKSPACE_DIR/Limits/DataCardsCutCount/HNtypeI_JA/Year/Channel+SR
   		-  cardname="card_"+year+"_"+flavour + "_" + SR+"_N" + mass + isVBF+"_"+_id+".txt"
-    		-  txtfile = event_counts_"+year+"_"+SR+"_"+_id+"_"+flavour+"_cutcount.txt"
+    		-  txtfile="event_counts_"+year+"_"+SR+"_"+_id+"_"+flavour+"_cutcount.txt"
 
 [3] run combine  on limit card
 - get blind exected limits for each year:
@@ -58,16 +57,16 @@ Contains Codes for:
     - EE_SR4 (OS ; X ak4 jet; 1+ AK8 jets)
 
 [4] merge cards for:
-    -  LL_SR1+SR2     (each year)
-    	    - DIR =  Outdir +  + year + "/"+flavour+"_CombinedSR1_SR2/
-	    - cardname= "card_"+year + "_"+flavour+"_combined_SR1_SR2_N"+mass+channel_tag+"_"+_id+".txt"
-    -  LL_SR1+SR2+SR3+SR4  (each year)
-    	    - Outdir +  + year + "/"+flavour+"_CombinedSR1_SR2_SR3_SR4/
-	    - cardname= "card_"+year + "_"+flavour+"_combined_SR1_SR2_SR3_SR4_N"+mass+channel_tag+"_"+_id+".txt"
-    -   2016-2018 LL_SR1+SR2
-    	    - "card_CombinedYears_"+flavour+"_combined_SR1_SR2_N"+mass+channel_tag+"_"+_id+".txt"
-    -   2016-2018 LL_SR1+SR2+SR3+SR4
-    	    - "card_CombinedYears_"+flavour+"_combined_SR1_SR2_SR3_SR4_N"+mass+channel_tag+"_"+_id+".txt"
+-  LL_SR1+SR2     (each year)
+   - DIR =  Outdir +  + year + "/"+flavour+"_CombinedSR1_SR2/"
+   - cardname= "card_"+year + "_"+flavour+"_combined_SR1_SR2_N"+mass+channel_tag+"_"+_id+".txt"
+-  LL_SR1+SR2+SR3+SR4  (each year)
+   - Outdir +  + year + "/"+flavour+"_CombinedSR1_SR2_SR3_SR4/"
+   - cardname= "card_"+year + "_"+flavour+"_combined_SR1_SR2_SR3_SR4_N"+mass+channel_tag+"_"+_id+".txt"
+-   2016-2018 LL_SR1+SR2
+   - "card_CombinedYears_"+flavour+"_combined_SR1_SR2_N"+mass+channel_tag+"_"+_id+".txt"
+-   2016-2018 LL_SR1+SR2+SR3+SR4
+   - "card_CombinedYears_"+flavour+"_combined_SR1_SR2_SR3_SR4_N"+mass+channel_tag+"_"+_id+".txt"
 
 
 ----------------------------------------------------
