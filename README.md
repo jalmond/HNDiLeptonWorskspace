@@ -6,7 +6,9 @@ Contains Codes for:
 - merging root files in tamsa/macbook for plot/limits
 - checking/plotting signal efficiencies 
 - making SR/CR plots
-- making cards for limits
+- making cards for HiggsCombinedTool
+- reading output from HiggsCombinedTool
+- plotting limits
 
 ----------------------------------------------------
  Steps to get limits Cut and Count:
@@ -16,7 +18,7 @@ Contains Codes for:
 - cd $HNDILEPTONWORKSPACE_DIR/OutputTool/$Analyzer 
 - source run.sh
 	- Files are merged and sent to $HNDILEPTONWORKSPACE_DIR/OutputTool/MergedFiles/$Analyzer
-	- i.e, one for each bkg SSPrompt,CF,FakeMu, OSPrompt
+	- i.e, one for each bkg SSPrompt,CF,FakeMu, OSPrompt (can )
 
 [2] Make cards
 - cd $HNDILEPTONWORKSPACE_DIR/Limits/MakeCards/CutandCount
