@@ -42,9 +42,9 @@ Contains Codes for:
   	- configure to set systematics
   	- Also produces txt files and plots for all datacards, sent to lxplus website
   	- Txt files sent to $HNDILEPTONWORKSPACE_DIR/Limits/DataCardsCutCount/HNtypeI_JA/Year/Channel+SR
-  		-  cardname="card_"+year+"_"+flavour + "_" + SR+"_N" + mass + isVBF+"_"+_id+".txt"
-    		-  txtfile="event_counts_"+year+"_"+SR+"_"+_id+"_"+flavour+"_cutcount.txt"
-
+  		-  cardname="card_"+year+flavour + SR+ "N" + mass + isVBF +"id+".txt"
+    		-  txtfile="eventcounts"+year+SR+_id+flavour+"cutcount.txt"
+ 
 [3] run combine  on limit card
 - get blind exected limits for each year:
     - MuMu_SR1 (SS ; 1 ak4 jet; 0 AK8 jets)
