@@ -12,7 +12,7 @@ def check_arg(_arg,tag, script):
 
 def setupargs(version):
 
-   if str(os.getenv("PLOTTER_WORKING_DIR")) == "None":
+   if str(os.getenv("HNDILEPTONWORKSPACE_DIR")) == "None":
        print "setup enviroment...."
        exit()
 

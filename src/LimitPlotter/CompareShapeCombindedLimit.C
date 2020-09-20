@@ -17,7 +17,7 @@ void  CompareShapeCombindedLimit(int i=0, int j=0,int k=0, TString dirname="", i
 
   //gStyle->SetOptStat(0);
   
-  TString WORKING_DIR =   getenv("PLOTTER_WORKING_DIR");  
+  TString WORKING_DIR =   getenv("HNDILEPTONWORKSPACE_DIR");  
   TString version = getenv("FLATVERSION");
   TString dataset = "";//getenv("CATANVERSION");
   TString ENV_FILE_PATH = WORKING_DIR;

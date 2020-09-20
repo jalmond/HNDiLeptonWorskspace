@@ -65,7 +65,7 @@ vector<Color_t>  GetHistColors(int nsamples){
  
 void MakeLatex(TString name, TString input , TString output ){
 
-  TString ENV_FILE_PATH= getenv("PLOTTER_WORKING_DIR");
+  TString ENV_FILE_PATH= getenv("HNDILEPTONWORKSPACE_DIR");
   
   TString workdir = ENV_FILE_PATH+ "/Latex/workspace/";
   TString texfile = ENV_FILE_PATH+ "/Latex/workspace/"+name+".tex";
@@ -139,15 +139,15 @@ vector<TString> GetMassType1Strings(vector<TString> ignore_masses, TString chann
 
 
   vector <TString> masses ;
-  if(channel != "TChannel"){
+  if(channel != "Tchannel"){
     masses.push_back("100");
     masses.push_back("125");
     masses.push_back("200");
     masses.push_back("250");
-    masses.push_back("300");
-    masses.push_back("400");
-    masses.push_back("500");
   }
+  masses.push_back("300");
+  masses.push_back("400");
+  masses.push_back("500");
   masses.push_back("600");
   masses.push_back("700");
   masses.push_back("800");
@@ -155,10 +155,8 @@ vector<TString> GetMassType1Strings(vector<TString> ignore_masses, TString chann
   masses.push_back("1000");
   masses.push_back("1100");
   masses.push_back("1200");
-  if(channel == "SChannel"){
-    masses.push_back("1300");
-    masses.push_back("1400");
-  }
+  masses.push_back("1300");
+  masses.push_back("1400");
   masses.push_back("1500");
 
   vector <TString> _masses ;
@@ -188,15 +186,15 @@ vector<double> GetMassType1Doubles(vector<TString> ignore_masses, TString channe
   
   
   vector <TString> masses ;
-  if(channel != "TChannel"){
+  if(channel != "Tchannel"){
     masses.push_back("100");
     masses.push_back("125");
     masses.push_back("200");
     masses.push_back("250");
-    masses.push_back("300");
-    masses.push_back("400");
-    masses.push_back("500");
   }
+  masses.push_back("300");
+  masses.push_back("400");
+  masses.push_back("500");
   masses.push_back("600");
   masses.push_back("700");
   masses.push_back("800");
@@ -204,10 +202,8 @@ vector<double> GetMassType1Doubles(vector<TString> ignore_masses, TString channe
   masses.push_back("1000");
   masses.push_back("1100");
   masses.push_back("1200");
-  if(channel == "SChannel"){
   masses.push_back("1300");
   masses.push_back("1400");
-  }
   masses.push_back("1500");
   vector <double> _masses ;
   for(unsigned int i=0; i < masses.size(); i++){

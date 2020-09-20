@@ -175,7 +175,7 @@ void GetSignalEfficiency(TString _chan = "Schannel"){
       MakeDir(ENV_PLOT_PATH+FLATVERSION+"/SignalEfficiency/"+_sr);
       MakeDir(ENV_PLOT_PATH+FLATVERSION+"/SignalEfficiency/"+_sr+"/"+_channel);
 
-      TString ENV_FILE_PATH= getenv("PLOTTER_WORKING_DIR");
+      TString ENV_FILE_PATH= getenv("HNDILEPTONWORKSPACE_DIR");
       TString workdir = ENV_FILE_PATH+ "/Latex/workspace/";
       
       

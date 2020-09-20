@@ -1,4 +1,12 @@
-import os
+import os,sys
+
+
+sys.path.insert(1, '/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/python')
+from GeneralSetup import *
+
+# now import analysis functions
+from HNType1_config import *
+
 
 years = ["2016", "2017", "2018"]
 
@@ -26,35 +34,34 @@ for y in years:
     ssprompt = ["SSPrompt",  ["WWTo2L2Nu_DS","ZG",ZZ ,"ggZZTo4e","WG", WZ, "VBF_HToZZTo4L","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","WpWp_EWK","WpWp_QCD","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu"]]
 
     # SS Fake / CF
-    ssFakesMuon_list = ["FakeMuMu", ["DY", "TTLJ_powheg", "WJets_MG","SingleTop","TTLL_powheg","QCD_"]]
-    ssFakesEl_list = ["FakeEE", [ "TTLJ_powheg", "WJets_MG","SingleTop","QCD_"]]
-    osFakesOS_list = ["FakeOS", [ "TTLJ_powheg", "WJets_MG","SingleTop","QCD_"]]
-    ssCF = ["CF", ["DYJets","DYJets10to50_MG", "TTLL_powheg"]]
+    ssFakesMuon_list = ["FakeMuMu", ["DYJets", "TTLJ_powheg", "WJets_MG","SingleTop","TTLL_powheg"]]
+    ssFakesEl_list = ["FakeEE", [ "TTLJ_powheg", "WJets_MG","SingleTop"]]
+    osFakesOS_list = ["FakeOS", [ "TTLJ_powheg", "WJets_MG","SingleTop"]]
+    ssCF = ["CF", ["DYJets", "TTLL_powheg"]]
     osCF = [ "OSCF", ["WpWp_EWK","WpWp_QCD"]]
     
     allSS = ["SS", ["WWTo2L2Nu_DS","WWTo2L2Nu_powheg","ZG",ZZ,"WWToLNuQQ_powheg","ggZZTo4e","WGToLNuG", WZ ,"VBF_HToZZTo4L","WWTo2L2Nu_DS","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","WpWp_EWK","WpWp_QCD","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu", "DY", "TTLJ_powheg", "WJets_MG","SingleTop","TTLL_powheg"]]
 
-    osprompt = ["OSPrompt", ["DYJets","DYJets10to50_MG", "WWTo2L2Nu_DS","WWTo2L2Nu_powheg","ZG",ZZ,"WWToLNuQQ_powheg","ggZZTo4e","WGToLNuG", WZ, "VBF_HToZZTo4L","WWTo2L2Nu_DS","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu","TTLL_powheg"]]
+    osprompt = ["OSPrompt", ["DYJets", "WWTo2L2Nu_DS","WWTo2L2Nu_powheg","ZG",ZZ,"WWToLNuQQ_powheg","ggZZTo4e","WGToLNuG", WZ, "VBF_HToZZTo4L","WWTo2L2Nu_DS","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu","TTLL_powheg"]]
 
 
     SSLists = [ ssDiboson , ssOther, ssprompt, osFakesOS_list,  ssFakesMuon_list, ssFakesEl_list , allSS,ssCF, osprompt,osCF, ssTop, ssTriboson, ssWW, ssXG]
 
-
-
-    outpath = os.getenv("INFILE_MERGED_PATH") + y + "/"
-    if not os.path.exists(outpath):
-        os.system("mkdir "  +outpath)
-    inpath = os.getenv("INFILE_PATH") +y +"/"  
+    analyzername="HNtypeI_JA"
+    outpath = os.getenv("INFILE_MERGED_PATH") +"/"+analyzername+"/"+ y + "/"
+    MakeDirectory(outpath)
+    inpath = os.getenv("INFILE_PATH") + "/"+ analyzername+"/" +y +"/"  
+    print "-"*30
     for list in SSLists:
         file_s  = list[0]
         
-        hadd = "hadd " + outpath + "HNtypeI_JA_SkimTree_SSNonIso_"+file_s + ".root "
+        hadd = "hadd " + outpath + analyzername+"_SkimTree_SSNonIso_"+file_s + ".root "
         for s in list[1]:
-            hadd = hadd + inpath +"HNtypeI_JA_SkimTree_SSNonIso_"+s + "* " 
+            hadd = hadd + inpath +analyzername+"_SkimTree_SSNonIso_"+s + "* " 
 
-        print " "
-        print hadd
-        if os.path.exists(outpath + "HNtypeI_JA_SkimTree_SSNonIso_"+file_s + ".root"):
-            os.system("rm " + outpath + "HNtypeI_JA_SkimTree_SSNonIso_"+file_s + ".root")
-        os.system(hadd)
+        if os.path.exists(outpath + analyzername+"_SkimTree_SSNonIso_"+file_s + ".root"):
+            os.remove( outpath + analyzername+"_SkimTree_SSNonIso_"+file_s + ".root")
+        print "Merging " + outpath + analyzername+"_SkimTree_SSNonIso_"+file_s + ".root "
+        os.system(hadd )#+ " >> haddbkg.log " )
+
 

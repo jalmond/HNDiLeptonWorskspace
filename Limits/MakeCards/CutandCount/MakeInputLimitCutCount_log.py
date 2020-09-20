@@ -8,7 +8,7 @@ import datetime
 sys.path.insert(1, '/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/python')
 from GeneralSetup import *
 
-args = setupargs()
+args = setupargs("MakeCard")
 if args.Full:
        check_lxplus_connection()
        print "Connected to " + get_lxplus_host()
@@ -86,7 +86,7 @@ for _iter in range(0,niter):
                      ncf     = GetCFCountSRMassBin(flavour,SR,mass,year,_id,Analyzer)
                      nsig    = GetSignalEventsSRMassBin(flavour,SR,mass,year, _channel,_id,Analyzer)
                      sifeff  = GetSignalEffSRMassBin(flavour,SR,mass,year, _channel,_id,Analyzer)
-                     bkg     = nprompt+ nfake +cf
+                     bkg     = nprompt+ nfake +ncf
                      bkg_exo_17_028=GetEXO_17_028_Bkg(flavour,SR,mass)
                      eff_exo_17_028=GetEXO_17_028_Eff(flavour,SR,mass)
                      isVBF=ChooseTag(_channel)
@@ -110,7 +110,6 @@ if args.Full:
        webfile.close()
        lxplus=get_lxplus_host()
        os.system("scp index.html jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/"+Analyzer+"/HighMassSR/")
-       os.system("scp index.html jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/"+Analyzer+"/HighMassSR/")
        os.system("ssh jalmond@" + lxplus + " 'mkdir ~/www/SNU/SKAnalyzer/EventCounts/"+Analyzer+"'")
        os.system("ssh jalmond@" + lxplus + " 'mkdir ~/www/SNU/SKAnalyzer/EventCounts/"+Analyzer+"/HighMassSR/'")
 
@@ -122,6 +121,7 @@ if args.Full:
        webfileMuMu = open("indexMuMu.html","w")
        for x in outfiles:
               if "MuMu" in x[0]:
+                     print "scp " + x[0] +  " jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/"+Analyzer+"/HighMassSR/MuMu/"
                      os.system("scp " + x[0] +  " jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/"+Analyzer+"/HighMassSR/MuMu/")
                      webfileMuMu.write('<a href='+x[1]+'> '+x[2]+' </a><br>\n')
 

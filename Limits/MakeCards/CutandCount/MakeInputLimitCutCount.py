@@ -9,7 +9,7 @@ import datetime
 sys.path.insert(1, '/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/python')
 from GeneralSetup import *
 
-args = setupargs()
+args = setupargs("MakeCard")
 
 #set current directory to memory
 pwd = os.getcwd()
@@ -54,7 +54,7 @@ for s in SRs:
        outname+="_"+s
 
 niter = NIteration([years, _channels, flavours,SRs])     
-allcards= open(os.getenv("HNDILEPTONWORKSPACE_DIR")+OutDir+"/run/"+outname".txt","w")
+allcards= open(os.getenv("HNDILEPTONWORKSPACE_DIR")+"/"+Outdir+"/run/"+outname+".txt","w")
 cardlist=[]
 for _iter in range(0,niter):
 
@@ -71,7 +71,7 @@ for _iter in range(0,niter):
 
        file_output = Outputdir + year+"/"
        MakeDirectory(file_output)
-       file_output = file_output+ flavour + "_" + SR
+       file_output = file_output+ flavour + "_" + SR+"/"
        MakeDirectory(file_output)
 
        for _id in IDs:
@@ -80,9 +80,9 @@ for _iter in range(0,niter):
                      isVBF=ChooseTag(_channel)
                      # cardname read into MakeCombinedListCutCount.py
                      cardname="card_"+year+"_"+flavour + "_" + SR+"_N" + mass + isVBF+"_"+_id+".txt"
-                     allcards.write(file_output + +cardname)
-                     cardlist.append(file_output+ +cardname)
-                     limitfile = open(file_output+ +cardname,"w")
+                     allcards.write(file_output + cardname+"\n")
+                     cardlist.append(file_output+ cardname)
+                     limitfile = open(file_output+ cardname,"w")
 
                      limitfile.write("imax 1  number of channels\n")
                      limitfile.write("jmax 3  number of backgroundss\n")
@@ -122,10 +122,10 @@ for _iter in range(0,niter):
                      limitfile.close()
 allcards.close()
 
-print "Made " + str(len(card_list)) + " cards:"
-for x in card_list:
+print "Made " + str(len(cardlist)) + " cards:"
+for x in cardlist:
        print x
 
 print "#"*30
 print "#"*30
-os.system("cat  " + card_list[0])
+os.system("cat  " + cardlist[0])

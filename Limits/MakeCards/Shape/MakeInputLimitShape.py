@@ -9,7 +9,7 @@ import datetime
 sys.path.insert(1, '/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/python')
 from GeneralSetup import *
 
-args = setupargs()
+args = setupargs("MakeCard")
 
 #set current directory to memory                                                                            
 pwd = os.getcwd()
@@ -37,7 +37,6 @@ masses_c  =  GetConfig("masses_c",    config_file,_setup)
 IDMu      =  GetConfig("IDMu",        config_file,_setup)
 IDEl      =  GetConfig("IDEl",        config_file,_setup)
 Analyzer  =  GetSConfig("Analyzer",    config_file,_setup)
-BkgType   =  GetSConfig("BkgType",     config_file,_setup)
 Outdir    =  GetSConfig("OutDir",      config_file,_setup)
 Vars      =  GetConfig("Vars",        config_file,_setup)
 
@@ -83,17 +82,20 @@ for _iter in range(0,niter):
                #card_2016_EE_SR1_N200_combined_passTightID.txt
                cardname = "/card_"+year+"_"+flavour + "_" + SR+"_N" + mass + isVBF+"_" +_id+"_"+_var+".txt"
                card_output_dir=Outputdir+year + "/"
-               MakeDirector(card_output_dir)
+               MakeDirectory(card_output_dir)
                card_output_dir = card_output_dir+flavour + "_"+ SR + "/"
-               MakeDirector(card_output_dir)
+               MakeDirectory(card_output_dir)
 
                limitfile = open(card_output_dir + cardname,"w")
                print card_output_dir + cardname
-               all_list.write(card_output_dir + cardname + " \n") 
+               all_list.write(card_output_dir + cardname + "\n") 
                
-               input_rootfile = "HN"+ mass + "_highmass_Run2Legacy_v4_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+_var+".root"
+               input_rootfile = "HN_"+_channel+"_"+ mass + "_highmass_Run2Legacy_v4_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+_var+".root"
+
                input_filepath =  card_output_dir +input_rootfile
-               
+               if not os.path.exists(input_filepath):
+                   print "Error no " + input_filepath
+                   exit()
                #input_filepath ="HN"+mass+"_highmass_Run2Legacy_v4_"+year+"_"+SR+"_"+flavour+"_"+_id+"_"+_var+".root"
                
                #os.system("cp " + input_filepath + " " + WorkSpaceDirectory)
@@ -108,8 +110,8 @@ for _iter in range(0,niter):
                limitfile.write("bin bin1\n")
 
                
-               limitfile.write("observation "+str(GetCountShape("data_obs",flavour,SR, mass,year,_id,_var))+"\n")
-               print str(GetCountShape("data_obs",flavour,SR, mass,year,_id,_var))
+               limitfile.write("observation "+str(GetCountShape(_channel,"data_obs",flavour,SR, mass,year,_id,_var,Analyzer ))+"\n")
+               print str(GetCountShape(_channel,"data_obs",flavour,SR, mass,year,_id,_var,Analyzer))
                limitfile.write("------------\n")
                limitfile.write("# now we list the expected events for signal and all backgrounds in that bin\n")
                limitfile.write("# the second 'process' line must have a positive number for backgrounds, and 0 for signal\n")
@@ -118,7 +120,7 @@ for _iter in range(0,niter):
                limitfile.write("bin	bin1	bin1	bin1	bin1\n")
                limitfile.write("process	prompt	fake	cf	signal\n")
                limitfile.write("process	1	2	3	0\n")
-               rate_line = "rate  " + str(GetCountShape("prompt",flavour,SR, mass,year,_id,_var)) + " " + str(GetCountShape("Fake",flavour,SR, mass,year,_id,_var)) + " " + str(GetCountShape("cf",flavour,SR,mass,year,_id,_var)) + " " + str(GetSignalEventsShape(flavour,SR,mass,year, _channel,_id,_var))
+               rate_line = "rate  " + str(GetCountShape(_channel,"prompt",flavour,SR, mass,year,_id,_var,Analyzer)) + " " + str(GetCountShape(_channel,"Fake",flavour,SR, mass,year,_id,_var,Analyzer)) + " " + str(GetCountShape(_channel,"cf",flavour,SR,mass,year,_id,_var,Analyzer)) + " " + str(GetSignalEventsShape(flavour,SR,mass,year, _channel,_id,_var,Analyzer))
 
                rate_line += "\n"
                limitfile.write(rate_line)

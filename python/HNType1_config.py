@@ -199,14 +199,14 @@ def ChooseMassList(list1, list2,list3, channel,order_sc):
     if order_sc == 1:
         if channel == "Combinedchannel":
             return list3
-        elif channel == "TChannel":
+        elif channel == "Tchannel":
             return list2
         else:            
             return list1
     else:
         if channel == "Combinedchannel":
             return list3
-        elif channel == "TChannel":
+        elif channel == "Tchannel":
             return list1
         else:
             return list2
@@ -214,9 +214,9 @@ def ChooseMassList(list1, list2,list3, channel,order_sc):
 
 def ChooseTag(channel):
     
-    if channel == "TChannel":
+    if channel == "Tchannel":
         return "_VBFOnly"
-    elif channel == "CombinedChannel":
+    elif channel == "Combinedchannel":
         return "_VBF"
     else:
         return "_DY"
@@ -307,7 +307,7 @@ def SumIteration4(i, list1, list2, list3,list4,nmax):
     return ["","","",""]
 
 
-def SumIteration4(i, list1, list2, list3,list4,list5,nmax):
+def SumIteration5(i, list1, list2, list3,list4,list5,nmax):
 
     iter_1=0
     iter_2=0
@@ -341,15 +341,61 @@ def PrintSetup(setupconfig):
 
     for x in setupconfig:
         if len(x) == 2:
-            if len(str(x[1])) < 50:
+            if len(str(x[1])) < 75:
                 print str(x[0]) + " "*(20-len(str(x[0]))) +" : "+ str(x[1])
             else:
-                print str(x[0]) + " "*(20-len(str(x[0]))) +" : "+ str(x[1])[0:50]
-                print " "*(20) +" : "+ str(x[1])[50:100]
+                print str(x[0]) + " "*(20-len(str(x[0]))) +" : "+ str(x[1])[0:75]
+                print " "*(20) +" : "+ str(x[1])[75:150]
         else:
             print "Error in PrintSetup"
             exit()
     
+def GetCentralConfig(scriptname, tag, configfile,_setup):
+
+    list_channels=[]
+    _config = open(configfile,"r")
+    is_config_setup=False
+
+    # first look if var is specified for the script, which is taken over global var
+    for line in _config:
+        if tag in line:
+            if len(line.split()) == 4:
+                if scriptname+":" != line.split()[0]:
+                    continue
+
+                _tmp_line=line.split()[3]
+                is_config_setup=True
+                _tmp_line=_tmp_line.replace(","," ")
+                _tmp_line=_tmp_line.split()
+                for x in _tmp_line:
+                    list_channels.append(x)
+
+    if is_config_setup:        _setup.append([tag,list_channels])
+        return list_channels
+
+        _setup.append([tag,list_channels])
+        return list_channels
+    
+    # now check global var
+    for line in _config:
+        if tag in line:
+            
+            if len(line.split()) == 3:
+                _tmp_line=line.split()[2]
+                is_config_setup=True
+                _tmp_line=_tmp_line.replace(","," ")
+                _tmp_line=_tmp_line.split()
+                for x in _tmp_line:
+                    list_channels.append(x)
+
+    if is_config_setup:
+        _setup.append([tag,list_channels])
+        return list_channels
+
+    else:
+        print "Error in finding " + tag + "  from " + configfile
+        exit()
+
 def GetConfig(tag, configfile,_setup):
 
     list_channels=[]
@@ -374,6 +420,45 @@ def GetConfig(tag, configfile,_setup):
         exit()
 
 
+def GetCentralSConfig(scriptname, tag, configfile,_setup):
+
+    list_channels=[]
+    _config = open(configfile,"r")
+    is_config_setup=False
+
+    for line in _config:
+        if tag in line:
+            if len(line.split()) == 4:
+                if scriptname+":" != line.split()[0]:
+                    continue
+                _tmp_line=line.split()[3]
+                is_config_setup=True
+                _tmp_line=_tmp_line.replace(","," ")
+                _tmp_line=_tmp_line.split()
+                for x in _tmp_line:
+                    list_channels.append(x)
+
+    if is_config_setup:
+        _setup.append([tag,list_channels])
+        return list_channels[0]
+
+    for line in _config:
+        if tag in line:
+            if len(line.split()) == 3:
+                _tmp_line=line.split()[2]
+                is_config_setup=True
+                _tmp_line=_tmp_line.replace(","," ")
+                _tmp_line=_tmp_line.split()
+                for x in _tmp_line:
+                    list_channels.append(x)
+
+    if is_config_setup:
+        _setup.append([tag,list_channels])
+        return list_channels[0]
+
+    else:
+        print "Error in finding " + tag + "  from " + configfile
+        exit()
 
 def GetSConfig(tag, configfile,_setup):
     
@@ -439,8 +524,7 @@ def GetMassBin(mass, VBF):
               "1200",
               "1300",
               "1400",
-              "1500",
-              "1700"]
+              "1500"]
 
     masses_vbf =  [   "300",
               "400",
@@ -454,12 +538,11 @@ def GetMassBin(mass, VBF):
               "1200",
               "1300",
               "1400",
-              "1500",
-              "1700"]
+              "1500"]
 
     counter = 0
     _masses= masses
-    if VBF == "_VBF":
+    if VBF == "_VBFOnly":
         _masses = masses_vbf
     for m in _masses:
         counter = counter +1
@@ -474,16 +557,15 @@ def GetSignalEffSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
     num_histname=GetHistNameSRMassBin(channel,SR, mass,year,_id,Analyzer)
 
     den_histname= GetHistNameNoCut(channel, _id,Analyzer)
-
-
+    
     filepaths = []
     if VBF == "_DY":
         filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/"+year+"/SIG/"+Analyzer+"_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
-    elif VBF == "_VBF":
+    elif VBF == "_VBFOnly":
         filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/"+year+"/SIG/"+Analyzer+"_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
     else :
         filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/"+year+"/SIG/"+Analyzer+"_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
-        if int(mass) > 500:
+        if int(mass) > 250:
             filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/"+year+"/SIG/"+Analyzer+"_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
 
     total=0
@@ -507,11 +589,11 @@ def GetSignalEffSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
     return round((float(total)/float(no_cut)),4)
 
 
-def GetSignalEventsShape(channel,SR, mass,year, VBF,_id,_var):
+def GetSignalEventsShape(flavour,SR, mass,year, channel,_id,_var,analyzername):
 
     histname="signal"
 
-    filepath = os.getenv("PLOT_PATH") + "Run2Legacy_v4/Limit/Shape/"+ year + "/" + flavour + "_"+ SR + "/HN"+ mass + "_highmass_Run2Legacy_v4_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+ _var+".root"
+    filepath = os.getenv("DATACARD_SHAPE_PATH") + "/" + analyzername+"/"+ year + "/" + flavour + "_"+ SR + "/HN_"+channel+"_"+ mass + "_highmass_Run2Legacy_v4_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+ _var+".root"
 
     total=0
 
@@ -529,9 +611,9 @@ def GetSignalEventsShape(channel,SR, mass,year, VBF,_id,_var):
 
 
 
-def GetCountShape(histname,flavour,SR, mass,year,_id,_var):
+def GetCountShape(channel,histname,flavour,SR, mass,year,_id,_var,analyzername):
 
-    filepath = os.getenv("PLOT_PATH") + "Run2Legacy_v4/Limit/Shape/"+ year + "/" + flavour + "_"+ SR + "/HN"+ mass + "_highmass_Run2Legacy_v4_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+_var+".root"
+    filepath =  os.getenv("DATACARD_SHAPE_PATH") + "/" + analyzername+"/"+year + "/" + flavour + "_"+ SR + "/HN_"+channel+"_"+ mass + "_highmass_Run2Legacy_v4_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+_var+".root"
     total=0
     _file = ROOT.TFile(filepath)
     if _file:
@@ -552,11 +634,11 @@ def GetSignalEventsSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
     filepaths = []
     if VBF == "_DY":
         filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
-    elif VBF == "_VBF":
+    elif VBF == "_VBFOnly":
         filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
     else :
         filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
-        if int(mass) > 500:
+        if int(mass) > 250:
             filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
 
     total=0
@@ -589,11 +671,10 @@ def GetSignalEventsSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
                                                                                                      
     # effective lumi: 36.47 fb-1 (2016) 41.54 fb-1 (2017) 59.96 fb-1 (2018)                         \
                                                                                                      
-
     if year == "2017":
         scale_ = scale_* 41.54/36.47
     elif year == "2018":
-        scale_*59.96/36.47
+        scale_ = scale_ *59.96/36.47
 
     return round(total*scale_,4)
 

@@ -241,7 +241,7 @@ void GetSignalOverB_combinedSR(TString _chan = "Schannel"){
 	  MakeDir(ENV_PLOT_PATH+FLATVERSION+"/SignalOverB/"+Years[y]+ +"/"+_sr_s+"/"+_channel);
 
 	  
-	  TString ENV_FILE_PATH= getenv("PLOTTER_WORKING_DIR");
+	  TString ENV_FILE_PATH= getenv("HNDILEPTONWORKSPACE_DIR");
 	  TString workdir = ENV_FILE_PATH+ "/Latex/workspace/";
 
 	  MakeLatexFile(workdir + _sr + _channel + ".tex",workdir + _sr + _channel + ".txt",siglist, bkglist);

@@ -2,10 +2,10 @@ import os,sys
 
 def  MakeCutFile(cutlist, jobname):
 
-    if not os.path.exists(str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobname +"/dat/"):
-        os.system("mkdir " + str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobname +"/dat/")
+    if not os.path.exists(str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobname +"/dat/"):
+        os.system("mkdir " + str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobname +"/dat/")
 
-    file_cuts=open(str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobname +"/dat/cutfile.txt","w")
+    file_cuts=open(str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobname +"/dat/cutfile.txt","w")
     file_cuts.write(cutlist+"\n")
     file_cuts.write("END")
     file_cuts.close()
@@ -16,9 +16,9 @@ def  MakeCutFile(cutlist, jobname):
 
 def  MakeConfFile(inputdir,jobname,datastream,analyzer,tag,tag2,filedate,cut,leglist, plottag, isblind,year,_id):
 
-    if not os.path.exists(str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobname +"/Config/"):
-        os.system("mkdir " +  str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobname +"/Config/")
-    file_conf = open(str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobname +"/Config/configfile.txt" ,"w"  )
+    if not os.path.exists(str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobname +"/Config/"):
+        os.system("mkdir " +  str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobname +"/Config/")
+    file_conf = open(str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobname +"/Config/configfile.txt" ,"w"  )
     file_conf.write("# Specify_location_of_data/mc\n")
     file_conf.write("mcpath          "+inputdir+  str(year)+"/\n")
     file_conf.write("datapath          "+inputdir+str(year)+"/"+analyzer+tag+datastream+".root\n")
@@ -215,7 +215,7 @@ ns=-1
 drawsig=False
 print "siginputfile = " + siginputfile
 
-siginputfile=str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/PlotConfig/"+siginputfile
+siginputfile=str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/PlotConfig/"+siginputfile
 siginput_configtmp = open(siginputfile,"r")
 
 if siginputfile!="":
@@ -248,25 +248,25 @@ if siginputfile!="":
         siglegsig.append(legsig)
 
 
-plot_comfig_dir = str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/PlotConfig/"
+plot_comfig_dir = str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/PlotConfig/"
 
-path_macroC_file = str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir+"/MakeDataMCCompPlots.cpp" ;
-path_macroH_file = str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir+"/MakeDataMCCompPlots.h" ;
-path_setup = str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir+"/setenv.sh"
-path_CMSconfig = str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir+"/CMS_lumi.h"
+path_macroC_file = str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir+"/MakeDataMCCompPlots.cpp" ;
+path_macroH_file = str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir+"/MakeDataMCCompPlots.h" ;
+path_setup = str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir+"/setenv.sh"
+path_CMSconfig = str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir+"/CMS_lumi.h"
 
 
-if not os.path.exists(str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir):
-    os.system("mkdir " + str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir)
-    os.system("mkdir " + str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir +"/Tables/")
+if not os.path.exists(str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir):
+    os.system("mkdir " + str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir)
+    os.system("mkdir " + str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir +"/Tables/")
 
-os.system("cp " + str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code/setenv.sh " + str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir)
-os.system("cp "+ str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code/MakeDataMCCompPlots.h "+ str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir)
-os.system("cp "+ str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code/CMS_lumi.h  "+ str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir)
-os.system("cp "+ str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code/Hist*  "+ str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir)
-os.system("cp "+ str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code/make*  "+ str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir)
+os.system("cp " + str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code/setenv.sh " + str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir)
+os.system("cp "+ str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code/MakeDataMCCompPlots.h "+ str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir)
+os.system("cp "+ str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code/CMS_lumi.h  "+ str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir)
+os.system("cp "+ str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code/Hist*  "+ str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir)
+os.system("cp "+ str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code/make*  "+ str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir)
 
-path_skeleton_macroC =  str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code//MakeDataMCCompPlots.cpp" ;
+path_skeleton_macroC =  str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code//MakeDataMCCompPlots.cpp" ;
 skeleton_macroC = open(path_skeleton_macroC,"r")
 new_macroC = open(path_macroC_file,"w")
 for line in skeleton_macroC:
@@ -392,7 +392,7 @@ skeleton_macroC.close()
 new_macroC.close()
 
 
-os.system("source  " + str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code/run.sh " + str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir)
+os.system("source  " + str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code/run.sh " + str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/"+jobdir)
 
 MakeCutFile(cutlist,jobdir)
 tag="_"
@@ -403,6 +403,6 @@ if  skim == "SkimTree_SSNonIso":
 
 MakeConfFile(inputdir,jobdir,stream,analyzer,tag,tag2,filedate,cutlist,list_of_legends_alias, plottag, isblind,year,_id)
 
-os.system("source  " + str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code/runjob.sh " + jobdir)
+os.system("source  " + str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/Code/runjob.sh " + jobdir)
 
-#os.system("rm -r " + str(os.getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/" + jobdir)
+#os.system("rm -r " + str(os.getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/" + jobdir)

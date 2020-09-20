@@ -182,7 +182,7 @@ void MakeCutFlow(string type){
 
     //// Make TEX file
     ofstream ofile_tex;
-    string lqdir =  string(getenv("PLOTTER_WORKING_DIR")) + "/src/SignalRegionPlotter/CatPlotter/";
+    string lqdir =  string(getenv("HNDILEPTONWORKSPACE_DIR")) + "/src/SignalRegionPlotter/CatPlotter/";
 				      
 
     string latex_file =  lqdir+"/Tables/" + cut_label.at(i_cut) + ".tex";

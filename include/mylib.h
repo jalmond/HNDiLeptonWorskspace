@@ -777,7 +777,9 @@ double SignalScale(TString year, TString mass){
 
   float scale = 1.;
   if(mass == "100") scale = 0.1;
+  else if(mass == "125") scale = 0.1;
   else if(mass == "200") scale = 0.1;
+  else if(mass == "250") scale = 0.1;
   else if(mass == "300") scale = 1.;
   else if(mass == "400") scale = 1.;
   else if(mass == "500") scale = 1.;
@@ -793,8 +795,8 @@ double SignalScale(TString year, TString mass){
   else if(mass == "1500") scale = 100.;
   else scale = 100.;
   
-  //if (year == "2017") scale *= 41.54/36.47;
-  //if (year == "2018") scale *= 59.96/36.47;
+  if (year == "2017") scale *= 41.54/36.47;
+  if (year == "2018") scale *= 59.96/36.47;
 
   return scale;
 
