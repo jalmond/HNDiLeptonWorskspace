@@ -2,7 +2,9 @@
 
 # for all scripts
 Analyzer = HNtypeI_JA
-Histname = $SR$/$SR$_$flavour$_mn$mass$_nevent_$Analyzer$_$channel$_$id$_
+Histname = $SR$/$SR$_$flavour$_mn$masses_$_nevent_$Analyzer$_$channel$_$ID$_
+
+# lists used to full histname
 channels = Schannel,Tchannel,Combinedchannel 
 flavours = MuMu,EE
 years    = 2016,2017,2018
@@ -10,15 +12,14 @@ SRs      = SR1,SR2,SR3,SR4
 masses_s = 100,125,200,250,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500
 masses_t = 300,400,500,600,700,800,900,1000,1100,1200,1500
 masses_c = 100,125,200,250,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500
-IDMu     = POGTightPFIsoVeryTight,HNTight2016,HNTightV1,POGTightPFIsoVeryVeryTight,POGTightPFIsoTight,POGTightPFIsoMedium,POGTightPFIsoLoose
-IDEl     = passTightID,passMediumID,HNTight2016,passTightID_noccb,passTightID_nocc
-
+IDMuMu   = POGTightPFIsoVeryTight,HNTight2016,HNTightV1,POGTightPFIsoVeryVeryTight,POGTightPFIsoTight,POGTightPFIsoMedium,POGTightPFIsoLoose
+IDEE     = passTightID,passMediumID,HNTight2016,passTightID_noccb,passTightID_nocc
 
 # specific to individual scripts
 MergeBkg:  InDir    = /data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Files/HNtypeI_JA/
 MergeBkg:  OutDir   = /data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/MergedFiles/HNtypeI_JA/
 MakeCard:  OutDir   = Limits/DataCardsCutCount/HNtypeI_JA/
-MergeCard: InDir   = /data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsCutCount/HNtypeI_JA/
+MergeCard: InDir    = /data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsCutCount/HNtypeI_JA/
 MergeCard: OutDir   = /data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsCutCount/HNtypeI_JA/
 MergeCard: LimitDir = /data6/Users/jalmond/Limits/CMSSW_10_2_13/src/HiggsAnalysis/CombinedLimit/data/2016_HNDiLepton/batch/
 MergeCard: batch_tag_combinedrun2  = CutCount_HNCombinedYears_SR12_EE_MM
