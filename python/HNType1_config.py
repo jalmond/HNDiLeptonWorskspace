@@ -587,7 +587,7 @@ def GetSignalEffSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
             if hist:
                 no_cut += hist.GetBinContent(1)
         _file.Close()
-    return round((float(total)/float(no_cut)),4)
+    return round((float(2.*total)/float(no_cut)),4)
 
 
 def GetSignalEventsShape(flavour,SR, mass,year, channel,_id,_var,analyzername):
@@ -682,7 +682,7 @@ def GetSignalEventsSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
 def GetFakeCountSRMassBin(channel, SR, mass,year,_id,Analyzer):
     histname=GetHistNameSRMassBin(channel,SR, mass,year,_id,Analyzer)
     filepaths =[]
-    if SR == "SR1" or SR == "SR2":
+    if SR == "SR1" or SR == "SR2" or Analyzer == "HNtypeI_Dilepton":
         filepaths.append(os.getenv("INFILE_MERGED_PATH")  + "/"+Analyzer+"/"+ year + "/"+Analyzer+"_SkimTree_SSNonIso_Fake"+channel+".root"  )
     else:
         filepaths.append(os.getenv("INFILE_MERGED_PATH")  + "/"+Analyzer+"/"+year + "/"+Analyzer+"_SkimTree_SSNonIso_FakeOS.root"  )

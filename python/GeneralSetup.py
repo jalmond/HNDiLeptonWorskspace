@@ -27,6 +27,16 @@ def setupargs(version):
       parser.add_argument('--Full', action='store_true')
       args = parser.parse_args()
       return args
+   if version == "MergeCard":
+      parser = argparse.ArgumentParser(description='option')
+      parser.add_argument('-n', dest='Name', default="")
+      parser.add_argument('-c', dest='ConfigFile')
+      parser.add_argument('--OnlyCombineYears', action='store_true')
+      parser.add_argument('--OnlyCombineBins', action='store_true')
+      parser.add_argument('--Full', action='store_true')
+      args = parser.parse_args()
+      return args
+
    if version == "ReadCard":
       parser = argparse.ArgumentParser(description='option')
       parser.add_argument('-n', dest='Name', default="")

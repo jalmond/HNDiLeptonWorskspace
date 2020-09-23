@@ -101,6 +101,7 @@ for _iter in range(0,niter):
                #os.system("cp " + input_filepath + " " + WorkSpaceDirectory)
                
                limitfile.write("imax 1  number of channels\n")
+
                limitfile.write("jmax 3  number of backgrounds\n")
                limitfile.write("kmax *  number of nuisance parameters (sources of systematical uncertainties)\n")
                limitfile.write("------------\n")
@@ -120,6 +121,9 @@ for _iter in range(0,niter):
                limitfile.write("bin	bin1	bin1	bin1	bin1\n")
                limitfile.write("process	prompt	fake	cf	signal\n")
                limitfile.write("process	1	2	3	0\n")
+
+
+               
                rate_line = "rate  " + str(GetCountShape(_channel,"prompt",flavour,SR, mass,year,_id,_var,Analyzer)) + " " + str(GetCountShape(_channel,"Fake",flavour,SR, mass,year,_id,_var,Analyzer)) + " " + str(GetCountShape(_channel,"cf",flavour,SR,mass,year,_id,_var,Analyzer)) + " " + str(GetSignalEventsShape(flavour,SR,mass,year, _channel,_id,_var,Analyzer))
 
                rate_line += "\n"

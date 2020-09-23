@@ -6,8 +6,19 @@ years = ["2016", "2017", "2018"]
 ##### code to merge bkgs to use for limit code
 ##################################################
 
+analyzername="HNtypeI_Dilepton"
+## copy DY to CF
+
+
+ 
+
+
 for y in years:
 
+
+    os.system("cp " + os.getenv("INFILE_PATH") + "/"+analyzername + "/"+y + "/RunCF__/"+analyzername+"_SkimTree_SSNonIso_DYJets.root " +  os.getenv("INFILE_MERGED_PATH") + "/"+analyzername+"/" +y + "/"+analyzername+"_SkimTree_SSNonIso_CF.root")
+    os.system("cp " + os.getenv("INFILE_PATH") + "/"+analyzername + "/"+y + "/RunCF__/"+analyzername+"_SkimTree_SSNonIso_DYJets.root " +  os.getenv("INFILE_MERGED_PATH") + "/"+analyzername+"/" +y + "/"+analyzername+"_SkimTree_SSNonIso_OSCF.root")
+    
     ZZ="ZZ_pythia"
     WZ ="WZ_pythia"
     if y == "2016":
@@ -26,33 +37,34 @@ for y in years:
 
     ssprompt = ["SSPrompt",  ["WWTo2L2Nu_DS","ZG",ZZ ,"ggZZTo4e","WG", WZ, "VBF_HToZZTo4L","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","WpWp_EWK","WpWp_QCD","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu"]]
 
-    # SS Fake / CF
+    ss = ["SS",  ["WWTo2L2Nu_DS","ZG",ZZ ,"ggZZTo4e","WG", WZ, "VBF_HToZZTo4L","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","WpWp_EWK","WpWp_QCD","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu"]]
+    ssCF = ["CF", ["DYJets", "TTLL_powheg"]]
+    osCF = [ "OSCF", ["WpWp_EWK","WpWp_QCD"]]
 
-    ssCF = ["CF", ["DYJets"]]
-    osCF = [ "OSCF", ["DYJets"]]
+
     
 
-    osprompt = ["OSPrompt", ["DYJets","DYJets10to50_MG", "WWTo2L2Nu_DS","WWTo2L2Nu_powheg","ZG",ZZ,"WWToLNuQQ_powheg","ggZZTo4e","WGToLNuG", WZ, "VBF_HToZZTo4L","WWTo2L2Nu_DS","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu","TTLL_powheg"]]
+    osprompt = ["OSPrompt", ["DYJets", "WWTo2L2Nu_DS","WWTo2L2Nu_powheg","ZG",ZZ,"WWToLNuQQ_powheg","ggZZTo4e","WGToLNuG", WZ, "VBF_HToZZTo4L","WWTo2L2Nu_DS","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu","TTLL_powheg"]]
 
 
-    SSLists = [ ssDiboson , ssOther, ssprompt, ssTop, ssTriboson, ssWW, ssXG]
+    SSLists = [ ssDiboson , ssOther, ssprompt, ss,ssTop, ssTriboson, ssWW, ssXG,osprompt,ssCF,osCF]
 
 
 
-    outpath = os.getenv("INFILE_MERGED_PATH") + "/HNtypeI_Dilepton/" +y + "/"
+    outpath = os.getenv("INFILE_MERGED_PATH") + "/"+analyzername+"/" +y + "/"
     if not os.path.exists(outpath):
         os.system("mkdir "  +outpath)
-    inpath = os.getenv("INFILE_PATH") +"/HNtypeI_Dilepton/"+y +"/"  
+    inpath = os.getenv("INFILE_PATH") +"/"+analyzername+"/"+y +"/"  
     for list in SSLists:
         file_s  = list[0]
         
-        hadd = "hadd " + outpath + "HNtypeI_Dilepton_SkimTree_SSNonIso_"+file_s + ".root "
+        hadd = "hadd " + outpath + analyzername+"_SkimTree_SSNonIso_"+file_s + ".root "
         for s in list[1]:
-            hadd = hadd + inpath +"HNtypeI_Dilepton_SkimTree_SSNonIso_"+s + "* " 
+            hadd = hadd + inpath +analyzername+"_SkimTree_SSNonIso_"+s + "* " 
 
         print " "
         print hadd
-        if os.path.exists(outpath + "HNtypeI_Dilepton_SkimTree_SSNonIso_"+file_s + ".root"):
-            os.system("rm " + outpath + "HNtypeI_Dilepton_SkimTree_SSNonIso_"+file_s + ".root")
+        if os.path.exists(outpath + analyzername+"_SkimTree_SSNonIso_"+file_s + ".root"):
+            os.system("rm " + outpath + analyzername+"_SkimTree_SSNonIso_"+file_s + ".root")
         os.system(hadd)
 

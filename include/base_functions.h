@@ -158,6 +158,8 @@ vector<TString> GetMassType1Strings(vector<TString> ignore_masses, TString chann
   masses.push_back("1300");
   masses.push_back("1400");
   masses.push_back("1500");
+  masses.push_back("1700");
+  masses.push_back("2000");
 
   vector <TString> _masses ;
   for(unsigned int i=0; i < masses.size(); i++){
@@ -205,6 +207,8 @@ vector<double> GetMassType1Doubles(vector<TString> ignore_masses, TString channe
   masses.push_back("1300");
   masses.push_back("1400");
   masses.push_back("1500");
+  masses.push_back("1700");
+  masses.push_back("2000");
   vector <double> _masses ;
   for(unsigned int i=0; i < masses.size(); i++){
     bool ignore=false;
