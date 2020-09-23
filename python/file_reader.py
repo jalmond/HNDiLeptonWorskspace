@@ -6,13 +6,22 @@ def read_limit_output(limit_dir,tag):
     file_limit_path= str(os.getenv("LIMIT_PATH")) +limit_dir+"/"
     for root, dirs, files in os.walk(file_limit_path):
         for filename in files:
+            
             if "job" in filename:
                 if ".log" in filename:
+                    print "Checking " + filename
                     counter=counter+1
+                    print file_limit_path+filename
                     _file = open(file_limit_path+filename,"r")
                     for f in _file:
-                        fulllog.append(f)
+                        if "Input datacard" in f:
+                            fulllog.append(f)
+                        if "Done in" in f:
+                            fulllog.append(f)
+                        if "Limit:" in f:
+                            fulllog.append(f)
                     _file.close()
+
     Found=False
     _card=""
     _Fulllog=[]

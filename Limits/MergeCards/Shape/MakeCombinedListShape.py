@@ -1,5 +1,3 @@
-
-
 #!/usr/bin/env python                                                                                                                                         
 import os
 import sys
@@ -9,7 +7,7 @@ import datetime
 sys.path.insert(1, '/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/python')
 from GeneralSetup import *
 
-args = setupargs("MakeCard")
+args = setupargs("MergeCard")
 pwd = os.getcwd()
 
 config_file= args.ConfigFile
@@ -23,7 +21,9 @@ if config_file == "None":
     print "python MakeCombinedListCutCount.py -c config.txt"
     exit()
 
-
+runscript_s="/data6/Users/jalmond/Limits/CMSSW_10_2_13/src/HiggsAnalysis/CombinedLimit/data/2016_HNDiLepton/batch/runShapeCombine.sh"
+runscript = open(runscript_s,"w")
+    
 _setup=[]
 _channels =  GetConfig("channels",    config_file,_setup)
 flavours  =  GetConfig("flavours",    config_file,_setup)
@@ -50,10 +50,13 @@ PrintSetup(_setup)
 list_liters = [years, _channels, flavours,Vars]
 niter = NIteration(list_liters)
 
-input_list = open(Indir + "/run/input_sr1to4.txt","w")
+#input_list=""
+if not args.OnlyCombineYears:
+    input_list = open(Indir + "/run/input_sr1to4.txt","w")
 
 print "cd " + Limitdir
-print "./create-batch -n "+batch_tag_combbins+"  -l " + Indir + "run/input_sr1to4.txt"
+print "source " + runscript_s
+runscript.write("./create-batch -n "+batch_tag_combbins+"  -l " + Indir + "run/input_sr1to4.txt\n")
 
 
 
@@ -62,14 +65,18 @@ runOS=False
 if len(SRs) == 4:
 
     runOS=True
-    print "./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2_SR3_SR4.txt"
+    runscript.write( "./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2_SR3_SR4.txt\n")
+    
 else:
-    print "./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2.txt"
+    runscript.write("./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2.txt\n")
 
 
-workspace="/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/HNtypeI_JA/Workspace/"
+workspace="/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/"+Analyzer+"/Workspace/"
 os.chdir(workspace);
 print workspace
+
+if  args.OnlyCombineYears:
+    niter=0
 
 for _iter in range(0,niter):
 
@@ -79,7 +86,7 @@ for _iter in range(0,niter):
        flavour  = GetIter[2]
        var      = GetIter[3]
 
-       print year + " " + _channel + " " + flavour + var
+       print year + " " + _channel + " " + flavour + " " + var
        #card_2018_EE_SR2_N1500_combined_HNTight2016.txt                                                                                                       
        channel_tag = ChooseTag(_channel)
        IDs     = ChooseID(IDMu, IDEl, flavour, 1)
@@ -118,45 +125,58 @@ for _iter in range(0,niter):
                    os.system("combineCards.py  Name1="+path1+ "    Name2=" + path2 +  "    Name3=" + ospath1 + "    Name4=" + ospath2 +" &> " +outcardname2)
                input_list.write(workspace + outcardname2+"\n")
 
-    
-input_list.close()
-
-input_list = open(Indir + "/run/input_combinedyears.txt","w")      
-
-print "./create-batch -n " + batch_tag_combyears+"  -l " + Indir + "run/input_combinedyears.txt"
+if  not args.OnlyCombineYears:
+    input_list.close()
 
 
-for channel in _channels:
-    for flavour in flavours:
+if   args.OnlyCombineBins:
+    os.chdir("/data6/Users/jalmond/Limits/CMSSW_10_2_13/src/HiggsAnalysis/CombinedLimit/data/2016_HNDiLepton/MakeCards")
+    runscript.close()
 
-        IDs     = ChooseID(IDMu, IDEl, flavour, 1)
-        _masses = ChooseMassList(masses_s, masses_t,masses_c, channel, 1)
-        channel_tag = ChooseTag(channel)
+    exit()
 
-        for mass in _masses:
-            for _id in IDs:
+input_list_years = open(Indir + "/run/input_combinedyears.txt","w")      
+
+runscript.write( "./create-batch -n " + batch_tag_combyears+"  -l " + Indir + "run/input_combinedyears.txt\n")
+
+
+list_litersYears = [ _channels, flavours,Vars]
+niterYears = NIteration(list_litersYears)
+for _iterYears in range(0,niterYears):
+    GetIter  = SumIteration(_iterYears,  list_litersYears)
+    channel = GetIter[0]
+    flavour  = GetIter[1]
+    var      = GetIter[2]
+
+    IDs     = ChooseID(IDMu, IDEl, flavour, 1)
+    _masses = ChooseMassList(masses_s, masses_t,masses_c, channel, 1)
+    channel_tag = ChooseTag(channel)
+
+    for mass in _masses:
+        for _id in IDs:
+            print channel + " " + flavour + " " + _id + " " + mass
                 
-                
-                cardname1a="card_2016_"+flavour+"_combined_SR1_SR2_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
-                cardname1b="card_2017_"+flavour+"_combined_SR1_SR2_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
-                cardname1c="card_2018_"+flavour+"_combined_SR1_SR2_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
-                cardname2a="card_2016_"+flavour+"_combined_SR1_SR2_SR3_SR4_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
-                cardname2b="card_2017_"+flavour+"_combined_SR1_SR2_SR3_SR4_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
-                cardname2c="card_2018_"+flavour+"_combined_SR1_SR2_SR3_SR4_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
+            cardname1a="card_2016_"+flavour+"_combined_SR1_SR2_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
+            cardname1b="card_2017_"+flavour+"_combined_SR1_SR2_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
+            cardname1c="card_2018_"+flavour+"_combined_SR1_SR2_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
+            cardname2a="card_2016_"+flavour+"_combined_SR1_SR2_SR3_SR4_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
+            cardname2b="card_2017_"+flavour+"_combined_SR1_SR2_SR3_SR4_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
+            cardname2c="card_2018_"+flavour+"_combined_SR1_SR2_SR3_SR4_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
 
-                MakeDirectory("/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/CombinedYears/")
+            MakeDirectory("/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/CombinedYears/")
 
 
-                out1="card_CombinedYears_"+flavour+"_combined_SR1_SR2_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
-                out2="card_CombinedYears_"+flavour+"_combined_SR1_SR2_SR3_SR4_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
+            out1="card_CombinedYears_"+flavour+"_combined_SR1_SR2_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
+            out2="card_CombinedYears_"+flavour+"_combined_SR1_SR2_SR3_SR4_N"+mass+channel_tag+"_"+_id+"_"+var+".txt"
 
-                os.system("combineCards.py  Name1="+cardname1a+ "    Name2=" + cardname1b + "  Name3=" + cardname1c + "  &> " + out1 )
-                os.system("combineCards.py  Name1="+cardname2a+ "    Name2=" + cardname2b + "  Name3=" + cardname2c + "  &> " + out2 )
-                input_list.write(workspace+"/"+out1 + "\n")
-                input_list.write(workspace+"/"+out2 + "\n")
+            os.system("combineCards.py  Name1="+cardname1a+ "    Name2=" + cardname1b + "  Name3=" + cardname1c + "  &> " + out1 )
+            os.system("combineCards.py  Name1="+cardname2a+ "    Name2=" + cardname2b + "  Name3=" + cardname2c + "  &> " + out2 )
+            input_list_years.write(workspace+"/"+out1 + "\n")
+            input_list_years.write(workspace+"/"+out2 + "\n")
 
 os.chdir("/data6/Users/jalmond/Limits/CMSSW_10_2_13/src/HiggsAnalysis/CombinedLimit/data/2016_HNDiLepton/MakeCards")
 
-input_list.close()
+input_list_years.close()
+runscript.close()
 #for x in lists:
  #   print x
