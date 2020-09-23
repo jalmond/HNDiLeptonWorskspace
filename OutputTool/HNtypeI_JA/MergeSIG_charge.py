@@ -1,6 +1,8 @@
 import os,sys
 
-sys.path.insert(1, '/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/python')
+
+sys.path.insert(1,os.getenv("HNDILEPTONWORKSPACE_DIR")+'/python')
+
 from GeneralSetup import *
 
 # now import analysis functions

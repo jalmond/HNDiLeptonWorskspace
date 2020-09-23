@@ -7,14 +7,14 @@ void GetSignalEfficiency_combinedSR(TString _chan = "Schannel"){
 
   // check which pc is running script to setup local paths
   TString s_hostname = GetHostname();
-  
+
+  TString analysername="HNtypeI_JA";
   // local path names
-  TString ENV_FILE_PATH= getenv("INFILE_PATH");
+  TString ENV_FILE_PATH= (getenv("INFILE_PATH"));
   TString ENV_MERGEDFILE_PATH = getenv("INFILE_MERGED_PATH");
   TString ENV_PLOT_PATH = getenv("PLOT_PATH");
   TString FLATVERSION = getenv("FLATVERSION");
 
-  TString analysername="HNtypeI_JA";
   
   TString input_path = ENV_FILE_PATH + FLATVERSION+"/"+analysername+"/";
   TString output = ENV_PLOT_PATH + FLATVERSION + "/"+analysername+"/";
@@ -117,7 +117,7 @@ void GetSignalEfficiency_combinedSR(TString _chan = "Schannel"){
 	  _xup.push_back(0);
           TString im = masses.at(i);
 
-	  TString sigpath = ENV_MERGEDFILE_PATH+ "/2016/SIG/"+analysername+"_HN_"+_chan+"_"+_channel+"_"+im+"_nlo.root";
+	  TString sigpath = ENV_MERGEDFILE_PATH+ "/HNtypeI_JA/2016/SIG/"+analysername+"_HN_"+_chan+"_"+_channel+"_"+im+"_nlo.root";
 	  TFile * filemm = new TFile((sigpath).Data());	  
 	  if(CheckFile(filemm) > 0) continue;
 
@@ -134,13 +134,15 @@ void GetSignalEfficiency_combinedSR(TString _chan = "Schannel"){
 	  //float nsig = float(hnsig->Integral());
 	  float nsig = float(hnsig->GetBinContent(1));
 	  // since signal for OS+SS are merged the cutcount is doubled
-	  nsig=nsig/2.;
+	  nsig=nsig/2;
 	  
 	  TH1*  hpass1 = GetHist(filemm, n_sr_hist1);
 	  TH1*  hpass2 = GetHist(filemm, n_sr_hist2);
 	  //if(l==0) cout << "--------------------------------------------------------------------------------------- " << endl;
 	  cout  << "Channel " << _chan << " : "  << _channel << " SR = " << _sr << "  ID " << _id << "  Mass = " << masses.at(i) << " Ncounts = " << (hpass1->Integral() + hpass2->Integral()) << " / " << nsig << " acceptance = " << 100*(hpass1->Integral()+hpass2->Integral())/nsig << endl;
-	
+
+	  cout << "SR1 eff = "  << 100*(hpass1->Integral() / nsig) << " SR2 eff = " << 100*(hpass2->Integral() / nsig)  << endl;
+	  
 	  double err ;
 	  hpass1->IntegralAndError(1, hpass1->GetNbinsX()+1, err    , "");
 	  hpass2->IntegralAndError(1, hpass2->GetNbinsX()+1, err    , "");
