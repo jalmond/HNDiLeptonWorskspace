@@ -45,7 +45,8 @@ void MakeFRFileEE(TString year,TString dataset){
   fout->cd();
   
   std::vector<TString> fakes40;
-  fakes40.push_back("HNTight2016");
+  fakes40.push_back("HNTightV1");
+  fakes40.push_back("passTightID");
   fakes40.push_back("passTightID_noccb");
   Float_t ptbinscone[8] = { 10., 15.,20.,30.,40.,50.,  60., 200.};
   Float_t etabins2[5] = { 0.,0.8,  1.479, 2.,  2.5};
