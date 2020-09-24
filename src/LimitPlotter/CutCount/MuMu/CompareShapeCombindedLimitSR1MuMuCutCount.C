@@ -23,7 +23,7 @@ void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirnam
   TString ENV_FILE_PATH = WORKING_DIR;
   TString ENV_PLOT_PATH = getenv("PLOT_PATH");
   //out/HNTypeI_JA/2016/MuMu_SR1/result_combined_HNTight2016.txt
-  TString filepath = ENV_FILE_PATH+dataset+"/Limits/ReadLimits/out_v2/HNTypeI_JA/";
+  TString filepath = ENV_FILE_PATH+dataset+"/Limits/ReadLimits/out/HNtypeI_JA/CutCount/";
   TString plotpath = ENV_PLOT_PATH+dataset+"/Limits/";
   ///data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/ReadLimits/out_v2
   if(dirname!=""){
@@ -44,6 +44,7 @@ void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirnam
 
   //result_combined_HNTight2016.txt  result_combined_passTightID.txt  result_combined_passTightID_nocc.txt  result_combined_passTightID_noccb.txt
 
+  //result_VBF_HNTight2016.txt
   bool EEchannel = (i < 2);
 
   //  if(EEchannel) IDs = {"HNTight2016","passTightID","passTightID_nocc","passTightID_noccb"};
@@ -71,8 +72,12 @@ void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirnam
   //result_combined_HNTight2016.txt  result_combined_passTightID_nocc.txt
   //result_combined_passTightID.txt  result_combined_passTightID_noccb.txt
 
-  TGraphAsymmErrors*  ee_hn       =  GetTGraph(filepath+ "/result_combined_HNTight2016.txt", 13,1); /// cut and count
-  TGraphAsymmErrors*  ee_vtight    =GetTGraph(filepath+ "/result_combined_POGTightPFIsoVeryTight.txt", 13,2); /// cut and count
+  TGraphAsymmErrors*  ee_hn       =  GetTGraph(filepath+ "/result_VBF_HNTight2016.txt", 20,1); /// cut and count
+  TGraphAsymmErrors*  ee_vtight   =  GetTGraph(filepath+ "/result_VBF_POGTightPFIsoVeryTight.txt", 20,2); /// cut and count
+  TGraphAsymmErrors*  ee_tight   =  GetTGraph(filepath+ "/result_VBF_POGTightPFIsoTight.txt", 20,3); /// cut and count
+  TGraphAsymmErrors*  ee_medium   =  GetTGraph(filepath+ "/result_VBF_POGTightPFIsoMedium.txt", 20,4); /// cut and count
+  TGraphAsymmErrors*  ee_loose   =  GetTGraph(filepath+ "/result_VBF_POGTightPFIsoLoose.txt", 20,5); /// cut and count
+  TGraphAsymmErrors*  ee_v1   =  GetTGraph(filepath+ "/result_VBF_HNTightV1.txt", 20,6); /// cut and count
 
   //=== EXO-17-028 overlay                                                                                                                                                                                  
   const int nm_17028 = 19;
@@ -159,7 +164,7 @@ void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirnam
   lg_Alt->SetBorderSize(0);
   lg_Alt->SetFillStyle(0);
 
-  lg_Alt->AddEntry(gr_17028_exp, "CMS 13 TeV dilepton", "l");
+  //lg_Alt->AddEntry(gr_17028_exp, "CMS 13 TeV dilepton", "l");
   TLegend *lg_Alt_SandT = (TLegend *)lg_Alt->Clone();
 
   TCanvas *c_SOnly = new TCanvas("c_SOnly", "", 900, 800);
@@ -187,13 +192,21 @@ void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirnam
   dummy->Draw("hist");
   lg_Alt->AddEntry(ee_hn,"EXO-17-028","l");
   lg_Alt->AddEntry(ee_vtight,"POG Tight+VT Iso","l");
+  lg_Alt->AddEntry(ee_tight,"POG Tight+T Iso","l");
+  lg_Alt->AddEntry(ee_medium,"POG Tight+M Iso","l");
+  lg_Alt->AddEntry(ee_loose,"POG Tight+L Iso","l");
+  lg_Alt->AddEntry(ee_v1,"POG EXO-17-028(looseIP) ","l");
 
 
   ee_hn->Draw("lsame");
   ee_vtight->Draw("lsame");
-
+  ee_tight->Draw("lsame");
+  ee_medium->Draw("lsame");
+  ee_loose->Draw("lsame");
+  ee_v1->Draw("lsame");
   
-  gr_17028_exp->Draw("lsame");
+  
+  //gr_17028_exp->Draw("lsame");
 
 
   lg->Draw();
@@ -223,7 +236,7 @@ void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirnam
   dummy->GetXaxis()->SetRangeUser(90,1500);
   dummy->GetYaxis()->SetRangeUser(1E-4,1.);
   dummy->Draw("axissame");
-  c_SOnly->SaveAs(plotpath+"/SR1_CutCount_"+WhichYear+"_"+channel+"comparison_"+WhichDirectoryInCutop+".pdf"); 
+  c_SOnly->SaveAs(plotpath+"/CutCount_"+WhichYear+"_"+channel+"comparison_"+WhichDirectoryInCutop+".pdf"); 
 
 
   return;
@@ -235,8 +248,10 @@ TGraphAsymmErrors*  GetTGraph(TString input_path, int nbins, int i){
   string elline;
   cout << input_path << endl;
   ifstream in(input_path);
-  int n_central = nbins; //28, but now removing 80 Gev                                                                                                                                                                                                                                                                                                                  
-  double mass[n_central], obs[n_central], limit[n_central], onesig_left[n_central], onesig_right[n_central], twosig_left[n_central], twosig_right[n_central];
+  ifstream in2(input_path);
+  int n_central = 0;
+
+  
 
   int dummyint=0;
   double max_obs = 0., max_obs_mass = 0.;
@@ -244,7 +259,14 @@ TGraphAsymmErrors*  GetTGraph(TString input_path, int nbins, int i){
 
 
   while(getline(in,elline)){
+    if (TString(elline).Contains("END")) continue;
+    n_central++;
+  }
+  cout << "n_central = " << n_central << endl;
+  double mass[n_central], obs[n_central], limit[n_central], onesig_left[n_central], onesig_right[n_central], twosig_left[n_central], twosig_right[n_central];
+  while(getline(in2,elline)){
     cout << "ell line = " << elline << endl;
+
     std::istringstream is( elline );
     is >> mass[dummyint];
     is >> obs[dummyint];
@@ -261,12 +283,24 @@ TGraphAsymmErrors*  GetTGraph(TString input_path, int nbins, int i){
       continue;
     }
 
-    double scale=0.01; //mixing squared is 0.01 now                                                                                                                                                                                                                                                                                                                  
+    double scale=0.01; //mixing squared is 0.01 now
+    /*
+    scale_ = 1.
+    if int(mass) <= 200:
+        scale_ = 0.1
+    elif int(mass) <= 600:
+        scale_ = 1
+    elif int(mass) <=1000:
+        scale_ = 10.
+    else:
+        scale_ = 100.
+
+     */
     if(mass[dummyint]<=60) scale *= 0.01;
-    else if(mass[dummyint]<=200) scale *= 0.001;
-    else if(mass[dummyint]<=600) scale *= 0.1;
-    else if(mass[dummyint]<=1000) scale *= 1.;
-    else scale *= 10.;
+    else if(mass[dummyint]<=200) scale *= 0.1;
+    else if(mass[dummyint]<=600) scale *= 1;
+    else if(mass[dummyint]<=1000) scale *= 10.;
+    else scale *= 100.;
 
     //    scale*=  0.01; //FIXME                                                                                                                                                                                                                                                                                                                                     
 
@@ -315,7 +349,8 @@ TGraphAsymmErrors*  GetTGraph(TString input_path, int nbins, int i){
   TGraphAsymmErrors *gr_13TeV_exp = new TGraphAsymmErrors(n_central,mass,limit,0,0,0,0);
   gr_13TeV_exp->SetLineWidth(3);
   gr_13TeV_exp->SetFillColor(kWhite);
-  //if(i==1)   gr_13TeV_exp->SetLineStyle(2);
+  if(i==1)   gr_13TeV_exp->SetLineStyle(2);
+
   if(i==1)   gr_13TeV_exp->SetLineColor(kRed);
   //if(i==2)   gr_13TeV_exp->SetLineStyle(3);
   if(i==2)   gr_13TeV_exp->SetLineColor(kBlue);
@@ -325,6 +360,7 @@ TGraphAsymmErrors*  GetTGraph(TString input_path, int nbins, int i){
   if(i==4)   gr_13TeV_exp->SetLineColor(kBlack);
   //if(i==5)   gr_13TeV_exp->SetLineStyle(6);
   if(i==5)   gr_13TeV_exp->SetLineColor(kCyan);
+  if(i==6)   gr_13TeV_exp->SetLineColor(kGreen-2);
   
   return gr_13TeV_exp;
 
