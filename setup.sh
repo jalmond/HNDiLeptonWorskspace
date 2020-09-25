@@ -34,7 +34,7 @@ if [[ $HOST == "JohnMB2018s-MacBook-Pro.local" ]];then
     export VERSION="Initial"
     export FLATVERSION="Run2Legacy_v4"
     export HNDILEPTONWORKSPACE_DIR=`pwd`
-    export PLOT_PATH=$PWD/Plots/
+    export PLOT_PATH=/Users/john/HNPlots/ 
     export OUTFILE_PATH=$HNDILEPTONWORKSPACE_DIR/rootfiles/
     export INFILE_MERGED_PATH=$HOME/HNDiLeptonWorskspace/OutputTool/MergedFiles/
     export INFILE_PATH=$HNDILEPTONWORKSPACE_DIR/Files/

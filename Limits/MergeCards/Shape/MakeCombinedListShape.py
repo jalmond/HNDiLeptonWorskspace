@@ -56,7 +56,7 @@ if not args.OnlyCombineYears:
 
 print "cd " + Limitdir
 print "source " + runscript_s
-runscript.write("./create-batch -n "+batch_tag_combbins+"  -l " + Indir + "run/input_sr1to4.txt\n")
+runscript.write("./create-batch -n "+batch_tag_combbins+"  -l " + Indir + "run/input_sr1to4.txt --Full \n")
 
 
 
@@ -65,10 +65,10 @@ runOS=False
 if len(SRs) == 4:
 
     runOS=True
-    runscript.write( "./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2_SR3_SR4.txt\n")
+    runscript.write( "./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2_SR3_SR4.txt --Full\n")
     
 else:
-    runscript.write("./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2.txt\n")
+    runscript.write("./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2.txt --Full\n")
 
 
 workspace="/data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/DataCardsShape/"+Analyzer+"/Workspace/"
@@ -123,7 +123,7 @@ for _iter in range(0,niter):
                input_list.write(workspace + outcardname1 + "\n")
                if len(SRs) ==4:
                    os.system("combineCards.py  Name1="+path1+ "    Name2=" + path2 +  "    Name3=" + ospath1 + "    Name4=" + ospath2 +" &> " +outcardname2)
-               input_list.write(workspace + outcardname2+"\n")
+                   input_list.write(workspace + outcardname2+"\n")
 
 if  not args.OnlyCombineYears:
     input_list.close()

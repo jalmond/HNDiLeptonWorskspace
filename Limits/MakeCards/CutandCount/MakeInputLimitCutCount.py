@@ -20,6 +20,7 @@ config_file= args.ConfigFile
 # now import analysis functions
 from HNType1_config import *
 
+from CardTemplate import *
 
 if config_file == "None":
     print "Need input file to configure job"
@@ -75,51 +76,45 @@ for _iter in range(0,niter):
        MakeDirectory(file_output)
 
        for _id in IDs:
-              for mass in _masses:
+           for mass in _masses:
+               
+               isVBF=ChooseTag(_channel)
+               cardname="card_"+year+"_"+flavour + "_" + SR+"_N" + mass + isVBF+"_"+_id+".txt"
+               allcards.write(file_output + cardname+"\n")
+               cardlist.append(file_output+ cardname)
+               limitfile = open(file_output+ cardname,"w")
 
-                     isVBF=ChooseTag(_channel)
-                     # cardname read into MakeCombinedListCutCount.py
-                     cardname="card_"+year+"_"+flavour + "_" + SR+"_N" + mass + isVBF+"_"+_id+".txt"
-                     allcards.write(file_output + cardname+"\n")
-                     cardlist.append(file_output+ cardname)
-                     limitfile = open(file_output+ cardname,"w")
+               nfake = GetFakeCountSRMassBin(flavour,SR, mass,year,_id,Analyzer)
+               limitfile.write("imax 1  number of channels\n")
+               limitfile.write("jmax 3  number of backgroundss\n")
+               limitfile.write("kmax "+GetNuiscances(nfake)+"  number of nuisance parameters (sources of systematical uncertainties)\n")
+               
+               
+                   
+               limitfile.write("------------\n")
+               limitfile.write("# we have just one channel, in which we observe 0 events\n")
+               limitfile.write("bin sr1\n")
+               limitfile.write("observation -1\n")
+               limitfile.write("------------\n")
+               limitfile.write("# now we list the expected events for signal and all backgrounds in that bin\n")
+               limitfile.write("# the second 'process' line must have a positive number for backgrounds, and 0 for signal\n")
+               limitfile.write("# then we list the independent sources of uncertainties, and give their effect (syst. error)\n")
+               limitfile.write("# on each process and bin\n")
+               limitfile.write("bin       sr1     sr1     sr1     sr1\n")
+               limitfile.write("process   prompt  fake    cf      HN"+mass+"\n")
+               limitfile.write("process   1       2       3       0\n")
+               
+               nprompt = GetPromptCountSRMassBin(flavour,SR, mass,year,_id,Analyzer)
+               ncf = GetCFCountSRMassBin(flavour,SR,mass,year,_id,Analyzer)
+               nsig = GetSignalEventsSRMassBin(flavour,SR,mass,year,isVBF,_id,Analyzer)
+               
 
-                     limitfile.write("imax 1  number of channels\n")
-                     limitfile.write("jmax 3  number of backgroundss\n")
-                     limitfile.write("kmax 8  number of nuisance parameters (sources of systematical uncertainties)\n")
-                     limitfile.write("------------\n")
-                     limitfile.write("# we have just one channel, in which we observe 0 events\n")
-                     limitfile.write("bin sr1\n")
-                     limitfile.write("observation -1\n")
-                     limitfile.write("------------\n")
-                     limitfile.write("# now we list the expected events for signal and all backgrounds in that bin\n")
-                     limitfile.write("# the second 'process' line must have a positive number for backgrounds, and 0 for signal\n")
-                     limitfile.write("# then we list the independent sources of uncertainties, and give their effect (syst. error)\n")
-                     limitfile.write("# on each process and bin\n")
-                     limitfile.write("bin       sr1     sr1     sr1     sr1\n")
-                     limitfile.write("process   prompt  fake    cf      HN"+mass+"\n")
-                     limitfile.write("process   1       2       3       0\n")
+               rate_line = "rate  " + str(nprompt) + " " + str(nfake) + " " + str(ncf) + " " + str(nsig)
+               rate_line += "\n"
+               limitfile.write(rate_line)
+               WriteTemplate(limitfile, SR, flavour, int(mass), ncf,nfake)
+               limitfile.close()
 
-                     nprompt = GetPromptCountSRMassBin(flavour,SR, mass,year,_id,Analyzer)
-                     nfake = GetFakeCountSRMassBin(flavour,SR, mass,year,_id,Analyzer)
-                     ncf = GetCFCountSRMassBin(flavour,SR,mass,year,_id,Analyzer)
-                     nsig = GetSignalEventsSRMassBin(flavour,SR,mass,year,isVBF,_id,Analyzer)
-
-
-                     rate_line = "rate  " + str(nprompt) + " " + str(nfake) + " " + str(ncf) + " " + str(nsig)
-                     rate_line += "\n"
-                     limitfile.write(rate_line)
-                     limitfile.write("Lumi      lnN     1.025   -       -       1.025\n")
-                     limitfile.write("MCNorm    lnN     1.135   -       -       -\n")
-                     limitfile.write("Fake      lnN     -       1.3     -       -\n")
-                     limitfile.write("CF                lnN     -       -       1.439   -\n")
-                     limitfile.write("MuonID    lnN     1.02    -       -       1.0054\n")
-                     limitfile.write("ElectronE lnN     1.0251  -       -       1.0191\n")
-                     limitfile.write("JES       lnN     1.2491  -       -       1.0154\n")
-                     limitfile.write("JER       lnN     1.0706  -       -       1.0385\n")
-                     
-              
-                     limitfile.close()
 allcards.close()
 
 print "Made " + str(len(cardlist)) + " cards:"

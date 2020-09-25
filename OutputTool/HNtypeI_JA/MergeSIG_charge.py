@@ -1,6 +1,5 @@
 import os,sys
 
-
 sys.path.insert(1,os.getenv("HNDILEPTONWORKSPACE_DIR")+'/python')
 
 from GeneralSetup import *

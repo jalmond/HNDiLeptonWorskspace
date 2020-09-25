@@ -102,7 +102,7 @@ for _iter in range(0,niter):
                
                limitfile.write("imax 1  number of channels\n")
 
-               limitfile.write("jmax 3  number of backgrounds\n")
+               limitfile.write("jmax 5  number of backgrounds\n")
                limitfile.write("kmax *  number of nuisance parameters (sources of systematical uncertainties)\n")
                limitfile.write("------------\n")
                limitfile.write("shapes * * "+ " " + input_filepath  + " $PROCESS $PROCESS_$SYSTEMATIC\n")
@@ -124,13 +124,25 @@ for _iter in range(0,niter):
 
 
                
-               rate_line = "rate  " + str(GetCountShape(_channel,"prompt",flavour,SR, mass,year,_id,_var,Analyzer)) + " " + str(GetCountShape(_channel,"Fake",flavour,SR, mass,year,_id,_var,Analyzer)) + " " + str(GetCountShape(_channel,"cf",flavour,SR,mass,year,_id,_var,Analyzer)) + " " + str(GetSignalEventsShape(flavour,SR,mass,year, _channel,_id,_var,Analyzer))
+               rate_line = "rate  " + str(GetCountShape(_channel,"prompt",flavour,SR, mass,year,_id,_var,Analyzer)) + " " + str(GetCountShape(_channel,"fake",flavour,SR, mass,year,_id,_var,Analyzer)) + " " + str(GetCountShape(_channel,"cf",flavour,SR,mass,year,_id,_var,Analyzer)) + " " + str(GetSignalEventsShape(flavour,SR,mass,year, _channel,_id,_var,Analyzer))
 
                rate_line += "\n"
                limitfile.write(rate_line)
-               limitfile.write("Lumi	lnN	1.05	-	-	1.05\n")
-               limitfile.write("Fake	lnN	-	1.3	-	-\n")
-               limitfile.write("CF	        lnN	-	-	1.439	-\n")
+               limitfile.write("Lumi	lnN	1.05	1.05	1.05	1.05\n")
+               if str(GetCountShape(_channel,"fake",flavour,SR, mass,year,_id,_var,Analyzer)) == 0.:
+                   limitfile.write("Fake	lnN	-	-	-	-\n")
+                   limitfile.write("Stat	lnN	1.1	-	-	1.05\n")
+                   limitfile.write("BkgNorm	lnN	1.2	-	-	-\n")
+               else:
+                   limitfile.write("Fake        lnN     -       1.3     -       -\n")
+                   limitfile.write("Stat	lnN	1.1	1.5	-	1.05\n")
+                   limitfile.write("BkgNorm	lnN	1.2	1.1	-	-\n")
+
+
+               if GetCountShape(_channel,"cf",flavour,SR,mass,year,_id,_var,Analyzer) == 0.:
+                   limitfile.write("CF	        lnN	-	-	-	-\n")
+               else:
+                   limitfile.write("CF          lnN     -       -       1.44   -\n")
                lepid = "MUID"
                #if flavour == "EE":
                #    lepid = "ELID"

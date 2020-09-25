@@ -509,7 +509,7 @@ TGraphAsymmErrors* Get2016SigEff(TString sr, TString channel, vector<double> mas
 
 
 
-TGraphAsymmErrors* Get2016SigEffHighMass(TString sr, TString channel, vector<double> masses){
+TGraphAsymmErrors* Get2016SigEffHighMass(TString sr, TString channel, vector<double> masses, TString range){
 
   map<double, double>  tempvec_exo17028_ee_schannel_sr1_Eff;
   tempvec_exo17028_ee_schannel_sr1_Eff[100]= 3.6;
@@ -559,15 +559,27 @@ TGraphAsymmErrors* Get2016SigEffHighMass(TString sr, TString channel, vector<dou
   else if(sr == "SR2" && channel == "EE") tmpM = tempvec_exo17028_ee_schannel_sr1_Eff;
   else if (channel == "MuMu") tmpM = tempvec_exo17028_mm_schannel_sr1_Eff;
   else if (channel == "EE") tmpM = tempvec_exo17028_ee_schannel_sr1_Eff;
-  
+
+  // -2 is becuase 1700,2000 were not in EXO-17-028
   int Nbins = masses.size();
   double x[Nbins], y[Nbins], xlow[Nbins], xup[Nbins], ylow[Nbins], yup[Nbins];
 
   for(Int_t i=0; i<Nbins; i++){
 
     map<double, double>::iterator it = tmpM.find(masses[i]);
-    x[i] = masses[i];
-    y[i] = it->second/100.;
+    if(range=="low"){
+      x[i] = masses[i];
+      y[i] = it->second/100.;
+    }
+    else{
+      if (i > Nbins -3) {
+	x[i] =  masses[i];
+	y[i] = y[Nbins -3];
+      }else{
+	x[i] = masses[i];
+	y[i] = it->second/100.;
+      }
+    }
     xlow[i]=  0.;
     xup[i] = 0.;
     ylow[i] = 0.;
@@ -779,7 +791,7 @@ double SignalScale(TString year, TString mass){
   if(mass == "100") scale = 0.1;
   else if(mass == "125") scale = 0.1;
   else if(mass == "200") scale = 0.1;
-  else if(mass == "250") scale = 0.1;
+  else if(mass == "250") scale = 1.;
   else if(mass == "300") scale = 1.;
   else if(mass == "400") scale = 1.;
   else if(mass == "500") scale = 1.;

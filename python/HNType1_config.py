@@ -1,7 +1,10 @@
 import os
 
-if os.getenv("HOST") != "JohnMB2018s-MacBook-Pro.local":
+try:
     import ROOT
+except ImportError:
+    pass
+
 
 def GetEXO_17_028_Bkg(channel,SR,mass):
     

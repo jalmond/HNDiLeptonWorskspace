@@ -1,5 +1,7 @@
 import os
 
+sys.path.insert(1,os.getenv("HNDILEPTONWORKSPACE_DIR")+'/python')
+
 years = ["2016", "2017", "2018"]
 
 ##################################################

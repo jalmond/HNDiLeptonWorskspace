@@ -45,7 +45,7 @@ void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString
   TString fakepath = ENV_MERGEDFILE_PATH+ "/"+analysername+"/"+year+"/"+analysername+"_SkimTree_SSNonIso_Fake"+flavour+".root";
   
   
-  TString sigpath = ENV_MERGEDFILE_PATH+ +analysername+"/2016/SIG/"+analysername+"_HN_"+_chan+"_"+flavour+"_200_nlo.root";
+  TString sigpath = ENV_MERGEDFILE_PATH+ +analysername+"/2016/SIG/"+analysername+"_HN_"+_chan+"_"+flavour+"_"+mass+"_nlo.root";
   
   TFile* filemm = TFile::Open((sigpath).Data());	  
   if(CheckFile(filemm) > 0) return;
@@ -151,7 +151,7 @@ void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString
   legendH->SetBorderSize(0);
   legendH->SetTextFont(42);
   
-  legendH->AddEntry(this_hist_sig, "m_{N} Bin GeV","l");
+  legendH->AddEntry(this_hist_sig, "m_{N} = "+mass+" GeV","l");
   legendH->AddEntry(this_hist_prompt,"Prompt","f");
   legendH->AddEntry(this_hist_fake,"Fake","f");
   if(isee)legendH->AddEntry(this_hist_cf,"CF","f");

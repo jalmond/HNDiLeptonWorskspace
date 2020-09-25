@@ -49,7 +49,7 @@ niter = NIteration(list_liters)
 input_list = open(Indir + "/run/input_sr1to4.txt","w")
 
 print "cd " + Limitdir 
-print "./create-batch -n "+batch_tag_combbins+"  -l " + Indir + "run/input_sr1to4.txt"          
+print "./create-batch -n "+batch_tag_combbins+"  -l " + Indir + "run/input_sr1to4.txt --Full"          
 
 
 
@@ -58,9 +58,9 @@ runOS=False
 if len(SRs) == 4:
     
     runOS=True
-    print "./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2_SR3_SR4.txt"
+    print "./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2_SR3_SR4.txt --Full"
 else:
-    print "./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2.txt"
+    print "./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2.txt  --Full"
 
 
 for _iter in range(0,niter):
@@ -119,7 +119,7 @@ for _iter in range(0,niter):
                input_list.write(out1 + outcardname1 + "\n")
                if len(SRs) ==4:
                    os.system("combineCards.py  Name1="+path1+ "    Name2=" + path2 +  "    Name3=" + path3 + "    Name4=" + path4 +" &> " + out2 + "/"+outcardname2)
-               input_list.write(out2 + outcardname2+"\n")
+                   input_list.write(out2 + outcardname2+"\n")
 
 input_list.close()
 

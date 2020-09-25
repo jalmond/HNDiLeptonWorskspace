@@ -49,7 +49,6 @@ void MakeFRFileMM(TString year){
   fakes40.push_back("HNTightV1");
   fakes40.push_back("POGTightPFIsoVeryTight");
   fakes40.push_back("POGHighPtMixTight");
-
   
   for(unsigned int i=0; i < fakes40.size(); i++){
 
