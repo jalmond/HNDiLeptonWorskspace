@@ -18,3 +18,5 @@ Files/
 */*/*/*/*/*.pdf
 */*/*.pdf
 */*.pdf
+Limits/MakeCards/CutandCount/HNType1_config.pyc
+OutputTool/*/*.log

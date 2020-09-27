@@ -46,9 +46,20 @@ void MakeFRFileEE(TString year,TString dataset="Electron"){
   
   std::vector<TString> fakes40;
   fakes40.push_back("HNTightV1");
-  fakes40.push_back("passTightID");
-  fakes40.push_back("passTightID_noccb");
+  fakes40.push_back("HNTightV2");
+  fakes40.push_back("HNTightV3");
+  fakes40.push_back("HNMediumV1");
+  fakes40.push_back("HNMediumV2");
+  fakes40.push_back("HNMediumV3");
 
+  fakes40.push_back("passTightID");
+  fakes40.push_back("passMediumID");
+  fakes40.push_back("passTightID_nocc");
+  fakes40.push_back("HNTight2016");
+  fakes40.push_back("passMVAID_noIso_WP80");
+  fakes40.push_back("passMVAID_noIso_WP90");
+  fakes40.push_back("passMVAID_iso_WP80");
+  fakes40.push_back("passMVAID_iso_WP90");
   Float_t ptbinscone[8] = { 10., 15.,20.,30.,40.,50.,  60., 200.};
   Float_t etabins2[5] = { 0.,0.8,  1.479, 2.,  2.5};
 

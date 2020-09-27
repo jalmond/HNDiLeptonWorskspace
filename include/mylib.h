@@ -332,7 +332,7 @@ TGraphAsymmErrors*  Get2016SoverSB(bool massbinned, TString year ,TString sr, TS
 
 }
 
-TGraphAsymmErrors* Get2016SigEff(TString sr, TString channel, vector<double> masses){
+TGraphAsymmErrors* Get2016SigEff(TString sr, TString channel, vector<double> masses,TString range){
 
   map<double, double>  tempvec_exo17028_ee_schannel_sr1_Eff;
   tempvec_exo17028_ee_schannel_sr1_Eff[100]= 1.1;
@@ -487,8 +487,20 @@ TGraphAsymmErrors* Get2016SigEff(TString sr, TString channel, vector<double> mas
   for(Int_t i=0; i<Nbins; i++){
 
     map<double, double>::iterator it = tmpM.find(masses[i]);
-    x[i] = masses[i];
-    y[i] = it->second/100.;
+    if(range=="low"){
+      x[i] = masses[i];
+      y[i] = it->second/100.;
+    }
+    else{
+      if (i > Nbins -3) {
+        x[i] =  masses[i];
+        y[i] = y[Nbins -3];
+      }else{
+        x[i] = masses[i];
+        y[i] = it->second/100.;
+      }
+    }
+
     xlow[i]=  0.;
     xup[i] = 0.;
     ylow[i] = 0.;
@@ -622,6 +634,31 @@ void FormatHist(TH1* h , TString fill, Color_t t){
   
 }
 
+void DrawLatex(TString year){
+
+  TLatex latex_CMSPriliminary, latex_Lumi;
+  latex_CMSPriliminary.SetNDC();
+  latex_Lumi.SetNDC();
+  latex_CMSPriliminary.SetTextSize(0.035);
+
+  latex_CMSPriliminary.DrawLatex(0.2, 0.96, "#font[62]{CMS Preliminery}");
+
+  latex_Lumi.SetTextSize(0.035);
+  latex_Lumi.SetTextFont(42);
+  if(year=="2016")latex_Lumi.DrawLatex(0.72, 0.96, "35.9 fb^{-1} (13 TeV)");
+  
+}
+void DrawLatexWithLabel(TString year,TString label, float x, float y){
+
+  DrawLatex(year);
+  
+  TLatex channelname;
+  channelname.SetNDC();
+  channelname.SetTextSize(0.025);
+  channelname.DrawLatex(x, y,label);
+
+  
+}
 bool FileHasDir(TFile* file, TString name){
 
     TList* list = file->GetListOfKeys() ;

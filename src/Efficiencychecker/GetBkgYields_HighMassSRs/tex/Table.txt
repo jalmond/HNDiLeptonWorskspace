@@ -1,0 +1,31 @@
+\begin{table}[!tbh]
+  \caption{
+    Yields
+  }
+  \begin{center}
+    \begin{tabular}{c|c}
+\hline
+ & Yields \\
+\hline
+\hline
+exo17028 & $382.000 \pm 382.000$ \\
+passMVAID\_iso\_WP80 & $382.000 \pm 382.000$ \\
+passMVAID\_iso\_WP90 & $382.000 \pm 382.000$ \\
+passMediumID & $382.000 \pm 382.000$ \\
+passTightID & $382.000 \pm 382.000$ \\
+passTightID\_nocc & $382.000 \pm 382.000$ \\
+passTightID\_noccb & $382.000 \pm 382.000$ \\
+\hline
+Total & $2674.000 \pm 1010.677$ \\
+\hline
+Data & $0 \pm 0$ \\
+\hline
+Significance & $-2.646 \sigma$ \\
+\hline
+HNTight2016 & $382.000 \pm 382.000$ \\
+HNTightV1 & $382.000 \pm 382.000$ \\
+\hline
+\hline
+    \end{tabular}
+  \end{center}
+\end{table}

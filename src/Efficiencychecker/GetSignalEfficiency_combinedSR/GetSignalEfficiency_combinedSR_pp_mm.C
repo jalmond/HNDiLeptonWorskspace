@@ -3,7 +3,7 @@
 #include "mylib.h"
 #include "canvas_margin.h"
 
-void GetSignalEfficiency_combinedSR(TString analysername="HNtypeI_Dilepton" ,TString _chan = "Schannel",bool setlog_axis=false, TString x_range="all"){ 
+void GetSignalEfficiency_combinedSR_pp_mm(TString analysername="HNtypeI_Dilepton" ,TString _chan = "Schannel",bool setlog_axis=false, TString x_range="all"){ 
 
   // check which pc is running script to setup local paths
   TString s_hostname = GetHostname();
@@ -38,7 +38,6 @@ void GetSignalEfficiency_combinedSR(TString analysername="HNtypeI_Dilepton" ,TSt
   MakeDir(output);
   output+="/SignalEfficiency/";
   MakeDir(output);
-
   output+="CombinedSR1_SR2/";
   MakeDir(output);
 
@@ -75,7 +74,7 @@ void GetSignalEfficiency_combinedSR(TString analysername="HNtypeI_Dilepton" ,TSt
   //SR.push_back(make_pair("OS", make_pair("SR3","SR4")));
 
   
-  vector <TString> channel ={"MuMu","EE"};
+  vector <TString> channel ={"MupMup","EpEp","MumMum","EmEm"};
 
   vector<TString> muIDs  = { "POGTightPFIsoVeryTight","HNTight2016","HNTightV1","POGTightPFIsoTight","POGTightPFIsoMedium","POGTightPFIsoLoose","POGTightPFIsoVeryVeryTight","POGHighPtMixTight","POGHighPtTight"};
   vector<TString> elIDs = {"passTightID","passMediumID","HNTight2016","passTightID_noccb","passTightID_nocc","passMVAID_iso_WP90","passMVAID_iso_WP80","HNTightV1"};
@@ -106,7 +105,7 @@ void GetSignalEfficiency_combinedSR(TString analysername="HNtypeI_Dilepton" ,TSt
       else if(x_range=="high")  ignore_masses = {"100","125","150","200","250","300","400"};
       else ignore_masses = {};
       
-      if (_chan=="Schannel" && channel[k]=="EE" ) ignore_masses.push_back("300");
+      if (_chan=="Schannel" && channel[k].Contains("E") ) ignore_masses.push_back("300");
       if (_chan=="Tchannel") {
 	ignore_masses.push_back("100");
 	ignore_masses.push_back("125");
@@ -126,8 +125,8 @@ void GetSignalEfficiency_combinedSR(TString analysername="HNtypeI_Dilepton" ,TSt
       TLegend *legend = MakeLegend(0.65, 0.65, 0.9, 0.92);
       // graph leg
       
-      TLegend *legend_g = MakeLegend(0.65, 0.75, 0.9, 0.92);
-      if(setlog_axis) legend_g = MakeLegend(0.65, 0.2, 0.9, 0.45);
+      TLegend *legend_g = MakeLegend(0.6, 0.7, 0.9, 0.92);
+      if(setlog_axis) legend_g = MakeLegend(0.6, 0.2, 0.9, 0.45);
 
       // canvas for hists
       TString canvasname=_sr+"_"+_channel +"_highmass_njets_"+analysername+"_JA_"+_channel;
@@ -147,42 +146,49 @@ void GetSignalEfficiency_combinedSR(TString analysername="HNtypeI_Dilepton" ,TSt
 	SetBinLabels(this_hist, masses);
 
 	// setup graph
-	int _Nbins = d_masses.size();
+	int _Nbins = 0;//d_masses.size();
 	vector<double> _x, _y, _xlow, _xup, _ylow, _yup;
 
 	// loop over masses 
 	for(unsigned int i = 0 ; i < masses.size(); ++i){
 
-	  _x.push_back(d_masses[i]);
 	  _xlow.push_back(0);
 	  _xup.push_back(0);
           TString im = masses.at(i);
 
-	  TString sigpath = ENV_MERGEDFILE_PATH+ "/"+analysername+"/2016/SIG/"+analysername+"_HN_"+_chan+"_"+_channel+"_"+im+"_nlo.root";
+	  TString flavour = "MuMu";
+	  if (_channel.Contains("E")) flavour = "EE";
+	  TString sigpath = "/Users/john/HNDiLeptonWorskspace/Files/"+analysername+"/2016/Signal__/"+analysername+"_HN_"+_chan+"_"+_channel+"_"+im+"_nlo.root";
+	  
 	  TFile * filemm = new TFile((sigpath).Data());	  
-	  if(CheckFile(filemm) > 0) continue;
 
+	  if(CheckFile(filemm) > 0) continue;
+	  _Nbins++;
+	  _x.push_back(d_masses[i]);
+	  
 	  //SR1_highmass_njets_HNtypeI_JA_EE
-	  TString n_sr_hist1 = SR[j].second.first + "_highmass/"+SR[j].second.first+"_highmass_njets_"+analysername+"_"+_channel+"_" + _id +"_";
-	  TString n_sr_hist2 = SR[j].second.second + "_highmass/"+SR[j].second.second+"_highmass_njets_"+analysername+"_"+_channel+"_" + _id +"_";	  
+	  TString n_sr_hist1 = SR[j].second.first + "_highmass/"+SR[j].second.first+"_highmass_njets_"+analysername+"_"+flavour+"_" + _id +"_";
+	  TString n_sr_hist2 = SR[j].second.second + "_highmass/"+SR[j].second.second+"_highmass_njets_"+analysername+"_"+flavour+"_" + _id +"_";	  
 
 	  //FillEventCutflow/HNtypeI_JA_MuMu_HNTightV1exo_17_028_dimu_same_sign->GetBinContent(1)
-	  TString n_all_hist="FillEventCutflow/"+analysername+"_"+_channel+"_"+ _id+"exo_17_028_dimu_same_sign";
-	  if(_channel == "EE") n_all_hist="FillEventCutflow/"+analysername+"_"+_channel+"_"+ _id+"exo_17_028_diel_same_sign";
+	  TString n_all_hist="FillEventCutflow/"+analysername+"_"+flavour+"_"+ _id+"exo_17_028_dimu_same_sign";
+	  if(_channel.Contains("E")) n_all_hist="FillEventCutflow/"+analysername+"_"+flavour+"_"+ _id+"exo_17_028_diel_same_sign";
+
+
 	  TH1* hnsig = GetHist(filemm,n_all_hist);
 	  FormatHist(hnsig,false, histcolors[l].first);
 
 	  //float nsig = float(hnsig->Integral());
 	  float nsig = float(hnsig->GetBinContent(1));
 	  // since signal for OS+SS are merged the cutcount is doubled
-	  nsig=nsig/2;
+	  nsig=nsig;
 	  
 	  TH1*  hpass1 = GetHist(filemm, n_sr_hist1);
 	  TH1*  hpass2 = GetHist(filemm, n_sr_hist2);
 	  //if(l==0) cout << "--------------------------------------------------------------------------------------- " << endl;
 	  cout  << "Channel " << _chan << " : "  << _channel << " SR = " << _sr << "  ID " << _id << "  Mass = " << masses.at(i) << " Ncounts = " << (hpass1->Integral() + hpass2->Integral()) << " / " << nsig << " acceptance = " << 100*(hpass1->Integral()+hpass2->Integral())/nsig << endl;
 
-	  cout << "SR1 eff = "  << 100*(hpass1->Integral() / nsig) << " SR2 eff = " << 100*(hpass2->Integral() / nsig)  << endl;
+	  //cout << "SR1 eff = "  << 100*(hpass1->Integral() / nsig) << " SR2 eff = " << 100*(hpass2->Integral() / nsig)  << endl;
 	  
 	  double err ;
 	  hpass1->IntegralAndError(1, hpass1->GetNbinsX()+1, err    , "");
@@ -219,13 +225,11 @@ void GetSignalEfficiency_combinedSR(TString analysername="HNtypeI_Dilepton" ,TSt
 	c2->SetLogx();
 	c2->SetLogy();
       }	
-      TGraphAsymmErrors*  old_gr = Get2016SigEffHighMass(_sr, _channel,d_masses,x_range);
+      TGraphAsymmErrors*  old_gr = Get2016SigEff(_sr, _channel,d_masses,x_range);
 
       old_gr->SetLineStyle(10);
       old_gr->SetLineColor(kRed);
       old_gr->SetLineWidth(3.);
-      if(_chan=="Tchannel")      old_gr->SetLineWidth(0.);
-      if(_chan=="Tchannel")    old_gr->SetMarkerSize(0.);
       old_gr->SetMarkerColor(kRed);
       //old_gr->GetHistogram()->SetMaximum(GetMaximum(old_gr,_vgraphs)*1.1);
       float _max(0.),_min(9999999999.);
@@ -235,11 +239,15 @@ void GetSignalEfficiency_combinedSR(TString analysername="HNtypeI_Dilepton" ,TSt
       if(setlog_axis)      old_gr->GetHistogram()->GetYaxis()->SetRangeUser(_min*0.9, _max*1.4);
       else  old_gr->GetHistogram()->GetYaxis()->SetRangeUser(_min*0.9, _max*1.4);
 
+      //old_gr->GetHistogram()->GetYaxis()->SetRangeUser(0.01, 1.);  
       if(x_range=="low")   old_gr->GetHistogram()->GetXaxis()->SetRangeUser(80., 400.);
       if(x_range=="high")  old_gr->GetHistogram()->GetXaxis()->SetRangeUser(500., 2000.);
 
       setTDRStyle();
 
+      if(_chan=="Tchannel") old_gr->SetMarkerSize(0);
+      if(_chan=="Tchannel") old_gr->SetLineWidth(0);
+      
       old_gr->Draw("AC*");
       if(_chan!="Tchannel")AllLegendEntry(legend_g,old_gr,"EXO-17-028","pl");
       for (unsigned int ig = 0 ; ig < _vgraphs.size(); ig++){
@@ -251,7 +259,7 @@ void GetSignalEfficiency_combinedSR(TString analysername="HNtypeI_Dilepton" ,TSt
       legend_g->Draw();
 
       DrawLatexWithLabel("2016","HighMass SR1+SR2",0.25,0.88);
-      DrawLatexWithLabel("2016",_channel+" " + _chan,0.25,0.83);
+      DrawLatexWithLabel("2016",_channel+ " " + _chan,0.25,0.83);
 
 
       

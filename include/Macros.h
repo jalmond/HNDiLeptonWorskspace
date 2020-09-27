@@ -87,9 +87,9 @@ void setTDRStyle() {
   tdrStyle->SetTitleColor(1, "XYZ");
   tdrStyle->SetTitleColor(4, "Z");
   tdrStyle->SetTitleFont(42, "XYZ");
-  tdrStyle->SetTitleSize(0.05, "XYZ");
-  tdrStyle->SetTitleXOffset(0.9);
-  tdrStyle->SetTitleXOffset(1.5);
+  tdrStyle->SetTitleSize(0.035, "XYZ");
+  tdrStyle->SetTitleXOffset(1.2);
+  //  tdrStyle->SetTitleXOffset(1.5);
   tdrStyle->SetTitleYOffset(1.75);
 
   // For the axis labels:

@@ -32,4 +32,4 @@ for d in datalist:
     print hadd
     if os.path.exists(outpath + "FakeRateHN_SkimTree_NonIso_"+dataset[1] + ".root"):
         os.system("rm " + outpath + "FakeRateHN_SkimTree_NonIso_"+dataset[1] + ".root")
-    #os.system(hadd)
+    os.system(hadd)

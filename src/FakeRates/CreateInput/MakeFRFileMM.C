@@ -47,8 +47,16 @@ void MakeFRFileMM(TString year){
   
   std::vector<TString> fakes40;
   fakes40.push_back("HNTightV1");
+  fakes40.push_back("HNTightV2");
   fakes40.push_back("POGTightPFIsoVeryTight");
   fakes40.push_back("POGHighPtMixTight");
+  fakes40.push_back("POGTightPFIsoVeryVeryTight");
+  fakes40.push_back("POGTightPFIsoTight");
+  fakes40.push_back("POGTightPFIsoMedium");
+  fakes40.push_back("POGTightPFIsoLoose");
+  fakes40.push_back("HNTight2016");
+  fakes40.push_back("POGHighPtTight");
+  
   
   for(unsigned int i=0; i < fakes40.size(); i++){
 
