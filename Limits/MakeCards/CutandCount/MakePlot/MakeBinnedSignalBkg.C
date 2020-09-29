@@ -3,7 +3,7 @@
 #include "mylib.h"
 #include "canvas_margin.h"
 
-void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString flavour = "MuMu", TString _id = "HNTight2016", TString analysername="HNtypeI_JA", TString _sr="SR1", TString mass="100", TString outpath=""){ 
+void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString flavour = "MuMu", TString _id = "HNTight2016", TString analysername="HNtypeI_JA", TString _sr="SR1", TString mass="100", TString ID="", TString outpath=""){ 
 
   
   // check which pc is running script to setup local paths
@@ -33,12 +33,12 @@ void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString
   TString canvasname=_sr+"_"+flavour +"_highmass_njets_"+analysername+"_JA_"+flavour;
   TCanvas* c1 = new TCanvas(canvasname,canvasname, 800,800);
   c1->SetLogy();
-  vector<Color_t> sighistcolors = GetHistColors(1);
+  vector<pair< Color_t,int> > sighistcolors = GetHistColors(1);
   vector<TGraphAsymmErrors*> _vgraphs;
   
   
   TString histlabel= "FillEventCutflow/"+_sr+analysername+"_"+flavour+"_"+_id+"exo_17_028_"+flavour+"_"+_sr;
-  if(_sr == "SR1" && flavour == "MuMu") histlabel= "FillEventCutflow/"+_sr+analysername+"_"+flavour+"_"+_id+"exo_17_028_"+flavour;
+  //if(_sr == "SR1" && flavour == "MuMu") histlabel= "FillEventCutflow/"+_sr+analysername+"_"+flavour+"_"+_id+"exo_17_028_"+flavour;
   //FillEventCutflow/SR1HNtypeI_JA_MuMu_HNTight2016exo_17_028_MuMu
   
   TString promptpath = ENV_MERGEDFILE_PATH+ "/"+analysername+"/"+year+"/"+analysername+"_SkimTree_SSNonIso_SSPrompt.root";
@@ -132,7 +132,10 @@ void MakeBinnedSignalBkg(TString _chan = "Schannel", TString year="2016",TString
   if(year=="2018") lumi = "59.9";
   if(year=="Combined") lumi = "137.9";
 
+  latex_title.SetTextSize(0.03);
+
   latex_title.DrawLatex(0.64, 0.64, flavour + " " + _sr);
+  latex_title.DrawLatex(0.64, 0.55, ID);
 
 
   latex_Lumi.DrawLatex(0.735, 0.96, lumi+" fb^{-1} (13 TeV)");

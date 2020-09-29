@@ -74,11 +74,11 @@ for _iter in range(0,niter):
 
               outfiles.append([_txt,"event_counts_"+year+"_"+SR+"_" +_id+"_"+flavour+"_cutcount.txt", year+"_"+flavour + "_" + SR+"_"+_id])
               limitfile = open(_txt ,"w")
-              limitfile.write("Mass mN   | Nprompt   | NFake    | NCF      |  Total Bkg  | Nsignal   || EXO-17-028 Eff  | EXO-17-028 Bkg \n")
-              limitfile.write("-"*len("Mass mN   | Nprompt   | NFake    | NCF      |  Total Bkg  | Nsignal   || EXO-17-028 Eff  | EXO-17-028 Bkg  \n")+"\n")
+              limitfile.write("Mass mN   | Nprompt   | NFake    | NCF      |  Total Bkg  | signal eff   || EXO-17-028 eff  | EXO-17-028 Bkg \n")
+              limitfile.write("-"*len("Mass mN   | Nprompt   | NFake    | NCF      |  Total Bkg  | signal eff   || EXO-17-028 eff  | EXO-17-028 Bkg  \n")+"\n")
               for mass in _masses:
                      if args.Plots:
-                            os.system("root -l -q -b 'MakePlot/MakeBinnedSignalBkg.C(\"Schannel\",\""+year+"\",\""+flavour+"\",\""+_id+"\", \""+Analyzer+"\", \""+SR+"\", \""+mass+"\",\"event_counts_"+year+"_N"+mass+"_"+SR+"_" +_id+"_"+flavour+"_cutcount.png\")'")
+                            os.system("root -l -q -b 'MakePlot/MakeBinnedSignalBkg.C(\"Schannel\",\""+year+"\",\""+flavour+"\",\""+_id+"\", \""+Analyzer+"\", \""+SR+"\", \""+mass+"\",   \""+_id+"\",\"event_counts_"+year+"_N"+mass+"_"+SR+"_" +_id+"_"+flavour+"_cutcount.png\")'")
                             files_tocopy.append(["event_counts_"+year+"_N" +mass+"_"+SR+"_"+_id+"_"+flavour+"_cutcount.png", flavour])
                      
                      nprompt = GetPromptCountSRMassBin(flavour,SR, mass,year,_id,Analyzer)
@@ -142,3 +142,6 @@ if args.Full:
        os.system("scp indexEE.html jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/"+Analyzer+"/HighMassSR/EE/")
        os.system("scp indexMuMu.html jalmond@" + lxplus + ":~/www/SNU/SKAnalyzer/EventCounts/"+Analyzer+"/HighMassSR/MuMu/")
        os.system("rm  index*.html")
+
+print "https://jalmond.web.cern.ch/jalmond/SNU/SKAnalyzer/EventCounts/"+Analyzer+"/HighMassSR/MuMu/indexMuMu.html"
+print "https://jalmond.web.cern.ch/jalmond/SNU/SKAnalyzer/EventCounts/"+Analyzer+"/HighMassSR/EE/indexEE.html"

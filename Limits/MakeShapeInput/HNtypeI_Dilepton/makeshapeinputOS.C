@@ -210,12 +210,15 @@ void makeshapeinputOS(int k=0,TString analysername="HNtypeI_Dilepton"){
 		file_sig_s = new TFile((signalpath_s).Data());
 
 		h_sig = GetHist(file_sig_s,input_hist);
+		file_sig_s->Close();
+		delete file_sig_s;
 	      }
 	      else if(channel =="Tchannel"){
 		file_sig_t = new TFile((signalpath_t).Data());
 		h_sig = GetHist(file_sig_t,input_hist);
 		t_channel=true;
-
+		file_sig_t->Close();
+		delete file_sig_t;
 
 	      }
 	      else {
@@ -226,7 +229,12 @@ void makeshapeinputOS(int k=0,TString analysername="HNtypeI_Dilepton"){
 		  TH1* h_sig_t = GetHist(file_sig_t,input_hist);
 		  h_sig->Add(h_sig_t);
 		  t_channel=true;
+
 		}
+		file_sig_s->Close();
+		delete file_sig_s;
+		file_sig_t->Close();
+		delete file_sig_t;
 	      }
 	      
 	      // scale 
@@ -243,21 +251,21 @@ void makeshapeinputOS(int k=0,TString analysername="HNtypeI_Dilepton"){
 	      file_fake->Close();
 	      file_prompt->Close();
 	      if(channel == "Schannel"){
-		file_sig_s->Close();
-		delete file_sig_s;
+		//file_sig_s->Close();
+		//delete file_sig_s;
 	      }
 	      else  if(channel == "Tchannel"){
 		if(t_channel){
-		  file_sig_t->Close();
-		  delete file_sig_t;
+		  //file_sig_t->Close();
+		  //delete file_sig_t;
 		}
 	      }
 	      else{
-		file_sig_s->Close();
-		delete file_sig_s;
+		//file_sig_s->Close();
+		//delete file_sig_s;
 		if(t_channel){
-		  file_sig_t->Close();
-		  delete file_sig_t;
+		  // file_sig_t->Close();
+		  //delete file_sig_t;
 		}
 	      }
 	      file_data->Close();

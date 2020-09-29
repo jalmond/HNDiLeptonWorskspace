@@ -11,7 +11,7 @@ args = setupargs("ReadCard")
 input_dir    = args.indir
 config_file  = args.ConfigFile
 
-check_limit_reader_path(input_dir,"HN_SRComb_SR1SR2_EE_MM")
+check_limit_reader_path(input_dir,"SRComb_SR1SR2_EE_MM")
 check_arg(config_file,"ConfigFile","readLimitsCutCount_individualbins_rootfile.py")
 
 from file_reader import read_limit_output
