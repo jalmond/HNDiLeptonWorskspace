@@ -7,8 +7,8 @@ from GeneralSetup import *
 from HNType1_config import *
 
 datalist = [ ["2016" , [ "DoubleEG", "DoubleMuon"]], 
-             ["2017" , [ "DoubleEG", "DoubleMuon"]],
-             ["2018",  [ "EGamma",  "DoubleMuon"]]]
+             ["2017" , [ "DoubleEG", "DoubleMuon","SingleMuon"]],
+             ["2018",  [ "EGamma",  "DoubleMuon","SingleMuon"]]]
 
 analyzername="HNtypeI_Dilepton"
 for d in datalist:
@@ -24,6 +24,8 @@ for d in datalist:
 
         if dataset == "DoubleMuon" :
             inpath += "isMM__/DATA/"
+        elif dataset == "SingleMuon":
+            inpath += "isSingleMu__/DATA/"
         else:
             inpath += "isEE__/DATA/"
 
@@ -37,4 +39,16 @@ for d in datalist:
 
         os.system("rm hadddata.log")
         os.system(hadd+ " > hadddata.log")
+   
+    print "Merging Muon samples"
+    if "SingleMuon" in d[1]:
+        print "hadd " + outpath + analyzername+"_SkimTree_SSNonIso_Muon.root  " + outpath + analyzername+"_SkimTree_SSNonIso_DoubleMuon.root  "+  outpath + analyzername+"_SkimTree_SSNonIso_SingleMuon.root  "
+        if os.path.exists(outpath + analyzername+"_SkimTree_SSNonIso_Muon.root"):
+            os.remove(outpath + analyzername+"_SkimTree_SSNonIso_Muon.root")
+        os.system("hadd " + outpath + analyzername+"_SkimTree_SSNonIso_Muon.root  " + outpath + analyzername+"_SkimTree_SSNonIso_DoubleMuon.root  "+  outpath + analyzername+"_SkimTree_SSNonIso_SingleMuon.root  ")
+    else:
+        if os.path.exists(outpath + analyzername+"_SkimTree_SSNonIso_Muon.root"):
+            os.remove(outpath + analyzername+"_SkimTree_SSNonIso_Muon.root")
 
+        print "mv " + outpath + analyzername+"_SkimTree_SSNonIso_DoubleMuon.root " + outpath + analyzername+"_SkimTree_SSNonIso_Muon.root"
+        os.system("mv " + outpath + analyzername+"_SkimTree_SSNonIso_DoubleMuon.root " + outpath + analyzername+"_SkimTree_SSNonIso_Muon.root")

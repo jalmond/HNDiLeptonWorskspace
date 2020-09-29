@@ -23,7 +23,7 @@ for d in datalist:
     hadd = hadd + inpath +analyzername+"_SkimTree_SSNonIso_"+dataset[1] + "* " 
     print " "
     print hadd
-    
+
     if os.path.exists(outpath + analyzername+"_SkimTree_SSNonIso_CF.root"):
         os.system("rm " + outpath + analyzername+"_SkimTree_SSNonIso_CF.root")
     os.system(hadd)

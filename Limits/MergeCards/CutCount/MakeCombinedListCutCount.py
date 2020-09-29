@@ -48,8 +48,12 @@ niter = NIteration(list_liters)
 
 input_list = open(Indir + "/run/input_sr1to4.txt","w")
 
-print "cd " + Limitdir 
-print "./create-batch -n "+batch_tag_combbins+"  -l " + Indir + "run/input_sr1to4.txt --Full"          
+runscript_s="/data6/Users/jalmond/Limits/CMSSW_10_2_13/src/HiggsAnalysis/CombinedLimit/data/2016_HNDiLepton/batch/runCutCountCombine.sh"
+print "cd " + Limitdir
+print "source " + runscript_s
+
+runscript = open(runscript_s,"w")
+runscript.write( "./create-batch -n "+batch_tag_combbins+"  -l " + Indir + "run/input_sr1to4.txt --Full \n"          )
 
 
 
@@ -58,9 +62,9 @@ runOS=False
 if len(SRs) == 4:
     
     runOS=True
-    print "./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2_SR3_SR4.txt --Full"
+    runscript.write( "./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2_SR3_SR4.txt --Full")
 else:
-    print "./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2.txt  --Full"
+    runscript.write( "./create-batch -n "+batch_tag_bins  +"  -l " + Indir + "run/AllCards_SR1_SR2.txt  --Full")
 
 
 for _iter in range(0,niter):
@@ -70,7 +74,10 @@ for _iter in range(0,niter):
        _channel = GetIter[1]
        flavour  = GetIter[2]
        SR       = GetIter[3]
-
+       if SR=="SR2":
+           continue
+       if SR=="SR4":
+           continue
        
        print year + " " + _channel + " " + flavour + " " + SR
        #card_2018_EE_SR2_N1500_combined_HNTight2016.txt
@@ -116,6 +123,7 @@ for _iter in range(0,niter):
                outcardname1="card_"+year + "_"+flavour+"_combined_SR1_SR2_N"+mass+channel_tag+"_"+_id+".txt"
                outcardname2="card_"+year + "_"+flavour+"_combined_SR1_SR2_SR3_SR4_N"+mass+channel_tag+"_"+_id+".txt"
                os.system("combineCards.py  Name1="+path1+ "    Name2=" + path2 + " &> " + out1 + "/"+ outcardname1)
+               print out1 + outcardname1 
                input_list.write(out1 + outcardname1 + "\n")
                if len(SRs) ==4:
                    os.system("combineCards.py  Name1="+path1+ "    Name2=" + path2 +  "    Name3=" + path3 + "    Name4=" + path4 +" &> " + out2 + "/"+outcardname2)
@@ -126,8 +134,8 @@ input_list.close()
 
 input_list = open(Indir + "/run/input_combinedyears.txt","w")
 
-print "./create-batch -n " + batch_tag_combyears+"  -l " + Indir + "run/input_combinedyears.txt"
-
+runscript.write(  "./create-batch -n " + batch_tag_combyears+"  -l " + Indir + "run/input_combinedyears.txt --Full \n ")
+runscript.close()
 
 for channel in _channels:
     for flavour in flavours:

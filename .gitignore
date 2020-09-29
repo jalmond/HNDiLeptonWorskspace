@@ -1,4 +1,6 @@
 src/FakeRates/CreateInput/FakeFiles*
+OutputTool/*/*.log
+Limits/MakeCards/CutandCount/CardTemplate.pyc
 Limits/DataCards*/*/201*/
 Limits/DataCards*/*/CombinedYears/
 Limits/DataCards*/*/Workspace/

@@ -18,9 +18,6 @@ analyzername="HNtypeI_Dilepton"
 for y in years:
 
 
-    os.system("cp " + os.getenv("INFILE_PATH") + "/"+analyzername + "/"+y + "/RunCF__/"+analyzername+"_SkimTree_SSNonIso_DYJets.root " +  os.getenv("INFILE_MERGED_PATH") + "/"+analyzername+"/" +y + "/"+analyzername+"_SkimTree_SSNonIso_CF.root")
-    os.system("cp " + os.getenv("INFILE_PATH") + "/"+analyzername + "/"+y + "/RunCF__/"+analyzername+"_SkimTree_SSNonIso_DYJets.root " +  os.getenv("INFILE_MERGED_PATH") + "/"+analyzername+"/" +y + "/"+analyzername+"_SkimTree_SSNonIso_OSCF.root")
-    
     ZZ="ZZ_pythia"
     WZ ="WZ_pythia"
     if y == "2016":
@@ -40,8 +37,6 @@ for y in years:
     ssprompt = ["SSPrompt",  ["WWTo2L2Nu_DS","ZG",ZZ ,"ggZZTo4e","WG", WZ, "VBF_HToZZTo4L","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","WpWp_EWK","WpWp_QCD","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu"]]
 
     ss = ["SS",  ["WWTo2L2Nu_DS","ZG",ZZ ,"ggZZTo4e","WG", WZ, "VBF_HToZZTo4L","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","WpWp_EWK","WpWp_QCD","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu"]]
-    ssCF = ["CF", ["DYJets", "TTLL_powheg"]]
-    osCF = [ "OSCF", ["WpWp_EWK","WpWp_QCD"]]
 
 
     
@@ -49,7 +44,7 @@ for y in years:
     osprompt = ["OSPrompt", ["DYJets", "WWTo2L2Nu_DS","WWTo2L2Nu_powheg","ZG",ZZ,"WWToLNuQQ_powheg","ggZZTo4e","WGToLNuG", WZ, "VBF_HToZZTo4L","WWTo2L2Nu_DS","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu","TTLL_powheg"]]
 
 
-    SSLists = [ ssDiboson , ssOther, ssprompt, ss,ssTop, ssTriboson, ssWW, ssXG,osprompt,ssCF,osCF]
+    SSLists = [ ssDiboson , ssOther, ssprompt, ss,ssTop, ssTriboson, ssWW, ssXG,osprompt]
 
 
 
