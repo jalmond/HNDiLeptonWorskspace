@@ -722,7 +722,7 @@ def GetCFCountSRMassBin(channel,SR, mass,year,_id,Analyzer):
     if SR == "SR1" or SR == "SR2":
         filepaths.append(os.getenv("INFILE_MERGED_PATH")+ "/"+Analyzer+"/"+ year + "/"+Analyzer+"_SkimTree_SSNonIso_CF.root"  )
     else:
-        filepaths.append(os.getenv("INFILE_MERGED_PATH") +"/"+Analyzer+"/"+ year + "/"+Analyzer+"_SkimTree_SSNonIso_OSCF.root"  )
+        return 0.
 
 
 
@@ -737,6 +737,8 @@ def GetCFCountSRMassBin(channel,SR, mass,year,_id,Analyzer):
 
     if total < 0:
         return 0.0
+
+    # 0.72 got by scaling 2016 value to EXO-17028
     return round(total,4)
 
 
