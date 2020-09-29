@@ -7,9 +7,10 @@
 //==== ReturnWhat = 3 : +- 2sd
 
 
-TGraphAsymmErrors*  GetTGraph(TString input_path, int nbins, int i);
+TGraphAsymmErrors*  GetTGraph(std::map<double,double> map1, std::map<double,double> map2, int i );
+std::map<double,double> GetMap(TString input_path, int nbins, int i);
 
-void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirname="", int ReturnWhat=0, bool RunFullCLs=true){
+void  CompareCombindedLimitSR1_SR2MuMuCutCount_rel(int j=0, TString dirname="", int ReturnWhat=0, bool RunFullCLs=true){
 
   bool DrawObserved = false;
 
@@ -22,10 +23,10 @@ void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirnam
   TString dataset = "";//getenv("CATANVERSION");
   TString ENV_FILE_PATH = WORKING_DIR;
   TString ENV_PLOT_PATH = getenv("PLOT_PATH");
-  //out/HNTypeI_JA/2016/MuMu_SR1/result_combined_HNTight2016.txt
-  TString filepath = ENV_FILE_PATH+dataset+"/Limits/ReadLimits/out_v2/HNTypeI_JA/";
+
+  TString filepath = ENV_FILE_PATH+dataset+"/Limits/ReadLimits/out/HNTypeI_JA/CutCount/";
   TString plotpath = ENV_PLOT_PATH+dataset+"/Limits/";
-  ///data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/ReadLimits/out_v2
+
   if(dirname!=""){
   
     filepath = ENV_FILE_PATH+dataset+"Limit/"+dirname+"/";
@@ -38,20 +39,9 @@ void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirnam
 
   
   TString WhichDirectoryInCutop = "MuMu_SR1_SR2";
-  if (i == 1) WhichDirectoryInCutop = "MuMu_SR1";
-  if (i == 2) WhichDirectoryInCutop = "MuMu_SR2";;
-  if (i == 3) WhichDirectoryInCutop = "MuMu_SR1_SR2";
-
-  //result_combined_HNTight2016.txt  result_combined_passTightID.txt  result_combined_passTightID_nocc.txt  result_combined_passTightID_noccb.txt
-
-  bool EEchannel = (i < 2);
-
-  //  if(EEchannel) IDs = {"HNTight2016","passTightID","passTightID_nocc","passTightID_noccb"};
   filepath = filepath + WhichYear + "/"+ WhichDirectoryInCutop;
 
   TString channel = "MuMu";
-  if(WhichDirectoryInCutop.Contains("EE")) channel = "EE";
-  if(WhichDirectoryInCutop.Contains("MuEl")) channel = "MuEl";
 
   if( !gSystem->mkdir(plotpath, kTRUE) ){
     cout
@@ -82,16 +72,48 @@ ReadLimits/out/HNtypeI_JA/CutCount/2016/MuMu_SR1_SR2/result_VBF_POGTightPFIsoVer
    */  //result_combined_passTightID.txt  result_combined_passTightID_noccb.txt
 
 
-  TGraphAsymmErrors*  ee_hn1       =  GetTGraph(filepath+ "/MuMu_SR1_SR2/result_VBF_HNTight2016.txt", 13,1); /// cut and count
-  TGraphAsymmErrors*  ee_hn2       =  GetTGraph(filepath+ "/MuMu_SR1_SR2/result_VBF_HNTightV1.txt", 13,2); /// cut and count
-  TGraphAsymmErrors*  ee_hn3       =  GetTGraph(filepath+ "/MuMu_SR1_SR2/result_VBF_POGHighPtMixTight.txt", 13,3); /// cut and count
-  TGraphAsymmErrors*  ee_hn4       =  GetTGraph(filepath+ "/MuMu_SR1_SR2/result_VBF_POGHighPtTight.txt", 13,4); /// cut and count
-  TGraphAsymmErrors*  ee_hn5       =  GetTGraph(filepath+ "/MuMu_SR1_SR2/result_VBF_POGTightPFIsoMedium.txt", 13,5); /// cut and count
-  TGraphAsymmErrors*  ee_hn6       =  GetTGraph(filepath+ "/MuMu_SR1_SR2/result_VBF_POGTightPFIsoTight.txt", 13,6); /// cut and count
-  TGraphAsymmErrors*  ee_hn7       =  GetTGraph(filepath+ "/MuMu_SR1_SR2/result_VBF_POGTightPFIsoVeryTight.txt", 13,7); /// cut and count
-  TGraphAsymmErrors*  ee_hn8       =  GetTGraph(filepath+ "/MuMu_SR1_SR2/result_VBF_POGTightPFIsoVeryVeryTight.txt", 13,8); /// cut and count
+  std::map<double,double> map_HNTight2016 = GetMap(filepath+ "/result_VBF_HNTight2016.txt", 13,1); /// cut and count
+  std::map<double,double> map_HNTightV1 = GetMap(filepath+ "/result_VBF_HNTightV1.txt", 13,1); /// cut and count
+  std::map<double,double> map_HNTightPOGHighPtMixTight = GetMap(filepath+ "/result_VBF_POGHighPtMixTight.txt", 13,1); /// cut and count
+  std::map<double,double> map_HNTightPOGHighPtTight = GetMap(filepath+ "/result_VBF_POGHighPtTight.txt", 13,1); /// cut and count
+  std::map<double,double> map_HNTightPOGTightPFIsoMedium = GetMap(filepath+ "/result_VBF_POGTightPFIsoMedium.txt", 13,1); /// cut and count
+  std::map<double,double> map_HNTightPOGTightPFIsoTight = GetMap(filepath+ "/result_VBF_POGTightPFIsoTight.txt", 13,1); /// cut and count
+  std::map<double,double> map_HNTightPOGTightPFIsoVeryTight = GetMap(filepath+ "/result_VBF_POGTightPFIsoVeryTight.txt", 13,1); /// cut and count
+  std::map<double,double> map_HNTightPOGTightPFIsoVeryVeryTight = GetMap(filepath+ "/result_VBF_POGTightPFIsoVeryVeryTight.txt", 13,1); /// cut and count
 
 
+  std::map<double,double> map_average;
+  for(std::map<double,double>::iterator it = map_HNTight2016.begin(); it != map_HNTight2016.end(); it++){
+
+    std::map<double,double>::iterator it2 = map_HNTightV1.find(it->first);
+    std::map<double,double>::iterator it3 = map_HNTightPOGHighPtMixTight.find(it->first);
+    std::map<double,double>::iterator it4 = map_HNTightPOGHighPtTight.find(it->first);
+    std::map<double,double>::iterator it5 = map_HNTightPOGTightPFIsoMedium.find(it->first);
+    std::map<double,double>::iterator it6 = map_HNTightPOGTightPFIsoTight.find(it->first);
+    std::map<double,double>::iterator it7 = map_HNTightPOGTightPFIsoVeryTight.find(it->first);
+    std::map<double,double>::iterator it8 = map_HNTightPOGTightPFIsoVeryVeryTight.find(it->first);
+    cout << "Average " << it->first << " : " << (it->second + it2->second +it3->second +it5->second +it6->second +it7->second +it8->second)/7. << endl; 
+    map_average[it->first] = (it->second +
+			      it2->second +
+			      it3->second +
+			      //it4->second +
+			      it5->second +
+			      it6->second +
+			      it7->second +
+			      it8->second ) / 7.;
+  }
+
+  TGraphAsymmErrors*  ee_hn1       =  GetTGraph(map_average,map_HNTight2016,8);
+  TGraphAsymmErrors*  ee_hn2       =  GetTGraph(map_average,map_HNTightV1,1);
+  TGraphAsymmErrors*  ee_hn3       =  GetTGraph(map_average,map_HNTightPOGHighPtMixTight,2);
+  TGraphAsymmErrors*  ee_hn4       =  GetTGraph(map_average,map_HNTightPOGHighPtTight,3);
+  TGraphAsymmErrors*  ee_hn5       =  GetTGraph(map_average,map_HNTightPOGTightPFIsoMedium,4);
+  TGraphAsymmErrors*  ee_hn6       =  GetTGraph(map_average,map_HNTightPOGTightPFIsoTight,5);
+  TGraphAsymmErrors*  ee_hn7       =  GetTGraph(map_average,map_HNTightPOGTightPFIsoVeryTight,6);
+  TGraphAsymmErrors*  ee_hn8       =  GetTGraph(map_average,map_HNTightPOGTightPFIsoVeryVeryTight,7);
+
+  
+    
   //=== EXO-17-028 overlay                                                                                                                                                                                  
   const int nm_17028 = 19;
   double mass_17028[nm_17028] = {
@@ -177,14 +199,14 @@ ReadLimits/out/HNtypeI_JA/CutCount/2016/MuMu_SR1_SR2/result_VBF_POGTightPFIsoVer
   lg_Alt->SetBorderSize(0);
   lg_Alt->SetFillStyle(0);
 
-  lg_Alt->AddEntry(gr_17028_exp, "CMS 13 TeV dilepton", "l");
+  //  lg_Alt->AddEntry(gr_17028_exp, "CMS 13 TeV dilepton", "l");
   TLegend *lg_Alt_SandT = (TLegend *)lg_Alt->Clone();
 
   TCanvas *c_SOnly = new TCanvas("c_SOnly", "", 900, 800);
   canvas_margin(c_SOnly);
   c_SOnly->cd();
   c_SOnly->Draw();
-  c_SOnly->SetLogy();
+  //c_SOnly->SetLogy();
 
   TH1D *dummy = new TH1D("hist", "", 10000, 0., 10000.);
   dummy->Draw("hist");
@@ -199,19 +221,40 @@ ReadLimits/out/HNtypeI_JA/CutCount/2016/MuMu_SR1_SR2/result_VBF_POGTightPFIsoVer
     dummy->GetYaxis()->SetTitleSize(0.04);
   }
   dummy->GetXaxis()->SetTitle("m_{N} (GeV)");
-  dummy->GetXaxis()->SetRangeUser(20., 1500);
-  dummy->GetYaxis()->SetRangeUser(0.000005, 1.);
+  dummy->GetXaxis()->SetRangeUser(20., 2000);
+  dummy->GetYaxis()->SetRangeUser(0.01, 2.);
   dummy->SetTitle("");
   dummy->Draw("hist");
-  lg_Alt->AddEntry(ee_hn,"EXO-17-028","l");
-  lg_Alt->AddEntry(ee_vtight,"POG Tight+VT Iso","l");
+  /*
+  TGraphAsymmErrors*  ee_hn1       =  GetTGraph(map_average,map_HNTight2016,1);
+  TGraphAsymmErrors*  ee_hn2       =  GetTGraph(map_average,map_HNTightV1,1);
+  TGraphAsymmErrors*  ee_hn3       =  GetTGraph(map_average,map_HNTightPOGHighPtMixTight,2);
+  TGraphAsymmErrors*  ee_hn4       =  GetTGraph(map_average,map_HNTightPOGHighPtTight,3);
+  TGraphAsymmErrors*  ee_hn5       =  GetTGraph(map_average,map_HNTightPOGTightPFIsoMedium,4);
+  TGraphAsymmErrors*  ee_hn6       =  GetTGraph(map_average,map_HNTightPOGTightPFIsoTight,5);
+  TGraphAsymmErrors*  ee_hn7       =  GetTGraph(map_average,map_HNTightPOGTightPFIsoVeryTight,6);
+  TGraphAsymmErrors*  ee_hn8       =  GetTGraph(map_average,map_HNTightPOGTightPFIsoVeryVeryTight,7);
 
 
-  ee_hn->Draw("lsame");
-  ee_vtight->Draw("lsame");
-
+   */
+  lg_Alt->AddEntry(ee_hn1,"EXO-17-028 ID","l");
+  lg_Alt->AddEntry(ee_hn2,"EXO-17-028 ID looser IP","l");
+  lg_Alt->AddEntry(ee_hn3,"Tight_VTIso+HighPt","l");
+  lg_Alt->AddEntry(ee_hn4,"HighPt","l");
+  lg_Alt->AddEntry(ee_hn5,"Tight_MIso","l");
+  lg_Alt->AddEntry(ee_hn6,"Tight_TIso","l");
+  lg_Alt->AddEntry(ee_hn7,"Tight_VTIso","l");
+  lg_Alt->AddEntry(ee_hn8,"Tight_VVTIso","l");
   
-  gr_17028_exp->Draw("lsame");
+  ee_hn1->Draw("lsame");
+  ee_hn2->Draw("lsame");
+  ee_hn3->Draw("lsame");
+  ee_hn4->Draw("lsame");
+  ee_hn5->Draw("lsame");
+  ee_hn6->Draw("lsame");
+  ee_hn7->Draw("lsame");
+  ee_hn8->Draw("lsame");
+  //gr_17028_exp->Draw("lsame");
 
 
   lg->Draw();
@@ -238,85 +281,89 @@ ReadLimits/out/HNtypeI_JA/CutCount/2016/MuMu_SR1_SR2/result_VBF_POGTightPFIsoVer
   dummy->Draw("axissame");
 
   //==== HighMass
-  dummy->GetXaxis()->SetRangeUser(90,1500);
-  dummy->GetYaxis()->SetRangeUser(1E-4,1.);
+  dummy->GetXaxis()->SetRangeUser(90,2000);
+  dummy->GetYaxis()->SetRangeUser(1E-4,2.);
   dummy->Draw("axissame");
-  c_SOnly->SaveAs(plotpath+"/SR1_CutCount_"+WhichYear+"_"+channel+"comparison_"+WhichDirectoryInCutop+".pdf"); 
+  cout << plotpath+"/MuMu_SR1_SR2_ID_Ratio_CutCount_"+WhichYear+"_"+channel+"comparison_"+WhichDirectoryInCutop+".pdf" << endl;
+  c_SOnly->SaveAs(plotpath+"/MuMu_SR1_SR2_ID_Ratio_CutCount_"+WhichYear+"_"+channel+"comparison_"+WhichDirectoryInCutop+".pdf"); 
 
 
   return;
 }
 
 
-TGraphAsymmErrors*  GetTGraph(TString input_path, int nbins, int i){
+
+std::map<double,double>  GetMap(TString input_path, int nbins, int i){
 
   string elline;
-  cout << input_path << endl;
   ifstream in(input_path);
-  int n_central = nbins; //28, but now removing 80 Gev                                                                                                                                                                                                                                                                                                                  
-  double mass[n_central], obs[n_central], limit[n_central], onesig_left[n_central], onesig_right[n_central], twosig_left[n_central], twosig_right[n_central];
+  ifstream in2(input_path);
+
+  int n_central = 0;
+  
+  while(getline(in,elline)){
+    if (TString(elline).Contains("END")) continue;
+    n_central++;
+  }
 
   int dummyint=0;
-  double max_obs = 0., max_obs_mass = 0.;
-  double min_obs = 9999., min_obs_mass = 0.;
 
-
-  while(getline(in,elline)){
+  double mass[n_central], obs[n_central], limit[n_central], onesig_left[n_central], onesig_right[n_central], twosig_left[n_central], twosig_right[n_central];
+  std::map<double,double> _map;
+  while(getline(in2,elline)){
     cout << "ell line = " << elline << endl;
     std::istringstream is( elline );
     is >> mass[dummyint];
     is >> obs[dummyint];
     is >> limit[dummyint];
-    is >> onesig_right[dummyint];
-    is >> onesig_left[dummyint];
-    is >> twosig_right[dummyint];
-    is >> twosig_left[dummyint];
+    is >>onesig_left[dummyint];
+    is >>onesig_right[dummyint];
+    is >>twosig_left[dummyint];
+    is >>twosig_right[dummyint];
+    cout << input_path << " " << mass[dummyint] << " " <<  limit[dummyint] << endl;
 
-    cout << limit[dummyint] << endl;
-    //==== skip points                                                                                                                                                                                                                                                                                                                                               
-    if(obs[dummyint]<=0 || limit[dummyint]<=0 || onesig_left[dummyint]<=0 || onesig_right[dummyint]<=0 || twosig_left[dummyint]<=0 || twosig_right[dummyint]<=0){
-      n_central--;
-      continue;
+    //if (obs[dummyint] == "-")       _map[mass[dummyint]] = 0.;
+    //if (obs[dummyint] == "--")       _map[mass[dummyint]] = 0.;
+    
+    if(obs[dummyint]<=0 || limit[dummyint]<=0 ){
+      _map[mass[dummyint]] = 0.;
     }
-
-    double scale=0.01; //mixing squared is 0.01 now                                                                                                                                                                                                                                                                                                                  
-    if(mass[dummyint]<=60) scale *= 0.01;
-    else if(mass[dummyint]<=200) scale *= 0.001;
-    else if(mass[dummyint]<=600) scale *= 0.1;
-    else if(mass[dummyint]<=1000) scale *= 1.;
-    else scale *= 10.;
-
-    //    scale*=  0.01; //FIXME                                                                                                                                                                                                                                                                                                                                     
-
-    obs[dummyint] *= scale;
-
-    limit[dummyint] *= scale;
-    onesig_left[dummyint] *= scale;
-    onesig_right[dummyint] *= scale;
-    twosig_left[dummyint] *= scale;
-    twosig_right[dummyint] *= scale;
-
-    //==== skip points                                                                                                                                                                                                                                                                                                                                               
-    if(obs[dummyint]>1.0 || limit[dummyint]>1.0){
-      //n_central--;                                                                                                                                                                                                                                                                                                                                                 
-      //continue;                                                                                                                                                                                                                                                                                                                                                    
+    else{
+      _map[mass[dummyint]] = limit[dummyint];
     }
+  }
 
-    onesig_left[dummyint] = limit[dummyint]-onesig_left[dummyint];
-    onesig_right[dummyint] = onesig_right[dummyint] - limit[dummyint];
-    twosig_left[dummyint] = limit[dummyint]-twosig_left[dummyint];
-    twosig_right[dummyint] = twosig_right[dummyint] - limit[dummyint];
+  return _map;
 
-    if(max_obs<obs[dummyint]){
-      max_obs = obs[dummyint];
-      max_obs_mass = mass[dummyint];
-    }
-    if(min_obs>obs[dummyint]){
-      min_obs = obs[dummyint];
-      min_obs_mass = mass[dummyint];
-    }
 
+}
+  
+TGraphAsymmErrors*  GetTGraph(std::map<double,double> map1, std::map<double,double> map2, int i ){
+
+  int n_central =   map1.size();
+
+  int dummyint=0;
+  
+  double mass[n_central], obs[n_central], limit[n_central], onesig_left[n_central], onesig_right[n_central], twosig_left[n_central], twosig_right[n_central];
+
+  cout << "n_central = " <<n_central<<endl;
+  for(std::map<double,double>::iterator it = map1.begin(); it != map1.end(); it++){
+
+    double dmass = it->first;
+    cout << it->first << " " << it->second << endl;
+    std::map<double,double>::iterator it2 = map2.find(dmass);
+    double limit_r=1.;
+    if (it2 != map2.end()) limit_r=it2->second;
+
+    mass[dummyint] = it->first;
+    obs[dummyint] = limit_r/it->second;
+    limit[dummyint] = limit_r/it->second;
+    onesig_left[dummyint] = limit_r/it->second;
+    onesig_right[dummyint] = limit_r/it->second;
+    twosig_left[dummyint] = limit_r/it->second;
+    twosig_right[dummyint] = limit_r/it->second;
     dummyint++;
+    continue;
   }
 
   cout << "n_central = " << n_central << " mass size = " << mass << endl;
@@ -325,26 +372,26 @@ TGraphAsymmErrors*  GetTGraph(TString input_path, int nbins, int i){
     cout << "Mass = " << mass[k] << " expected = " << limit[k] << " + 1sigma = " << onesig_right[k] << " -1sigma = "  << onesig_left[k] << " + 2 sigma = " << twosig_right[k] << " - 2 sigam = " << twosig_left[k] << endl;
   }
 
-  cout << "Max : " << max_obs_mass << "\t" << max_obs << endl;
-  cout << "Min : " << min_obs_mass << "\t" << min_obs << endl;
 
   //TGraph *gr_13TeV_obs = new TGraph(n_central,mass,obs);                                                                                                                                                                                                                                                                                                           
   
   TGraphAsymmErrors *gr_13TeV_exp = new TGraphAsymmErrors(n_central,mass,limit,0,0,0,0);
   gr_13TeV_exp->SetLineWidth(3);
   gr_13TeV_exp->SetFillColor(kWhite);
-  //if(i==1)   gr_13TeV_exp->SetLineStyle(2);
+  if(i==1)   gr_13TeV_exp->SetLineStyle(2);
   if(i==1)   gr_13TeV_exp->SetLineColor(kRed);
   //if(i==2)   gr_13TeV_exp->SetLineStyle(3);
   if(i==2)   gr_13TeV_exp->SetLineColor(kBlue);
   //if(i==3)   gr_13TeV_exp->SetLineStyle(4);
-  if(i==3)   gr_13TeV_exp->SetLineColor(kYellow);
+  if(i==3)   gr_13TeV_exp->SetLineColor(kGreen-2);
   //if(i==4)   gr_13TeV_exp->SetLineStyle(5);
   if(i==4)   gr_13TeV_exp->SetLineColor(kBlack);
   //if(i==5)   gr_13TeV_exp->SetLineStyle(6);
   if(i==5)   gr_13TeV_exp->SetLineColor(kCyan);
   if(i==6)   gr_13TeV_exp->SetLineColor(kOrange);
-  if(i==7)   gr_13TeV_exp->SetLineColor(kViolet;
+  if(i==7)   gr_13TeV_exp->SetLineColor(kViolet);
+  if(i==7)   gr_13TeV_exp->SetLineStyle(6);
+  if(i==8)   gr_13TeV_exp->SetLineStyle(5);
   
   return gr_13TeV_exp;
 

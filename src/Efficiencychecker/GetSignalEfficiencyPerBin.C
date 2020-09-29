@@ -53,17 +53,17 @@ void GetSignalEfficiencyPerBin(TString _chan = "Schannel"){
   //channel.push_back("EmEm");
 
   vector<TString> muIDs;
-  muIDs.push_back("HNTightV1");
-  muIDs.push_back("HNTightV2");
+  //  muIDs.push_back("HNTightV1");
+  //  muIDs.push_back("HNTightV2");
   muIDs.push_back("POGTightWithTightIso");
   
   vector<TString> elIDs;
-  elIDs.push_back("passTightID_nocc");
-  elIDs.push_back("HNTight2016");
-  elIDs.push_back("passMVAID_iso_WP80");
-  elIDs.push_back("passMVAID_iso_WP90");
+  //elIDs.push_back("passTightID_nocc");
+  //elIDs.push_back("HNTight2016");
+  //elIDs.push_back("passMVAID_iso_WP80");
+  //elIDs.push_back("passMVAID_iso_WP90");
   elIDs.push_back("passMediumID");
-  elIDs.push_back("passTightID");
+  //elIDs.push_back("passTightID");
 
 
   TString outfile = ENV_PLOT_PATH+ FLATVERSION+"/"+"HNEfficiencies_highmass_"+FLATVERSION+"_"+_chan+".root";
@@ -119,21 +119,22 @@ void GetSignalEfficiencyPerBin(TString _chan = "Schannel"){
 	  _xup.push_back(0);
           TString im = masses.at(i);
 
-	  TString sigpath = ENV_MERGEDFILE_PATH+ "/2016/SIG/"+analysername+"_HN_"+_chan+"_"+_channel+"_"+im+"_nlo.root";
+	  TString sigpath = ENV_MERGEDFILE_PATH+ "/HNtypeI_JA/2016/SIG/"+analysername+"_HN_"+_chan+"_"+_channel+"_"+im+"_nlo.root";
 	  TFile * filemm = new TFile((sigpath).Data());	  
 	  if(CheckFile(filemm) > 0) continue;
 	  
 	  // loop over masses                                                                                                                                  
-	  TString n_all_hist="CutFlow/NoCut_HNtypeI_JA_"+_channel + "_"+ _id;
-	  TH1* hnsig = GetHist(filemm,n_all_hist);
-	  FormatHist(hnsig,false, histcolors[l]);
+          TString n_all_hist="FillEventCutflow/HNtypeI_JA_"+_channel+"_"+ _id+"exo_17_028_dimu_same_sign";
+          if(_channel == "EE") n_all_hist="FillEventCutflow/HNtypeI_JA_"+_channel+"_"+ _id+"exo_17_028_diel_same_sign";
+          TH1* hnsig = GetHist(filemm,n_all_hist);
+          FormatHist(hnsig,false, histcolors[l]);
 	  
 	  float nsig = float(hnsig->Integral());
 	  // since signal for OS+SS are merged the cutcount is doubled                                                                                         
 	  nsig=nsig/2.;
 
-	  
-	  TString n_sr_hist = _sr + "_"+_channel + "_mn"+im+"_"+sign +"/"+_sr+"_"+_channel +"_mn"+im+"_"+sign +"_nevent_HNtypeI_JA_"+_channel+"_" + _id +"_";	  
+	  //SR1_mn800_nevent_HNtypeI_JA_MuMu_POGTightPFIsoMedium_
+	  TString n_sr_hist = _sr + "/"+_sr+"_mn"+im+"_nevent_HNtypeI_JA_"+_channel+"_" + _id +"_";	  
 
 	  
 	  TH1*  hpass = GetHist(filemm, n_sr_hist);

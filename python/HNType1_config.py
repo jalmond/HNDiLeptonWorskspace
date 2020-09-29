@@ -1,4 +1,10 @@
-import os,ROOT
+import os
+
+try:
+    import ROOT
+except ImportError:
+    pass
+
 
 def GetEXO_17_028_Bkg(channel,SR,mass):
     
@@ -370,7 +376,7 @@ def GetCentralConfig(scriptname, tag, configfile,_setup):
                 for x in _tmp_line:
                     list_channels.append(x)
 
-    if is_config_setup:   
+    if is_config_setup:
         _setup.append([tag,list_channels])
         return list_channels
     

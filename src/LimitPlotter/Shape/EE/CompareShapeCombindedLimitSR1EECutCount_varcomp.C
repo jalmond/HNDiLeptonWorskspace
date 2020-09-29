@@ -9,7 +9,7 @@
 
 TGraphAsymmErrors*  GetTGraph(TString input_path, int nbins, int i);
 
-void  CompareShapeCombindedLimitSR1EECutCount(int i=0, int j=0, TString dirname="", int ReturnWhat=0, bool RunFullCLs=true){
+void  CompareShapeCombindedLimitSR1EECutCount_varcomp(int i=0, int j=0, TString dirname="", int ReturnWhat=0, bool RunFullCLs=true){
 
   bool DrawObserved = false;
 
@@ -74,10 +74,10 @@ void  CompareShapeCombindedLimitSR1EECutCount(int i=0, int j=0, TString dirname=
   //result_combined_HNTight2016.txt  result_VBF_passTightID_nocc.txt
   //result_VBF_passTightID.txt  result_VBF_passTightID_noccb.txt
   //result_VBF_HNTight2016_reco_ml1jj.txt
-  TGraphAsymmErrors*  ee_hn       =  GetTGraph(filepath+ "/result_VBF_HNTight2016_"+WhichVar+".txt", 13,1); /// cut and count
-  TGraphAsymmErrors*  ee_vtight    =GetTGraph(filepath+ "/result_VBF_passTightID_"+WhichVar+".txt", 13,2); /// cut and count
-  TGraphAsymmErrors*  ee_vtightnocc    =GetTGraph(filepath+ "/result_VBF_passTightID_nocc_"+WhichVar+".txt", 13,3); /// cut and count
-  TGraphAsymmErrors*  ee_vtightnoccb    =GetTGraph(filepath+ "/result_VBF_passTightID_noccb_"+WhichVar+".txt", 13,4); /// cut and count
+  TGraphAsymmErrors*  ee_hn       =  GetTGraph(filepath+ "/result_VBF_passTightID_reco_mlljj.txt", 13,1); /// cut and count
+  TGraphAsymmErrors*  ee_vtight    =GetTGraph(filepath+ "/result_VBF_passTightID_reco_ml1jj.txt", 13,2); /// cut and count
+  TGraphAsymmErrors*  ee_vtightnocc    =GetTGraph(filepath+ "/result_VBF_passTightID_reco_ml2jj.txt", 13,3); /// cut and count
+  TGraphAsymmErrors*  ee_vtightnoccb    =GetTGraph(filepath+ "/result_VBF_passTightID_signalbin.txt", 13,4); /// cut and count
 
   //=== EXO-17-028 overlay                                                                                                                                                                                                                    
   const int nm_17028 = 19;
@@ -188,10 +188,10 @@ void  CompareShapeCombindedLimitSR1EECutCount(int i=0, int j=0, TString dirname=
   dummy->GetYaxis()->SetRangeUser(0.000005, 1.);
   dummy->SetTitle("");
   dummy->Draw("hist");
-  lg_Alt->AddEntry(ee_hn,"EXO-17-028","l");
-  lg_Alt->AddEntry(ee_vtightnoccb,"POG Tight+CC[EC]","l");
-  lg_Alt->AddEntry(ee_vtightnocc,"POG Tight","l");
-  lg_Alt->AddEntry(ee_vtight,"POG Tight+CC","l");
+  lg_Alt->AddEntry(ee_hn,"m(lljj)","l");
+  lg_Alt->AddEntry(ee_vtightnoccb,"ml1jj","l");
+  lg_Alt->AddEntry(ee_vtightnocc,"ml2jj","l");
+  lg_Alt->AddEntry(ee_vtight,"Binned","l");
 
 
   ee_hn->Draw("lsame");
@@ -230,7 +230,7 @@ void  CompareShapeCombindedLimitSR1EECutCount(int i=0, int j=0, TString dirname=
   dummy->GetXaxis()->SetRangeUser(90,1500);
   dummy->GetYaxis()->SetRangeUser(1E-4,1.);
   dummy->Draw("axissame");
-  c_SOnly->SaveAs(plotpath+"/Shape_"+WhichVar+"_"+WhichYear+"_"+channel+"comparison_"+WhichDirectoryInCutop+".pdf"); 
+  c_SOnly->SaveAs(plotpath+"/Shape_var_"+WhichVar+"_"+WhichYear+"_"+channel+"comparison_"+WhichDirectoryInCutop+".pdf"); 
 
 
   return;

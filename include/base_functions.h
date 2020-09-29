@@ -37,7 +37,13 @@ TLegend* MakeLegend(double x1, double x2, double y1, double y2){
   
 }
 
+int GetHistStyle(int nth_samples){
 
+  vector<int> _style = {1,1,1,1,1,4,4,4,4,4,5,5,5,5,5};
+  if(nth_samples > int(_style.size())) return _style[0];
+  return _style[nth_samples];
+
+}
 
 Color_t GetHistColor(int nth_samples){
   vector <Color_t > _colors;
@@ -48,16 +54,21 @@ Color_t GetHistColor(int nth_samples){
   _colors.push_back(kGray);
   _colors.push_back(kViolet);
   _colors.push_back(kYellow+4);
+  _colors.push_back(kCyan);
+  _colors.push_back(kBlue-2);
+  _colors.push_back(kGreen-2);
 
   if(nth_samples > int(_colors.size())) return _colors[0];
   return _colors[nth_samples];
   
 }
 
-vector<Color_t>  GetHistColors(int nsamples){
+
+
+vector<pair<Color_t,int> >  GetHistColors(int nsamples){
   
-  vector<Color_t> _colors;
-  for(unsigned int i = 0 ; i < nsamples; i++) _colors.push_back(GetHistColor(i));
+  vector<pair<Color_t,int > > _colors;
+  for(unsigned int i = 0 ; i < nsamples; i++) _colors.push_back(make_pair(GetHistColor(i),GetHistStyle(i)));
   
   return _colors;
   
