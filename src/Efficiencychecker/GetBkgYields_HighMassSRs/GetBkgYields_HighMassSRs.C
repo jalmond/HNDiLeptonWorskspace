@@ -3,7 +3,7 @@
 #include "mylib.h"
 #include "canvas_margin.h"
 
-void MakeTexFile(map< TString, TH1D * > hs, TString outp,TString SR);
+void MakeTexFile(map< TString, TH1D * > hs2016,map< TString, TH1D * > hsall, TString outp,TString SR);
 
 void GetBkgYields_HighMassSRs(TString analysername="HNtypeI_Dilepton" ){
   
@@ -45,7 +45,7 @@ void GetBkgYields_HighMassSRs(TString analysername="HNtypeI_Dilepton" ){
   gStyle->SetPalette(1);
     
   vector <TString>   SRs   = {"SR1","SR2"};
-  vector <TString>  years = {"2016"};
+  vector <TString>  years = {"2016","2017","2018"};
   vector <TString> channel ={"MuMu","EE"};
 
   vector<TString> muIDs  = { "POGTightPFIsoVeryTight","HNTight2016","HNTightV1","POGTightPFIsoTight","POGTightPFIsoMedium","POGTightPFIsoLoose","POGTightPFIsoVeryVeryTight","POGHighPtMixTight","POGHighPtTight"};
@@ -59,10 +59,13 @@ void GetBkgYields_HighMassSRs(TString analysername="HNtypeI_Dilepton" ){
 
   
   // run over EE/MM plus charge seperation
-  for (auto year: years ){
+
     
-    for(unsigned int k = 0 ; k < channel.size(); ++k){
-      
+  for(unsigned int k = 0 ; k < channel.size(); ++k){
+    map<TString, TH1D*> histmap_all;
+    map<TString, TH1D*> histmap_2016;
+    
+    for (auto year: years ){    
       vector<TString> IDs;
 
       if ( channel[k].Contains("E") ) IDs = elIDs;
@@ -85,7 +88,7 @@ void GetBkgYields_HighMassSRs(TString analysername="HNtypeI_Dilepton" ){
       vector<pair<Color_t,int> > histcolors = GetHistColors(IDs.size());
       vector<TH1D*> _vhists;
       
-      TString histlabel1= "SR1_"+_channel +  +"_highmass_"+analysername+"_";
+      TString histlabel1= "SR1_"+_channel +  +"_highmass_"+analysername+"_"+year;
       TH1D* this_hist_exo_17_028 = new TH1D( histlabel1 , histlabel1, SRs.size(), 0, SRs.size());
       SetBinLabels(this_hist_exo_17_028, SRs);
       if(_channel=="EE")this_hist_exo_17_028->Fill("SR1",422.);
@@ -98,7 +101,7 @@ void GetBkgYields_HighMassSRs(TString analysername="HNtypeI_Dilepton" ){
 	TString _id = IDs[l];
 	
 	// setup hist
-	TString histlabel= "SR1_"+_channel +  +"_highmass_"+analysername+"_"+_id;
+	TString histlabel= "SR1_"+_channel +  +"_highmass_"+analysername+"_"+_id+year;
 
 	TH1D* this_hist = new TH1D( histlabel , histlabel, SRs.size(), 0, SRs.size());
 	for (auto SR: SRs ){
@@ -120,10 +123,11 @@ void GetBkgYields_HighMassSRs(TString analysername="HNtypeI_Dilepton" ){
 	this_hist->SetLineColor(histcolors[l].first);
 	this_hist->SetLineStyle(histcolors[l].second);
 	this_hist->SetLineWidth(2.);
+	cout << this_hist<< endl;
 	_vhists.push_back(this_hist);
       } // ID loop
       
-      TString canvasname2="SR1_SR2_highmass2_njets_"+analysername+"_JA_"+_channel;
+      TString canvasname2="SR1_SR2_highmass2_njets_"+analysername+"_JA_"+_channel+year;
       TCanvas* c2 = new TCanvas(canvasname2,canvasname2, 800,800);
       c2->cd();
 
@@ -137,36 +141,39 @@ void GetBkgYields_HighMassSRs(TString analysername="HNtypeI_Dilepton" ){
       for (auto i: _vhists) if(_min > i->GetMinimum()) _min = i->GetMinimum();
       
      this_hist_exo_17_028->GetYaxis()->SetRangeUser(_min*0.9, _max*1.4);
-     map<TString, TH1D*> histmap;
-     histmap["17_028"] = this_hist_exo_17_028;
-     
+
+     if(year=="2016")histmap_2016["17_028"] = this_hist_exo_17_028;
+     //histmap_full[year+"17_028"] = this_hist_exo_17_028;
+     histmap_all[year+"_id_17_028"] = this_hist_exo_17_028;
+
      setTDRStyle();
      
       this_hist_exo_17_028->Draw("hist");
       for (unsigned int ig = 0 ; ig < _vhists.size(); ig++){
-	histmap[IDs[ig]] = _vhists[ig],IDs[ig];
-	
+	if(year=="2016")histmap_2016[IDs[ig]] = _vhists[ig],IDs[ig];
+	histmap_all[year+"_id"+IDs[ig]] = _vhists[ig],IDs[ig];
+
 	_vhists[ig]->Draw("histsame");
 	AllLegendEntry(legend_g,_vhists[ig],IDs[ig],"l");
       }
       
       legend_g->Draw();
       
-      DrawLatexWithLabel("2016","HighMass SR",0.25,0.88);
-      DrawLatexWithLabel("2016",_channel,0.25,0.83);
-
-  
-      MakeTexFile(histmap,output,"SR1+SR2");
-      TString save_sg= output + "/hist_SR1_SR2_highmass_event_yields_"+analysername+"_"+_channel+".pdf";
-
+      DrawLatexWithLabel(year,"HighMass SR",0.25,0.88);
+      DrawLatexWithLabel(year,_channel,0.25,0.83);
+ 
+      //MakeTexFile(histmap,output,"SR1+SR2");
+      TString save_sg= output + "/"+year+"_hist_SR1_SR2_highmass_event_yields_"+analysername+"_"+_channel+".pdf";
+      
       c2->SetLogy();
       c2->SaveAs(save_sg);
       OutMessage("GetSignalEfficiency",save_sg);
-    } // channel 
+    } // channel
+    MakeTexFile(histmap_2016,histmap_all,output,"SR1+SR2");
   }
 }
 
-void MakeTexFile(map< TString, TH1D * > hs,TString output,TString SR){
+void MakeTexFile(map< TString, TH1D * > hs_2016,map< TString, TH1D * > hs_all,TString output,TString SR){
 
   TString texfilepath = output+"/tex/";
   MakeDir(texfilepath);
@@ -187,26 +194,38 @@ void MakeTexFile(map< TString, TH1D * > hs,TString output,TString SR){
   ofile << "    Number of events in " << SR << endl;
   ofile << "  }" << endl;
   ofile << "  \\begin{center}" << endl;
-  ofile << "    \\begin{tabular}{c|c|c}" << endl;
+  ofile << "    \\begin{tabular}{c|c|c|c|c|c|c|}" << endl;
   ofile << "\\hline" << endl;
   ofile << " ID & SR1 & SR2 \\\\" << endl;
   ofile << "\\hline" << endl;
   ofile << "\\hline" << endl;
 
-  TH1D *hist_bkgd = new TH1D("hist_bkgd", "", 1., 0., 1.);
-  bool HasSignal = false;
-  for(map< TString, TH1D * >::iterator it = hs.begin(); it != hs.end(); it++){
-    TString name = it->first;
 
+  bool HasSignal = false;
+  for(map< TString, TH1D * >::iterator it = hs_2016.begin(); it != hs_2016.end(); it++){
+
+    TString name = it->first;
+    //    if(!name.Contains("2016_id")) continue;
+    //name.ReplaceAll("2016_id");
+
+    map< TString, TH1D * >::iterator it_2017 = hs_all.find(name);
+    map< TString, TH1D * >::iterator it_2018 = hs_all.find(name);
     name.ReplaceAll("_","\\_");
+    
+    
     if(name == "X + #gamma") name = "$X + \\gamma$";
     if(name == "Z + #gamma") name = "Z $+ \\gamma$";
     if(name == "W + #gamma") name = "W $+ \\gamma$";
     if(name == "top + #gamma") name = "top $+ \\gamma$";
     TH1D *h_bkgd = it->second;
-    ofile << name << " & $"<<h_bkgd->GetBinContent(1)<< "$  & $" << h_bkgd->GetBinContent(2)  <<"$ \\\\" << endl;
-    hist_bkgd->Add(h_bkgd);
+    TH1D *h_bkgd_2017 = it_2017->second;
+    TH1D *h_bkgd_2018 = it_2018->second;
+    ofile << name << " & $"<<h_bkgd->GetBinContent(1)<< "$  & $" << h_bkgd->GetBinContent(2)  ;
+    ofile <<  " & $"<<h_bkgd_2017->GetBinContent(1)<< "$  & $" << h_bkgd_2017->GetBinContent(2)  ;
+    ofile << " & $"<<h_bkgd_2018->GetBinContent(1)<< "$  & $" << h_bkgd_2018->GetBinContent(2)  <<"$ \\\\" << endl;
   }
+
+  
   ofile << "\\hline" << endl;
   //  ofile << "Total & $" << hist_bkgd->GetBinContent(1) << " \\pm " << hist_bkgd->GetBinError(1) << "$ \\\\" << endl;
   //ofile << "\\hline" << endl;
@@ -221,6 +240,7 @@ void MakeTexFile(map< TString, TH1D * > hs,TString output,TString SR){
   ofile << "    \\end{tabular}" << endl;
   ofile << "  \\end{center}" << endl;
   ofile << "\\end{table}" << endl;
+
 
   system("latex "+texfilepath+"/Yields.tex");
   system("dvipdf Yields.dvi");

@@ -15,6 +15,416 @@ void SetBinLabels(TH1D* hist, std::vector<TString> list){
 }
 
 
+map<TString,TString> ConfigMap(TString config_file){
+
+  map<TString,TString> conf_map;
+
+  ifstream config_file_name (config_file);
+
+  if(!config_file_name){
+    cerr << "Did not find "+config_file+", exiting ..." << endl;
+    return conf_map;
+  }
+
+
+  while(!config_file_name.eof()) {
+    string tmp;
+    string tmp1;
+    string tmppath;
+    config_file_name >> tmp;
+    if(tmp=="config") {
+      config_file_name >> tmp1;
+      config_file_name >> tmppath;
+
+      conf_map[tmp1] = tmppath;
+    }
+  }
+
+  return conf_map;
+}
+
+
+map<TString,Color_t> SigColorMap(TString config_file){
+
+
+  map<TString,Color_t> conf_map;
+
+  ifstream config_file_name (config_file);
+
+  if(!config_file_name){
+    cerr << "Did not find "+config_file+", exiting ..." << endl;
+    return conf_map;
+  }
+
+
+  while(!config_file_name.eof()) {
+    string tmp;
+    string tmp1;
+    string tmppath;
+    Color_t col;
+    config_file_name >> tmp;
+
+    if(tmp=="signal") {
+      config_file_name >> tmp1;
+      config_file_name >> tmppath;
+      config_file_name >> col;
+      conf_map["mn"+tmp1] = col;
+    }
+  }
+  return conf_map;
+}
+
+
+map<TString,Color_t> BkgColorMap(TString config_file){
+
+  
+  map<TString,Color_t> conf_map;
+
+  ifstream config_file_name (config_file);
+
+  if(!config_file_name){
+    cerr << "Did not find "+config_file+", exiting ..." << endl;
+    return conf_map;
+  }
+
+
+  while(!config_file_name.eof()) {
+    string tmp;
+    string tmp1;
+    string tmppath;
+    Color_t col;
+    config_file_name >> tmp;
+
+    if(tmp=="sample") {
+      config_file_name >> tmp1;
+      config_file_name >> tmppath;
+      config_file_name >> col;
+      conf_map[tmp1] = col;
+    }
+  }
+  return conf_map;
+}
+
+map<TString,TString> BkgConfigMap(TString config_file){
+
+  map<TString,TString> conf_map;
+
+  ifstream config_file_name (config_file);
+
+  if(!config_file_name){
+    cerr << "Did not find "+config_file+", exiting ..." << endl;
+    return conf_map;
+  }
+
+  
+  while(!config_file_name.eof()) {
+    string tmp;
+    string tmp1;
+    string tmppath;
+    config_file_name >> tmp;
+
+    if(tmp=="sample") {
+      config_file_name >> tmp1;
+      config_file_name >> tmppath;
+      conf_map[tmp1] = tmppath;
+    }
+  }
+  return conf_map;
+}
+
+map<TString,TString> SigConfigMap(TString config_file){
+
+  map<TString,TString> conf_map;
+
+  ifstream config_file_name (config_file);
+
+  if(!config_file_name){
+    cerr << "Did not find "+config_file+", exiting ..." << endl;
+    return conf_map;
+  }
+
+
+  while(!config_file_name.eof()) {
+    string tmp;
+    string tmp1;
+    string tmppath;
+    config_file_name >> tmp;
+
+    if(tmp=="signal") {
+      config_file_name >> tmp1;
+      config_file_name >> tmppath;
+      conf_map["mn"+tmp1] = tmppath;
+    }
+  }
+  return conf_map;
+}
+
+
+void SetXaxisRange(TH1D* hist){
+
+  double this_x_min = hist->GetXaxis()->GetBinLowEdge(1);
+  double this_x_max = hist->GetXaxis()->GetBinUpEdge( hist->GetXaxis()->GetNbins() );
+
+
+  hist->GetXaxis()->SetRangeUser(this_x_min, this_x_max);
+}
+
+TH1D* MakeOverflowBin(TH1D* hist){
+
+    int n_bin_origin = hist->GetXaxis()->GetNbins();
+  //==== Changed NBins                                                                                                                                                                                                                        
+  int bin_first = hist->GetXaxis()->GetFirst();
+  int bin_last = hist->GetXaxis()->GetLast();
+  int n_bin_inrange = bin_last-bin_first+1;
+
+  double x_first_lowedge = hist->GetXaxis()->GetBinLowEdge(bin_first);
+  double x_last_upedge = hist->GetXaxis()->GetBinUpEdge(bin_last);
+  
+  double Allunderflows = hist->Integral(0, bin_first-1);
+  double Allunderflows_error = hist->GetBinError(0);
+  Allunderflows_error = Allunderflows_error*Allunderflows_error;
+  for(unsigned int i=1; i<=bin_first-1; i++){
+    Allunderflows_error += (hist->GetBinError(i))*(hist->GetBinError(i));
+  }
+  Allunderflows_error = sqrt(Allunderflows_error);
+
+  double Alloverflows = hist->Integral(bin_last+1, n_bin_origin+1);
+  double Alloverflows_error = hist->GetBinError(n_bin_origin+1);
+  Alloverflows_error = Alloverflows_error*Alloverflows_error;
+  for(unsigned int i=bin_last+1; i<=n_bin_origin; i++){
+    Alloverflows_error += (hist->GetBinError(i))*(hist->GetBinError(i));
+  }
+  Alloverflows_error = sqrt(Alloverflows_error);
+
+  //==== Make X-bin array                                                                                                                                                                                                                     
+  Double_t temp_xbins[n_bin_inrange+1];
+  int counter=0;
+  for(int i=bin_first;i<=bin_last;i++){
+    temp_xbins[counter] = hist->GetXaxis()->GetBinLowEdge(i);
+    counter++;
+  }
+  temp_xbins[n_bin_inrange+1-1] = hist->GetXaxis()->GetBinUpEdge(bin_last);
+  const Double_t *xcopy=temp_xbins;
+  TH1D *hist_out = new TH1D(hist->GetName(), hist->GetTitle(), n_bin_inrange, xcopy);
+  for(unsigned int i=1; i<=n_bin_inrange; i++){
+    double this_content = hist->GetBinContent(bin_first-1+i);
+    double this_error = hist->GetBinError(bin_first-1+i);
+    //cout << "["<<hist_out->GetXaxis()->GetBinLowEdge(i)<<", "<<hist_out->GetXaxis()->GetBinUpEdge(i)<<"] : "<<this_content<<endl;                                                                                                           
+
+    //==== underflows                                                                                                                                                                                                                         
+    if(i==1){
+      this_content += Allunderflows;
+      this_error = TMath::Sqrt( this_error*this_error + Allunderflows_error*Allunderflows_error );
+    }
+
+    //==== overflows                                                                                                                                                                                                                          
+    if(i==n_bin_inrange){
+      this_content += Alloverflows;
+      this_error = TMath::Sqrt( this_error*this_error + Alloverflows_error*Alloverflows_error );
+    }
+
+    hist_out->SetBinContent(i, this_content);
+    hist_out->SetBinError(i, this_error);
+
+  }
+
+  return hist_out;
+
+}
+
+TH1D* GetSignalHist(TLegend* legend_g,TString current_sample, TString filepath, TString fullhistname,pair<Color_t,int> col, bool addleg){
+
+  TH1D* hist_temp;
+  TFile* file = new TFile(filepath);
+  if( !file ){
+    cout << "No file : " << filepath << endl;
+    return hist_temp;
+  }
+  
+    
+  hist_temp = (TH1D*)file->Get(fullhistname);
+  
+  hist_temp->SetLineColor(col.first);
+  hist_temp->SetLineStyle(col.second);
+  hist_temp->SetLineWidth(2.);
+    
+  if(addleg)legend_g->AddEntry(hist_temp,current_sample+" GeV","l");
+
+  return hist_temp;
+}
+
+double GetIntegral(map<TString,TString> _map, TString fullhistname){
+
+  double total(0.);
+  for (map<TString,TString>::iterator it = _map.begin(); it != _map.end(); it++){
+    
+    TString current_sample = it->first;
+    TString filepath       = it->second;
+    
+    TFile* file = new TFile(filepath);
+    if( !file ){
+      cout << "No file : " << filepath << endl;
+      continue;
+    }
+
+    TH1D* hist_temp = (TH1D*)file->Get(fullhistname);
+    if(!hist_temp || hist_temp->GetEntries() == 0){
+      cout << "No histogram : " << current_sample << " " << fullhistname << " " <<  filepath << endl;
+      file->Close();
+      delete file;
+      continue;
+    }
+    total+= hist_temp->Integral();
+  }
+  return total;
+}
+THStack*  MakeStack(TLegend* legend_g,map<TString,TString> _map, TString fullhistname, map<TString,Color_t> _colmap){
+
+  THStack* MC_stacked = new THStack("MC_stacked", "");
+
+  for (map<TString,TString>::iterator it = _map.begin(); it != _map.end(); it++){
+
+    TString current_sample = it->first;
+    TString filepath       = it->second;
+
+    TFile* file = new TFile(filepath);
+    if( !file ){
+      cout << "No file : " << filepath << endl;
+      continue;
+    }
+    
+    TH1D* hist_temp = (TH1D*)file->Get(fullhistname);
+    if(!hist_temp || hist_temp->GetEntries() == 0){
+      cout << "No histogram : " << current_sample << " " << fullhistname << " " <<  filepath << endl;
+      file->Close();
+      delete file;
+      continue;
+    }
+    hist_temp->SetName(fullhistname+"_"+current_sample);
+
+    SetXaxisRange(hist_temp);
+    TH1D *hist_final = MakeOverflowBin(hist_temp);
+    hist_final->GetXaxis()->SetTitle(hist_temp->GetXaxis()->GetTitle());
+    hist_final->GetYaxis()->SetTitle(hist_temp->GetYaxis()->GetTitle());
+    //==== Remove Negative bins                                                                                                                                               
+    TAxis *xaxis = hist_final->GetXaxis();
+    for(int ccc=1; ccc<=xaxis->GetNbins(); ccc++){
+      //if(DoDebug) cout << current_sample << "\t["<<xaxis->GetBinLowEdge(ccc) <<", "<<xaxis->GetBinUpEdge(ccc) << "] : " << hist_final->GetBinContent(ccc) << endl;
+      if(hist_final->GetBinContent(ccc)<0){
+	hist_final->SetBinContent(ccc, 0.);
+	hist_final->SetBinError(ccc, 0.);
+      }
+    }
+    map<TString,Color_t>::iterator color_it;
+    color_it= _colmap.find(current_sample);
+    hist_final->SetFillColor(color_it->second);
+    hist_final->SetLineColor(color_it->second);
+    legend_g->AddEntry(hist_final,current_sample,"f");
+    //hist_final->Rebin(2);
+    MC_stacked->Add(hist_final);
+    //hs->GetXaxis()->SetTitle("the X axis");
+
+
+    //MC_stacked->GetYaxis()->SetTitle(hist_final->GetYaxis()->GetTitle());
+  }
+
+  return MC_stacked;
+
+
+}
+vector<TString> GetHistNames(TString file, TString dirname, TString analyzername,TString flavour){
+
+    vector<TString> vlist;
+
+  TFile * _file = new TFile(file);
+  if(CheckFile(_file) > 0)  return vlist;
+  TDirectory* _dir = _file->GetDirectory(dirname);
+  TList* list = _dir->GetListOfKeys() ;
+  TIter next(list) ;
+  TKey* key ;
+  TObject* obj ;
+
+  while ( (key = (TKey*)next()) ) {
+    obj = key->ReadObj() ;
+    TString hname = obj->GetName();
+    TString objname= obj->ClassName();
+    if(!hname.Contains(analyzername+"_"+flavour+"_HNTightV1")) continue;
+    hname = hname.ReplaceAll("_"+analyzername+"_"+flavour+"_HNTightV1","");
+    hname = hname.ReplaceAll(dirname+"/"+dirname+"_","");
+    
+    vlist.push_back(hname);
+  }
+  return vlist;
+
+}
+vector<TString> GetIDNames(TString file, TString dirname, TString analyzername,TString flavour){
+
+  
+  vector<TString> vlist;
+
+  TFile * _file = new TFile(file);
+  if(CheckFile(_file) > 0)  return vlist;
+  TDirectory* _dir = _file->GetDirectory(dirname);
+  TList* list = _dir->GetListOfKeys() ;
+  TIter next(list) ;
+  TKey* key ;
+  TObject* obj ;
+
+  while ( (key = (TKey*)next()) ) {
+    obj = key->ReadObj() ;
+    TString hname = obj->GetName();
+    TString objname= obj->ClassName();
+    if(!hname.Contains(dirname+"_njets_"+analyzername+"_"+flavour)) continue;
+    hname = hname.ReplaceAll(dirname+"/"+dirname+"_njets_"+analyzername+"_"+flavour+"_","");
+    //cout << "---> " << hname << endl;
+    vlist.push_back(hname);
+  }
+  
+  return vlist;
+   
+}
+vector<TString> GetDirName(TString file){
+
+  vector<TString> vlist;
+  
+  TFile * _file = new TFile(file);
+  if(CheckFile(_file) > 0)  return vlist;
+
+  TList* list = _file->GetListOfKeys() ;
+  TIter next(list) ;
+  TKey* key ;
+  TObject* obj ;
+  
+  while ( (key = (TKey*)next()) ) {
+    obj = key->ReadObj() ;
+    TString hname = obj->GetName();
+    TString objname= obj->ClassName();
+    if(objname.Contains("Dir")) vlist.push_back(hname);
+  }
+
+  return vlist;
+  
+}
+
+bool CheckInput(vector<TString> list, TString _var ,TString tag){
+  if(std::find(list.begin(), list.end(), _var) != list.end()) cout << "Running with " << tag  << " :  "  <<_var << endl;
+  else {cout << "Error in input of " + tag+ ": " << _var << endl; for (auto i: list)   std::cout << i << ' '<<endl; return false; }
+
+  return true;
+}
+bool CheckFileInput(TString fname){
+
+  TFile * file_ = new TFile((fname).Data());
+
+  if(CheckFile(file_) > 0)  {
+    cout << "CheckInputFile::ERROR missing file " << fname << endl;
+    return false;
+  }
+  return true;
+
+
+}
+
 double GetLumi(TString year){
 
   if  (year == "2016")  return 35600;
