@@ -3,15 +3,20 @@
 #include "mylib.h"
 #include "canvas_margin.h"
 
-void GetSignalEfficiency_SRs(TString _sr="SR1",TString analysername="HNtypeI_Dilepton" ,TString _chan = "Schannel",bool setlog_axis=false, TString x_range="all"){ 
+void GetSignalEfficiency_SRs(TString ptbin="_HighPt", TString _sr="SR1",TString analysername="HNtypeI_Dilepton" ,TString _chan = "Schannel",bool setlog_axis=false, TString x_range="all"){ 
 
   // check which pc is running script to setup local paths
   TString s_hostname = GetHostname();
 
 
+  vector<TString> ptbin_names= {"","_HighPt","_LowPt"};
   vector<TString> code_names= {"HNtypeI_Dilepton","HNtypeI_JA"};
   vector<TString> channel_names= {"Schannel","Tchannel"};
   vector<TString> range_names = {"all","low","high"};
+
+  if(std::find(ptbin_names.begin(), ptbin_names.end(), ptbin) != ptbin_names.end()) cout << "Running with ptbin " << ptbin << endl;
+  else {cout << "Error in input of ptbin: " << ptbin << endl; for (auto i: ptbin_names)   std::cout << i << ' '; return; }
+
   if(std::find(code_names.begin(), code_names.end(), analysername) != code_names.end()) cout << "Running with code " << analysername << endl;
   else {cout << "Error in input of analyzer: " << analysername << endl; for (auto i: code_names)   std::cout << i << ' '; return; }
 
@@ -69,23 +74,21 @@ void GetSignalEfficiency_SRs(TString _sr="SR1",TString analysername="HNtypeI_Dil
   gStyle->SetPalette(1);
     
 
-  vector <TString> channel ={"MuMu","EE"};
+  vector <TString> channel ={"MuMu","EE","EE"};
+  vector <TString> channel2 ={"MuMu","EE","EEv2"};
 
-  vector<TString> muIDs  = { "POGTightPFIsoVeryTight","HNTight2016","HNTightV1","POGTightPFIsoTight","POGTightPFIsoMedium","POGTightPFIsoLoose","POGTightPFIsoVeryVeryTight","POGHighPtMixTight","POGHighPtTight"};
-  vector<TString> elIDs = {"passTightID","passMediumID","HNTight2016","passTightID_noccb","passTightID_nocc","passMVAID_iso_WP90","passMVAID_iso_WP80","HNTightV1"};
-
-  if (analysername=="HNtypeI_Dilepton"){
-    muIDs  = { "POGTightPFIsoVeryTight","HNTightV1", "POGHighPtMixTight"};
-    elIDs = {"passTightID","passTightID_noccb","HNTightV1"};
-  }
-
+  vector<TString> muIDs={"POGTightPFIsoVeryTight","HNTight2016","POGHighPtMixTight","POGTightPFIsoVeryVeryTight","POGTightPFIsoTight","POGTightPFIsoMedium","POGTightPFIsoLoose","HNTightV1","HNTightV2","POGHighPtTight"};
+  vector<TString> elIDs={"passMediumID","passMVAID_noIso_WP80","passMVAID_noIso_WP90","passMVAID_iso_WP80","passMVAID_iso_WP90","HEEPv7"};
+  
+  vector<TString> elID2s={"passTightID","HNTight2016","passTightID_nocc","HNTightV1","HNTightV2","HNTightV3","HNMediumV1","HNMediumV2","HNMediumV3"};
   // run over EE/MM plus charge seperation
   for(unsigned int k = 0 ; k < channel.size(); ++k){
     
     vector<TString> IDs;
 
-    if ( channel[k].Contains("E") ) IDs = elIDs;
-    else IDs =   muIDs;
+    if ( channel2[k] == "EE" ) IDs = elIDs;
+    else  if ( channel2[k] == "MuMu")  IDs =   muIDs;
+    else  if ( channel2[k] == "EEv2")  IDs =   elID2s;
     
     
     vector<TString> ignore_masses ;
@@ -108,6 +111,7 @@ void GetSignalEfficiency_SRs(TString _sr="SR1",TString analysername="HNtypeI_Dil
     vector <double> d_masses = GetMassType1Doubles(ignore_masses,_chan);
     
     TString _channel = channel[k];
+    TString _channel2 = channel2[k];
     
     // hist leg
     TLegend *legend = MakeLegend(0.65, 0.65, 0.9, 0.92);
@@ -128,7 +132,7 @@ void GetSignalEfficiency_SRs(TString _sr="SR1",TString analysername="HNtypeI_Dil
       TString _id = IDs[l];
       
       // setup hist
-      TString histlabel= _sr+"_"+_channel +  +"_highmass_"+analysername+"_"+_id;
+      TString histlabel= _sr+"_"+_channel +  +"_highmass_"+analysername+"_"+_id+ptbin;
       // setup graph
       int _Nbins = d_masses.size();
       vector<double> _x, _y, _xlow, _xup, _ylow, _yup;
@@ -146,7 +150,7 @@ void GetSignalEfficiency_SRs(TString _sr="SR1",TString analysername="HNtypeI_Dil
 	  if(CheckFile(filemm) > 0) continue;
 
 	  //SR1_highmass_njets_HNtypeI_JA_EE
-	  TString n_sr_hist1 = _sr+"_highmass/"+_sr+"_highmass_njets_"+analysername+"_"+_channel+"_" + _id +"_";
+	  TString n_sr_hist1 = _sr+"_highmass/"+_sr+"_highmass_njets_"+analysername+"_"+_channel+"_" + _id +ptbin+"_";
 
 	  TString n_all_hist="FillEventCutflow/"+analysername+"_"+_channel+"_"+ _id+"exo_17_028_dimu_same_sign";
 
@@ -161,7 +165,7 @@ void GetSignalEfficiency_SRs(TString _sr="SR1",TString analysername="HNtypeI_Dil
 	  
 	  TH1*  hpass1 = GetHist(filemm, n_sr_hist1);
 	  //if(l==0) cout << "--------------------------------------------------------------------------------------- " << endl;
-	  cout  << "Channel " << _chan << " : "  << _channel << " SR = " << _sr << "  ID " << _id << "  Mass = " << masses.at(i) << " Ncounts = " << (hpass1->Integral()) << " / " << nsig << " acceptance = " << 100*(hpass1->Integral())/nsig << endl;
+	  cout  << "Channel " << _chan << " : "  << _channel << " ptbin " << ptbin << "  SR = " << _sr << "  ID " << _id << "  Mass = " << masses.at(i) << " Ncounts = " << (hpass1->Integral()) << " / " << nsig << " acceptance = " << 100*(hpass1->Integral())/nsig << endl;
 
 	  
 	  double err ;
@@ -182,11 +186,8 @@ void GetSignalEfficiency_SRs(TString _sr="SR1",TString analysername="HNtypeI_Dil
 	_vgraphs.push_back(gtmp);
       } // ID loop
       // make output dir if needed
-      //MakeDir(ENV_PLOT_PATH+FLATVERSION+"/SignalEfficiency/"+_sr);
-      //MakeDir(ENV_PLOT_PATH+FLATVERSION+"/SignalEfficiency/"+_sr+"/"+_channel);
-
       
-      TString canvasname2=_sr+"_highmass2_njets_"+analysername+"_JA_"+_channel;
+      TString canvasname2=_sr+"_highmass2_njets_"+analysername+"_JA_"+_channel+ptbin;
       TCanvas* c2 = new TCanvas(canvasname2,canvasname2, 800,800);
       c2->cd();
       if(setlog_axis){
@@ -224,12 +225,11 @@ void GetSignalEfficiency_SRs(TString _sr="SR1",TString analysername="HNtypeI_Dil
 
       DrawLatexWithLabel("2016","HighMass "+_sr,0.25,0.88);
       DrawLatexWithLabel("2016",_channel+" " + _chan,0.25,0.83);
+      DrawLatexWithLabel("2016",ptbin,0.25,0.78);
 
 
       
-      TString save_sg= output + "/graph_"+_sr+"highmass_efficiency_"+_sr+"_"+analysername+"_"+_chan+"_"+_channel+".pdf";
-      //if(setlog_axis) save_sg = output + "graph_"+_sr+"highmass_CombinedSR1SR2_"+analysername+"_"+_chan+"_"+_channel+"_logAxis.pdf";
-
+      TString save_sg= output + "/graph_"+ptbin+"_"+_sr+"highmass_efficiency_"+_sr+"_"+analysername+"_"+_chan+"_"+_channel2+".pdf";
       c2->SaveAs(save_sg);
       OutMessage("GetSignalEfficiency",save_sg);
   } // channel 

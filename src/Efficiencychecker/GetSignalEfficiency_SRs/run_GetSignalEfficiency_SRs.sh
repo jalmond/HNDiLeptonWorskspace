@@ -10,9 +10,9 @@ else
     echo "Running non default"
     if [[ $5 == "false" ]];
     then
-	root -l -q -b 'GetSignalEfficiency_SRs.C("'$2'","'$3'","'$4'",false,"'$6'")'
+	root -l -q -b 'GetSignalEfficiency_SRs.C("'$7'","'$2'","'$3'","'$4'",false,"'$6'")'
     else
-	root -l -q -b 'GetSignalEfficiency_SRs.C("'$2'","'$3'","'$4'",true,"'$6'")'
+	root -l -q -b 'GetSignalEfficiency_SRs.C("'$7'","'$2'","'$3'","'$4'",true,"'$6'")'
 
     fi
 fi

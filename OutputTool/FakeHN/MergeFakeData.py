@@ -7,6 +7,7 @@ datalist = [ ["2016" , [ "Electron", [[ "EE","DoubleEG"]]]] ,
              ["2018" , [ "Electron", [[ "EE","EGamma"]]]] ,
              ["2018",  [  "Muon", [["MM","DoubleMuon"],["SingleMu","SingleMuon"]]]]]
 
+skim="SkimTree_HNFake"
 for d in datalist:
 
     year = d[0]
@@ -19,17 +20,20 @@ for d in datalist:
 
     flavour=d[1][0]
     datasets=d[1][1]
-    hadd = "hadd " + outpath + "FakeRateHN_SkimTree_NonIso_"+flavour + ".root "
+    hadd = "hadd " + outpath + "FakeRateHN_"+skim+"_"+flavour + ".root "
     for dataset in datasets:
         
         inpath = os.getenv("INFILE_PATH") +"FakeRateHN/"+year +"/"
         inpath += "is"+dataset[0]+"__/DATA/"
 
         
-        hadd = hadd + inpath +"FakeRateHN_SkimTree_NonIso_"+dataset[1] + "* " 
+        hadd = hadd + inpath +"FakeRateHN_"+skim+"_"+dataset[1] + "* " 
 
     print " "
     print hadd
-    if os.path.exists(outpath + "FakeRateHN_SkimTree_NonIso_"+dataset[1] + ".root"):
-        os.system("rm " + outpath + "FakeRateHN_SkimTree_NonIso_"+dataset[1] + ".root")
+    if os.path.exists(outpath + "FakeRateHN_"+skim+"_"+flavour + ".root"):
+        os.system("rm " + outpath + "FakeRateHN_"+skim+"_"+flavour + ".root")
     os.system(hadd)
+
+
+#os.system("source MC/mergefake.sh "+skim)

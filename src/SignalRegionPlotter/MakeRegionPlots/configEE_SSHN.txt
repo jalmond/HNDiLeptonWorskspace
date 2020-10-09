@@ -1,0 +1,13 @@
+config          data_file       /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/2016/HNtypeI_Dilepton_SkimTree_SSHN_DoubleEG.root
+config          cut_dir         SR1_HighmassCR
+config          plot_dir        SR1_HighmassCR
+config          analysername    HNtypeI_Dilepton
+config          year            2016
+config          id              HNTightV1_
+config          flavour         EE
+config          histname        reco_ml2jj
+sample          prompt /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/2016/HNtypeI_Dilepton_SkimTree_SSHN_SSprompt.root  8
+sample          fake   /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/2016/HNtypeI_Dilepton_SkimTree_SSHN_FakeEE.root  870
+sample          chareflip    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/2016/HNtypeI_Dilepton_SkimTree_SSHN_CF.root 5
+signal          400    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/2016/SIG/HNtypeI_Dilepton_HN_Schannel_EE_400_nlo.root  2
+signal          1000    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/2016/SIG/HNtypeI_Dilepton_HN_Schannel_EE_1000_nlo.root  2

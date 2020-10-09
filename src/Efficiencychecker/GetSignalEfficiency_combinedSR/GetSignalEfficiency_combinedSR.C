@@ -81,9 +81,13 @@ void GetSignalEfficiency_combinedSR(TString analysername="HNtypeI_Dilepton" ,TSt
   vector<TString> elIDs = {"passTightID","passMediumID","HNTight2016","passTightID_noccb","passTightID_nocc","passMVAID_iso_WP90","passMVAID_iso_WP80","HNTightV1"};
 
   if (analysername=="HNtypeI_Dilepton"){
-    muIDs  = { "POGTightPFIsoVeryTight","HNTightV1", "POGHighPtMixTight"};
-    elIDs = {"passTightID","passTightID_noccb","HNTightV1"};
+    muIDs={"POGTightPFIsoVeryTight","HNTight2016","POGHighPtMixTight","POGTightPFIsoVeryVeryTight","POGTightPFIsoTight","POGTightPFIsoMedium","POGTightPFIsoLoose","HNTightV1","HNTightV2","POGHighPtTight"};
+    elIDs={"passTightID","HNTight2016","passTightID_nocc","HNTightV1","HNTightV2","HNTightV3","HNMediumV1","HNMediumV2","HNMediumV3","passMediumID","passMVAID_noIso_WP80","passMVAID_noIso_WP90","passMVAID_iso_WP80","passMVAID_iso_WP90"};
   }
+
+  cout << "List of IDs : " << endl;
+  for (auto i: muIDs) cout << i << endl;
+  for (auto i: elIDs) cout << i << endl;
 
   TString outfile = output  +"/HNEfficiencies_highmass_CombinedSR1SR2_"+FLATVERSION+"_"+_chan+".root";
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
@@ -126,7 +130,7 @@ void GetSignalEfficiency_combinedSR(TString analysername="HNtypeI_Dilepton" ,TSt
       TLegend *legend = MakeLegend(0.65, 0.65, 0.9, 0.92);
       // graph leg
       
-      TLegend *legend_g = MakeLegend(0.65, 0.75, 0.9, 0.92);
+      TLegend *legend_g = MakeLegend(0.65, 0.65, 0.9, 0.92);
       if(setlog_axis) legend_g = MakeLegend(0.65, 0.2, 0.9, 0.45);
 
       // canvas for hists

@@ -1,6 +1,143 @@
 #ifndef mylib_h
 #define mylib_h
 
+
+TH1D* GetSignalHistBasics(TString current_sample, TString filepath, TString fullhistname){
+   TH1D* hist_temp;
+  TFile* file = new TFile(filepath);
+  if( !file ){
+    cout << "No file : " << filepath << endl;
+    return hist_temp;
+  }
+
+
+  hist_temp = (TH1D*)file->Get(fullhistname);
+  return hist_temp;
+}
+
+
+
+TString GetXTitle(map<TString,TString> sigmap,TString n_sr_hist){
+  for (map<TString,TString>::iterator it = sigmap.begin(); it != sigmap.end(); it++){
+    TH1D* sig =GetSignalHistBasics(it->first,it->second,n_sr_hist);
+    if(!sig) continue;
+    return sig->GetXaxis()->GetTitle();
+  }
+  return "";
+  
+}
+
+TString GetYTitle(map<TString,TString> sigmap,TString n_sr_hist){
+  for (map<TString,TString>::iterator it = sigmap.begin(); it != sigmap.end(); it++){
+    TH1D* sig =GetSignalHistBasics(it->first,it->second,n_sr_hist);
+    if(!sig) continue;
+    return sig->GetYaxis()->GetTitle();
+  }
+  return "";
+
+}
+
+TLegend* MakeRatioLegend( TH1D* h1, TH1D* h2){
+  
+  double x1 = 0.7;
+  double y1 = 0.22;
+  double x2 = 0.95;
+  double y2 = 0.25;
+  
+  TLegend* legendH = new TLegend(x1,y1,x2,y2);
+  legendH->SetFillColor(kWhite);
+  legendH->SetTextFont(42);
+
+  legendH->SetBorderSize(0);
+  legendH->SetTextSize(0.02);
+  legendH->SetNColumns(2);
+
+  legendH->AddEntry(h1,"Stat.","f");
+  legendH->AddEntry(h2,"Syst.+Stat.","f");
+  
+  return legendH;
+}
+
+
+void    SetupHist(TH1D* hist_data, int rbin, double _max){
+  hist_data->Rebin(rbin);
+  hist_data->SetLineColor(kBlack);
+  hist_data->GetYaxis()->SetTitleOffset(1.4);
+  hist_data->SetMarkerStyle(20);
+  hist_data->SetMarkerSize(1.2);
+  hist_data->SetMarkerColor(kBlack);
+  hist_data->SetLineColor(kBlack);
+  hist_data->GetYaxis()->SetRangeUser(0.1, _max*1.4);
+
+}
+
+
+TH1D* GetDataError(TH1D* h_data, TH1D* h_nominal , TH1D* h_up, TH1D* h_down){
+
+  TH1D* hdev_err_stat = (TH1D*)h_data->Clone("hdev_err");
+    
+  for (Int_t i=1;i<=h_data->GetNbinsX()+1;i++) {
+    hdev_err_stat->SetBinContent(i, 1.0);
+    if(h_nominal->GetBinContent(i) > 0 &&  h_data->GetBinContent(i) > 0){
+      hdev_err_stat->SetBinError(i, (h_up->GetBinContent(i)-h_nominal->GetBinContent(i))/h_nominal->GetBinContent(i) );
+    }
+    else{
+      hdev_err_stat->SetBinError(i, 0.0);
+    }
+  }
+  return hdev_err_stat;
+}
+
+TGraphAsymmErrors* GetratioGraph(TH1D* h_data,TH1D* h_nominal, vector<double> err_up_tmp, vector<double> err_down_tmp){
+
+  TGraphAsymmErrors * gratio = new TGraphAsymmErrors(h_data);
+  
+  for (int i = 0; i < gratio->GetN(); ++i) {
+    
+    if(err_down_tmp.at(i)  !=0.) {
+
+      gratio->SetPointEYlow(i, err_down_tmp.at(i) / h_nominal->GetBinContent(i+1) );
+      gratio->SetPointEXlow(i, 0);
+      gratio->SetPointEYhigh(i, err_up_tmp.at(i) /h_nominal->GetBinContent(i+1));
+      gratio->SetPointEXhigh(i, 0);
+    }
+    else{
+      gratio->SetPointEYlow(i, 0);
+      gratio->SetPointEXlow(i, 0);
+      gratio->SetPointEYhigh(i, 1.8 / h_nominal->GetBinContent(i+1));
+      gratio->SetPointEXhigh(i, 0);
+    }
+  }
+  return gratio;
+  
+}
+
+
+TH1D* GetMCDataRatio(TH1D* hdata, TH1D* h_nominal){
+
+  TH1D* hdev = (TH1D*)hdata->Clone("hdev");
+
+  for (Int_t i=1;i<=hdev->GetNbinsX()+1;i++) {
+    if(h_nominal->GetBinContent(i) > 0 &&  hdev->GetBinContent(i) > 0){
+      hdev->SetBinContent(i, hdev->GetBinContent(i)/ h_nominal->GetBinContent(i));
+      hdev->SetBinError(i, 0.01);
+    }
+    else {
+      hdev->SetBinContent(i, -99);
+      hdev->SetBinError(i, 0.);
+    }
+  }
+
+  return hdev;
+}
+
+TPad* GetPad(double SUBFIGURE_MARGIN, double FIGURE2_RATIO){
+
+   TPad *p = new TPad( "p_test", "", 0, 0, 1, 1.0 - SUBFIGURE_MARGIN, 0, 0, 0);  // create new pad, fullsize to have equal font-sizes in both plots
+   p->SetTopMargin(1-FIGURE2_RATIO);   // top-boundary (should be 1 - thePad->GetBottomMargin() )
+   p->SetFillStyle(0);     // needs to be transparent
+   return p;
+}
 void SetBinLabels(TH1D* hist, std::vector<TString> list){
 
   for(unsigned int i = 0 ; i < list.size(); ++i){
@@ -12,6 +149,222 @@ void SetBinLabels(TH1D* hist, std::vector<TString> list){
   
   return;
            
+}
+TGraphAsymmErrors * GetDataGraph(TH1D* hist,vector<double>& err_up_tmp , vector<double>& err_down_tmp){
+
+  const double alpha = 1 - 0.6827;
+
+  TGraphAsymmErrors * g = new TGraphAsymmErrors(hist);
+  for (int i = 0; i < g->GetN(); ++i) {
+    int N = g->GetY()[i];
+    double L =  (N==0) ? 0  : (ROOT::Math::gamma_quantile(alpha/2,N,1.));
+    double U =  (N==0) ?  ( ROOT::Math::gamma_quantile_c(alpha,N+1,1) ) :
+      ( ROOT::Math::gamma_quantile_c(alpha/2,N+1,1) );
+      if ( N!=0 ) {
+	g->SetPointEYlow(i, N-L );
+	g->SetPointEXlow(i, 0);
+	g->SetPointEYhigh(i, U-N );
+	g->SetPointEXhigh(i, 0);
+	err_down_tmp.push_back(N-L);
+        err_up_tmp.push_back(U-N);
+	
+      }
+      else {
+	g->SetPointEYlow(i, 0.1);
+	g->SetPointEXlow(i, 0.);
+	g->SetPointEYhigh(i, 1.8);
+	g->SetPointEXhigh(i, 0.);
+	err_down_tmp.push_back(0.);
+        err_up_tmp.push_back(1.8);
+      }
+  }
+
+  g->SetLineWidth(2.0);
+  g->SetMarkerSize(0.);
+  return g;
+  
+}
+
+TGraph* GetExp17028(TString channel){
+
+  const int nm_17028 = 19;
+  double mass_17028[nm_17028] = {
+				 100, 125, 150,200,
+				 250, 300, 400, 500,
+				 600, 700, 800, 900,
+				 1000, 1100, 1200, 1300,
+				 1400, 1500, 1700
+  };
+
+   double obs_17028[nm_17028], exp_17028[nm_17028];
+  vector<double> tempvec_obs_17028, tempvec_exp_17028;
+  vector<double> scales_17028;
+
+  if(channel=="MuMu"){
+    tempvec_exp_17028 = {
+      175.333, 21.5041, 32.925, 56.3397,
+      70.8081, 99.3095, 20.4264, 42.5126,
+      60.1695, 116.721, 15.8605, 25.8407,
+      38.43, 64.346, 100.265, 151.699,
+      247.709, 340.424, 1340.34
+    } ;
+    scales_17028 = {
+      0.001, 0.01, 0.01,0.01,0.01,0.01,0.1, 0.1,0.1,0.1,1,1,1,1,1,1,1,1,1,1
+    };
+    tempvec_obs_17028 = {
+      215.218, 23.0424,41.8101,49.4399,57.1134,84.404,39.6932,
+      44.5303,81.4561,195.31,16.3137,42.605,61.6358,103.589,150.295,
+      220.286, 365.037, 516.2, 1408.5
+
+    };
+      }
+  else   if(channel=="EE"){
+    //https://github.com/jedori0228/HiggsAnalysis-CombinedLimit/blob/2016Data_HNDilepton_Limit/data/2016_HNDiLepton/Outputs_Tool/EE_Combined/result.txt      \
+                                                                                                                                                              
+    tempvec_exp_17028 = {
+      467.448, 65.4099, 90.4068, 159.838,216.957, 284.563, 59.74, 94.6793,
+      104.302, 183.121, 30.189, 47.1442, 72.0759, 117.305, 183.214,
+      285.811, 434.08, 644.258, 2506.94
+    };
+    scales_17028 = {
+      0.001, 0.01, 0.01,0.01,0.01,0.01,0.1, 0.1,0.1,0.1,1,1,1,1,1,1,1,1,1,1
+    };
+    tempvec_obs_17028 = {
+      368.924, 63.3389, 61.9159, 151.2,
+      206.654, 254.261, 68.8604, 95.9664,
+      123.0, 274.57, 24.8148, 46.0243,
+      95.1426, 164.011, 252.706, 379.988,
+      419.316, 631.767, 2486.31
+
+    };
+  }
+
+   for(unsigned int j=0; j<tempvec_obs_17028.size(); j++){
+
+    obs_17028[j] = scales_17028[j]*tempvec_obs_17028.at(j)*0.01;
+    exp_17028[j] = scales_17028[j]*tempvec_exp_17028.at(j)*0.01;
+  }
+
+  TGraph *gr_17028_exp = new TGraph(nm_17028, mass_17028, exp_17028);
+  gr_17028_exp->SetLineColor(kRed);
+  //gr_8TeV_exp->SetLineStyle(10);                                                                                                                           \
+                                                                                                                                                              
+  gr_17028_exp->SetLineWidth(3);
+
+  gr_17028_exp->SetLineStyle(2);
+
+
+  return gr_17028_exp;
+
+}
+
+void SetNomBinError(TH1D* hnom, TH1D* hup, TH1D* hdown){
+
+  for(int i=1; i < hnom->GetNbinsX()+1; i++){
+
+    float err1 = fabs(hnom->GetBinContent(i)- hup->GetBinContent(i));
+    float err2 = fabs(hnom->GetBinContent(i)- hdown->GetBinContent(i));
+
+    if(err1 > err2 ) hnom->SetBinError(i, err1);
+    if(err2 > err1 ) hnom->SetBinError(i, err2);
+  }
+  return;
+}
+
+TH1D* MakeSumHist2(THStack* thestack){
+
+  TH1D* hsum=0;
+  TList* list = thestack->GetHists();
+  TIter it(list, true);
+  TObject* obj=0;
+  while( (obj = it.Next()) ) {
+    TH1D* h = dynamic_cast<TH1D*>(obj);
+    if(!hsum) hsum = (TH1D*)h->Clone( (string(h->GetName()) + "_sum").c_str() );
+    else {
+      hsum->Add(h, 1.0);
+    }
+  }//hist loop
+
+  return hsum;
+}
+
+TH1D* MakeErrorBand(TH1D* hnom, TH1D* hup, TH1D* hdown){
+
+  TH1D* errorband = (TH1D*)hnom->Clone("aa");
+  for(int i=1; i < errorband->GetNbinsX()+1; i++){
+
+    float bin_content = (hup->GetBinContent(i)+ hdown->GetBinContent(i))/2.;
+    float bin_error = (hup->GetBinContent(i)- hdown->GetBinContent(i))/2.;
+
+    errorband->SetBinContent(i,bin_content);
+    errorband->SetBinError(i,bin_error);
+  }
+
+  errorband->SetFillStyle(3004);
+  errorband->SetFillColor(kBlue-2);
+  errorband->SetMarkerSize(0);
+  errorband->SetMarkerStyle(0);
+  errorband->SetLineColor(kWhite);
+  errorband->Draw("E2Same");
+
+  return errorband;
+
+}
+
+map<TString,int> ConfigMapInt(TString config_file){
+
+  map<TString,int> conf_map;
+
+  ifstream config_file_name (config_file);
+
+  if(!config_file_name){
+    cerr << "Did not find "+config_file+", exiting ..." << endl;
+    return conf_map;
+  }
+
+
+  while(!config_file_name.eof()) {
+    string tmp;
+    string tmp1;
+    int tmppath;
+    config_file_name >> tmp;
+    if(tmp=="config_int") {
+      config_file_name >> tmp1;
+      config_file_name >> tmppath;
+
+      conf_map[tmp1] = tmppath;
+    }
+  }
+
+  return conf_map;
+}
+
+map<TString,double> ConfigMapDouble(TString config_file){
+
+  map<TString,double> conf_map;
+
+  ifstream config_file_name (config_file);
+
+  if(!config_file_name){
+    cerr << "Did not find "+config_file+", exiting ..." << endl;
+    return conf_map;
+  }
+
+
+  while(!config_file_name.eof()) {
+    string tmp;
+    string tmp1;
+    double tmppath;
+    config_file_name >> tmp;
+    if(tmp=="config_double") {
+      config_file_name >> tmp1;
+      config_file_name >> tmppath;
+
+      conf_map[tmp1] = tmppath;
+    }
+  }
+
+  return conf_map;
 }
 
 
@@ -232,6 +585,7 @@ TH1D* MakeOverflowBin(TH1D* hist){
 
 }
 
+			  
 TH1D* GetSignalHist(TLegend* legend_g,TString current_sample, TString filepath, TString fullhistname,pair<Color_t,int> col, bool addleg){
 
   TH1D* hist_temp;
@@ -278,7 +632,7 @@ double GetIntegral(map<TString,TString> _map, TString fullhistname){
   }
   return total;
 }
-THStack*  MakeStack(TLegend* legend_g,map<TString,TString> _map, TString fullhistname, map<TString,Color_t> _colmap){
+THStack*  MakeStack(TLegend* legend_g,map<TString,TString> _map, TString fullhistname, map<TString,Color_t> _colmap, int rbin, int sys){
 
   THStack* MC_stacked = new THStack("MC_stacked", "");
 
@@ -319,13 +673,22 @@ THStack*  MakeStack(TLegend* legend_g,map<TString,TString> _map, TString fullhis
     color_it= _colmap.find(current_sample);
     hist_final->SetFillColor(color_it->second);
     hist_final->SetLineColor(color_it->second);
-    legend_g->AddEntry(hist_final,current_sample,"f");
-    //hist_final->Rebin(2);
+    if(sys==0)legend_g->AddEntry(hist_final,current_sample,"f");
+    if(filepath.Contains("Fake") && sys>0) hist_final->Scale(1.3) ;
+    if(filepath.Contains("Fake") && sys<0) hist_final->Scale(0.7) ;
+    if(filepath.Contains("CF") && sys>0) hist_final->Scale(1.25) ;
+    if(filepath.Contains("CF") && sys<0) hist_final->Scale(0.75) ;
+    if(filepath.Contains("Prompt") && sys>0) hist_final->Scale(1.2) ;
+    if(filepath.Contains("Prompt") && sys<0) hist_final->Scale(0.8) ;
+
+    if(fabs(sys) == 2){
+      for(int ccc=1; ccc<=xaxis->GetNbins(); ccc++){
+	if(sys > 0)hist_final->SetBinContent(ccc, hist_final->GetBinContent(ccc) + hist_final->GetBinError(ccc));
+	if(sys < 0)hist_final->SetBinContent(ccc, hist_final->GetBinContent(ccc) - hist_final->GetBinError(ccc));
+      }
+    }
+    hist_final->Rebin(rbin);
     MC_stacked->Add(hist_final);
-    //hs->GetXaxis()->SetTitle("the X axis");
-
-
-    //MC_stacked->GetYaxis()->SetTitle(hist_final->GetYaxis()->GetTitle());
   }
 
   return MC_stacked;
@@ -349,9 +712,11 @@ vector<TString> GetHistNames(TString file, TString dirname, TString analyzername
     TString hname = obj->GetName();
     TString objname= obj->ClassName();
     if(!hname.Contains(analyzername+"_"+flavour+"_HNTightV1")) continue;
+
+    cout << hname << endl;
     hname = hname.ReplaceAll("_"+analyzername+"_"+flavour+"_HNTightV1","");
     hname = hname.ReplaceAll(dirname+"/"+dirname+"_","");
-    
+    //hname = hname.ReplaceAll("_","");
     vlist.push_back(hname);
   }
   return vlist;
@@ -374,8 +739,11 @@ vector<TString> GetIDNames(TString file, TString dirname, TString analyzername,T
     obj = key->ReadObj() ;
     TString hname = obj->GetName();
     TString objname= obj->ClassName();
+    //cout << hname << " " << dirname+"_njets_"+analyzername+"_"+flavour << " JOHN" <<  endl;
     if(!hname.Contains(dirname+"_njets_"+analyzername+"_"+flavour)) continue;
     hname = hname.ReplaceAll(dirname+"/"+dirname+"_njets_"+analyzername+"_"+flavour+"_","");
+    cout << hname << endl;
+    //hname = hname.ReplaceAll("_","");
     //cout << "---> " << hname << endl;
     vlist.push_back(hname);
   }
@@ -1056,6 +1424,8 @@ void DrawLatex(TString year){
   latex_Lumi.SetTextSize(0.035);
   latex_Lumi.SetTextFont(42);
   if(year=="2016")latex_Lumi.DrawLatex(0.72, 0.96, "35.9 fb^{-1} (13 TeV)");
+  if(year=="2017")latex_Lumi.DrawLatex(0.72, 0.96, "41.5 fb^{-1} (13 TeV)");
+  if(year=="2018")latex_Lumi.DrawLatex(0.72, 0.96, "59.9 fb^{-1} (13 TeV)");
   
 }
 void DrawLatexWithLabel(TString year,TString label, float x, float y){
@@ -1064,7 +1434,7 @@ void DrawLatexWithLabel(TString year,TString label, float x, float y){
   
   TLatex channelname;
   channelname.SetNDC();
-  channelname.SetTextSize(0.025);
+  channelname.SetTextSize(0.03);
   channelname.DrawLatex(x, y,label);
 
   

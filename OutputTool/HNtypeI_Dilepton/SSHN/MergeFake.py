@@ -26,12 +26,12 @@ for d in datalist:
     else:
         inpath += "isEE__RunFake__/DATA/"
 
-    hadd = "hadd " + outpath + analyzername+"_SkimTree_SSNonIso_Fake"+dataset[0]+".root "
-    hadd = hadd + inpath +analyzername+"_SkimTree_SSNonIso_"+dataset[1] + "* " 
+    hadd = "hadd " + outpath + analyzername+"_SkimTree_SSHN_Fake"+dataset[0]+".root "
+    hadd = hadd + inpath +analyzername+"_SkimTree_SSHN_"+dataset[1] + "* " 
     print " "
     print hadd
-    if os.path.exists(outpath + analyzername+"_SkimTree_SSNonIso_Fake"+dataset[0] + ".root"):
-        os.system("rm " + outpath + analyzername+"_SkimTree_SSNonIso_Fake"+dataset[0] + ".root")
+    if os.path.exists(outpath + analyzername+"_SkimTree_SSHN_Fake"+dataset[0] + ".root"):
+        os.system("rm " + outpath + analyzername+"_SkimTree_SSHN_Fake"+dataset[0] + ".root")
     os.system(hadd)
 
 
@@ -41,8 +41,8 @@ for year in years:
     print "Merging Muon samples"
     outpath = os.getenv("INFILE_MERGED_PATH") +"/"+analyzername+"/" + year + "/"
 
-    print "hadd " + outpath + analyzername+"_SkimTree_SSNonIso_FakeMuMu.root  " + outpath + analyzername+"_SkimTree_SSNonIso_FakeMM.root  "+  outpath + analyzername+"_SkimTree_SSNonIso_FakeM.root "
-    if os.path.exists(outpath + analyzername+"_SkimTree_SSNonIso_FakeMuMu.root"):
-            os.remove(outpath + analyzername+"_SkimTree_SSNonIso_FakeMuMu.root")
-    os.system("hadd " + outpath + analyzername+"_SkimTree_SSNonIso_FakeMuMu.root  " + outpath + analyzername+"_SkimTree_SSNonIso_FakeMM.root  "+  outpath + analyzername+"_SkimTree_SSNonIso_FakeM.root ")
+    print "hadd " + outpath + analyzername+"_SkimTree_SSHN_FakeMuMu.root  " + outpath + analyzername+"_SkimTree_SSHN_FakeMM.root  "+  outpath + analyzername+"_SkimTree_SSHN_FakeM.root "
+    if os.path.exists(outpath + analyzername+"_SkimTree_SSHN_FakeMuMu.root"):
+            os.remove(outpath + analyzername+"_SkimTree_SSHN_FakeMuMu.root")
+    os.system("hadd " + outpath + analyzername+"_SkimTree_SSHN_FakeMuMu.root  " + outpath + analyzername+"_SkimTree_SSHN_FakeMM.root  "+  outpath + analyzername+"_SkimTree_SSHN_FakeM.root ")
 

@@ -24,7 +24,7 @@ void  CompareCombindedLimitSR1_SR2MuMuCutCount_rel(int j=0, TString dirname="", 
   TString ENV_FILE_PATH = WORKING_DIR;
   TString ENV_PLOT_PATH = getenv("PLOT_PATH");
 
-  TString filepath = ENV_FILE_PATH+dataset+"/Limits/ReadLimits/out/HNTypeI_JA/CutCount/";
+  TString filepath = ENV_FILE_PATH+dataset+"/Limits/ReadLimits/out/HNTypeI_Dilepton/CutCount/";
   TString plotpath = ENV_PLOT_PATH+dataset+"/Limits/";
 
   if(dirname!=""){

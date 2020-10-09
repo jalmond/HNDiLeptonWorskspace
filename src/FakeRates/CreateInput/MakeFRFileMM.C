@@ -27,15 +27,12 @@ bool CheckHist(TH2* h);
 void MakeFRFileMM(TString year){
 
   
-  TString path= "/Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/"+year+"/FakeRateHN_SkimTree_NonIso_Muon.root";
+  TString path= "/Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/"+year+"/FakeRateHN_SkimTree_HNFake_Muon.root";
   
-  TString mcpath= "/Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/"+year+"/FakeRateHN_SkimTree_NonIso_MC.root";
+  TString mcpath= "/Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/"+year+"/FakeRateHN_SkimTree_HNFake_MC.root";
   
   TFile * fdata = new TFile(path);
   TFile * fmc = new TFile(mcpath);
-  cout << path << endl;
-  cout << mcpath << endl;
-  cout << fdata << fmc << endl;
   
   /// Set Plotting style
   setTDRStyle();
@@ -44,12 +41,14 @@ void MakeFRFileMM(TString year){
   TString outfile = "FakeRate13TeV_muon_"+year+".root";
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   fout->cd();
-  
+
+  std::vector<TString> jetpt = {"40","30","20"};
+
   std::vector<TString> fakes40;
   fakes40.push_back("HNTightV1");
   fakes40.push_back("HNTightV2");
   fakes40.push_back("POGTightPFIsoVeryTight");
-  fakes40.push_back("POGHighPtMixTight");
+  fakes40.push_back("POGTightStandardPFIsoTight");
   fakes40.push_back("POGTightPFIsoVeryVeryTight");
   fakes40.push_back("POGTightPFIsoTight");
   fakes40.push_back("POGTightPFIsoMedium");
@@ -57,40 +56,33 @@ void MakeFRFileMM(TString year){
   fakes40.push_back("HNTight2016");
   fakes40.push_back("POGHighPtTight");
   
-  
   for(unsigned int i=0; i < fakes40.size(); i++){
-
-    //TightElFakeRateHN_EE_HNTight2016_40_ptcorr-ptcorr
-    TString denom = "LooseMuFakeRateHN_MuMu_" +fakes40[i] +"_40_ptcorr_eta";
-    TString num   = "TightMuFakeRateHN_MuMu_" +fakes40[i] +"_40_ptcorr_eta";
-
-    cout << num << " " << denom << endl;
-    //    return;
-    TH2D* h_pt_num= (TH2D*)fdata->Get(num.Data());
-    TH2D* h_pt_denom= (TH2D*)fdata->Get(denom.Data());
-    TH2D* h_mcpt_num= (TH2D*)fmc->Get(num.Data());
-    TH2D* h_mcpt_denom= (TH2D*)fmc->Get(denom.Data());
-
-    CheckHist(h_pt_denom);
-    CheckHist(h_pt_num);
-    TString name = fakes40[i] ;
+    for(auto j : jetpt){
       
-    TH2D* eff_rate = (TH2D*)h_pt_num->Clone((name+"_AwayJetPt40").Data());
-    eff_rate->Add(h_mcpt_num,-1.);
-    TH2D* hratedenom = (TH2D*)h_pt_denom->Clone((name +"_denom").Data());
-    hratedenom->Add(h_mcpt_denom,-1.);
+      //TightElFakeRateHN_EE_HNTight2016_40_ptcorr-ptcorr
+      TString denom = "LooseMuFakeRateHN_MuMu_" +fakes40[i] + "_"+j+"_ptcorr_eta";
+      TString num   = "TightMuFakeRateHN_MuMu_" +fakes40[i] + "_"+j+"_ptcorr_eta";
 
-    eff_rate->Divide(eff_rate,hratedenom,1.,1.,"cl=0.683 b(1,1) mode");
-
-    eff_rate->Write();
-    for(unsigned int ibin = 1; ibin < eff_rate->GetNbinsX()+1; ibin++){
-      cout << eff_rate->GetBinContent(ibin) << endl;
-      //h->SetBinContent(ibin, i+1, eff_rate->GetBinContent(ibin));
-      //h1->SetBinContent(ibin, i+1, eff_rate->GetBinContent(ibin));
-      //h->SetBinError(ibin, i+1, eff_rate->GetBinError(ibin));
+      //    return;
+      TH2D* h_pt_num= (TH2D*)fdata->Get(num.Data());
+      TH2D* h_pt_denom= (TH2D*)fdata->Get(denom.Data());
+      TH2D* h_mcpt_num= (TH2D*)fmc->Get(num.Data());
+      TH2D* h_mcpt_denom= (TH2D*)fmc->Get(denom.Data());
+      
+      CheckHist(h_pt_denom);
+      CheckHist(h_pt_num);
+      TString name = fakes40[i] ;
+      
+      TH2D* eff_rate = (TH2D*)h_pt_num->Clone((name+"_AwayJetPt"+j).Data());
+      eff_rate->Add(h_mcpt_num,-1.);
+      TH2D* hratedenom = (TH2D*)h_pt_denom->Clone((name +"_denom").Data());
+      hratedenom->Add(h_mcpt_denom,-1.);
+      
+      eff_rate->Divide(eff_rate,hratedenom,1.,1.,"cl=0.683 b(1,1) mode");
+      
+      eff_rate->Write();
     }
   }
-  //h->Write();
   
   return;
 }

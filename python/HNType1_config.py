@@ -364,6 +364,9 @@ def GetCentralConfig(scriptname, tag, configfile,_setup):
 
     # first look if var is specified for the script, which is taken over global var
     for line in _config:
+        if "#" in line:
+            continue
+
         if tag in line:
             if len(line.split()) == 4:
                 if scriptname+":" != line.split()[0]:
@@ -406,6 +409,8 @@ def GetConfig(tag, configfile,_setup):
     _config = open(configfile,"r")
     is_config_setup=False
     for line in _config:
+        if "#" in line:
+            continue
         if tag in line:
             if len(line.split()) == 3:
                 _tmp_line=line.split()[2]
@@ -470,6 +475,9 @@ def GetSConfig(tag, configfile,_setup):
     _config = open(configfile,"r")
     is_config_setup=False
     for line in _config:
+	if "#" in line:
+            continue
+
         if tag in line:
             if len(line.split()) == 3:
                 _tmp_line=line.split()[2]

@@ -41,9 +41,12 @@ void MakeCFFileEE(TString year,TString dataset="Electron"){
   fout->cd();
   
   std::vector<TString> fakes40;
+  fakes40.push_back("HEEPv7");
+  fakes40.push_back("HEEP2018");
   fakes40.push_back("HNTightV1");
   fakes40.push_back("HNTightV2");
   fakes40.push_back("HNTightV3");
+  fakes40.push_back("HNTightV4");
   fakes40.push_back("HNMediumV1");
   fakes40.push_back("HNMediumV2");
   fakes40.push_back("HNMediumV3");

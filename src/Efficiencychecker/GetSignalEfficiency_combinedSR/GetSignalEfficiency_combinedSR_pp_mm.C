@@ -80,8 +80,8 @@ void GetSignalEfficiency_combinedSR_pp_mm(TString analysername="HNtypeI_Dilepton
   vector<TString> elIDs = {"passTightID","passMediumID","HNTight2016","passTightID_noccb","passTightID_nocc","passMVAID_iso_WP90","passMVAID_iso_WP80","HNTightV1"};
 
   if (analysername=="HNtypeI_Dilepton"){
-    muIDs  = { "POGTightPFIsoVeryTight","HNTightV1", "POGHighPtMixTight"};
-    elIDs = {"passTightID","passTightID_noccb","HNTightV1"};
+  vector<TString> muIDs={"POGTightPFIsoVeryTight","HNTight2016","POGHighPtMixTight","POGTightPFIsoVeryVeryTight","POGTightPFIsoTight","POGTightPFIsoMedium","POGTightPFIsoLoose","HNTightV1","HNTightV2","POGHighPtTight"};
+  vector<TString> elIDs={"passTightID","HNTight2016","passTightID_nocc","HNTightV1","HNTightV2","HNTightV3","HNMediumV1","HNMediumV2","HNMediumV3","passMediumID","passMVAID_noIso_WP80","passMVAID_noIso_WP90","passMVAID_iso_WP80","passMVAID_iso_WP90"};
   }
 
   TString outfile = output  +"/HNEfficiencies_highmass_CombinedSR1SR2_"+FLATVERSION+"_"+_chan+".root";

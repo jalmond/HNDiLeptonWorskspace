@@ -19,12 +19,12 @@ for d in datalist:
     else:
         inpath += "isEE__RunCF__/DATA/"
 
-    hadd = "hadd " + outpath + analyzername+"_SkimTree_SSNonIso_CF.root "
-    hadd = hadd + inpath +analyzername+"_SkimTree_SSNonIso_"+dataset[1] + "* " 
+    hadd = "hadd " + outpath + analyzername+"_SkimTree_SSHN_CF.root "
+    hadd = hadd + inpath +analyzername+"_SkimTree_SSHN_"+dataset[1] + "* " 
     print " "
     print hadd
 
-    if os.path.exists(outpath + analyzername+"_SkimTree_SSNonIso_CF.root"):
-        os.system("rm " + outpath + analyzername+"_SkimTree_SSNonIso_CF.root")
+    if os.path.exists(outpath + analyzername+"_SkimTree_SSHN_CF.root"):
+        os.system("rm " + outpath + analyzername+"_SkimTree_SSHN_CF.root")
     os.system(hadd)
 

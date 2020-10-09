@@ -11,8 +11,14 @@ else
     if [[ $4 == "false" ]];
     then
 	root -l -q -b 'GetSignalEfficiency_combinedSR.C("'$2'","'$3'",false,"'$5'")'
+	root -l -q -b 'GetSignalEfficiency_combinedSR_EEv1.C("'$2'","'$3'",false,"'$5'")'
+	root -l -q -b 'GetSignalEfficiency_combinedSR_EEv2.C("'$2'","'$3'",false,"'$5'")'
+	root -l -q -b 'GetSignalEfficiency_combinedSR_MM.C("'$2'","'$3'",false,"'$5'")'
     else
 	root -l -q -b 'GetSignalEfficiency_combinedSR.C("'$2'","'$3'",true,"'$5'")'
+	root -l -q -b 'GetSignalEfficiency_combinedSR_EEv1.C("'$2'","'$3'",true,"'$5'")'
+	root -l -q -b 'GetSignalEfficiency_combinedSR_EEv2.C("'$2'","'$3'",true,"'$5'")'
+	root -l -q -b 'GetSignalEfficiency_combinedSR_MM.C("'$2'","'$3'",true,"'$5'")'
 
     fi
 fi
