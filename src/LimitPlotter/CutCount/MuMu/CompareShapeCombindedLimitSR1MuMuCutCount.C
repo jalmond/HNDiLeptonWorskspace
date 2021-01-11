@@ -23,7 +23,7 @@ void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirnam
   TString ENV_FILE_PATH = WORKING_DIR;
   TString ENV_PLOT_PATH = getenv("PLOT_PATH");
   //out/HNTypeI_JA/2016/MuMu_SR1/result_combined_HNTight2016.txt
-  TString filepath = ENV_FILE_PATH+dataset+"/Limits/ReadLimits/out/HNtypeI_JA/CutCount/";
+  TString filepath = ENV_FILE_PATH+dataset+"/Limits/ReadLimits/out/HNtypeI_Dilepton/CutCount/";
   TString plotpath = ENV_PLOT_PATH+dataset+"/Limits/";
   ///data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/ReadLimits/out_v2
   if(dirname!=""){
@@ -71,14 +71,11 @@ void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirnam
   //=== 13 TeV S-only channel
   //result_combined_HNTight2016.txt  result_combined_passTightID_nocc.txt
   //result_combined_passTightID.txt  result_combined_passTightID_noccb.txt
-
-  TGraphAsymmErrors*  ee_hn       =  GetTGraph(filepath+ "/result_VBF_HNTight2016.txt", 20,1); /// cut and count
-  TGraphAsymmErrors*  ee_vtight   =  GetTGraph(filepath+ "/result_VBF_POGTightPFIsoVeryTight.txt", 20,2); /// cut and count
-  TGraphAsymmErrors*  ee_tight   =  GetTGraph(filepath+ "/result_VBF_POGTightPFIsoTight.txt", 20,3); /// cut and count
-  TGraphAsymmErrors*  ee_medium   =  GetTGraph(filepath+ "/result_VBF_POGTightPFIsoMedium.txt", 20,4); /// cut and count
-  TGraphAsymmErrors*  ee_loose   =  GetTGraph(filepath+ "/result_VBF_POGTightPFIsoLoose.txt", 20,5); /// cut and count
-  TGraphAsymmErrors*  ee_v1   =  GetTGraph(filepath+ "/result_VBF_HNTightV1.txt", 20,6); /// cut and count
-
+  //result_VBF_HNTightV2.txt                                                                                                                                                  100%  788     2.5KB/s   00:00    
+  //result_VBF_POGTightPFIsoVeryVeryTight.txt
+  
+  //TGraphAsymmErrors*  ee_hn       =  GetTGraph(filepath+ "/result_VBF_HNTight_Iso07_dxy_02_ip_3.txt", 20,1); 
+  TGraphAsymmErrors*  ee_hn2      =  GetTGraph(filepath+ "/result_VBF_HNTightPFIsoVeryVeryTight.txt", 20,2);
   //=== EXO-17-028 overlay                                                                                                                                                                                  
   const int nm_17028 = 19;
   double mass_17028[nm_17028] = {
@@ -96,10 +93,11 @@ void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirnam
   if(channel=="MuMu"){
     tempvec_exp_17028 = {
       175.333, 21.5041, 32.925, 56.3397,
-      70.8081, 99.3095, 20.4264, 42.5126,
-      60.1695, 116.721, 15.8605, 25.8407,
-      38.43, 64.346, 100.265, 151.699,
-      247.709, 340.424, 1340.34
+      70.8081, 95.0624, 18.8665, 38.4947,
+      42.8618, 74.4406, 8.4652, 12.594,
+      16.3718, 23.4646, 32.9925, 43.0679,
+      61.6472, 74.073, 135.185, 304.058
+
     } ;
     scales_17028 = {
       0.001, 0.01, 0.01,0.01,0.01,0.01,0.1, 0.1,0.1,0.1,1,1,1,1,1,1,1,1,1,1
@@ -164,7 +162,7 @@ void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirnam
   lg_Alt->SetBorderSize(0);
   lg_Alt->SetFillStyle(0);
 
-  //lg_Alt->AddEntry(gr_17028_exp, "CMS 13 TeV dilepton", "l");
+  lg_Alt->AddEntry(gr_17028_exp, "CMS 13 TeV dilepton", "l");
   TLegend *lg_Alt_SandT = (TLegend *)lg_Alt->Clone();
 
   TCanvas *c_SOnly = new TCanvas("c_SOnly", "", 900, 800);
@@ -172,6 +170,7 @@ void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirnam
   c_SOnly->cd();
   c_SOnly->Draw();
   c_SOnly->SetLogy();
+  c_SOnly->SetLogx();
 
   TH1D *dummy = new TH1D("hist", "", 10000, 0., 10000.);
   dummy->Draw("hist");
@@ -186,27 +185,19 @@ void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirnam
     dummy->GetYaxis()->SetTitleSize(0.04);
   }
   dummy->GetXaxis()->SetTitle("m_{N} (GeV)");
-  dummy->GetXaxis()->SetRangeUser(20., 1500);
+  dummy->GetXaxis()->SetRangeUser(20., 2000);
   dummy->GetYaxis()->SetRangeUser(0.000005, 1.);
   dummy->SetTitle("");
   dummy->Draw("hist");
-  lg_Alt->AddEntry(ee_hn,"EXO-17-028","l");
-  lg_Alt->AddEntry(ee_vtight,"POG Tight+VT Iso","l");
-  lg_Alt->AddEntry(ee_tight,"POG Tight+T Iso","l");
-  lg_Alt->AddEntry(ee_medium,"POG Tight+M Iso","l");
-  lg_Alt->AddEntry(ee_loose,"POG Tight+L Iso","l");
-  lg_Alt->AddEntry(ee_v1,"POG EXO-17-028(looseIP) ","l");
+  //lg_Alt->AddEntry(ee_hn,"Tight iso 0_07 dxy _02","l");
+  lg_Alt->AddEntry(ee_hn2,"POG Tight VVTISo","l");
 
 
-  ee_hn->Draw("lsame");
-  ee_vtight->Draw("lsame");
-  ee_tight->Draw("lsame");
-  ee_medium->Draw("lsame");
-  ee_loose->Draw("lsame");
-  ee_v1->Draw("lsame");
+
+  //ee_hn->Draw("lsame");
+  ee_hn2->Draw("lsame");
   
-  
-  //gr_17028_exp->Draw("lsame");
+  gr_17028_exp->Draw("lsame");
 
 
   lg->Draw();
@@ -219,7 +210,7 @@ void  CompareShapeCombindedLimitSR1MuMuCutCount(int i=0, int j=0, TString dirnam
   if(j==2) lumi = "59.9";
   if(j==3) lumi = "137.9";
   
-  latex_title.DrawLatex(0.64, 0.64, WhichDirectoryInCutop);
+  //  latex_title.DrawLatex(0.64, 0.64, WhichDirectoryInCutop);
 
 
   latex_Lumi.DrawLatex(0.735, 0.96, lumi+" fb^{-1} (13 TeV)");

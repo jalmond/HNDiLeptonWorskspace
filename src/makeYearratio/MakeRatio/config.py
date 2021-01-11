@@ -1,0 +1,10 @@
+IDEl     = passTightID,HNTight2016,passTightID_nocc,HNTightV1,HNTightV2,HNTightV3,HNMediumV1,HNMediumV2,HNMediumV3,passMediumID,passMVAID_noIso_WP80,passMVAID_noIso_WP90,passMVAID_iso_WP80,passMVAID_iso_WP90,HEEPv7
+IDMu      = X
+Analyzer = HNtypeI_Dilepton
+Flavour = EE
+Regions = X
+Histnames = X
+xmin = 0
+xmax = 100
+rebin = 1
+Bkgs = Data,Prompt,Fake

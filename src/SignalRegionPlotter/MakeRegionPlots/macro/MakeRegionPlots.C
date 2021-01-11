@@ -41,7 +41,8 @@ void MakeRegionPlots(TString config_file="config.txt"){
 
   
   int  rbin         = configmapInt["rebin"];
-
+  int  logy         = configmapInt["logy"];
+  
   // double inouts
   double  xmin         = configmapDouble["xmin"];
   double  xmax         = configmapDouble["xmax"];
@@ -53,7 +54,7 @@ void MakeRegionPlots(TString config_file="config.txt"){
   vector<TString> id_name  = GetIDNames(configmap["data_file"],cut_dir,analysername,flavour);
   if(!CheckInput(id_name, id, "ID" ))  return;  
   TString histname           = configmap["histname"];
-  vector<TString> hist_names = GetHistNames(configmap["data_file"],cut_dir,analysername,flavour);
+  vector<TString> hist_names = GetHistNames(configmap["data_file"],cut_dir,analysername,flavour,id_name[0]);
 
 
   if(!CheckInput(hist_names, histname, "histname" ))  return;
@@ -67,6 +68,7 @@ void MakeRegionPlots(TString config_file="config.txt"){
   cout << "ID           = " << id   << endl;
   cout << "histname     = " << histname   << endl;
   cout << "showdata     = " << showdata<< endl;
+  cout << "logy         = " << logy<< endl;
   cout << "plotsig      = " << plotsig<< endl;
   cout << "Range xmin   = " << xmin << endl;
   cout << "Range xmax   = " << xmax << endl;
@@ -109,8 +111,10 @@ void MakeRegionPlots(TString config_file="config.txt"){
   
   //vector<pair<Color_t,int> > histcolors = GetHistColors(1);
   //vector<TH1D*> _vhists;
-  
-  TString n_sr_hist = plot_dir+"/"+plot_dir+"_"+ histname + "_"+analysername+"_"+flavour+"_"+ id;
+
+  TString postfix="_noconv";
+  postfix="";
+  TString n_sr_hist = plot_dir+"/"+plot_dir+"_"+ histname + "_"+analysername+"_"+flavour+"_"+ id+ postfix;
 
   THStack * hs       = MakeStack(legend_g,bkgmap,n_sr_hist, colormap,rbin,0);
   THStack * hs_up    = MakeStack(legend_g,bkgmap,n_sr_hist, colormap,rbin,2);
@@ -135,13 +139,14 @@ void MakeRegionPlots(TString config_file="config.txt"){
 
   SetNomBinError(h_nominal, h_up, h_down);
 
-  
+  cout<<  "bkgmap = " << bkgmap.size() << endl;
   double stack_count = GetIntegral(bkgmap,n_sr_hist);
   
   TString canvasname2=plot_dir+"_"+ histname + "_"+analysername+"_"+flavour+"_"+ id;
   TCanvas* c2 = new TCanvas(canvasname2,canvasname2, 800,800);
+  if(logy==1) c2->SetLogy();
   c2->cd();
-  
+
   vector<pair<Color_t,int> > histcolors = GetHistColors(sigcolormap.size());
 
   float _max(0.),_min(9999999999.);
@@ -193,7 +198,7 @@ void MakeRegionPlots(TString config_file="config.txt"){
     if(x_axis)    hist_data->GetYaxis()->SetTitle(y_axis);
     if(_max < hist_data->GetMaximum()) _max = hist_data->GetMaximum();
     hist_data->GetYaxis()->SetRangeUser(0., _max*1.4);
-    
+    if(logy==1)    hist_data->GetYaxis()->SetRangeUser(0.1, _max*1.4);
     hist_data->Draw( ("p9hist"));
     legend_g->AddEntry(hist_data,"data","pl");
     hs->Draw("histsame");
@@ -337,12 +342,13 @@ void MakeRegionPlots(TString config_file="config.txt"){
   DrawLatexWithLabel(year,plot_dir,0.25,0.88);
   DrawLatexWithLabel(year,flavour,0.25,0.83);
   DrawLatexWithLabel(year,id,0.25,0.78);
+  DrawLatexWithLabel(year,postfix,0.25,0.73);
 
   DrawLatex(year);
   
   
   //MakeTexFile(histmap,output,"SR1+SR2");
-  TString save_sg= output + "/"+savetag+"_hist_"+histname+"_highmass_"+analysername+"_"+flavour+"_"+id+".pdf";
+  TString save_sg= output + "/"+savetag+"_hist_"+histname+"_highmass_"+analysername+"_"+flavour+"_"+id+postfix+".pdf";
 
   //c2->SetLogy();
   c2->SaveAs(save_sg);

@@ -41,24 +41,17 @@ void MakeCFFileEE(TString year,TString dataset="Electron"){
   fout->cd();
   
   std::vector<TString> fakes40;
-  fakes40.push_back("HEEPv7");
-  fakes40.push_back("HEEP2018");
+  //  fakes40.push_back("passMVAID_noIso_WP90V16");
+  //  fakes40.push_back("passPOGTight_TTrig_HNTC");
+  //  fakes40.push_back("HNTight_dxy02_02_dz01_ip4_4");
+  //fakes40.push_back("HNTight_dxy05_05_dz01_ip4_4");
+  //  fakes40.push_back("passPOGTightv1_TTrig_HNTC");
+  //  fakes40.push_back("passPOGTightv2_TTrig_HNTC");
   fakes40.push_back("HNTightV1");
-  fakes40.push_back("HNTightV2");
-  fakes40.push_back("HNTightV3");
-  fakes40.push_back("HNTightV4");
-  fakes40.push_back("HNMediumV1");
-  fakes40.push_back("HNMediumV2");
-  fakes40.push_back("HNMediumV3");
+  
+  //  KEY: TH1D	el_endcap_ptpassMVAID_noIso_WP90V16;1	
+  //  KEY: TH1D	el_endcap_ptpassPOGTight_TTrig_HNTC;1	
 
-  fakes40.push_back("passTightID");
-  fakes40.push_back("passMediumID");
-  fakes40.push_back("passTightID_nocc");
-  fakes40.push_back("HNTight2016");
-  fakes40.push_back("passMVAID_noIso_WP80");
-  fakes40.push_back("passMVAID_noIso_WP90");
-  fakes40.push_back("passMVAID_iso_WP80");
-  fakes40.push_back("passMVAID_iso_WP90");
   Float_t ptbinscone[8] = { 10., 15.,20.,30.,40.,50.,  60., 200.};
   Float_t etabins2[5] = { 0.,0.8,  1.479, 2.,  2.5};
 

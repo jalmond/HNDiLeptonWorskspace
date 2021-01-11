@@ -9,7 +9,7 @@
 
 TGraphAsymmErrors*  GetTGraph(TString input_path, int nbins, int i);
 
-void  CompareShapeCombindedLimitSR1EECutCount(int i=0, int j=0, TString dirname="", int ReturnWhat=0, bool RunFullCLs=true){
+void  CompareShapeCombindedLimitSR1EECutCount(int i=0, int j=0, TString style="CutCount",TString filename="result_VBF_HNTightV1.txt", TString tag="", int ReturnWhat=0, bool RunFullCLs=true){
 
   bool DrawObserved = false;
 
@@ -22,13 +22,9 @@ void  CompareShapeCombindedLimitSR1EECutCount(int i=0, int j=0, TString dirname=
   TString dataset = "";//getenv("CATANVERSION");
   TString ENV_FILE_PATH = WORKING_DIR;
   TString ENV_PLOT_PATH = getenv("PLOT_PATH");
-  TString filepath = ENV_FILE_PATH+dataset+"/Limits/ReadLimits/out/HNtypeI_JA/CutCount/";
+  TString filepath = ENV_FILE_PATH+dataset+"/Limits/ReadLimits/out/HNtypeI_DiLepton/"+style+"/";
   TString plotpath = ENV_PLOT_PATH+dataset+"/Limits/";
   ///data6/Users/jalmond/2020/HL_SKFlatAnalyzer/HNDiLeptonWorskspace/Limits/ReadLimits/out_v2
-  if(dirname!=""){
-  
-    filepath = ENV_FILE_PATH+dataset+"Limit/"+dirname+"/";
-    }
 
   TString WhichYear = "2016";
   if (j==1) WhichYear = "2017";
@@ -41,6 +37,11 @@ void  CompareShapeCombindedLimitSR1EECutCount(int i=0, int j=0, TString dirname=
   if (i == 2) WhichDirectoryInCutop = "EE_SR2";;
   if (i == 3) WhichDirectoryInCutop = "EE_SR1_SR2";
 
+  if (i == 4) WhichDirectoryInCutop = "MuMu_SR1";
+  if (i == 5) WhichDirectoryInCutop = "MuMu_SR2";;
+  if (i == 6) WhichDirectoryInCutop = "MuMu_SR1_SR2";
+
+  
   //result_combined_HNTight2016.txt  result_combined_passTightID.txt  result_combined_passTightID_nocc.txt  result_combined_passTightID_noccb.txt
 
   //result_VBF_HNTight2016.txt
@@ -67,33 +68,24 @@ void  CompareShapeCombindedLimitSR1EECutCount(int i=0, int j=0, TString dirname=
   latex_Lumi.SetNDC();
   latex_title.SetNDC();
 
-  //=== 13 TeV S-only channel
-  //result_combined_HNTight2016.txt  result_combined_passTightID_nocc.txt
-  //result_combined_passTightID.txt  result_combined_passTightID_noccb.txt
-  /*
-result_VBF_HNTight2016.txt         result_VBF_passMediumID.txt        result_VBF_passTightID_noccb.txt
-result_VBF_passMVAID_iso_WP80.txt  result_VBF_passTightID.txt         
-result_VBF_passMVAID_iso_WP90.txt  result_VBF_passTightID_nocc.txt    
-
-*/
+  //result_VBF_passMVAID_noIso_WP90V16
   
-  TGraphAsymmErrors*  ee_hn       =  GetTGraph(filepath+ "/result_VBF_HNTight2016.txt", 20,1); /// cut and count
-  TGraphAsymmErrors*  ee_tight   =  GetTGraph(filepath+ "/result_VBF_passTightID.txt", 20,2); /// cut and count
-  TGraphAsymmErrors*  ee_tight_nocc   =  GetTGraph(filepath+ "/result_VBF_passTightID_nocc.txt", 20,3); /// cut and count
-  TGraphAsymmErrors*  ee_tight_noccb   =  GetTGraph(filepath+ "/result_VBF_passTightID_noccb.txt", 20,4); /// cut and count
-  TGraphAsymmErrors*  ee_medium   =  GetTGraph(filepath+ "/result_VBF_passMediumID.txt", 20,5); /// cut and count
-  TGraphAsymmErrors*  ee_mva80   =  GetTGraph(filepath+ "/result_VBF_passMVAID_iso_WP80.txt", 20,6); /// cut and count
-  TGraphAsymmErrors*  ee_mva90   =  GetTGraph(filepath+ "/result_VBF_passMVAID_iso_WP90.txt", 20,7); /// cut and count
+  TGraphAsymmErrors*  ee_hn       =  GetTGraph(filepath+ "/"+filename, 20,1); /// cut and count
 
+  TGraphAsymmErrors *gr_band_1sigma = GetTGraph(filepath+ "/"+filename, 20,2);
+  TGraphAsymmErrors *gr_band_2sigma = GetTGraph(filepath+ "/"+filename, 20,3);
+
+
+  
   
   //=== EXO-17-028 overlay                                                                                                                                                                                  
-  const int nm_17028 = 19;
+  const int nm_17028 = 20;
   double mass_17028[nm_17028] = {
     100, 125, 150,200,
     250, 300, 400, 500,
     600, 700, 800, 900,
     1000, 1100, 1200, 1300,
-    1400, 1500, 1700
+    1400, 1500, 1700,2000
   };
 
 
@@ -103,10 +95,10 @@ result_VBF_passMVAID_iso_WP90.txt  result_VBF_passTightID_nocc.txt
   if(channel=="MuMu"){
     tempvec_exp_17028 = {
       175.333, 21.5041, 32.925, 56.3397,
-      70.8081, 99.3095, 20.4264, 42.5126,
-      60.1695, 116.721, 15.8605, 25.8407,
-      38.43, 64.346, 100.265, 151.699,
-      247.709, 340.424, 1340.34
+      70.8081, 95.0624, 18.8665, 38.4947,
+      42.8618, 74.4406, 8.4652, 12.594,
+      16.3718, 23.4646, 32.9925, 43.0679,
+      61.6472, 74.073, 135.185, 304.058
     } ;
     scales_17028 = {
       0.001, 0.01, 0.01,0.01,0.01,0.01,0.1, 0.1,0.1,0.1,1,1,1,1,1,1,1,1,1,1
@@ -121,19 +113,19 @@ result_VBF_passMVAID_iso_WP90.txt  result_VBF_passTightID_nocc.txt
   else   if(channel=="EE"){
     //https://github.com/jedori0228/HiggsAnalysis-CombinedLimit/blob/2016Data_HNDilepton_Limit/data/2016_HNDiLepton/Outputs_Tool/EE_Combined/result.txt                                                     
     tempvec_exp_17028 = {
-      467.448, 65.4099, 90.4068, 159.838,216.957, 284.563, 59.74, 94.6793,
-      104.302, 183.121, 30.189, 47.1442, 72.0759, 117.305, 183.214,
-      285.811, 434.08, 644.258, 2506.94
+			 467.448, 65.4099, 90.4068, 159.838,216.957, 268.406, 53.8654,78.1765,
+      76.2341, 118.242, 17.2123, 24.2464, 31.61, 46.3963, 64.5734,
+			 89.4366, 115.964,147.772, 279.822,632.318
     };
     scales_17028 = {
       0.001, 0.01, 0.01,0.01,0.01,0.01,0.1, 0.1,0.1,0.1,1,1,1,1,1,1,1,1,1,1
     };
     tempvec_obs_17028 = {
       368.924, 63.3389, 61.9159, 151.2,
-      206.654, 254.261, 68.8604, 95.9664,
-      123.0, 274.57, 24.8148, 46.0243,
-      95.1426, 164.011, 252.706, 379.988,
-      419.316, 631.767, 2486.31
+      206.654, 235.791, 63.261, 79.9909,
+      91.403, 174.955, 14.6124, 23.4109,
+      43.3134, 64.2114, 86.8003, 117.953,
+      112.79, 143.465, 276.02,626.971
 
     };
   }
@@ -165,13 +157,16 @@ result_VBF_passMVAID_iso_WP90.txt  result_VBF_passTightID_nocc.txt
   TH1D *hist_emptylegend = new TH1D("hist_emptylegend","",1,0.,1.);
   hist_emptylegend->SetLineColor(0);
 
+  lg->AddEntry(gr_band_1sigma,"68% expected", "f");
+  lg->AddEntry(gr_band_2sigma,"95% expected", "f");
+  lg->AddEntry(ee_hn,"expected","l");
   lg->AddEntry(hist_emptylegend,"","l");
-
+  
   TLegend *lg_Alt = new TLegend(0.65, 0.15, 0.93, 0.48);
   lg_Alt->SetBorderSize(0);
   lg_Alt->SetFillStyle(0);
 
-  //lg_Alt->AddEntry(gr_17028_exp, "CMS 13 TeV dilepton", "l");
+  lg_Alt->AddEntry(gr_17028_exp, "CMS 13 TeV dilepton", "l");
   TLegend *lg_Alt_SandT = (TLegend *)lg_Alt->Clone();
 
   TCanvas *c_SOnly = new TCanvas("c_SOnly", "", 900, 800);
@@ -179,6 +174,7 @@ result_VBF_passMVAID_iso_WP90.txt  result_VBF_passTightID_nocc.txt
   c_SOnly->cd();
   c_SOnly->Draw();
   c_SOnly->SetLogy();
+  c_SOnly->SetLogx();
 
   TH1D *dummy = new TH1D("hist", "", 10000, 0., 10000.);
   dummy->Draw("hist");
@@ -193,28 +189,18 @@ result_VBF_passMVAID_iso_WP90.txt  result_VBF_passTightID_nocc.txt
     dummy->GetYaxis()->SetTitleSize(0.04);
   }
   dummy->GetXaxis()->SetTitle("m_{N} (GeV)");
-  dummy->GetXaxis()->SetRangeUser(20., 1500);
+  dummy->GetXaxis()->SetRangeUser(20., 2000);
   dummy->GetYaxis()->SetRangeUser(0.000005, 100.);
   dummy->SetTitle("");
   dummy->Draw("hist");
-  lg_Alt->AddEntry(ee_hn,"EXO-17-028","l");
-  lg_Alt->AddEntry(ee_tight,"POG Tight+IP+CC ","l");
-  lg_Alt->AddEntry(ee_tight_nocc,"POG Tight+IP","l");
-  lg_Alt->AddEntry(ee_tight_noccb,"POG Tight+IP+CC(EB)","l");
-  lg_Alt->AddEntry(ee_medium,"POG Medium+IP+CC Iso","l");
-  lg_Alt->AddEntry(ee_mva80,"POG MVA80+CC ","l");
-  lg_Alt->AddEntry(ee_mva90,"POG MVA90+CC ","l");
+
+  //  lg_Alt->AddEntry(ee_hn2,"MVA NonIso WP90","l");
+  gr_band_2sigma->Draw("3same");
+  gr_band_1sigma->Draw("3same");
 
   ee_hn->Draw("lsame");
-  ee_tight->Draw("lsame");
-  ee_tight_nocc->Draw("lsame");
-  ee_tight_noccb->Draw("lsame");
-  ee_medium->Draw("lsame");
-  ee_mva80->Draw("lsame");
-  ee_mva90->Draw("lsame");
   
-  
-  //gr_17028_exp->Draw("lsame");
+  gr_17028_exp->Draw("lsame");
 
 
   lg->Draw();
@@ -226,9 +212,11 @@ result_VBF_passMVAID_iso_WP90.txt  result_VBF_passTightID_nocc.txt
   if(j==1) lumi = "41.5";
   if(j==2) lumi = "59.9";
   if(j==3) lumi = "137.9";
-  
-  latex_title.DrawLatex(0.64, 0.64, WhichDirectoryInCutop);
 
+  latex_title.SetTextSize(0.04);
+  latex_title.DrawLatex(0.2, 0.3, tag);
+
+  latex_title.SetTextSize(0.035);
 
   latex_Lumi.DrawLatex(0.735, 0.96, lumi+" fb^{-1} (13 TeV)");
   latex_title.SetTextSize(0.04);
@@ -244,7 +232,7 @@ result_VBF_passMVAID_iso_WP90.txt  result_VBF_passTightID_nocc.txt
   dummy->GetXaxis()->SetRangeUser(90,1500);
   dummy->GetYaxis()->SetRangeUser(1E-4,1.);
   dummy->Draw("axissame");
-  c_SOnly->SaveAs(plotpath+"/CutCount_"+WhichYear+"_"+channel+"comparison_"+WhichDirectoryInCutop+".pdf"); 
+  c_SOnly->SaveAs(plotpath+"/"+style+"_"+WhichYear+"_"+channel+"comparison_"+WhichDirectoryInCutop+tag+".pdf"); 
 
 
   return;
@@ -357,22 +345,22 @@ TGraphAsymmErrors*  GetTGraph(TString input_path, int nbins, int i){
   TGraphAsymmErrors *gr_13TeV_exp = new TGraphAsymmErrors(n_central,mass,limit,0,0,0,0);
   gr_13TeV_exp->SetLineWidth(3);
   gr_13TeV_exp->SetFillColor(kWhite);
-  //if(i==1)   gr_13TeV_exp->SetLineStyle(2);
-  if(i==1) gr_13TeV_exp->SetLineStyle(2);
-  if(i==1)   gr_13TeV_exp->SetLineColor(kRed);
-  //if(i==2)   gr_13TeV_exp->SetLineStyle(3);
-  if(i==2)   gr_13TeV_exp->SetLineColor(kBlue);
-  //if(i==3)   gr_13TeV_exp->SetLineStyle(4);
-  if(i==3)   gr_13TeV_exp->SetLineColor(kYellow);
-  //if(i==4)   gr_13TeV_exp->SetLineStyle(5);
-  if(i==4)   gr_13TeV_exp->SetLineColor(kBlack);
-  //if(i==5)   gr_13TeV_exp->SetLineStyle(6);
 
-  if(i==5)   gr_13TeV_exp->SetLineColor(kCyan);
-  if(i==6)   gr_13TeV_exp->SetLineColor(kGreen-2);
-  if(i==7)   gr_13TeV_exp->SetLineColor(kOrange+2);
-  
-  return gr_13TeV_exp;
+  TGraphAsymmErrors *gr_band_1sigma = new TGraphAsymmErrors(n_central, mass, limit, 0, 0, onesig_left, onesig_right);
+  gr_band_1sigma->SetFillColor(kGreen+1);
+  gr_band_1sigma->SetLineColor(kGreen+1);
+  gr_band_1sigma->SetMarkerColor(kGreen+1);
+
+  TGraphAsymmErrors *gr_band_2sigma = new TGraphAsymmErrors(n_central, mass, limit, 0, 0, twosig_left, twosig_right);
+  gr_band_2sigma->SetFillColor(kOrange);
+  gr_band_2sigma->SetLineColor(kOrange);
+  gr_band_2sigma->SetMarkerColor(kOrange);
+
+
+
+  if(i==1)  return gr_13TeV_exp;
+  if(i==2)  return gr_band_1sigma;
+  if(i==3)  return gr_band_2sigma;
 
 
 }

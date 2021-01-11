@@ -6,6 +6,7 @@
 void MakeTexFile(map< TString, TH1D * > hs, TString outp,TString SR);
 
 void MakeRegionPlotsNoData(TString config_file="config.txt"){
+
   
   // check which pc is running script to setup local paths
   TString s_hostname = GetHostname();
@@ -16,7 +17,7 @@ void MakeRegionPlotsNoData(TString config_file="config.txt"){
   vector<TString> range_names = {"all","low","high"};
   
   map<TString,TString> configmap = ConfigMap(config_file);
-  
+
   map<TString,int> configmapInt = ConfigMapInt(config_file);
   map<TString,double> configmapDouble = ConfigMapDouble(config_file);
   map<TString,TString> bkgmap    = BkgConfigMap(config_file);
@@ -52,9 +53,9 @@ void MakeRegionPlotsNoData(TString config_file="config.txt"){
   vector<TString> id_name  = GetIDNames(configmap["data_file"],cut_dir,analysername,flavour);
   if(!CheckInput(id_name, id, "ID" ))  return;  
   TString histname           = configmap["histname"];
-  vector<TString> hist_names = GetHistNames(configmap["data_file"],cut_dir,analysername,flavour);
+  vector<TString> hist_names = GetHistNames(configmap["data_file"],cut_dir,analysername,flavour,id_name[0]);
 
-
+  
   if(!CheckInput(hist_names, histname, "histname" ))  return;
 
   cout << "-------------------------------------------" << endl;
@@ -111,7 +112,12 @@ void MakeRegionPlotsNoData(TString config_file="config.txt"){
   
   TString n_sr_hist = plot_dir+"/"+plot_dir+"_"+ histname + "_"+analysername+"_"+flavour+"_"+ id;
 
+  for(auto ib : bkgmap){
+    cout << n_sr_hist << "  "<< ib.first << " " << ib.second<<endl;
+  }
   THStack * hs       = MakeStack(legend_g,bkgmap,n_sr_hist, colormap,rbin,0);
+  cout << hs << endl;
+  if(!hs) return;
   THStack * hs_up    = MakeStack(legend_g,bkgmap,n_sr_hist, colormap,rbin,2);
   THStack * hs_down  = MakeStack(legend_g,bkgmap,n_sr_hist, colormap,rbin,-2);
   THStack * hs_up_nostat    = MakeStack(legend_g,bkgmap,n_sr_hist, colormap,rbin,1);
@@ -127,12 +133,13 @@ void MakeRegionPlotsNoData(TString config_file="config.txt"){
   TString x_axis = GetXTitle(sigmap,n_sr_hist);
   TString y_axis = GetYTitle(sigmap,n_sr_hist);
 
-  hs->GetXaxis()->SetTitle(x_axis);
-  hs->GetYaxis()->SetTitle(y_axis);
+  //hs->GetXaxis()->SetTitle(x_axis);
+  //hs->GetYaxis()->SetTitle(y_axis);
 
   SetNomBinError(h_nominal, h_up, h_down);
   
   double stack_count = GetIntegral(bkgmap,n_sr_hist);
+  cout << "stack_count = " << stack_count << endl;
   
   TString canvasname2=plot_dir+"_"+ histname + "_"+analysername+"_"+flavour+"_"+ id;
   TCanvas* c2 = new TCanvas(canvasname2,canvasname2, 800,800);
@@ -145,19 +152,25 @@ void MakeRegionPlotsNoData(TString config_file="config.txt"){
 
   int counter (0);
   if(PlotSig){
+    cout << "SIGNAL " << endl;
     for (map<TString,TString>::iterator it = sigmap.begin(); it != sigmap.end(); it++){
+      cout << "SIGNAL s" << endl;
       map<TString,Color_t>::iterator colit = sigcolormap.find(it->first);
       TH1D* sig = GetSignalHist(legend_g,it->first,it->second,n_sr_hist, histcolors[counter],false);
       if (!sig) continue;
-      sig->Scale(stack_count/sig->Integral());
+      //sig->Scale(stack_count/sig->Integral());
       if(_max < sig->GetMaximum()) _max = sig->GetMaximum();
       counter+=1;
     }
   }
   setTDRStyle();
 
-  hs->SetMaximum(_max*1.4);
-  hs->Draw("hist");
+  //  hs->SetMaximum(_max*1.4);
+  //  cout << hs->GetXaxis() << endl;
+  //hs->GetXaxis()->SetTitle(x_axis);
+  // hs->GetYaxis()->SetTitle(y_axis);
+
+  
   counter =0;
   
   if(PlotSig){
@@ -167,16 +180,27 @@ void MakeRegionPlotsNoData(TString config_file="config.txt"){
       
       if(!sig) continue;
       
-      sig->Rebin(rbin);
       sig->Scale(stack_count/sig->Integral());
-      if(_max < sig->GetMaximum()) _max = sig->GetMaximum();
+      sig->Rebin(rbin);
+
       x_axis= sig->GetXaxis()->GetTitle();
       y_axis= sig->GetYaxis()->GetTitle();
-      sig->Scale(0.2);
-      sig->Draw("histsame");
+      //sig->Scale(0.2);
+      if(counter==0){
+	sig->GetYaxis()->SetRangeUser(_min,_max*1.4);
+	if(xmin!=999)sig->GetXaxis()->SetRangeUser(xmin,xmax);
+	sig->Draw("hist");
+	hs->Draw("histsame");
+	sig->Draw("histsame");
+
+      }
+      else sig->Draw("histsame");
+
       counter+=1;
     }
   }
+  
+  
   c2->Update();
   c2->RedrawAxis();
   
@@ -207,9 +231,7 @@ void MakeRegionPlotsNoData(TString config_file="config.txt"){
   OutMessage("MakeRegionPlots",save_sg);
 
 
-  if(f_data) {
-    f_data->Close();
-  }
+
   return;
   
 }

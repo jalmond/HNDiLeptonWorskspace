@@ -44,24 +44,15 @@ void MakeFRFileEE_pt(TString year,TString dataset="Electron"){
   std::vector<TString> jetpt = {"40","30","20"};
 
   std::vector<TString> fakes40;
-  fakes40.push_back("HNTightV1");
-  fakes40.push_back("HNTightV2");
-  fakes40.push_back("HNTightV3");
-  fakes40.push_back("HNTightV4");
-  fakes40.push_back("HNMediumV1");
-  fakes40.push_back("HNMediumV2");
-  fakes40.push_back("HNMediumV3");
 
-  fakes40.push_back("passTightID");
-  fakes40.push_back("passMediumID");
-  fakes40.push_back("passTightID_nocc");
-  fakes40.push_back("HNTight2016");
-  fakes40.push_back("passMVAID_noIso_WP80");
-  fakes40.push_back("passMVAID_noIso_WP90");
-  fakes40.push_back("passMVAID_iso_WP80");
-  fakes40.push_back("passMVAID_iso_WP90");
-  fakes40.push_back("HEEP2018");
-  fakes40.push_back("HEEPv7");
+  //  fakes40.push_back("passMVAID_noIso_WP90V16");
+  //  fakes40.push_back("passPOGTight_TTrig_HNTC");
+
+  fakes40.push_back("HNTight_dxy02_02_dz01_ip4_4");
+  fakes40.push_back("HNTight_dxy05_05_dz01_ip4_4");
+  fakes40.push_back("passPOGTightv1_TTrig_HNTC");
+  fakes40.push_back("passPOGTightv2_TTrig_HNTC");
+  fakes40.push_back("HNTightV1");
   
   /*
 hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNMediumV1

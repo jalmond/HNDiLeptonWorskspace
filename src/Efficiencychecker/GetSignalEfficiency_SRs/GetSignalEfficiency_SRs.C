@@ -74,10 +74,13 @@ void GetSignalEfficiency_SRs(TString ptbin="_HighPt", TString _sr="SR1",TString 
   gStyle->SetPalette(1);
     
 
-  vector <TString> channel ={"MuMu","EE","EE"};
-  vector <TString> channel2 ={"MuMu","EE","EEv2"};
+  vector <TString> channel ={"MuMu","MuMu","EE","EE"};
+  vector <TString> channel2 ={"MuMu","MuMuv2","EE","EEv2"};
 
-  vector<TString> muIDs={"POGTightPFIsoVeryTight","HNTight2016","POGHighPtMixTight","POGTightPFIsoVeryVeryTight","POGTightPFIsoTight","POGTightPFIsoMedium","POGTightPFIsoLoose","HNTightV1","HNTightV2","POGHighPtTight"};
+  vector<TString> muIDs={"POGTightPFIsoVeryTight","HNTight2016","POGTightPFIsoVeryVeryTight","POGTightPFIsoTight","POGTightPFIsoMedium","POGTightPFIsoLoose"};
+    vector<TString> muID2s={"POGHighPtMixTight","HNTightV1","HNTightV2","POGHighPtTight"};
+
+  
   vector<TString> elIDs={"passMediumID","passMVAID_noIso_WP80","passMVAID_noIso_WP90","passMVAID_iso_WP80","passMVAID_iso_WP90","HEEPv7"};
   
   vector<TString> elID2s={"passTightID","HNTight2016","passTightID_nocc","HNTightV1","HNTightV2","HNTightV3","HNMediumV1","HNMediumV2","HNMediumV3"};
@@ -89,6 +92,7 @@ void GetSignalEfficiency_SRs(TString ptbin="_HighPt", TString _sr="SR1",TString 
     if ( channel2[k] == "EE" ) IDs = elIDs;
     else  if ( channel2[k] == "MuMu")  IDs =   muIDs;
     else  if ( channel2[k] == "EEv2")  IDs =   elID2s;
+    else  if ( channel2[k] == "MuMuv2")  IDs =   muID2s;
     
     
     vector<TString> ignore_masses ;

@@ -24,7 +24,7 @@ for y in years:
     # SS bkg individual    
     ssDiboson = ["Diboson", ["WWTo2L2Nu_DS",ZZ,"ggZZ", WZ,"VBF_HToZZTo4L"]]
     ssTop = ["top", ["ttWToLNu" ,"ttHToNonbb","ttZ","VHToNonbb"]]
-    ssTriboson = ["VVV", ["ZZZ", "WWW"]] #WZZ,WWZ
+    ssTriboson = ["VVV", ["ZZZ", "WWW","WZZ","WWZ"]]
     ssWW = ["WWpp", ["WpWp_EWK","WpWp_QCD"]]
     ssXG= ["XG" , ["TG" ,"TTG", "WG", "ZG"]]
 
@@ -36,12 +36,12 @@ for y in years:
 
     ss = ["SS",  ["WWTo2L2Nu_DS","ZG",ZZ ,"ggZZTo4e","WG", WZ, "VBF_HToZZTo4L","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","WpWp_EWK","WpWp_QCD","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu"]]
 
-
-    osprompt = ["OSPrompt", ["DYJets", "WWTo2L2Nu_DS","WWTo2L2Nu_powheg","ZG",ZZ,"WWToLNuQQ_powheg","ggZZTo4e","WGToLNuG", WZ, "VBF_HToZZTo4L","WWTo2L2Nu_DS","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu","TTLL_powheg"]]
+    # WWTo2L2Nu_powheg
+    osprompt = ["OSPrompt", ["DY", "WW","ZG",ZZ,"gg","WGToLNuG", WZ, "VBF_HToZZTo4L","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WZZ","ttWToLNu","TG","TTG","TTLL_powheg"]]
 
 
     SSLists = [ ssDiboson , ssOther, ssprompt, ss,ssTop, ssTriboson, ssWW, ssXG,osprompt]
-    SSLists = [ ssprompt,ssprompt_pythia]
+#    SSLists = [ ssprompt,osprompt]
 
 
     outpath = os.getenv("INFILE_MERGED_PATH") + "/"+analyzername+"/" +y + "/"

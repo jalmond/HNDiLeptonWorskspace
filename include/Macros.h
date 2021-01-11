@@ -19,7 +19,8 @@ void setTDRStyle();
 
 void setTDRStyle() {
   TStyle *tdrStyle = new TStyle("tdrStyle","Style for P-TDR");
-
+  char* ch = "4.2f";
+  tdrStyle->SetPaintTextFormat(ch);
   // For the canvas:
   tdrStyle->SetCanvasBorderMode(0);
   tdrStyle->SetCanvasColor(kWhite);

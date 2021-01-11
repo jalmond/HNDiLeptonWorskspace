@@ -3,3 +3,7 @@ python MergeData.py
 python  MergeFake.py
 python  MergeCF.py
 python  MergeSIG_charge.py
+python MergeBkgRun2.py
+python MergeCFRun2.py
+python MergeDataRun2.py
+python MergeFakeRun2.py

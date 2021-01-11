@@ -1,5 +1,3 @@
-
-
 #!/usr/bin/env python
 
 ### makes cards with names card_2016_EE_SR1_N200_combined_passTightID.txt
@@ -19,7 +17,7 @@ pwd = os.getcwd()
 
 # get config file name
 config_file= args.ConfigFile
-
+id_file = "ConfigCR/ID.txt"
 # now import analysis functions
 from HNType1_config import *
 
@@ -34,16 +32,18 @@ flavours  =  GetConfig("flavours",    config_file,_setup)
 regions   =  GetConfig("regions",    config_file,_setup)
 hists     =  GetConfig("hists",    config_file,_setup)
 years     =  GetConfig("years",       config_file,_setup)
-IDMu      =  GetConfig("IDMu",        config_file,_setup)
-IDEl      =  GetConfig("IDEl",        config_file,_setup)
+IDMu      =  GetConfig("IDMu",        id_file,_setup)
+IDEl      =  GetConfig("IDEl",        id_file,_setup)
 Analyzer  =  GetSConfig("Analyzer",   config_file,_setup)
 Skim      =  GetSConfig("Skim",   config_file,_setup)
 savetag   =  GetSConfig("savetag",   config_file,_setup)
 ShowData  =  GetSConfig("showdata",   config_file,_setup)
+PlotSig   =  GetSConfig("plotsig",   config_file,_setup)
 Bkgs      =  GetConfig("bkgs",   config_file,_setup)
-rebins     =  GetConfig("rebin",   config_file,_setup)
-xmins      =  GetConfig("xmin",   config_file,_setup)
-xmaxs      =  GetConfig("xmax",   config_file,_setup)
+logy      =  GetConfig("logy",   config_file,_setup)
+rebins    =  GetConfig("rebin",   config_file,_setup)
+xmins     =  GetConfig("xmin",   config_file,_setup)
+xmaxs     =  GetConfig("xmax",   config_file,_setup)
 print "Running with setup:"
 PrintSetup(_setup)
 
@@ -74,14 +74,15 @@ for _iter in range(0,niter):
                xmin=xmins[counter]
                xmax=xmaxs[counter]
                rebin=rebins[counter]
+               _logy=logy[counter]
                config_file = open("config.txt","w")
                if (flavour == "EE"):
                    if year == "2018":
-                       config_file.write("config          data_file       /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/"+year+"/HNtypeI_Dilepton_"+Skim+"_EGamma.root\n")
+                       config_file.write("config          data_file       /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_EGamma.root\n")
                    else:
-                       config_file.write("config          data_file       /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/"+year+"/HNtypeI_Dilepton_"+Skim+"_DoubleEG.root\n")
+                       config_file.write("config          data_file       /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_DoubleEG.root\n")
                else:
-                   config_file.write("config          data_file       /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/"+year+"/HNtypeI_Dilepton_"+Skim+"_Muon.root\n")
+                   config_file.write("config          data_file       /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_Muon.root\n")
            
                config_file.write("config          cut_dir         "+region+"\n")
                config_file.write("config          plot_dir        "+region+"\n")
@@ -91,44 +92,71 @@ for _iter in range(0,niter):
                config_file.write("config          flavour         "+flavour+"\n")
                config_file.write("config          histname        "+hist+"\n")
                config_file.write("config          showdata        "+ShowData+"\n")
+               config_file.write("config          plotsig        "+PlotSig+"\n")
+               config_file.write("config_int          logy        "+_logy+"\n")
                config_file.write("config          savetag         "+savetag+"\n")
                config_file.write("config_int          rebin        "+rebin+"\n")
                config_file.write("config_double          xmin        "+xmin+"\n")
                config_file.write("config_double          xmax        "+xmax+"\n")
 
-               if "prompt" in Bkgs:
-                   config_file.write("sample          prompt /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/"+year+"/HNtypeI_Dilepton_"+Skim+"_SSprompt.root  8\n")
+               if "SR3_HighmassCR" in region:
+                   
+                   if "prompt" in Bkgs:
+                       config_file.write("sample          prompt /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_OSprompt.root  632\n")
+
+
+               else:
+                   if "prompt" in Bkgs:
+                       config_file.write("sample          prompt /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_SSprompt.root  8\n")
+                       
                if "prompt_pythia" in Bkgs:
-                   config_file.write("sample          prompt /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/"+year+"/HNtypeI_Dilepton_"+Skim+"_SSprompt2.root  8\n")
+                   config_file.write("sample          prompt /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_SSprompt2.root  8\n")
+
+               if "diboson" in Bkgs:
+                   config_file.write("sample          diboson /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_Diboson.root  8\n")
+               if "triboson" in Bkgs:
+                   config_file.write("sample          triboson /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_VVV.root  802\n")
+
+               if "Xgamma" in Bkgs:
+                   config_file.write("sample          X+gamma /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_XG.root  400\n")
+
+               if "top" in Bkgs:
+                   config_file.write("sample          Top /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_top.root  632\n")
+
+               if "dy" in Bkgs:
+                   config_file.write("sample          DY /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_dy.root  400\n")
+               if "wwpp" in Bkgs:
+                                   config_file.write("sample        wwpp /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_WWpp.root  840\n")
 
                if (flavour == "EE"):
                    
-                   if "nonprompt" in Bkgs:
-                       config_file.write("sample          fake   /Users/john/HNDiLeptonWorskspace/Files/HNtypeI_Dilepton/2016/IncludeFakeLepton__/HNtypeI_Dilepton_SkimTree_SSNonIso_DYJets.root 870\n")
-
                    if "fake" in Bkgs:
-                       config_file.write("sample          fake   /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/"+year+"/HNtypeI_Dilepton_"+Skim+"_FakeEE.root  870\n")
+                       config_file.write("sample          fake   /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_FakeEE.root  870\n")
                    if "cf" in Bkgs:
-                       config_file.write("sample          chareflip    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/"+year+"/HNtypeI_Dilepton_"+Skim+"_CF.root 5\n")
+                       config_file.write("sample          chareflip    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_CF.root 5\n")
+
                    if "SR2" in region:
-                       config_file.write("signal          400    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/2016/SIG/HNtypeI_Dilepton_HN_Schannel_EE_400_nlo.root  2\n")
-                       config_file.write("signal          1000    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/2016/SIG/HNtypeI_Dilepton_HN_Schannel_EE_1000_nlo.root  2\n")
+                       config_file.write("signal          400    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_EE_400_nlo.root  2\n")
+                       config_file.write("signal          1000    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_EE_1000_nlo.root  2\n")
                    else:
-                       config_file.write("signal          100    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/2016/SIG/HNtypeI_Dilepton_HN_Schannel_EE_100_nlo.root  2\n")
-                       config_file.write("signal          600    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/2016/SIG/HNtypeI_Dilepton_HN_Schannel_EE_600_nlo.root  2\n")
+                       config_file.write("signal          100    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_EE_100_nlo.root  2\n")
+                       config_file.write("signal          600    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_EE_600_nlo.root  2\n")
                    
                else:
-                   if "nonprompt" in Bkgs:
-                       config_file.write("sample          fake   /Users/john/HNDiLeptonWorskspace/Files/HNtypeI_Dilepton/2016/IncludeFakeLepton__/HNtypeI_Dilepton_SkimTree_SSNonIso_DYJets.root 870\n")
 
                    if "fake" in Bkgs:
-                       config_file.write("sample          fake   /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/"+year+"/HNtypeI_Dilepton_"+Skim+"_FakeMuMu.root  870\n")
+                       config_file.write("sample          fake   /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_FakeMuMu.root  870\n")
+
                    if "SR2"	in region:
-                       config_file.write("signal          400    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/2016/SIG/HNtypeI_Dilepton_HN_Schannel_MuMu_400_nlo.root  2\n")
-                       config_file.write("signal          1000    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/2016/SIG/HNtypeI_Dilepton_HN_Schannel_MuMu_1000_nlo.root  2\n")
+                       config_file.write("signal          400    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_MuMu_400_nlo.root  2\n")
+                       config_file.write("signal          1000    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_MuMu_1000_nlo.root  2\n")
                    else:
-                       config_file.write("signal          100    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/2016/SIG/HNtypeI_Dilepton_HN_Schannel_MuMu_100_nlo.root  2\n")
-                       config_file.write("signal          600    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/HNtypeI_Dilepton/2016/SIG/HNtypeI_Dilepton_HN_Schannel_MuMu_600_nlo.root  2\n")
+                       config_file.write("signal          100    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_MuMu_100_nlo.root  2\n")
+                       config_file.write("signal          600    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_MuMu_600_nlo.root  2\n")
 
                config_file.close()
-               os.system("root -l -q -b macro/MakeRegionPlots.C")
+               if ShowData == "true":
+                   os.system("root -l -q -b macro/MakeRegionPlots.C")
+               else:
+                   os.system("root -l -q -b macro/MakeRegionPlotsNoData.C")
+               os.remove("config.txt")

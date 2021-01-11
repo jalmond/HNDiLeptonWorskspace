@@ -45,6 +45,7 @@ void MakeFRFileEE(TString year,TString dataset="Electron"){
 
   std::vector<TString> fakes40;
   fakes40.push_back("HNTightV1");
+  /*
   fakes40.push_back("HNTightV2");
   fakes40.push_back("HNTightV3");
   fakes40.push_back("HNTightV4");
@@ -61,15 +62,23 @@ void MakeFRFileEE(TString year,TString dataset="Electron"){
   fakes40.push_back("passMVAID_iso_WP80");
   fakes40.push_back("passMVAID_iso_WP90");
   fakes40.push_back("HEEP2018");
-  fakes40.push_back("HEEPv7");
-  
+  fakes40.push_back("HEEPv7");*/
+
+  //  fakes40.push_back("passMVAID_noIso_WP90V16");
+  // fakes40.push_back("passPOGTight_TTrig_HNTC");
+  /*
+  fakes40.push_back("HNTight_dxy02_02_dz01_ip4_4");
+  fakes40.push_back("HNTight_dxy05_05_dz01_ip4_4");
+  fakes40.push_back("passPOGTightv1_TTrig_HNTC");
+  fakes40.push_back("passPOGTightv2_TTrig_HNTC");
+  */
+    
   /*
 hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNMediumV1
 hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNMediumV2
 hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNMediumV3
 hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNTight2016
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNTightV1
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNTightV2
+hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNTightV1dd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNTightV2
 hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNTightV3
 hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNTightV4
 hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_passMVAID_iso_WP80
@@ -98,9 +107,10 @@ hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRa
     for(auto j : jetpt){
       
       
-      TString denom = "LooseElFakeRateHN_EE_" +fakes40[i] +"_"+j+"_ptcorr_eta";
-      TString num   = "TightElFakeRateHN_EE_" +fakes40[i] +"_"+j+"_ptcorr_eta";
+      TString denom = "LooseElFakeRateHN_EE_" +fakes40[i] +"_"+j+"_ptcone_eta";
+      TString num   = "TightElFakeRateHN_EE_" +fakes40[i] +"_"+j+"_ptcone_eta";
 
+      cout << denom << endl;
       //    return;
       TH2D* h_pt_num= (TH2D*)fdata->Get(num.Data());
       TH2D* h_pt_denom= (TH2D*)fdata->Get(denom.Data());

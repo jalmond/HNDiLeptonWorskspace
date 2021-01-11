@@ -42,10 +42,12 @@ for y in years:
     
     allSS = ["SS", ["WWTo2L2Nu_DS","WWTo2L2Nu_powheg","ZG",ZZ,"WWToLNuQQ_powheg","ggZZTo4e","WGToLNuG", WZ ,"VBF_HToZZTo4L","WWTo2L2Nu_DS","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","WpWp_EWK","WpWp_QCD","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu", "DY", "TTLJ_powheg", "WJets_MG","SingleTop","TTLL_powheg"]]
 
-    osprompt = ["OSPrompt", ["DYJets", "WWTo2L2Nu_DS","WWTo2L2Nu_powheg","ZG",ZZ,"WWToLNuQQ_powheg","ggZZTo4e","WGToLNuG", WZ, "VBF_HToZZTo4L","WWTo2L2Nu_DS","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu","TTLL_powheg"]]
+    osprompt = ["OSPrompt", ["DYJets","TT"]]
+                             #"WWTo2L2Nu_DS","WWTo2L2Nu_powheg","ZG",ZZ,"WWToLNuQQ_powheg","ggZZTo4e","WGToLNuG", WZ, "VBF_HToZZTo4L","WWTo2L2Nu_DS","ZZZ","ttHToNonbb","ttZ","VHToNonbb","WWW","WZZ","ttWToLNu","TG","WWZ","TTG","ggZZTo2e2tau","ggZZTo2e2mu","TTLL_powheg"]]
 
-
-    SSLists = [ ssDiboson , ssOther, ssprompt, osFakesOS_list,  ssFakesMuon_list, ssFakesEl_list , allSS,ssCF, osprompt,osCF, ssTop, ssTriboson, ssWW, ssXG]
+    top = ["top", ["TT"]]
+    dy = ["dy", ["DY"]]
+    SSLists = [ osprompt, top, dy]
 
     analyzername="HNtypeI_JA"
     outpath = os.getenv("INFILE_MERGED_PATH") +"/"+analyzername+"/"+ y + "/"

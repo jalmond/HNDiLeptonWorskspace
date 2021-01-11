@@ -331,7 +331,7 @@ map<TString,int> ConfigMapInt(TString config_file){
     if(tmp=="config_int") {
       config_file_name >> tmp1;
       config_file_name >> tmppath;
-
+      cout << "ConfigMapInt : " << tmp1 << " " << tmppath << endl;
       conf_map[tmp1] = tmppath;
     }
   }
@@ -629,6 +629,8 @@ double GetIntegral(map<TString,TString> _map, TString fullhistname){
       continue;
     }
     total+= hist_temp->Integral();
+    file->Close();
+
   }
   return total;
 }
@@ -695,9 +697,9 @@ THStack*  MakeStack(TLegend* legend_g,map<TString,TString> _map, TString fullhis
 
 
 }
-vector<TString> GetHistNames(TString file, TString dirname, TString analyzername,TString flavour){
-
-    vector<TString> vlist;
+vector<TString> GetHistNames(TString file, TString dirname, TString analyzername,TString flavour, TString ID){
+  
+  vector<TString> vlist;
 
   TFile * _file = new TFile(file);
   if(CheckFile(_file) > 0)  return vlist;
@@ -711,10 +713,11 @@ vector<TString> GetHistNames(TString file, TString dirname, TString analyzername
     obj = key->ReadObj() ;
     TString hname = obj->GetName();
     TString objname= obj->ClassName();
-    if(!hname.Contains(analyzername+"_"+flavour+"_HNTightV1")) continue;
+    
+    if(!(hname.Contains(analyzername+"_"+flavour+"_"+ID))) continue;
 
-    cout << hname << endl;
-    hname = hname.ReplaceAll("_"+analyzername+"_"+flavour+"_HNTightV1","");
+    //nPV_HNtypeI_JA_EE_HEEP2018
+    hname = hname.ReplaceAll("_"+analyzername+"_"+flavour+"_"+ID,"");
     hname = hname.ReplaceAll(dirname+"/"+dirname+"_","");
     //hname = hname.ReplaceAll("_","");
     vlist.push_back(hname);
@@ -742,7 +745,6 @@ vector<TString> GetIDNames(TString file, TString dirname, TString analyzername,T
     //cout << hname << " " << dirname+"_njets_"+analyzername+"_"+flavour << " JOHN" <<  endl;
     if(!hname.Contains(dirname+"_njets_"+analyzername+"_"+flavour)) continue;
     hname = hname.ReplaceAll(dirname+"/"+dirname+"_njets_"+analyzername+"_"+flavour+"_","");
-    cout << hname << endl;
     //hname = hname.ReplaceAll("_","");
     //cout << "---> " << hname << endl;
     vlist.push_back(hname);
@@ -775,8 +777,8 @@ vector<TString> GetDirName(TString file){
 }
 
 bool CheckInput(vector<TString> list, TString _var ,TString tag){
-  if(std::find(list.begin(), list.end(), _var) != list.end()) cout << "Running with " << tag  << " :  "  <<_var << endl;
-  else {cout << "Error in input of " + tag+ ": " << _var << endl; for (auto i: list)   std::cout << i << ' '<<endl; return false; }
+  if(std::find(list.begin(), list.end(), _var) != list.end()) cout << "Running with " << tag  << " :  "  <<_var << "" << endl;
+  else {cout << "Error in input of " + tag+ ": " << _var<< "" << endl; for (auto i: list)   std::cout << i <<endl; return false; }
 
   return true;
 }
@@ -1424,9 +1426,10 @@ void DrawLatex(TString year){
   latex_Lumi.SetTextSize(0.035);
   latex_Lumi.SetTextFont(42);
   if(year=="2016")latex_Lumi.DrawLatex(0.72, 0.96, "35.9 fb^{-1} (13 TeV)");
-  if(year=="2017")latex_Lumi.DrawLatex(0.72, 0.96, "41.5 fb^{-1} (13 TeV)");
-  if(year=="2018")latex_Lumi.DrawLatex(0.72, 0.96, "59.9 fb^{-1} (13 TeV)");
-  
+  else if(year=="2017")latex_Lumi.DrawLatex(0.72, 0.96, "41.5 fb^{-1} (13 TeV)");
+  else if(year=="2018")latex_Lumi.DrawLatex(0.72, 0.96, "59.9 fb^{-1} (13 TeV)");
+  else latex_Lumi.DrawLatex(0.72, 0.96, "137.3 fb^{-1} (13 TeV)");
+
 }
 void DrawLatexWithLabel(TString year,TString label, float x, float y){
 
@@ -1587,16 +1590,14 @@ double GetSignalIntegral( double mass, TString year, TString sigpath,  TString n
   return ( hpass->Integral()/hall->Integral()) * GetLumi(year)*GetXsec(mass) ;
 
 }
-double GetIntegral( TString sigpath,  TString n_sr_hist){
+double GetIntegral( TFile * filemm,  TString n_sr_hist){
 
-  TFile * filemm = new TFile((sigpath).Data());
+  
   if(CheckFile(filemm) > 0)  return 0.;
   if(!CheckHist(filemm, n_sr_hist)) return 0.;
   TH1*  hpass = GetHist(filemm, n_sr_hist,true);
   double tot = hpass->Integral();
-  filemm->Close();
-  delete filemm;
-
+  
   return tot;
 
 }
