@@ -697,6 +697,33 @@ THStack*  MakeStack(TLegend* legend_g,map<TString,TString> _map, TString fullhis
 
 
 }
+
+vector<TString> GetListFromKeys(TFile* _file, TString dirname, TString _type){
+
+  vector<TString> vlist;
+  
+  //if(CheckFile(_file) > 0)  return vlist;
+  TDirectory* _dir = _file->GetDirectory(dirname);
+  TList* list = _dir->GetListOfKeys() ;
+  TIter next(list) ;
+  TKey* key ;
+  TObject* obj ;
+
+  while ( (key = (TKey*)next()) ) {
+    obj = key->ReadObj() ;
+    TString hname = obj->GetName();
+    TString objname= obj->ClassName();
+    
+    if(!(objname == _type)) continue;
+
+    hname = hname.ReplaceAll(dirname+"/", "");
+    vlist.push_back(hname);
+
+  }
+
+  return vlist;
+}
+
 vector<TString> GetHistNames(TString file, TString dirname, TString analyzername,TString flavour, TString ID){
   
   vector<TString> vlist;
@@ -1507,6 +1534,14 @@ bool CheckHist(TFile* file, TString name ){
   return true;
 }
 
+
+void NormHist(TH1* hist){
+
+  hist->Scale(1./ hist->Integral());
+
+}
+
+
 TH1D* GetHist(TFile* file, TString name , bool return_void=true, bool debug=false){
   
   TString name_fix = name;
@@ -1578,6 +1613,21 @@ TH1D* GetHist(TFile* file, TString name , bool return_void=true, bool debug=fals
   return h;
   
   
+}
+
+
+
+TH1D* GetHistFull(TFile* file, TString name , Color_t _linecol=kBlack, Width_t _width = 999, Style_t _style
+ = 999, Color_t _fillcol = kBlack,  bool return_void=true, bool debug=false){
+
+  TH1D* hist =  GetHist(file, name, return_void, debug);
+
+  if(_linecol != kBlack) hist->SetLineColor(_linecol);
+  if(_fillcol != kBlack) hist->SetFillColor(_fillcol);
+  if(_width != 999) hist->SetLineWidth(_width);
+  if(_style != 999) hist->SetLineStyle(_style);
+
+  return hist;
 }
 
 double GetSignalIntegral( double mass, TString year, TString sigpath,  TString n_sr_hist, TString hist_all){
