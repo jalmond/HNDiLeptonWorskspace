@@ -1,3 +1,4 @@
+InputFiles
 src/FakeRates/CreateInput/FakeFiles*
 OutputTool/*/*.log
 Limits/MakeCards/CutandCount/CardTemplate.pyc
