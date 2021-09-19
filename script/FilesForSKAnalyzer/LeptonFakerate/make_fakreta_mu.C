@@ -1,116 +1,89 @@
-#include <string.h>
-#include "TChain.h"
 #include "TFile.h"
-#include "TH1.h"
 #include "TH2.h"
-#include "TH1F.h"
-#include "TH2F.h"
 #include "TTree.h"
-#include "TLatex.h"
-#include "TKey.h"
 #include <iostream>
 #include <TStyle.h>
-#include "TCanvas.h"
-#include "TLegend.h"
 
 #include <vector>
-#include "TString.h"
 #include "TSystem.h"
-
-#include <sstream>      // std::stringstream
 
 void setTDRStyle();
 bool CheckFile(TFile* f);
 bool CheckHist(TH2* h);
 
+void make_fakreta_el(int era){
 
-void MakeFRFileEE_pt(TString year,TString dataset="Electron"){
+  TString s_era = "2017";
+  TString year = "2017";
+  TString dataset="Electron";
+  
+  if(era == 0) {    s_era="2016preVFP"; year = "2016";}
+  else if(era == 1) { s_era="2016postVFP"; year = "2016";}
+  else if(era == 2) { s_era="2017"; year = "2017";}
+  else if(era == 3) { s_era="2018"; year = "2018";}
+  else return;
+    
+  TString ENV_FILE_PATH= (getenv("FILE_MERGED_PATH"));
+  TString skim_name    = "SkimTree_HNFake";
+  TString analyzername = "FakeRateHN";
+  TString data_path=  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+skim_name+"_"+dataset+".root";
+  TString mc_path  =  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+skim_name+"_MC.root";
 
-  
-  TString path= "/Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/"+year+"/FakeRateHN_SkimTree_HNFake_"+dataset+".root";
-  TString mcpath= "/Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/"+year+"/FakeRateHN_SkimTree_HNFake_MC.root";
-  
   TFile * fdata = new TFile(path);
-  TFile * fmc = new TFile(mcpath);
   
   /// Set Plotting style
-  setTDRStyle();
-  gStyle->SetPalette(1);
+  setTDRStyle();   gStyle->SetPalette(1);
     
-  TString outfile = "FakeRate13TeV_pt_el_"+year+".root";
+  TString outfile = "rootfiles/HNL_FakeRate_Muon_"+s_era+".root";
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   fout->cd();
-
-  std::vector<TString> jetpt = {"40","30","20"};
-
-  std::vector<TString> fakes40;
-
-  //  fakes40.push_back("passMVAID_noIso_WP90V16");
-  //  fakes40.push_back("passPOGTight_TTrig_HNTC");
-
-  fakes40.push_back("HNTight_dxy02_02_dz01_ip4_4");
-  fakes40.push_back("HNTight_dxy05_05_dz01_ip4_4");
-  fakes40.push_back("passPOGTightv1_TTrig_HNTC");
-  fakes40.push_back("passPOGTightv2_TTrig_HNTC");
-  fakes40.push_back("HNTightV1");
   
-  /*
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNMediumV1
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNMediumV2
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNMediumV3
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNTight2016
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNTightV1
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNTightV2
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNTightV3
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNTightV4
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_passMVAID_iso_WP80
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_passMVAID_iso_WP90
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_passMVAID_noIso_WP80
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_passMVAID_noIso_WP90
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_passMediumID
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_passTightID
-hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_passTightID_nocc
+  std::vector<TString> electron_ids ={"HN"+year,
+                                      "HNTightV1",
+				      "HNTightV2",
+                                      "HNTight_17028",
+                                      "POGTightWithTightIso"};
 
-   */
+  TFile * fdata = new TFile(data_path);
+  TFile * fmc   = new TFile(mc_path);
+  
+  /// Set Plotting style
+  setTDRStyle();  gStyle->SetPalette(1);
+    
 
+  std::vector<TString> jetpt = {"60","40","30","20"};
+  std::vector<TString> ptlabel = {"ptcone_eta","pt_eta","ptcone_ptfix"};
+ 
   double ptbinscone[10] = { 6.,10., 15.,20.,30.,40.,50.,  60., 100.,200.};
-  
-  //Float_t ptbinscone[9] = { 10., 15.,20.,30.,40.,50.,  60., 200.};
   Float_t etabins2[5] = { 0.,0.8,  1.479, 2.,  2.5};
-
-  //  Float_t etabins[4] = {0., 0.8, 1.5, 2.5};
-  //TH2D* h = new TH2D("SS_auxFake_etaptcone","SS_auxFake_etaptcone", 7., ptbinscone, 4 , etabins2);
-  //TH1D* h1 = new TH1D("SS_auxFake_eatcone","SS_auxFake_ptcone", 4 , etabins2);
-  //TH1D* h2 = new TH1D("SS_auxFake_ptcone","SS_auxFake_ptcone", 7., ptbinscone);
-
   
-  for(unsigned int i=0; i < fakes40.size(); i++){
-
+  for(auto i : electron_ids){
     for(auto j : jetpt){
-      
-      
-      TString denom = "LooseElFakeRateHN_EE_" +fakes40[i] +"_"+j+"_pt_eta";
-      TString num   = "TightElFakeRateHN_EE_" +fakes40[i] +"_"+j+"_pt_eta";
+      for(auto k : ptlabel){
+            
+	TString denom = "LooseElEE_" + i +"_"+j+"_"+k;
+	TString num   = "TightElEE_" + i +"_"+j+"_"+k;
+	
+	TH2F* hist_pt_num    = (TH2F*)fdata->Get(num.Data()  );
+	TH2F* hist_pt_denom  = (TH2F*)fdata->Get(denom.Data());
+	TH2F* hist_mcpt_num  = (TH2F*)fmc->Get(num.Data()    );
+	TH2F* hist_mcpt_denom= (TH2F*)fmc->Get(denom.Data()  );
+	
+	CheckHist(hist_pt_denom);        CheckHist(hist_pt_num);
+	CheckHist(hist_mcpt_denom);      CheckHist(hist_mcpt_num);
+	
+	TString name = i+"_"+k;
+	
+	TH2F* file_fake_rate = (TH2F*)hist_pt_num->Clone((name+"_AwayJetPt"+j).Data());
+	file_fake_rate->Add(hist_mcpt_num,-1.);
+	
+	TH2F* hratedenom = (TH2F*)hist_pt_denom->Clone((name +"_denom").Data());
+	hratedenom->Add(hist_mcpt_denom,-1.);
+	
+	file_fake_rate->Divide(file_fake_rate,hratedenom,1.,1.,"cl=0.683 b(1,1) mode");
+	file_fake_rate->Write();
 
-      //    return;
-      TH2D* h_pt_num= (TH2D*)fdata->Get(num.Data());
-      TH2D* h_pt_denom= (TH2D*)fdata->Get(denom.Data());
-      TH2D* h_mcpt_num= (TH2D*)fmc->Get(num.Data());
-      TH2D* h_mcpt_denom= (TH2D*)fmc->Get(denom.Data());
-      
-      CheckHist(h_pt_denom);
-      CheckHist(h_pt_num);
-      TString name = fakes40[i] ;
-      
-      TH2D* eff_rate = (TH2D*)h_pt_num->Clone((name+"_pt_AwayJetPt"+j).Data());
-      eff_rate->Add(h_mcpt_num,-1.);
-      TH2D* hratedenom = (TH2D*)h_pt_denom->Clone((name +"_denom").Data());
-      hratedenom->Add(h_mcpt_denom,-1.);
-      
-      eff_rate->Divide(eff_rate,hratedenom,1.,1.,"cl=0.683 b(1,1) mode");
-      
-      eff_rate->Write();
-
+      }
     }
   }
   

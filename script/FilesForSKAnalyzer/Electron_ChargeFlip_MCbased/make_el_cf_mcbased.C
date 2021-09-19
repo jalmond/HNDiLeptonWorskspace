@@ -1,85 +1,74 @@
-#include <string.h>
-#include "TChain.h"
 #include "TFile.h"
-#include "TH1.h"
 #include "TH2.h"
-#include "TH1F.h"
-#include "TH2F.h"
 #include "TTree.h"
-#include "TLatex.h"
-#include "TKey.h"
 #include <iostream>
 #include <TStyle.h>
-#include "TCanvas.h"
-#include "TLegend.h"
 
 #include <vector>
-#include "TString.h"
 #include "TSystem.h"
-
-#include <sstream>      // std::stringstream
 
 void setTDRStyle();
 bool CheckFile(TFile* f);
 bool CheckHist(TH2* h);
 
+void make_el_cf_mcbased(int era){
 
-void MakeMCFRFileEE(TString year="2016",TString dataset="Electron"){
+  TString s_era = "2017";
+  TString year = "2017";
 
-  
-  TString path= "/Users/john/HNDiLeptonWorskspace/Files/FakeRateHNMC/2016/FakeRateHNMC_QCDEl.root";
+  if(era == 0) {    s_era="2016preVFP"; year = "2016";}
+  else if(era == 1) { s_era="2016postVFP"; year = "2016";}
+  else if(era == 2) { s_era="2017"; year = "2017";}
+  else if(era == 3) { s_era="2018"; year = "2018";}
+  else return;
+    
+  TString ENV_FILE_PATH= (getenv("FILE_MERGED_PATH"));
+  TString skim_name = "";
+  TString analyzername = "HNtypeI_CF";
+  TString path=  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+skim_name+"_MC.root";
 
   TFile * fdata = new TFile(path);
   
   /// Set Plotting style
-  setTDRStyle();
-  gStyle->SetPalette(1);
+  setTDRStyle();   gStyle->SetPalette(1);
     
-  TString outfile = "FakeRateMC13TeV_el_"+year+".root";
+  TString outfile = "rootfiles/HNL_ElectronCF_"+s_era+".root";
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   fout->cd();
-
-  std::vector<TString> jetpt = {"40","30","20"};
-
-  std::vector<TString> fakes40;
-  fakes40.push_back("HNTightV1");
-
-  double ptbinscone[10] = { 6.,10., 15.,20.,30.,40.,50.,  60., 100.,200.};
   
-  //Float_t ptbinscone[9] = { 10., 15.,20.,30.,40.,50.,  60., 200.};
+  std::vector<TString> electron_ids ={"HN"+year,
+				      "HNRelaxedIP"+year,
+				      "HNTightV2",
+				      "HNTight_17028",
+				      "passMediumID"};
+
+
+  
+  //==== define hist bins
+  Float_t ptbinscone[8] = { 10., 15.,20.,30.,40.,50.,  60., 200.};
   Float_t etabins2[5] = { 0.,0.8,  1.479, 2.,  2.5};
 
-  //  Float_t etabins[4] = {0., 0.8, 1.5, 2.5};
-  //TH2D* h = new TH2D("SS_auxFake_etaptcone","SS_auxFake_etaptcone", 7., ptbinscone, 4 , etabins2);
-  //TH1D* h1 = new TH1D("SS_auxFake_eatcone","SS_auxFake_ptcone", 4 , etabins2);
-  //TH1D* h2 = new TH1D("SS_auxFake_ptcone","SS_auxFake_ptcone", 7., ptbinscone);
-
   
-  for(unsigned int i=0; i < fakes40.size(); i++){
+  for (auto id: electron_ids){
 
-    for(auto j : jetpt){
-      
-      
-      TString denom = "LooseElFakeRateHNMC_EE_" +fakes40[i] +"_"+j+"_ptcone_eta";
-      TString num   = "TightElFakeRateHNMC_EE_" +fakes40[i] +"_"+j+"_ptcone_eta";
+    cout << path << " ----> el_cf_pt_eta"+ id  + " el_cf_pt_eta"+ id << endl;
+    TString hist_denom = "el_pt_eta"+ id;
+    TString hist_num   = "el_cf_pt_eta"+ id;
 
-      cout << denom << endl;
-      //    return;
-      TH2D* h_pt_num= (TH2D*)fdata->Get(num.Data());
-      TH2D* h_pt_denom= (TH2D*)fdata->Get(denom.Data());
-      
-      CheckHist(h_pt_denom);
-      CheckHist(h_pt_num);
-      TString name = fakes40[i] ;
-      
-      TH2D* eff_rate = (TH2D*)h_pt_num->Clone((name+"_AwayJetPt"+j).Data());
-      TH2D* hratedenom = (TH2D*)h_pt_denom->Clone((name +"_denom").Data());
-      
-      eff_rate->Divide(eff_rate,hratedenom,1.,1.,"cl=0.683 b(1,1) mode");
-      
-      eff_rate->Write();
+    TH2F* h_pt_num=  (TH2F*)fdata->Get(hist_num.Data());
+    TH2F* h_pt_denom= (TH2F*)fdata->Get(hist_denom.Data());
 
-    }
+    CheckHist(h_pt_denom);
+    CheckHist(h_pt_num);
+    TString name = id;
+      
+    TH2F* cf_rate =   (TH2F*)h_pt_num->Clone((name).Data());
+    TH2F* hratedenom = (TH2F*)h_pt_denom->Clone((name +"_denom").Data());
+    
+    cf_rate->Divide(cf_rate,hratedenom,1.,1.,"cl=0.683 b(1,1) mode");
+
+    cf_rate->Write();
+
   }
   
   return;

@@ -1,90 +1,94 @@
-#include <string.h>
-#include "TChain.h"
 #include "TFile.h"
-#include "TH1.h"
 #include "TH2.h"
-#include "TH1F.h"
-#include "TH2F.h"
 #include "TTree.h"
-#include "TLatex.h"
-#include "TKey.h"
 #include <iostream>
 #include <TStyle.h>
-#include "TCanvas.h"
-#include "TLegend.h"
 
 #include <vector>
-#include "TString.h"
 #include "TSystem.h"
-
-#include <sstream>      // std::stringstream
 
 void setTDRStyle();
 bool CheckFile(TFile* f);
 bool CheckHist(TH2* h);
 
+void make_fakreta_el(int era){
 
-void MakeFRFileMMFix(TString year){
+  TString s_era = "2017";
+  TString year = "2017";
+  TString dataset="Electron";
+  
+  if(era == 0) {    s_era="2016preVFP"; year = "2016";}
+  else if(era == 1) { s_era="2016postVFP"; year = "2016";}
+  else if(era == 2) { s_era="2017"; year = "2017";}
+  else if(era == 3) { s_era="2018"; year = "2018";}
+  else return;
+    
+  TString ENV_FILE_PATH= (getenv("FILE_MERGED_PATH"));
+  TString skim_name = "SkimTree_HNFake";
+  TString analyzername = "FakeRateHN";
+  TString data_path=  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+skim_name+"_"+dataset+".root";
+  TString mc_path  =  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+skim_name+"_MC.root";
 
-  
-  TString path= "/Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/"+year+"/FakeRateHN_SkimTree_HNFake_Muon.root";
-  
-  TString mcpath= "/Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/"+year+"/FakeRateHN_SkimTree_HNFake_MC.root";
-  
   TFile * fdata = new TFile(path);
-  TFile * fmc = new TFile(mcpath);
   
   /// Set Plotting style
-  setTDRStyle();
-  gStyle->SetPalette(1);
+  setTDRStyle();   gStyle->SetPalette(1);
     
-  TString outfile = "FakeRate13TeV_muon_ptfix_"+year+".root";
+  TString outfile = "rootfiles/HNL_FakeRate_Electron_"+s_era+".root";
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   fout->cd();
-
-  std::vector<TString> jetpt = {"40","30","20"};
-
-  std::vector<TString> fakes40;
-  /*  fakes40.push_back("HNTightV1");
-  fakes40.push_back("HNTightV2");
-  fakes40.push_back("POGTightPFIsoVeryTight");
-  fakes40.push_back("POGTightStandardPFIsoTight");
-  fakes40.push_back("POGTightPFIsoVeryVeryTight");
-  fakes40.push_back("POGTightPFIsoTight");
-  fakes40.push_back("POGTightPFIsoMedium");
-  fakes40.push_back("POGTightPFIsoLoose");
-  fakes40.push_back("HNTight2016");
-  fakes40.push_back("POGHighPtTight");*/
-
-  //  fakes40.push_back("HNTight_Iso07_dxy_02_ip_3");
-  fakes40.push_back("HNTightPFIsoVeryVeryTight");
-
   
-  for(unsigned int i=0; i < fakes40.size(); i++){
-    for(auto j : jetpt){
-      
-      //TightElFakeRateHN_EE_HNTight2016_40_ptcorr-ptcorr
-      TString denom = "LooseMuFakeRateHN_MuMu_" +fakes40[i] + "_"+j+"_ptcone_ptfix_eta";
-      TString num   = "TightMuFakeRateHN_MuMu_" +fakes40[i] + "_"+j+"_ptcone_ptfix_eta";
+  std::vector<TString> electron_ids ={"HN"+year,
+                                      "HNRelaxedIP"+year,
+                                      "HNTightV2",
+                                      "HNTight_17028",
+                                      "passPOGMedium"};
 
-      //    return;
-      TH2D* h_pt_num= (TH2D*)fdata->Get(num.Data());
-      TH2D* h_pt_denom= (TH2D*)fdata->Get(denom.Data());
-      TH2D* h_mcpt_num= (TH2D*)fmc->Get(num.Data());
-      TH2D* h_mcpt_denom= (TH2D*)fmc->Get(denom.Data());
-      
-      CheckHist(h_pt_denom);
-      CheckHist(h_pt_num);
-      TString name = fakes40[i] ;
-      
-      TH2D* eff_rate = (TH2D*)h_pt_num->Clone((name+"_PtFix_AwayJetPt"+j).Data());
-      eff_rate->Add(h_mcpt_num,-1.);
-      TH2D* hratedenom = (TH2D*)h_pt_denom->Clone((name +"_denom").Data());
-      hratedenom->Add(h_mcpt_denom,-1.);
-      
-      eff_rate->Divide(eff_rate,hratedenom,1.,1.,"cl=0.683 b(1,1) mode");
-      
-      eff_rate->Write();
+  std::vector<TString> electron_ids_LIP;
+  auto ( i : _ids) electron_ids_LIP.push_back(i+"_LIP");
+  
+  electron_ids.insert(electron_ids.end(), electron_ids_LIP.begin(), electron_ids_LIP.end());
+  
+  TFile * fdata = new TFile(data_path);
+  TFile * fmc   = new TFile(mc_path);
+  
+  /// Set Plotting style
+  setTDRStyle();  gStyle->SetPalette(1);
+    
+
+  std::vector<TString> jetpt = {"60", "40","30","20"};
+  std::vector<TString> ptlabel = {"ptcone_eta","pt_eta","ptcone_ptfix"};
+ 
+  double ptbinscone[10] = { 6.,10., 15.,20.,30.,40.,50.,  60., 100.,200.};
+  Float_t etabins2[5] = { 0.,0.8,  1.479, 2.,  2.5};
+  
+  for(auto i : electron_ids){
+    for(auto j : jetpt){
+      for(auto k : ptlabel){
+            
+	TString denom = "LooseElEE_" + i +"_"+j+"_"+k;
+	TString num   = "TightElEE_" + i +"_"+j+"_"+k;
+	
+	TH2F* hist_pt_num    = (TH2F*)fdata->Get(num.Data()  );
+	TH2F* hist_pt_denom  = (TH2F*)fdata->Get(denom.Data());
+	TH2F* hist_mcpt_num  = (TH2F*)fmc->Get(num.Data()    );
+	TH2F* hist_mcpt_denom= (TH2F*)fmc->Get(denom.Data()  );
+	
+	CheckHist(hist_pt_denom);        CheckHist(hist_pt_num);
+	CheckHist(hist_mcpt_denom);      CheckHist(hist_mcpt_num);
+	
+	TString name = i+"_"+k;
+	
+	TH2F* file_fake_rate = (TH2F*)hist_pt_num->Clone((name+"_AwayJetPt"+j).Data());
+	file_fake_rate->Add(hist_mcpt_num,-1.);
+	
+	TH2F* hratedenom = (TH2F*)hist_pt_denom->Clone((name +"_denom").Data());
+	hratedenom->Add(hist_mcpt_denom,-1.);
+	
+	file_fake_rate->Divide(file_fake_rate,hratedenom,1.,1.,"cl=0.683 b(1,1) mode");
+	file_fake_rate->Write();
+
+      }
     }
   }
   

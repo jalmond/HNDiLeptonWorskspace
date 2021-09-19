@@ -1,5 +1,5 @@
-InputFiles
-src/FakeRates/CreateInput/FakeFiles*
+InputFiles/MergedFiles
+InputFiles/rootfiles
 OutputTool/*/*.log
 Limits/MakeCards/CutandCount/CardTemplate.pyc
 Limits/DataCards*/*/201*/
