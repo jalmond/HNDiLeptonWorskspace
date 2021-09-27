@@ -24,11 +24,11 @@ void make_el_cf_mcbased(int era){
     
   TString ENV_FILE_PATH= (getenv("FILE_MERGED_PATH"));
   TString skim_name = "";
-  TString analyzername = "HNtypeI_CF";
+  TString analyzername = "HNL_MCCF";
   TString path=  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+skim_name+"_MC.root";
 
   TFile * fdata = new TFile(path);
-  
+  if(!fdata) { cout << path << " not found " << endl; return;}
   /// Set Plotting style
   setTDRStyle();   gStyle->SetPalette(1);
     
@@ -40,7 +40,7 @@ void make_el_cf_mcbased(int era){
 				      "HNRelaxedIP"+year,
 				      "HNTightV2",
 				      "HNTight_17028",
-				      "passMediumID"};
+				      "passPOGMedium"};
 
 
   
@@ -62,10 +62,12 @@ void make_el_cf_mcbased(int era){
     CheckHist(h_pt_num);
     TString name = id;
       
-    TH2F* cf_rate =   (TH2F*)h_pt_num->Clone((name).Data());
+    TH2F* cf_rate =   (TH2F*)h_pt_num->Clone((name+"_central_pteta").Data());
     TH2F* hratedenom = (TH2F*)h_pt_denom->Clone((name +"_denom").Data());
     
     cf_rate->Divide(cf_rate,hratedenom,1.,1.,"cl=0.683 b(1,1) mode");
+
+    fout->cd();
 
     cf_rate->Write();
 

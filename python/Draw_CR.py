@@ -6,6 +6,7 @@ import argparse
 
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 
+
 ## Arguments
 
 parser = argparse.ArgumentParser(description='CR plot commands')
@@ -42,8 +43,6 @@ m.Filename_suffix = ""
 m.Filename_skim = "_SkimTree_HNMultiLep"
 
 m.OutputDirectory = ENV_PLOT_PATH+"/"+dataset+"/CR/"+str_Year+"/"
-if args.ApplyDYReshape:
-  m.OutputDirectory = ENV_PLOT_PATH+"/"+dataset+"/CR/"+str_Year+"/ApplyZPtRwgReweightedQCDErrorEWCorr_ApplyDYReshapeJetPt/"
 
 #### Category
 m.ScaleMC = args.ScaleMC
@@ -120,16 +119,16 @@ if args.Category==0:
   #### Print
   m.PrintSamples()
 
-  IDs=["EXO17028","Version1","Opt"]
+  IDs=["POG"]
   #### Define reiongs
   m.RegionsToDraw = [
 
-    Region('HNL_WZ_ThreeLepton_CR_Electron_HNtypeI_Dilepton_Version1' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
-    Region('HNL_WZ_ThreeLepton_CR_Muon_HNtypeI_Dilepton_Version1' , 'Muon', UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#muX}{WZ->lll CR}'),   
-    Region('HNL_WZ_ThreeLepton_CR_Electron_HNtypeI_Dilepton_EXO17028' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
-    Region('HNL_WZ_ThreeLepton_CR_Muon_HNtypeI_Dilepton_EXO17028' , 'Muon', UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#muX}{WZ->lll CR}'),
-    Region('HNL_WZ_ThreeLepton_CR_Electron_HNtypeI_Dilepton_Opt' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
-    Region('HNL_WZ_ThreeLepton_CR_Muon_HNtypeI_Dilepton_Opt' , 'Muon', UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#muX}{WZ->lll CR}'),
+    #Region('HNL_WZ_ThreeLepton_CR_Electron_HNtypeI_Dilepton_Version1' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    #Region('HNL_WZ_ThreeLepton_CR_Muon_HNtypeI_Dilepton_Version1' , 'Muon', UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#muX}{WZ->lll CR}'),   
+    #Region('HNL_WZ_ThreeLepton_CR_Electron_HNtypeI_Dilepton_EXO17028' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    #Region('HNL_WZ_ThreeLepton_CR_Muon_HNtypeI_Dilepton_EXO17028' , 'Muon', UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#muX}{WZ->lll CR}'),
+    #Region('HNL_WZ_ThreeLepton_CR_Electron_HNtypeI_Dilepton_Opt' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('POG_SingleMuon_OnZ_OS' , 'Muon', UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{Z->ll CR}'),
 
     #Region('HNWR_SingleMuon_Boosted_DYCR', 'SingleMuon', UnblindData=True, Logy=1, TLatexAlias='#splitline{#mu#mu}{Boosted DY CR}'),
   ]
@@ -143,9 +142,9 @@ if args.Category==0:
 
 #### Define Variables
 m.VariablesToDraw = [
-  Variable('Lep1_pt', 'p_{T} of the leading lepton', 'GeV'),
-  Variable('MET', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),
-  Variable('nPV', 'n(vertex)','')
+  #Variable('Lep1_pt', 'p_{T} of the leading lepton', 'GeV'),
+  #Variable('MET', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),
+  Variable('ZCand_Mass', 'm(ll)','')
 
 ]
 m.PrintVariables()

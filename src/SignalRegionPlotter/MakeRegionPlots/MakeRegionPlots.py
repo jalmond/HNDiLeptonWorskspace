@@ -10,20 +10,20 @@ sys.path.insert(1, os.getenv("HNDILEPTONWORKSPACE_DIR") +"/python")
 
 from GeneralSetup import *
 
-args = setupargs("MakeCard")
+args = setupargs("MakePlotter")
 
 #set current directory to memory
 pwd = os.getcwd()
 
 # get config file name
 config_file= args.ConfigFile
-id_file = "ConfigCR/ID.txt"
+id_file = "ConfigVal/ID.txt"
 # now import analysis functions
 from HNType1_config import *
 
 if config_file == "None":
     print "Need input file to configure job"
-    print "python MakeInputLimitCutCount.py -c config.txt"
+    print "python MakeRegionPlots.py -c config.txt"
     exit()
 
 _setup=[]
@@ -56,16 +56,13 @@ for _iter in range(0,niter):
        year     = GetIter[0]
        flavour  = GetIter[1]
        region   = GetIter[2]
-
-
-
-
        IDs     = ChooseID(IDMu, IDEl, flavour, 1)
 
+       MERGE_DIR=os.getenv("FILE_MERGED_PATH")
+
        for ID in IDs:
-
+           
            counter =-1
-
            for hist in hists:
                print hist
            for hist in hists:
@@ -75,17 +72,27 @@ for _iter in range(0,niter):
                xmax=xmaxs[counter]
                rebin=rebins[counter]
                _logy=logy[counter]
+
                config_file = open("config.txt","w")
-               if (flavour == "EE"):
-                   if year == "2018":
-                       config_file.write("config          data_file       /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_EGamma.root\n")
-                   else:
-                       config_file.write("config          data_file       /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_DoubleEG.root\n")
-               else:
-                   config_file.write("config          data_file       /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_Muon.root\n")
-           
-               config_file.write("config          cut_dir         "+region+"\n")
-               config_file.write("config          plot_dir        "+region+"\n")
+
+               if flavour == "EE" and year == "2018":
+                   config_file.write("config          data_file       "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_EGamma.root\n")
+               elif flavour == "EE":
+                   config_file.write("config          data_file       "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_DoubleEG.root\n")
+                   
+
+               if flavour == "SingleElectron" and year == "2018":
+                   config_file.write("config          data_file       "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_EGamma.root\n")
+               elif flavour == "SingleElectron":
+                   config_file.write("config          data_file       "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_Electron_data.root\n")
+                    
+               if flavour == "SingleMuon":
+                   config_file.write("config          data_file       "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_Muon_data.root\n")
+
+                   
+               config_file.write("config          cut_dir         "+ID+"_"+flavour+"_"+region+"\n")
+               config_file.write("config          plot_dir        "+ID+"_"+flavour+"_"+region+"\n")
+               config_file.write("config          region          "+region+"\n")
                config_file.write("config          analysername    "+Analyzer+"\n")
                config_file.write("config          year            "+year+"\n")
                config_file.write("config          id              "+ID+"\n")
@@ -99,60 +106,45 @@ for _iter in range(0,niter):
                config_file.write("config_double          xmin        "+xmin+"\n")
                config_file.write("config_double          xmax        "+xmax+"\n")
 
-               if "SR3_HighmassCR" in region:
-                   
-                   if "prompt" in Bkgs:
-                       config_file.write("sample          prompt /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_OSprompt.root  632\n")
-
-
-               else:
-                   if "prompt" in Bkgs:
-                       config_file.write("sample          prompt /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_SSprompt.root  8\n")
+               if "prompt" in Bkgs:
+                   config_file.write("sample          prompt "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_SSprompt.root  8\n")
                        
-               if "prompt_pythia" in Bkgs:
-                   config_file.write("sample          prompt /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_SSprompt2.root  8\n")
-
                if "diboson" in Bkgs:
-                   config_file.write("sample          diboson /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_Diboson.root  8\n")
+                   config_file.write("sample          diboson "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_WW_pythia.root  8\n")
+                   config_file.write("sample          diboson "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_WZ_pythia.root  8\n")
+                   config_file.write("sample          diboson "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_ZZ_pythia.root  8\n")
+                   
                if "triboson" in Bkgs:
-                   config_file.write("sample          triboson /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_VVV.root  802\n")
+                   config_file.write("sample          triboson "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_VVV.root  802\n")
 
                if "Xgamma" in Bkgs:
-                   config_file.write("sample          X+gamma /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_XG.root  400\n")
-
+                   config_file.write("sample          X+gamma "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_WGToLNuG.root  400\n")
+                   config_file.write("sample          X+gamma "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_ZGTo2LG_01J.root  400\n")
+                   
+               if "WJet" in Bkgs:
+                   config_file.write("sample          WJet "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_WJets_MG.root  8\n")
+                   
                if "top" in Bkgs:
-                   config_file.write("sample          Top /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_top.root  632\n")
+                   config_file.write("sample          Top "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_SingleTop_tW_antitop_NoFullyHad.root  632\n")
+                   config_file.write("sample          Top "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_SingleTop_tW_top_NoFullyHad.root  632\n")
+                   config_file.write("sample          Top "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_TTLJ_powheg.root  632\n")
+                   config_file.write("sample          Top "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_TTLL_powheg.root  632\n")
 
-               if "dy" in Bkgs:
-                   config_file.write("sample          DY /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_dy.root  400\n")
+               if "DYJet" in Bkgs:
+                   config_file.write("sample          DY "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_DYJets.root  400\n")
+
                if "wwpp" in Bkgs:
-                                   config_file.write("sample        wwpp /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_WWpp.root  840\n")
+                   config_file.write("sample        wwpp "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_WWpp.root  840\n")
 
-               if (flavour == "EE"):
-                   
-                   if "fake" in Bkgs:
-                       config_file.write("sample          fake   /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_FakeEE.root  870\n")
-                   if "cf" in Bkgs:
-                       config_file.write("sample          chareflip    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_CF.root 5\n")
+               if "fake" in Bkgs and flavour=="SingleMuon":
+                   config_file.write("sample          fake   "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_Nonprompt_Muon_data.root  870\n")
 
-                   if "SR2" in region:
-                       config_file.write("signal          400    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_EE_400_nlo.root  2\n")
-                       config_file.write("signal          1000    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_EE_1000_nlo.root  2\n")
-                   else:
-                       config_file.write("signal          100    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_EE_100_nlo.root  2\n")
-                       config_file.write("signal          600    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_EE_600_nlo.root  2\n")
-                   
+               if "SR2"	in region:
+                   config_file.write("signal          400    "+MERGE_DIR+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_MuMu_400_nlo.root  2\n")
+                   config_file.write("signal          1000    "+MERGE_DIR+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_MuMu_1000_nlo.root  2\n")
                else:
-
-                   if "fake" in Bkgs:
-                       config_file.write("sample          fake   /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_FakeMuMu.root  870\n")
-
-                   if "SR2"	in region:
-                       config_file.write("signal          400    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_MuMu_400_nlo.root  2\n")
-                       config_file.write("signal          1000    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_MuMu_1000_nlo.root  2\n")
-                   else:
-                       config_file.write("signal          100    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_MuMu_100_nlo.root  2\n")
-                       config_file.write("signal          600    /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_MuMu_600_nlo.root  2\n")
+                   config_file.write("signal          100    "+MERGE_DIR+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_MuMu_100_nlo.root  2\n")
+                   config_file.write("signal          600    "+MERGE_DIR+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_MuMu_600_nlo.root  2\n")
 
                config_file.close()
                if ShowData == "true":

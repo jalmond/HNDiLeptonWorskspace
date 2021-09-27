@@ -229,7 +229,7 @@ def ChooseTag(channel):
         
 def ChooseID(list1, list2, flavour,order_mu):
     if order_mu == 1:
-        if flavour == "MuMu":
+        if flavour == "MuMu" or "SingleMuon":
             return list1
         else:
             return list2

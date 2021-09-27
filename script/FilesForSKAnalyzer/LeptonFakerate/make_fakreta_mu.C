@@ -7,16 +7,20 @@
 #include <vector>
 #include "TSystem.h"
 
+void PrintHistBins(TH2* h, TString label);
+
 void setTDRStyle();
 bool CheckFile(TFile* f);
 bool CheckHist(TH2* h);
 
-void make_fakreta_el(int era){
+void make_fakreta_mu(int era){
 
   TString s_era = "2017";
   TString year = "2017";
-  TString dataset="Electron";
-  
+  TString dataset="Muon";
+
+  TDirectory* origDir = gDirectory;
+
   if(era == 0) {    s_era="2016preVFP"; year = "2016";}
   else if(era == 1) { s_era="2016postVFP"; year = "2016";}
   else if(era == 2) { s_era="2017"; year = "2017";}
@@ -26,20 +30,16 @@ void make_fakreta_el(int era){
   TString ENV_FILE_PATH= (getenv("FILE_MERGED_PATH"));
   TString skim_name    = "SkimTree_HNFake";
   TString analyzername = "FakeRateHN";
-  TString data_path=  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+skim_name+"_"+dataset+".root";
-  TString mc_path  =  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+skim_name+"_MC.root";
-
-  TFile * fdata = new TFile(path);
+  TString data_path=  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+"_"+skim_name+"_"+dataset+"_data.root";
+  TString mc_path  =  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+"_"+skim_name+"_MC.root";
   
   /// Set Plotting style
   setTDRStyle();   gStyle->SetPalette(1);
     
   TString outfile = "rootfiles/HNL_FakeRate_Muon_"+s_era+".root";
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
-  fout->cd();
   
-  std::vector<TString> electron_ids ={"HN"+year,
-                                      "HNTightV1",
+  std::vector<TString> electron_ids ={                                    "HNTightV1",
 				      "HNTightV2",
                                       "HNTight_17028",
                                       "POGTightWithTightIso"};
@@ -52,7 +52,7 @@ void make_fakreta_el(int era){
     
 
   std::vector<TString> jetpt = {"60","40","30","20"};
-  std::vector<TString> ptlabel = {"ptcone_eta","pt_eta","ptcone_ptfix"};
+  std::vector<TString> ptlabel = {"ptcone_eta","pt_eta","ptcone_ptfix_eta"};
  
   double ptbinscone[10] = { 6.,10., 15.,20.,30.,40.,50.,  60., 100.,200.};
   Float_t etabins2[5] = { 0.,0.8,  1.479, 2.,  2.5};
@@ -61,9 +61,9 @@ void make_fakreta_el(int era){
     for(auto j : jetpt){
       for(auto k : ptlabel){
             
-	TString denom = "LooseElEE_" + i +"_"+j+"_"+k;
-	TString num   = "TightElEE_" + i +"_"+j+"_"+k;
-	
+	TString denom = "LooseMuMuMu_" + i +"_"+j+"_"+k;
+	TString num   = "TightMuMuMu_" + i +"_"+j+"_"+k;
+	cout << denom << " " << num << endl;
 	TH2F* hist_pt_num    = (TH2F*)fdata->Get(num.Data()  );
 	TH2F* hist_pt_denom  = (TH2F*)fdata->Get(denom.Data());
 	TH2F* hist_mcpt_num  = (TH2F*)fmc->Get(num.Data()    );
@@ -81,15 +81,34 @@ void make_fakreta_el(int era){
 	hratedenom->Add(hist_mcpt_denom,-1.);
 	
 	file_fake_rate->Divide(file_fake_rate,hratedenom,1.,1.,"cl=0.683 b(1,1) mode");
-	file_fake_rate->Write();
 
+	hist_pt_num->Divide(hist_pt_denom);
+	
+	PrintHistBins(file_fake_rate, s_era+" Rate [MCsub] "+i+" "+j+" "+k);
+	PrintHistBins(hist_pt_num, s_era+" Rate [No MCsub] "+i+" "+j+" "+k);
+	fout->cd();
+	
+	file_fake_rate->Write();
+	origDir->cd();
       }
     }
   }
   
   return;
 }
+
+
+void PrintHistBins(TH2* h, TString label){
   
+  for(unsigned int ibinx=1; ibinx < h->GetNbinsX()+1; ibinx++){
+    cout << "-------------------------------- " << endl;
+    for(unsigned int ibiny=1; ibiny < h->GetNbinsY()+1; ibiny++){
+      
+      cout << label <<  " : xbin  [" << h->GetXaxis()->GetBinLowEdge(ibinx) << " - " << h->GetXaxis()->GetBinLowEdge(ibinx+1) << "]  ybin  [" <<  h->GetYaxis()->GetBinLowEdge(ibiny) << " - " << h->GetYaxis()->GetBinLowEdge(ibiny+1)  << " ] value = "  << h->GetBinContent(ibinx,ibiny)<< endl;
+    }
+  }
+  
+}
   
   
 bool CheckFile(TFile* f ){

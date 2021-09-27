@@ -1,11 +1,11 @@
 #!/bin/bash
 
-export SKFLATVERSION=   "Run2UltraLegacy_v2"
+export SKFLATVERSION="Run2UltraLegacy_v2"
 export SKANVERSION="Run2UltraLegacy_v2_Default"
 
 ##   make plotter alias                                                                                                                                                       
-export HNDILEPTONWORKSPACE_DIR=`pwd`
-export PLOTTER_WORKING_DIR='pwd'
+export HNDILEPTONWORKSPACE_DIR=$PWD
+export PLOTTER_WORKING_DIR=$PWD
 
 export FILE_MERGED_PATH=$HNDILEPTONWORKSPACE_DIR/InputFiles/MergedFiles/$SKANVERSION/
 

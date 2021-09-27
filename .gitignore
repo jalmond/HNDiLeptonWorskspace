@@ -1,3 +1,4 @@
+script/FilesForSKAnalyzer/LeptonFakerate/rootfiles
 InputFiles/MergedFiles
 InputFiles/rootfiles
 OutputTool/*/*.log

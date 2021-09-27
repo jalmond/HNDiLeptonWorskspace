@@ -18,7 +18,15 @@ def setupargs(version):
 
    import argparse
    import datetime
-   
+
+   if version == "MakePlotter":
+      parser = argparse.ArgumentParser(description='option')
+      parser.add_argument('-n', dest='Name', default="")
+      parser.add_argument('-c', dest='ConfigFile')
+      parser.add_argument('--Plots', action='store_true')
+      parser.add_argument('--Full', action='store_true')
+      args = parser.parse_args()
+      return args   
    if version == "MakeCard":
       parser = argparse.ArgumentParser(description='option')
       parser.add_argument('-n', dest='Name', default="")

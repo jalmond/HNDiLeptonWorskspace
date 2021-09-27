@@ -26,17 +26,16 @@ void make_fakreta_el(int era){
   TString ENV_FILE_PATH= (getenv("FILE_MERGED_PATH"));
   TString skim_name = "SkimTree_HNFake";
   TString analyzername = "FakeRateHN";
-  TString data_path=  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+skim_name+"_"+dataset+".root";
-  TString mc_path  =  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+skim_name+"_MC.root";
-
-  TFile * fdata = new TFile(path);
-  
+  TString data_path=  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+"_"+skim_name+"_"+dataset+"_data.root";
+  TString mc_path  =  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+"_"+skim_name+"_MC.root";
   /// Set Plotting style
   setTDRStyle();   gStyle->SetPalette(1);
     
+  TDirectory* origDir = gDirectory;
+
   TString outfile = "rootfiles/HNL_FakeRate_Electron_"+s_era+".root";
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
-  fout->cd();
+  
   
   std::vector<TString> electron_ids ={"HN"+year,
                                       "HNRelaxedIP"+year,
@@ -45,7 +44,7 @@ void make_fakreta_el(int era){
                                       "passPOGMedium"};
 
   std::vector<TString> electron_ids_LIP;
-  auto ( i : _ids) electron_ids_LIP.push_back(i+"_LIP");
+  for  ( auto  i : electron_ids) electron_ids_LIP.push_back(i+"_LIP");
   
   electron_ids.insert(electron_ids.end(), electron_ids_LIP.begin(), electron_ids_LIP.end());
   
@@ -57,7 +56,7 @@ void make_fakreta_el(int era){
     
 
   std::vector<TString> jetpt = {"60", "40","30","20"};
-  std::vector<TString> ptlabel = {"ptcone_eta","pt_eta","ptcone_ptfix"};
+  std::vector<TString> ptlabel = {"ptcone_eta","pt_eta","ptcone_ptfix_eta"};
  
   double ptbinscone[10] = { 6.,10., 15.,20.,30.,40.,50.,  60., 100.,200.};
   Float_t etabins2[5] = { 0.,0.8,  1.479, 2.,  2.5};
@@ -68,7 +67,8 @@ void make_fakreta_el(int era){
             
 	TString denom = "LooseElEE_" + i +"_"+j+"_"+k;
 	TString num   = "TightElEE_" + i +"_"+j+"_"+k;
-	
+
+	cout << denom << " " << num << endl;
 	TH2F* hist_pt_num    = (TH2F*)fdata->Get(num.Data()  );
 	TH2F* hist_pt_denom  = (TH2F*)fdata->Get(denom.Data());
 	TH2F* hist_mcpt_num  = (TH2F*)fmc->Get(num.Data()    );
@@ -86,8 +86,9 @@ void make_fakreta_el(int era){
 	hratedenom->Add(hist_mcpt_denom,-1.);
 	
 	file_fake_rate->Divide(file_fake_rate,hratedenom,1.,1.,"cl=0.683 b(1,1) mode");
-	file_fake_rate->Write();
-
+	fout->cd();
+  	file_fake_rate->Write();
+	origDir->cd();
       }
     }
   }

@@ -10,7 +10,7 @@ void MakeRegionPlots(TString config_file="config.txt"){
   // check which pc is running script to setup local paths
   TString s_hostname = GetHostname();
   
-  vector<TString> code_names= {"HNtypeI_Dilepton","HNtypeI_JA"};
+  vector<TString> code_names= {"HNL_Validation"};
 
   vector<TString> channel_names= {"Schannel","Tchannel"};
   vector<TString> range_names = {"all","low","high"};
@@ -19,7 +19,7 @@ void MakeRegionPlots(TString config_file="config.txt"){
   
   map<TString,int> configmapInt = ConfigMapInt(config_file);
   map<TString,double> configmapDouble = ConfigMapDouble(config_file);
-  map<TString,TString> bkgmap    = BkgConfigMap(config_file);
+  map<TString,vector<TString> > bkgmap    = BkgConfigMap(config_file);
   map<TString,Color_t> colormap  = BkgColorMap(config_file);
   map<TString,Color_t> sigcolormap  = SigColorMap(config_file);
   map<TString,TString>  sigmap   = SigConfigMap(config_file);
@@ -33,6 +33,7 @@ void MakeRegionPlots(TString config_file="config.txt"){
   if(!CheckInput(code_names,configmap["analysername"], "analysername"))  return;
   
   TString plot_dir     = configmap["plot_dir"];
+  TString region       = configmap["region"];
   TString cut_dir      = configmap["cut_dir"];
   TString data_file    = configmap["data_file"];
   if(!CheckFileInput(configmap["data_file"] ))  return;
@@ -51,17 +52,18 @@ void MakeRegionPlots(TString config_file="config.txt"){
   TString year         = configmap["year"];
   TString id           = configmap["id"];
   TString flavour      = configmap["flavour"];
-  vector<TString> id_name  = GetIDNames(configmap["data_file"],cut_dir,analysername,flavour);
+  vector<TString> id_name  = GetIDNames(configmap["data_file"],cut_dir, flavour,region );
   if(!CheckInput(id_name, id, "ID" ))  return;  
   TString histname           = configmap["histname"];
-  vector<TString> hist_names = GetHistNames(configmap["data_file"],cut_dir,analysername,flavour,id_name[0]);
+  //vector<TString> hist_names = GetHistNames(configmap["data_file"],cut_dir,analysername,flavour,id_name[0]);
 
 
-  if(!CheckInput(hist_names, histname, "histname" ))  return;
+  //  if(!CheckInput(hist_names, histname, "histname" ))  return;
 
   cout << "-------------------------------------------" << endl;
   cout << "analysername = " << analysername << endl;
-  cout << "plot_dir     = " << plot_dir << endl;
+  cout << "region       = " << region << endl;
+  cout << "plot_dir     = " << plot_dir << endl;  
   cout << "cut_dir      = " << cut_dir << endl;
   cout << "data_file    = " << data_file << endl;
   cout << "year         = " << year << endl;
@@ -75,10 +77,10 @@ void MakeRegionPlots(TString config_file="config.txt"){
 
   bool PlotSig = (plotsig=="true");
   // local path names
-  TString ENV_FILE_PATH= (getenv("INFILE_PATH"));
+  TString ENV_FILE_PATH       = (getenv("INFILE_PATH"));
   TString ENV_MERGEDFILE_PATH = getenv("INFILE_MERGED_PATH");
-  TString ENV_PLOT_PATH = getenv("PLOT_PATH");
-  TString FLATVERSION = getenv("FLATVERSION");
+  TString ENV_PLOT_PATH       = getenv("PLOT_PATH");
+  TString FLATVERSION         = getenv("FLATVERSION");
 
   
   MakeDir(ENV_PLOT_PATH + FLATVERSION);
@@ -114,7 +116,7 @@ void MakeRegionPlots(TString config_file="config.txt"){
 
   TString postfix="_noconv";
   postfix="";
-  TString n_sr_hist = plot_dir+"/"+plot_dir+"_"+ histname + "_"+analysername+"_"+flavour+"_"+ id+ postfix;
+  TString n_sr_hist = plot_dir+"/"+ histname + "_" + plot_dir;
 
   THStack * hs       = MakeStack(legend_g,bkgmap,n_sr_hist, colormap,rbin,0);
   THStack * hs_up    = MakeStack(legend_g,bkgmap,n_sr_hist, colormap,rbin,2);
@@ -319,9 +321,6 @@ void MakeRegionPlots(TString config_file="config.txt"){
     }
     c2->Update();
     c2->RedrawAxis();
-
-
-
 
 
     TH1D* errorband = MakeErrorBand(h_nominal,h_up, h_down) ;

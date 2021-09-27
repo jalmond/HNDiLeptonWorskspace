@@ -458,9 +458,9 @@ map<TString,Color_t> BkgColorMap(TString config_file){
   return conf_map;
 }
 
-map<TString,TString> BkgConfigMap(TString config_file){
+map<TString,vector<TString> > BkgConfigMap(TString config_file){
 
-  map<TString,TString> conf_map;
+  map<TString,vector<TString > > conf_map;
 
   ifstream config_file_name (config_file);
 
@@ -479,7 +479,12 @@ map<TString,TString> BkgConfigMap(TString config_file){
     if(tmp=="sample") {
       config_file_name >> tmp1;
       config_file_name >> tmppath;
-      conf_map[tmp1] = tmppath;
+      map<TString,vector<TString > > ::iterator it = conf_map.find(tmp1);
+      if(it != conf_map.end()) conf_map[tmp1].push_back(tmppath);
+      else {
+	vector<TString> samples = {tmppath};
+	conf_map[tmp1] = samples;
+      }
     }
   }
   return conf_map;
@@ -607,13 +612,13 @@ TH1D* GetSignalHist(TLegend* legend_g,TString current_sample, TString filepath, 
   return hist_temp;
 }
 
-double GetIntegral(map<TString,TString> _map, TString fullhistname){
+double GetIntegral(map<TString,vector<TString> > _map, TString fullhistname){
 
   double total(0.);
-  for (map<TString,TString>::iterator it = _map.begin(); it != _map.end(); it++){
+  for (map<TString,vector<TString> >::iterator it = _map.begin(); it != _map.end(); it++){
     
     TString current_sample = it->first;
-    TString filepath       = it->second;
+    TString filepath       = it->second[0];
     
     TFile* file = new TFile(filepath);
     if( !file ){
@@ -628,20 +633,33 @@ double GetIntegral(map<TString,TString> _map, TString fullhistname){
       delete file;
       continue;
     }
+    for(unsigned int i=1; i < it->second.size(); i++){
+      TString _filepath       = it->second[i];
+    
+      TFile* _file = new TFile(_filepath);
+      if( !_file ){
+	cout << "No file : " << _filepath << endl;
+	continue;
+      }
+      TH1D* _hist_temp = (TH1D*)_file->Get(fullhistname);
+      
+      hist_temp->Add(_hist_temp);
+    }
+    
     total+= hist_temp->Integral();
     file->Close();
 
   }
   return total;
 }
-THStack*  MakeStack(TLegend* legend_g,map<TString,TString> _map, TString fullhistname, map<TString,Color_t> _colmap, int rbin, int sys){
+THStack*  MakeStack(TLegend* legend_g,map<TString,vector<TString> > _map, TString fullhistname, map<TString,Color_t> _colmap, int rbin, int sys){
 
   THStack* MC_stacked = new THStack("MC_stacked", "");
 
-  for (map<TString,TString>::iterator it = _map.begin(); it != _map.end(); it++){
+  for (map<TString,vector<TString> >::iterator it = _map.begin(); it != _map.end(); it++){
 
     TString current_sample = it->first;
-    TString filepath       = it->second;
+    TString filepath       = it->second[0];
 
     TFile* file = new TFile(filepath);
     if( !file ){
@@ -650,11 +668,24 @@ THStack*  MakeStack(TLegend* legend_g,map<TString,TString> _map, TString fullhis
     }
     
     TH1D* hist_temp = (TH1D*)file->Get(fullhistname);
+
     if(!hist_temp || hist_temp->GetEntries() == 0){
       cout << "No histogram : " << current_sample << " " << fullhistname << " " <<  filepath << endl;
       file->Close();
       delete file;
       continue;
+    }
+
+    for(unsigned int i=1; i < it->second.size(); i++){
+      TString _filepath       = it->second[i];
+
+      TFile* _file = new TFile(_filepath);
+      if( !_file ){
+	cout << "No file : " << _filepath << endl;
+	continue;
+      }
+      TH1D* _hist_temp = (TH1D*)file->Get(fullhistname);
+      hist_temp->Add(_hist_temp);
     }
     hist_temp->SetName(fullhistname+"_"+current_sample);
 
@@ -698,7 +729,8 @@ THStack*  MakeStack(TLegend* legend_g,map<TString,TString> _map, TString fullhis
 
 }
 vector<TString> GetHistNames(TString file, TString dirname, TString analyzername,TString flavour, TString ID){
-  
+
+  cout << "GetHistNames[] "<< endl;
   vector<TString> vlist;
 
   TFile * _file = new TFile(file);
@@ -714,18 +746,20 @@ vector<TString> GetHistNames(TString file, TString dirname, TString analyzername
     TString hname = obj->GetName();
     TString objname= obj->ClassName();
     
-    if(!(hname.Contains(analyzername+"_"+flavour+"_"+ID))) continue;
+    if(!(hname.Contains(ID+"_"+flavour+"_"+dirname))) continue;
 
     //nPV_HNtypeI_JA_EE_HEEP2018
-    hname = hname.ReplaceAll("_"+analyzername+"_"+flavour+"_"+ID,"");
-    hname = hname.ReplaceAll(dirname+"/"+dirname+"_","");
+    //    //POG_SingleMuon_OnZ_OS/NEvent_POG_SingleMuon_OnZ_OS                                                                                                                                                                            
+    cout << ID+"_"+flavour+"_"+dirname << endl;
+    hname = hname.ReplaceAll(ID+"_"+flavour+"_"+dirname,"");
+    hname = hname.ReplaceAll("/","");
     //hname = hname.ReplaceAll("_","");
     vlist.push_back(hname);
   }
   return vlist;
 
 }
-vector<TString> GetIDNames(TString file, TString dirname, TString analyzername,TString flavour){
+vector<TString> GetIDNames(TString file, TString dirname, TString flavour, TString region){
 
   
   vector<TString> vlist;
@@ -743,11 +777,18 @@ vector<TString> GetIDNames(TString file, TString dirname, TString analyzername,T
     TString hname = obj->GetName();
     TString objname= obj->ClassName();
     //cout << hname << " " << dirname+"_njets_"+analyzername+"_"+flavour << " JOHN" <<  endl;
-    if(!hname.Contains(dirname+"_njets_"+analyzername+"_"+flavour)) continue;
-    hname = hname.ReplaceAll(dirname+"/"+dirname+"_njets_"+analyzername+"_"+flavour+"_","");
+    if(!hname.Contains("NEvent_")) continue;
+    //POG_SingleMuon_OnZ_OS/NEvent_POG_SingleMuon_OnZ_OS
+    cout << flavour << " " << region << endl;
+    hname = hname.ReplaceAll("_"+flavour+"_"+region,"");
+    hname = hname.ReplaceAll("/NEvent_","");
     //hname = hname.ReplaceAll("_","");
-    //cout << "---> " << hname << endl;
-    vlist.push_back(hname);
+
+    std::string s = std::string(hname);
+    std::string half = s.substr(0, s.length()/2);
+
+    cout << "---> " << half << endl;
+    vlist.push_back(TString(half));
   }
   
   return vlist;
