@@ -6,6 +6,7 @@ export SKANVERSION="Run2UltraLegacy_v2_Default"
 ##   make plotter alias                                                                                                                                                       
 export HNDILEPTONWORKSPACE_DIR=$PWD
 export PLOTTER_WORKING_DIR=$PWD
+export HTML_DIR=$PWD/HTML
 
 export FILE_MERGED_PATH=$HNDILEPTONWORKSPACE_DIR/InputFiles/MergedFiles/$SKANVERSION/
 

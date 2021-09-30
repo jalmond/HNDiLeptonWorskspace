@@ -2,13 +2,15 @@ import os,ROOT
 from Plotter import SampleGroup, Variable, Region, Systematic
 from Plotter import Plotter
 from IsCorrelated import IsCorrelated
+from HNLGeneral import GetOutput
+
 import argparse
 
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 
 ## Arguments
 
-parser = argparse.ArgumentParser(description='CR plot commands')
+parser = argparse.ArgumentParser(description='Validation plot commands')
 parser.add_argument('-c', dest='Category', type=int, default=0)
 parser.add_argument('-y', dest='Year', type=int)
 parser.add_argument('--debug',action='store_true')
@@ -21,6 +23,16 @@ WORKING_DIR = os.environ['PLOTTER_WORKING_DIR']
 dataset = os.environ['SKANVERSION']
 ENV_PLOT_PATH = os.environ['PLOT_PATH']
 
+connection_lxplus=False
+for x in GetOutput('ls /tmp/',''):
+  if 'ssh-jalmond@lxplus.cern.ch' in x:
+    connection_lxplus=True
+if not connection_lxplus:
+
+  print ('open lxplus connection')
+  exit()
+    
+    
 m = Plotter()
 
 m.DoDebug = args.debug
@@ -38,10 +50,14 @@ m.Filename_prefix = "HNL_Validation"
 m.Filename_suffix = ""
 m.Filename_skim = "_SkimTree_HNFake"
 
-if not os.path.exists(ENV_PLOT_PATH+"/"+dataset+"/Val/"):
-  os.system("mkdir " + ENV_PLOT_PATH+"/"+dataset+"/Val/")
+if not os.path.exists(ENV_PLOT_PATH+"/"+dataset+"/HNL_Validation/"):
+  os.system("mkdir " + ENV_PLOT_PATH+"/"+dataset+"/HNL_Validation/")
 
-m.OutputDirectory = ENV_PLOT_PATH+"/"+dataset+"/Val/"+str_Year+"/"
+os.system('cp ' + os.getenv('HTML_DIR') + '/index.php ' + ENV_PLOT_PATH+"/"+dataset+"/HNL_Validation/")
+  
+m.OutputDirectory = ENV_PLOT_PATH+"/"+dataset+"/HNL_Validation/"+str_Year+"/"
+os.system('cp ' + os.getenv('HTML_DIR') + '/index.php ' + ENV_PLOT_PATH+"/"+dataset+"/HNL_Validation/"+str_Year+"/")
+
 
 #### Category
 m.ScaleMC = args.ScaleMC
@@ -90,9 +106,9 @@ m.PrintSystematics()
 
 #### Binning infos
 m.SetBinningFilepath(
-  WORKING_DIR+'/data/'+dataset+'/'+str_Year+'/CR_rebins.txt',
-  WORKING_DIR+'/data/'+dataset+'/'+str_Year+'/CR_xaxis.txt',
-  WORKING_DIR+'/data/'+dataset+'/'+str_Year+'/CR_yaxis.txt',
+  WORKING_DIR+'/data/'+dataset+'/'+str_Year+'/Validation_rebins.txt',
+  WORKING_DIR+'/data/'+dataset+'/'+str_Year+'/Validation_xaxis.txt',
+  WORKING_DIR+'/data/'+dataset+'/'+str_Year+'/Validation_yaxis.txt',
 )
 
 #### Predef samples
@@ -121,15 +137,9 @@ if args.Category==0:
   IDs=["POG"]
   #### Define reiongs
   m.RegionsToDraw = [
-
-    #Region('HNL_WZ_ThreeLepton_CR_Electron_HNtypeI_Dilepton_Version1' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
-    #Region('HNL_WZ_ThreeLepton_CR_Muon_HNtypeI_Dilepton_Version1' , 'Muon', UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#muX}{WZ->lll CR}'),   
-    #Region('HNL_WZ_ThreeLepton_CR_Electron_HNtypeI_Dilepton_EXO17028' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
-    #Region('HNL_WZ_ThreeLepton_CR_Muon_HNtypeI_Dilepton_EXO17028' , 'Muon', UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#muX}{WZ->lll CR}'),
-    #Region('HNL_WZ_ThreeLepton_CR_Electron_HNtypeI_Dilepton_Opt' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
     Region('POG_SingleMuon_OnZ_OS' , 'Muon', UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{Z->ll CR}'),
+    Region('POG_SingleElectron_OnZ_OS' , 'Muon', UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{Z->ll CR}'),
 
-    #Region('HNWR_SingleMuon_Boosted_DYCR', 'SingleMuon', UnblindData=True, Logy=1, TLatexAlias='#splitline{#mu#mu}{Boosted DY CR}'),
   ]
   m.PrintRegions()
 
@@ -141,12 +151,37 @@ if args.Category==0:
 
 #### Define Variables
 m.VariablesToDraw = [
-  #Variable('Lep1_pt', 'p_{T} of the leading lepton', 'GeV'),
-  #Variable('MET', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),
-  Variable('ZCand_Mass', 'm(ll)','')
+
+  Variable('NEvent', '#Events', ''),
+  Variable('NoPuWeight_nPV', 'nPV',''),
+  Variable('NoPuWeight_MET', '#slash{E}_{T}^{miss}','GeV'),
+  Variable('NoPuWeight_Jet_Size', '#AK4 Jets',''),
+  Variable('nPV', 'nPV',''),
+  Variable('MET', '#slash{E}_{T}^{miss}','GeV'),
+  Variable('METphi', '#phi #slash{E}_{T}^{miss}',''),
+  Variable('Jet_Size', '#AK4 Jets',''),
+  Variable('NBJets_NoSF', '#BJets (noSF)',''),
+  Variable('NBJets_WithSF_2a', '#BJets (noSF)',''),
+  Variable('ZCand_Pt', 'p_{T}^{ll} (GeV)', 'GeV'),
+  Variable('ZCand_Mass', 'm_{ll} (GeV)', 'GeV'),
+  Variable('ZCand_Eta', '#eta', ''),
+  Variable('MT', 'M_{T}', '(GeV)'),
+  Variable('HT', 'H_{T}', '(GeV)'),
+  Variable('Lepton_0_Pt', 'p_{T} of the leading lepton', 'GeV'),
+  Variable('Lepton_0_Eta', '#eta of the leading lepton', ''),
+  Variable('Lepton_1_Pt', 'p_{T} of the subleading lepton', 'GeV'),
+  Variable('Lepton_1_Eta', '#eta of the subleading lepton', ''),
+  Variable('Jet_0_Pt', 'p_{T} of the leading jet', 'GeV'),
+  Variable('Jet_1_Pt', 'p_{T} of the subleading jet', 'GeV'),
+  Variable('Jet_0_Eta', '#eta of the leading jet', 'GeV'),
+  Variable('Jet_1_Eta', '#eta of the subleading jet', 'GeV'),
+  Variable('Jet_0_DeepCSV', 'DeepCSV of the leading jet', ''),
+  Variable('Jet_1_DeepCSV', 'DeepCSV of the subleading jet', ''),
+
 
 ]
 m.PrintVariables()
 
 #### Draw
 m.Draw()
+m.DoCutFlow('NEvent')

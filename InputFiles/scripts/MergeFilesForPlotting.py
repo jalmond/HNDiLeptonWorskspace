@@ -29,7 +29,27 @@ def rsync_tamsa(_dir):
 def Diff(li1, li2):
     return list(set(li1) - set(li2)) + list(set(li2) - set(li1))
 
-    
+
+def merge_2016(test_run,analyser,skim):
+
+    from os import listdir
+    from os.path import isfile,isdir, join
+
+
+    dir_2016 = os.environ['FILE_MERGED_PATH'] +analyser + "/2016/"
+    if not os.path.exists(dir_2016):
+        os.system('mkdir ' +dir_2016)
+
+    preVFP_path = os.environ['FILE_MERGED_PATH'] +analyser + "/2016preVFP/"
+    postVFP_path = os.environ['FILE_MERGED_PATH'] +analyser + "/2016postVFP/"
+
+    dirlist_2016 =  [f for f in listdir(preVFP_path) if isfile(join(preVFP_path,f))]
+
+    for _file in dirlist_2016:
+        os.system('hadd ' + dir_2016+'/'+_file + ' ' + preVFP_path + '/'+_file + ' ' + postVFP_path + '/'+_file)
+        
+
+        
 def merge_all_years(test_run,analyser,skim):
 
     print ('')
@@ -155,7 +175,7 @@ def merge_data(test_run,analyser,skim, flavour, flav_dir):
         #HNL_Validation_SkimTree_HNFake_NonPrompt_Muon.root HNL_Validation_SkimTree_HNFake_data_Muon.root
 
         out_file=local_dir+"/"+analyser+skim+"_data_"+flavour+".root"
-        if "Nonprompt" in flavour:
+        if "NonPrompt" in flavour:
             out_file=local_dir+"/"+analyser+skim+"_"+flavour+".root"
 
         if os.path.exists(out_file):
@@ -249,11 +269,11 @@ def merge_data_setup(_isTest,_analyser_name,_skim_name):
         
         merge_data(_isTest,_analyser_name,_skim_name,"Electron",   [["/","_SingleElectron"],["/","_SingleElectron"],["/","_SingleElectron"],["/","_EGamma"]])
         merge_data(_isTest,_analyser_name,_skim_name,"Muon",       [["/","_SingleMuon"],["/","_SingleMuon"],["/","_SingleMuon"],["/","_SingleMuon"]])
-        merge_data(_isTest,_analyser_name,_skim_name,"Nonprompt_Electron",   [["/RunFake__/","_SingleElectron"],["/RunFake__/","_SingleElectron"],["/RunFake__/","_SingleElectron"],["/RunFake__/","_EGamma"]])
-        merge_data(_isTest,_analyser_name,_skim_name,"Nonprompt_Muon",       [["/RunFake__/","_SingleMuon"],["/RunFake__/","_SingleMuon"],["/RunFake__/","_SingleMuon"],["/RunFake__/","_SingleMuon"]])
+        merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_Electron",   [["/RunFake__/","_SingleElectron"],["/RunFake__/","_SingleElectron"],["/RunFake__/","_SingleElectron"],["/RunFake__/","_EGamma"]])
+        merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_Muon",       [["/RunFake__/","_SingleMuon"],["/RunFake__/","_SingleMuon"],["/RunFake__/","_SingleMuon"],["/RunFake__/","_SingleMuon"]])
 
         merge_data_flavour(_isTest,_analyser_name,_skim_name , "Lepton", ["Muon","Electron"])
-        merge_data_flavour(_isTest,_analyser_name,_skim_name , "Nonprompt_Lepton", ["Nonprompt_Muon","Nonprompt_Electron"])
+        merge_data_flavour(_isTest,_analyser_name,_skim_name , "NonPrompt_Lepton", ["NonPrompt_Muon","NonPrompt_Electron"])
 
     return
 
@@ -268,6 +288,7 @@ parser.add_argument('--Data', action='store_true')
 parser.add_argument('--MC', action='store_true')
 parser.add_argument('--mergeFlavour', action='store_true')
 parser.add_argument('--Test', action='store_true')
+parser.add_argument('--SYNC', action='store_true')
 parser.add_argument('-a',dest='Analyzer', default='NULL')
 parser.add_argument('-s',dest='Skim', default='')
 
@@ -288,12 +309,13 @@ if analyser_name == "NULL":
     exit()
 
 
-   
-rsync_tamsa(analyser_name)
+if args.SYNC:
+    rsync_tamsa(analyser_name)
 
 if isData:
     merge_data_setup(isTest,analyser_name,skim_name)
-
+    merge_2016(isTest,analyser_name,skim_name)
+    
 elif args.MC:
     merge_mc(isTest,analyser_name,skim_name)
 
@@ -301,6 +323,7 @@ elif args.MC:
 else:
     
     merge_data_setup(isTest,analyser_name,skim_name)
+    merge_2016(isTest,analyser_name,skim_name)
     merge_mc(isTest,analyser_name,skim_name)
     merge_all_years(isTest,analyser_name,skim_name )
 

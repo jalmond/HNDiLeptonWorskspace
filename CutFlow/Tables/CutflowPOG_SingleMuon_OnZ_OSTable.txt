@@ -1,0 +1,23 @@
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{lr@{\hspace{0.5mm}}c@{\hspace{0.5mm}}c@{\hspace{0.5mm}}l}
+\hline
+\hline
+Source & \multicolumn{4}{c}{} \\ 
+\hline
+tt& 69500.0& $\pm$ & 0.0&$^{0}_{0}$ \\
+VVInc& 67600.0& $\pm$ & 100.0&$^{0}_{0}$ \\
+NonPrompt& 1723600.0& $\pm$ & 800.0&$^{0}_{0}$ \\
+ZJets& 36905500.0& $\pm$ & 11800.0&$^{0}_{0}$ \\
+Xgamma& 97500.0& $\pm$ & 200.0&$^{0}_{0}$ \\
+\hline
+Total& 38863800& $\pm$ & 11900&$^{+0}_{0}$ \\
+\hline
+Data& \multicolumn{4}{c}{$37904585$}\\ 
+\hline
+Signficance&  \multicolumn{4}{c}{$-100.0\sigma$}\\ 
+\hline
+\hline
+\end{tabular}
+\end{center}
+\end{table}

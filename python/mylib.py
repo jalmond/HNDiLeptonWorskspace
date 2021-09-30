@@ -24,31 +24,54 @@ def AddHistograms(h_original, h_toAdd, option=''):
     h_original.Add(h_toAdd)
     return h_original
 
-def TotalLumi(DataYear):
+def TotalLumiByEra(DataEra):
+  
+  if DataEra=="2016preVFP":
+    return "19.5"
+  if DataEra=="2016postVFP":
+    return "16.8"
+  if DataEra=="2017":
+    return "41.5"
+  if DataEra=="2018":
+    return "59.8"
 
+  if DataEra =="-1":
+    return str(19.52+16.81+41.48+59.83)
+
+  else:
+    print ("[mylib.py, TotalLumiByEra()] Wrong DataEra : %s"%DataEra)
+    return str(19.52+16.81)
+    
+    
+  
+def TotalLumi(DataYear):
+  
+  
   if DataYear==2016:
-    return "35.92"
+    return "36.3"
   if DataYear==2017:
-    return "41.53"
+    return "41.5"
   if DataYear==2018:
-    return "59.74"
+    return "59.8"
+
   if DataYear<0:
-    return "137"
+    return "139.9"
   else:
     print ("[mylib.py, TotalLumi()] Wrong DataYear : %d"%DataYear)
-    return ("35.9")
+    return ("36.3")
 
 def LumiError(DataYear):
 
-  #if DataYear==2016:
-  #  return 0.025
-  #elif DataYear==2017:
-  #  return 0.023
-  #elif DataYear==2018:
-  #  return 0.025
-  #else:
-  #  print "[mylib.py, LumiError()] Wrong DataYear : %d"%DataYear
-  #  return 0.
+  
+  if DataYear==2016:
+    return 0.012
+  elif DataYear==2017:
+      return 0.023
+  elif DataYear==2018:
+    return 0.025
+  else:
+    print ("[mylib.py, LumiError()] Wrong DataYear : %d"%DataYear)
+    return 0.
 
   return 0.018
 
@@ -120,16 +143,15 @@ def MakeOverflowBin(hist):
   hist_out.SetName(hist.GetName())
   return hist_out
 
-def RebinWRMass(hist, region, DataYear):
+def RebinNMass(hist, region, DataYear):
 
   lastbin = hist.GetXaxis().GetNbins()
-  vec_bins = [800, 1000, 1200, 1400, 1600, 2000, 2400, 2800, 3200, 8000]
-  if "Boosted" in region:
+  vec_bins = [100, 200, 300, 400, 500, 750, 1000, 2000,  8000]
+  if "SR2" in region:
     vec_bins = [800, 1000, 1200, 1500, 1800, 8000]
 
-  #if ('LowWR' in region) or ('DYCR' in region):
   if ('LowWR' in region):
-    tmp_vec_bins = [0, 200, 300, 400, 500, 600, 700, 800]
+    tmp_vec_bins = [0, 50, 75]
     for b in vec_bins:
       tmp_vec_bins.append(b)
     vec_bins = tmp_vec_bins
@@ -210,11 +232,14 @@ def GetDYNormSF(DataYear, channel):
     print ('Wrong channel name '+channel)
     exit()
 
-  int_region = -1 ## 0 : Resolved, 1 : Boosted
-  if "Resolved" in channel:
+  int_region = -1 ## 0 : SR1, 1 : SR2
+  if "SR1" in channel:
     int_region = 0;
-  elif "Boosted" in channel:
+  elif "SR2" in channel:
     int_region = 1;
+  elif "SR3" in channel:
+    int_region = 2;
+    
   else:
     print ('Wrong region name '+channel)
     exit()
@@ -302,27 +327,29 @@ def GetDYNormSF(DataYear, channel):
   #else:
   #  return DYNorm, 0.30*DYNorm
 
-def GetSignalXsec(filepath, mWR, mN):
+def GetSignalXsec(filepath,  mN):
 
   lines = open(filepath).readlines()
   for line in lines:
     words = line.split()
-    if ( int(words[0])==int(mWR) ) and ( int(words[1])==int(mN) ):
-      return float(words[2])
-  print ('Xsec not found for mWR=%d, mN=%d'%(mWR,mN))
+    if len(words) != 2:
+      continue
+    if ( int(words[0])==int(mN) ):
+      return float(words[1])
+  print ('Xsec not found for mN=%d'%(mN))
 
-def GetKFactor(mWR, mN, Year=2016, lepch=0):
+def GetKFactor(mN, Era='2016preVFP', lepch=0):
 
-  ##==== lepch : 0=ee, 1=mm
+  ##==== lepch : 0=ee, 1=mm, 2=em
 
   WORKING_DIR = os.environ["PLOTTER_WORKING_DIR"]
-  dataset =  os.environ["CATANVERSION"]
+  dataset =  os.environ["SKANVERSION"]
   ENV_PLOT_PATH =  os.environ["PLOT_PATH"]
 
-  massstring = "WR"+str(mWR)+"_N"+str(mN)
+  massstring = "mN"+str(mN)
 
   ##==== get averaged kfactor
-  lines = open(WORKING_DIR+"/data/"+dataset+"/"+str(Year)+"/AveragedKFactor_WROfficial.txt").readlines()
+  lines = open(WORKING_DIR+"/data/"+dataset+"/"+str(Year)+"/AveragedKFactor.txt").readlines()
   this_avg_kfactor = -1.;
   for line in lines:
     words = line.strip('\n').split()

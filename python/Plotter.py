@@ -11,6 +11,7 @@ from array import array
 ## SampleGroup ##
 class SampleGroup:
   def __init__(self, Name, Type, Samples, Year, Color=0, Style=1, TLatexAlias="", LatexAlias=""):
+
     self.Name = Name
     self.Type = Type
     self.Samples = Samples
@@ -30,10 +31,10 @@ class SampleGroup:
     print (  'TLatexAlias = '+str(self.TLatexAlias))
     print (  'LatexAlias = '+str(self.LatexAlias))
 
-## LRSMSignalInfo ##
-class LRSMSignalInfo:
-  def __init__(self, mWR, mN):
-    self.mWR = mWR
+## SignalInfo ##
+class SignalInfo:
+  def __init__(self, process , mN):
+    self.process = process
     self.mN = mN
     self.xsec = 1.
     self.kfactor = 1.
@@ -42,13 +43,13 @@ class LRSMSignalInfo:
     self.Style = 3
     self.useOfficial = False
 
-    self.TLatexAlias = "(m_{W_{R}}, m_{N}) = (%d, %d) GeV"%(self.mWR, self.mN)
+    self.TLatexAlias = "(m_{N}, Process) = (%d, %d) GeV"%(self.mN, self.Process)
 
   def Print(self):
-    print ('(%d, %d, %f, %f)'%(self.mWR, self.mN, self.xsec, self.kfactor))
+    print ('( %d, %f, %f)'%( self.mN, self.xsec, self.kfactor))
   def GetTLatexAlias(self):
     if self.xsecScale!=1.:
-      self.TLatexAlias = "%d #times (m_{W_{R}}, m_{N}) = (%d, %d) GeV"%(self.xsecScale, self.mWR, self.mN)
+      self.TLatexAlias = "%d #times (m_{N}) = (%d, %d) GeV"%(self.xsecScale, self.mN)
 
     return self.TLatexAlias
 
@@ -81,10 +82,12 @@ class Systematic:
   def __init__(self, Name, Direction, Year):
     self.Name = Name
     self.Direction = Direction
-    self.Year = Year ## if <0, it's correalted
+    self.Year = Year ## if <0, it's correalted    
+
   def FullName(self):
     if self.Year>0:
       return 'Run'+str(self.Year)+'_'+self.Name
+
     else:
       return self.Name
   def Print(self):
@@ -102,6 +105,7 @@ class Plotter:
 
     self.DataYear = 2016
     self.DataDirectory = "2016"
+
 
     self.SampleGroups = []
     self.RegionsToDraw = []
@@ -179,8 +183,8 @@ class Plotter:
 
     return Rebins, XaxisRanges
   def Rebin(self, hist, region, var, nRebin):
-    if var=='WRCand_Mass':
-      return mylib.RebinWRMass(hist, region, self.DataYear)
+    if var=='NCand_Mass':
+      return mylib.RebinNMass(hist, region, self.DataYear)
     elif var=='ToBeCorrected_Jet_Pt':
       return mylib.RebinJetPt(hist, region, self.DataYear)
     else:
@@ -192,6 +196,159 @@ class Plotter:
   def ZeroDataCheckCut(self,var,xlow,xhigh):
     ## TODO
     return False
+
+
+  def DoCutFlow(self,Hist_Name):
+
+    nprec = -2
+    print ('[Plotter.Cutflow()] ')
+
+    CutFlowDir='/Users/john/GIT/HNDiLeptonWorskspace/CutFlow/'
+
+    os.system('rm '+CutFlowDir+'/Cutflow.sh')
+    
+    ROOT.gErrorIgnoreLevel = ROOT.kFatal
+
+    tdrstyle.setTDRStyle()
+    ROOT.TH1.AddDirectory(False)
+
+    for Region in self.RegionsToDraw:
+      Indir = self.InputDirectory
+      Outdir = self.OutputDirectory+'/'+Region.Name+'/'
+      if self.ScaleMC:
+        Outdir = self.OutputDirectory+'/ScaleMC/'+Region.Name+'/'
+
+        
+      f_Data = ROOT.TFile(Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root')
+      h_Data = f_Data.Get(Region.Name+'/'+Hist_Name+'_'+Region.Name)
+      if not h_Data:
+        print (Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root missing ' +Region.Name+'/'+Hist_Name+'_'+Region.Name)
+        print (Hist_Name+'_'+Region.Name+'.pdf ==> No data, skipped')
+        continue
+      data_integral=h_Data.Integral()
+      data_error  = ctypes.c_double(0.)
+      integral = h_Data.IntegralAndError(0,h_Data.GetNbinsX(),data_error,"");
+
+      total_bkg_integral=0.
+      total_bkg_staterror=0.
+
+            
+      CutFlowLatexFile = open (CutFlowDir+'/Cutflow'+Region.Name+'.tex','w')
+      CutFlowLatexFile.write('\\documentclass[10pt]{article}\n')
+      CutFlowLatexFile.write('\\usepackage{epsfig,subfigure,setspace,xtab,xcolor,array,colortbl}\n')
+      CutFlowLatexFile.write('\\begin{document}\n')
+      CutFlowLatexFile.write('\\input{"/Users/john/GIT/HNDiLeptonWorskspace/CutFlow/Tables/Cutflow'+Region.Name+'Table.txt"}\n')
+      CutFlowLatexFile.write('\\end{document}\n')
+      CutFlowLatexFile.close()
+      columnname=""
+      CutFlowLatexTableFile = open ('/Users/john/GIT/HNDiLeptonWorskspace/CutFlow/Tables/Cutflow'+Region.Name+'Table.txt','w')
+      CutFlowLatexTableFile.write("\\begin{table}[h]\n" )
+      CutFlowLatexTableFile.write("\\begin{center}\n" )
+      CutFlowLatexTableFile.write("\\begin{tabular}{lr@{\\hspace{0.5mm}}c@{\\hspace{0.5mm}}c@{\\hspace{0.5mm}}l}\n" )
+      CutFlowLatexTableFile.write("\\hline\n" )
+      CutFlowLatexTableFile.write("\\hline\n" )   
+      CutFlowLatexTableFile.write("Source & \\multicolumn{4}{c}{" + columnname + "} \\\\ \n" )
+      CutFlowLatexTableFile.write("\\hline\n" )   
+      
+      
+      for SampleGroup in self.SampleGroups:
+
+        bkg_integral=0.
+        bkg_staterror=0.
+        
+        
+        for Sample in SampleGroup.Samples:
+          if self.DoDebug:
+            print ('[DEBUG] Trying to make histogram for Sample = '+Sample)
+            
+          f_Sample = ROOT.TFile(Indir+'/'+str(SampleGroup.Year)+'/'+self.Filename_prefix+self.Filename_skim+'_'+Sample+self.Filename_suffix+'.root')
+          h_Sample = 0
+          #if (Syst.Year>0) and (Syst.Year!=SampleGroup.Year):
+          #  tmp_dirName = Region.Name
+          #  h_Sample = f_Sample.Get(tmp_dirName+'/'+Hist_Name+'_'+tmp_dirName)
+          #elif (Syst.Name in ["Lumi", "DYNorm", "NonPromptNorm", "OthersNorm"]):
+          #  tmp_dirName = Region.Name
+          #  h_Sample = f_Sample.Get(tmp_dirName+'/'+Hist_Name+'_'+tmp_dirName)
+          #  ## For all other cases
+          #else:
+          dirName = Region.Name
+
+          h_Sample = f_Sample.Get(dirName+'/'+Hist_Name+'_'+dirName)
+
+          if not h_Sample:
+            continue
+
+
+          ## Scale
+          MCSF, MCSFerr = 1., 0.
+          if self.ScaleMC:
+            if "DYJets" in Sample:
+              MCSF, MCSFerr = mylib.GetDYNormSF(SampleGroup.Year, Region.Name)
+
+          h_Sample.Scale( MCSF )
+
+          stat_error  = ctypes.c_double(0.)
+          integral = h_Sample.IntegralAndError(0,h_Sample.GetNbinsX(),stat_error,"");
+          bkg_integral += h_Sample.Integral()
+          total_bkg_integral += h_Sample.Integral()
+          bkg_staterror = math.sqrt(bkg_staterror*bkg_staterror + stat_error.value*stat_error.value)
+          total_bkg_staterror = math.sqrt(total_bkg_staterror*total_bkg_staterror + stat_error.value*stat_error.value)
+          
+        print (Sample + " integral = " + str(bkg_integral))
+        bkg_integral=round(bkg_integral,nprec)
+        bkg_staterror=round(bkg_staterror,nprec)
+        
+        if bkg_integral > 0:
+          CutFlowLatexTableFile.write( SampleGroup.LatexAlias + "& " +  str(bkg_integral) + "& $\\pm$ & "  + str(bkg_staterror)  +  "&$^{0}_{0}$ \\\\\n" )
+
+
+      total_bkg_integral=   int(round(total_bkg_integral,nprec))
+      total_bkg_staterror = int(round(total_bkg_staterror,nprec))
+
+      significance = (data_integral - total_bkg_integral) / (math.sqrt(total_bkg_staterror*total_bkg_staterror + data_error.value*data_error.value ))
+      CutFlowLatexTableFile.write('\\hline\n')
+      CutFlowLatexTableFile.write('Total& ' + str(total_bkg_integral)  + "& $\\pm$ & "  + str(total_bkg_staterror)  +  "&$^{+0}_{0}$ \\\\\n" )
+      CutFlowLatexTableFile.write('\\hline\n')
+      CutFlowLatexTableFile.write('Data& \\multicolumn{4}{c}{$' + str(int(data_integral)) + '$}\\\\ \n')
+      CutFlowLatexTableFile.write('\\hline\n')
+      significance=round(significance,nprec)
+      if significance < 0:
+        CutFlowLatexTableFile.write("Signficance&  \\multicolumn{4}{c}{$" + str(significance) + "\\sigma$}\\\\ \n")
+      else:
+        CutFlowLatexTableFile.write("Signficance&  \\multicolumn{4}{c}{$" + str(significance) + "\\sigma$}\\\\ \n")
+
+      CutFlowLatexTableFile.write('\\hline\n')
+      CutFlowLatexTableFile.write('\\hline\n')
+      CutFlowLatexTableFile.write('\\end{tabular}\n')
+      CutFlowLatexTableFile.write('\\end{center}\n')
+      CutFlowLatexTableFile.write('\\end{table}\n')
+
+      cdir=os.getenv("PWD")
+
+      #os.chdir(CutFlowDir)
+      #print ('CutFlowDir='+CutFlowDir)
+      
+      latex_command = "latex Cutflow"+Region.Name+".tex"
+      dvi_command = "dvipdf Cutflow"+Region.Name+".dvi"
+      mv_command = "mv " + CutFlowDir+"/Cutflow"+Region.Name+".pdf  " + Outdir
+
+      print ('DoCutFlow: source '+CutFlowDir+"/Cutflow.sh") 
+      run_latex = open(CutFlowDir+"/Cutflow.sh","a")
+      run_latex.write('cd ' + CutFlowDir+'\n')
+      run_latex.write(latex_command + '\n')
+      run_latex.write(dvi_command + '\n')
+      run_latex.write(mv_command + '\n')
+      run_latex.write('rm Cutflow'+Region.Name+'.aux\n')
+      run_latex.write('rm Cutflow'+Region.Name+'.tex\n')
+      run_latex.write('rm Cutflow'+Region.Name+'.dvi\n')
+      
+      run_latex.write('cd -')
+      run_latex.close()
+
+      print ('Table ==> ' + Outdir + '/Cutflow'+Region.Name+'.pdf')
+
+
+
 
   def Draw(self):
 
@@ -214,6 +371,8 @@ class Plotter:
         Outdir = self.OutputDirectory+'/ScaleMC/'+Region.Name+'/'
       print ('##   Outputs => '+Outdir)
       os.system('mkdir -p '+Outdir)
+      os.system('cp ' + os.getenv('HTML_DIR') + '/index.php ' + Outdir+'/')
+
 
       ## Data file
       f_Data = ROOT.TFile(Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root')
@@ -234,9 +393,9 @@ class Plotter:
 
         ## xtitle
         xtitle = Variable.TLatexAlias
-        if Variable.Name=="WRCand_Mass":
+        if Variable.Name=="NCand_Mass":
           if "Resolved" in Region.Name:
-            xtitle = "m_{lljj} (GeV)"
+            xtitle = "m_{ljj} (GeV)"
           else:
             xtitle = "m_{lJ} (GeV)"
 
@@ -512,7 +671,7 @@ class Plotter:
             gr_Data.SetPointEYhigh(i, U-N )
             err_down_tmp.append(N-L)
             err_up_tmp.append(U-N)
-            if Variable.Name!="WRCand_Mass":
+            if Variable.Name!="NCand_Mass":
               gr_Data.SetPointEXlow(i, 0)
               gr_Data.SetPointEXhigh(i, 0)
           else:
@@ -529,7 +688,7 @@ class Plotter:
             gr_Data.SetPointEYhigh(i, zerodata_err_high)
             err_down_tmp.append(zerodata_err_low)
             err_up_tmp.append(zerodata_err_high)
-            if Variable.Name!="WRCand_Mass":
+            if Variable.Name!="NCand_Mass":
               gr_Data.SetPointEXlow(i, 0)
               gr_Data.SetPointEXhigh(i, 0)
 
@@ -556,7 +715,7 @@ class Plotter:
         gr_Data_dummy.SetMarkerStyle(20)
         gr_Data_dummy.SetMarkerSize(1.2)
         dataLegendGOption="ep"
-        if Variable.Name=="WRCand_Mass":
+        if Variable.Name=="NCand_Mass":
           dataLegendGOption="lpe"
         if Region.DrawData:
           if Region.UnblindData:
@@ -626,7 +785,7 @@ class Plotter:
           h_dummy_up.GetYaxis().SetTitle('Events / '+str_binsize+' '+Variable.Unit)
         else:
           h_dummy_up.GetYaxis().SetTitle('Events / bin')
-        if Variable.Name=='WRCand_Mass':
+        if Variable.Name=='NCand_Mass':
           h_dummy_up.GetYaxis().SetTitle('Events / bin')
 
         h_dummy_down = ROOT.TH1D('h_dumy_down', '', nBin, xBins)
@@ -679,7 +838,7 @@ class Plotter:
 
         ## Exception control
 
-        if (Variable.Name=="WRCand_Mass"):
+        if (Variable.Name=="NCand_Mass"):
 
           if ("_SR" in Region.Name) and ("EMu" not in Region.Name):
             if ("Resolved" in Region.Name):
@@ -816,13 +975,13 @@ class Plotter:
             if err_down_tmp[i-1]!=0.:
               gr_Data_Ratio.SetPointEYlow(i-1, err_down_tmp[i-1] / h_Bkgd.GetBinContent(i) )
               gr_Data_Ratio.SetPointEYhigh(i-1, err_up_tmp[i-1] / h_Bkgd.GetBinContent(i))
-              if Variable.Name!="WRCand_Mass":
+              if Variable.Name!="NCand_Mass":
                 gr_Data_Ratio.SetPointEXlow(i-1, 0)
                 gr_Data_Ratio.SetPointEXhigh(i-1, 0)
             else:
               gr_Data_Ratio.SetPointEYlow(i-1, 0)
               gr_Data_Ratio.SetPointEYhigh(i-1, 1.8 / h_Bkgd.GetBinContent(i))
-              if Variable.Name!="WRCand_Mass":
+              if Variable.Name!="NCand_Mass":
                 gr_Data_Ratio.SetPointEXlow(i-1, 0)
                 gr_Data_Ratio.SetPointEXhigh(i-1, 0)
 
@@ -846,7 +1005,7 @@ class Plotter:
             gr_Bkgd_Ratio.SetPointEYhigh( i-1, 0. )
             gr_Bkgd_Ratio.SetPointEYlow( i-1, 0. )
 
-            if Variable.Name!="WRCand_Mass":
+            if Variable.Name!="NCand_Mass":
               gr_Data_Ratio.SetPointEXlow(i-1, 0)
               gr_Data_Ratio.SetPointEXhigh(i-1, 0)
 
@@ -872,7 +1031,7 @@ class Plotter:
             gr_Bkgd_Ratio.SetPointEYhigh( i-1, 0. )
             gr_Bkgd_Ratio.SetPointEYlow( i-1, 0. )
 
-            if Variable.Name!="WRCand_Mass":
+            if Variable.Name!="NCand_Mass":
               gr_Data_Ratio.SetPointEXlow(i-1, 0)
               gr_Data_Ratio.SetPointEXhigh(i-1, 0)
         ##==>End bin loop
@@ -905,6 +1064,7 @@ class Plotter:
 
         ## Save
         c1.SaveAs(Outdir+Variable.Name+'_'+Region.Name+'.pdf')
+        c1.SaveAs(Outdir+Variable.Name+'_'+Region.Name+'.png')
         print (Variable.Name+'_'+Region.Name+'.pdf ==> Saved')
 
         c1.Close()

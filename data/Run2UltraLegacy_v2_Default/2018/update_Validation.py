@@ -10,6 +10,50 @@ which+'_xaxis.txt',
 which+'_yaxis.txt',
 ]
 
+IDs=['POG']
+RegionList=[
+  'SingleMuon_OS',
+  'SingleMuon_OnZ_OS',
+  'SingleMuon_HigherDiLeptonPtCut_OS',
+  'SingleMuon_mllgt110_TwoJets_METgt30_OS',
+  'SingleMuon_WithBJet_METgt30_OS',
+  'SingleElectron_OS',
+  'SingleElectron_OnZ_OS',
+  'SingleElectron_HigherDiLeptonPtCut_OS',
+  'SingleElectron_mllgt110_TwoJets_METgt30_OS',
+  'SingleElectron_WithBJet_METgt30_OS',
+  'SingleMuon_SS',
+  'SingleMuon_OnZ_SS',
+  'SingleMuon_HigherDiLeptonPtCut_SS',
+  'SingleMuon_mllgt110_TwoJets_METgt30_SS',
+  'SingleMuon_WithBJet_METgt30_SS',
+  'SingleElectron_SS',
+  'SingleElectron_OnZ_SS',
+  'SingleElectron_HigherDiLeptonPtCut_SS',
+  'SingleElectron_mllgt110_TwoJets_METgt30_SS',
+  'SingleElectron_WithBJet_METgt30_SS',
+  'SingleMuon_W_CR',
+  'SingleElectron_W_CR'
+]
+
+tmpfile = open('tmp_Validation_rebins.txt','w')
+for ID in IDs:
+  for Region in RegionList:
+      lines = open('rebins_list.txt').readlines()
+      for l in lines:
+        new_line = l.replace('---', ID+'_'+Region)
+        tmpfile.write(new_line)
+tmpfile.close()
+
+tmpfile = open('tmp_Validation_xaxis.txt','w')
+for ID in IDs:
+  for Region in RegionList:
+      lines = open('xaxis_list.txt').readlines()
+      for l in lines:
+        new_line = l.replace('---', ID+'_'+Region)
+        tmpfile.write(new_line)
+tmpfile.close()
+
 for f in files:
   lines = open('tmp_'+f).readlines()
 
@@ -101,6 +145,6 @@ for f in files:
         tmpf.write(line)
 
   os.system('mv tmp_tmp_'+f+' '+f)
-  os.system('rm tmp_'+f)
+  #os.system('rm tmp_'+f)
 
 

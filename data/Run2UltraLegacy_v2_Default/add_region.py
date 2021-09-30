@@ -1,7 +1,6 @@
 import os
 
 Which = 'CR'
-Which = 'NoLSFCut'
 
 txtfiles = [
 'rebins',
