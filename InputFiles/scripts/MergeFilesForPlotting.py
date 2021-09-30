@@ -46,6 +46,8 @@ def merge_2016(test_run,analyser,skim):
     dirlist_2016 =  [f for f in listdir(preVFP_path) if isfile(join(preVFP_path,f))]
 
     for _file in dirlist_2016:
+        if os.path.exists(dir_2016+'/'+_file):
+            os.system('rm ' + dir_2016+'/'+_file)
         os.system('hadd ' + dir_2016+'/'+_file + ' ' + preVFP_path + '/'+_file + ' ' + postVFP_path + '/'+_file)
         
 
@@ -289,6 +291,7 @@ parser.add_argument('--MC', action='store_true')
 parser.add_argument('--mergeFlavour', action='store_true')
 parser.add_argument('--Test', action='store_true')
 parser.add_argument('--SYNC', action='store_true')
+parser.add_argument('--NoMerge', action='store_true')
 parser.add_argument('-a',dest='Analyzer', default='NULL')
 parser.add_argument('-s',dest='Skim', default='')
 
@@ -311,7 +314,9 @@ if analyser_name == "NULL":
 
 if args.SYNC:
     rsync_tamsa(analyser_name)
-
+if args.NoMerge:
+    exit()
+    
 if isData:
     merge_data_setup(isTest,analyser_name,skim_name)
     merge_2016(isTest,analyser_name,skim_name)

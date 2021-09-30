@@ -121,7 +121,7 @@ from PredefinedSamples import *
 if args.Category==0:
   #### Define Samples
   if args.Year>0:
-    exec('m.SampleGroups = [SampleGroup_Top_%s, SampleGroup_VV_incl_%s,SampleGroup_NonPrompt_%s, SampleGroup_DY_%s , SampleGroup_XG_%s ]'%(args.Year,args.Year, args.Year,args.Year,args.Year))
+    exec('m.SampleGroups = [SampleGroup_Top_%s, SampleGroup_VV_incl_%s,SampleGroup_NonPrompt_%s, SampleGroup_DY_%s , SampleGroup_XG_%s , SampleGroup_WJets_%s]'%(args.Year,args.Year, args.Year,args.Year,args.Year,args.Year))
   else:
     m.SampleGroups = [
       SampleGroup_Others_2016, SampleGroup_Others_2017, SampleGroup_Others_2018,
@@ -137,8 +137,9 @@ if args.Category==0:
   IDs=["POG"]
   #### Define reiongs
   m.RegionsToDraw = [
-    Region('POG_SingleMuon_OnZ_OS' , 'Muon', UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{Z->ll CR}',CutFlowCaption="Single Muon Trigger On Z shell, OS dilepton pair"),
-    Region('POG_SingleElectron_OnZ_OS' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{ee}{Z->ll CR}',CutFlowCaption="Single Electron Trigger On Z shell, OS dilepton pair"),
+    Region('POG_SingleMuon_W_CR' , 'Muon', UnblindData=True, Logy=0, TLatexAlias='#splitline{#muu}{W->lnu CR}', CutFlowCaption="Single Muon Trigger W boson selection"),
+    Region('POG_SingleElectron_W_CR' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{e}{W->lnu CR}',CutFlowCaption="Single Electron Trigger W boson selection"),
+
   ]
   m.PrintRegions()
 
@@ -152,6 +153,9 @@ if args.Category==0:
 m.VariablesToDraw = [
 
   Variable('NEvent', '#Events', ''),
+  Variable('NoPuWeight_nPV', 'nPV',''),
+  Variable('NoPuWeight_MET', '#slash{E}_{T}^{miss}','GeV'),
+  Variable('NoPuWeight_Jet_Size', '#AK4 Jets',''),
   Variable('nPV', 'nPV',''),
   Variable('MET', '#slash{E}_{T}^{miss}','GeV'),
   Variable('METphi', '#phi #slash{E}_{T}^{miss}',''),
@@ -161,6 +165,7 @@ m.VariablesToDraw = [
   Variable('ZCand_Pt', 'p_{T}^{ll} (GeV)', 'GeV'),
   Variable('ZCand_Mass', 'm_{ll} (GeV)', 'GeV'),
   Variable('ZCand_Eta', '#eta', ''),
+  Variable('MT', 'M_{T}', '(GeV)'),
   Variable('HT', 'H_{T}', '(GeV)'),
   Variable('Lepton_0_Pt', 'p_{T} of the leading lepton', 'GeV'),
   Variable('Lepton_0_Eta', '#eta of the leading lepton', ''),
@@ -170,9 +175,8 @@ m.VariablesToDraw = [
   Variable('Jet_1_Pt', 'p_{T} of the subleading jet', 'GeV'),
   Variable('Jet_0_Eta', '#eta of the leading jet', 'GeV'),
   Variable('Jet_1_Eta', '#eta of the subleading jet', 'GeV'),
-  Variable('NoPuWeight_nPV', 'nPV',''),
-  Variable('NoPuWeight_MET', '#slash{E}_{T}^{miss}','GeV'),
-  Variable('NoPuWeight_Jet_Size', '#AK4 Jets',''),
+  Variable('Jet_0_DeepCSV', 'DeepCSV of the leading jet', ''),
+  Variable('Jet_1_DeepCSV', 'DeepCSV of the subleading jet', ''),
 
 
 ]

@@ -24,6 +24,7 @@ POG_SingleMuon_OS	ZCand_Mass	50
 POG_SingleMuon_OS	ZCand_Pt	20
 POG_SingleMuon_OS	ZCand_Eta	5
 POG_SingleMuon_OS	MET	10
+POG_SingleMuon_OS	METphi	5
 POG_SingleMuon_OS	HT	10
 POG_SingleMuon_OS	MT	10
 POG_SingleMuon_OS	Jet_Size	-999
@@ -60,6 +61,7 @@ POG_SingleMuon_OnZ_OS	ZCand_Mass	50
 POG_SingleMuon_OnZ_OS	ZCand_Pt	20
 POG_SingleMuon_OnZ_OS	ZCand_Eta	5
 POG_SingleMuon_OnZ_OS	MET	10
+POG_SingleMuon_OnZ_OS	METphi	5
 POG_SingleMuon_OnZ_OS	HT	10
 POG_SingleMuon_OnZ_OS	MT	10
 POG_SingleMuon_OnZ_OS	Jet_Size	-999
@@ -96,6 +98,7 @@ POG_SingleMuon_HigherDiLeptonPtCut_OS	ZCand_Mass	50
 POG_SingleMuon_HigherDiLeptonPtCut_OS	ZCand_Pt	20
 POG_SingleMuon_HigherDiLeptonPtCut_OS	ZCand_Eta	5
 POG_SingleMuon_HigherDiLeptonPtCut_OS	MET	10
+POG_SingleMuon_HigherDiLeptonPtCut_OS	METphi	5
 POG_SingleMuon_HigherDiLeptonPtCut_OS	HT	10
 POG_SingleMuon_HigherDiLeptonPtCut_OS	MT	10
 POG_SingleMuon_HigherDiLeptonPtCut_OS	Jet_Size	-999
@@ -132,6 +135,7 @@ POG_SingleMuon_mllgt110_TwoJets_METgt30_OS	ZCand_Mass	50
 POG_SingleMuon_mllgt110_TwoJets_METgt30_OS	ZCand_Pt	20
 POG_SingleMuon_mllgt110_TwoJets_METgt30_OS	ZCand_Eta	5
 POG_SingleMuon_mllgt110_TwoJets_METgt30_OS	MET	10
+POG_SingleMuon_mllgt110_TwoJets_METgt30_OS	METphi	5
 POG_SingleMuon_mllgt110_TwoJets_METgt30_OS	HT	10
 POG_SingleMuon_mllgt110_TwoJets_METgt30_OS	MT	10
 POG_SingleMuon_mllgt110_TwoJets_METgt30_OS	Jet_Size	-999
@@ -168,6 +172,7 @@ POG_SingleMuon_WithBJet_METgt30_OS	ZCand_Mass	50
 POG_SingleMuon_WithBJet_METgt30_OS	ZCand_Pt	20
 POG_SingleMuon_WithBJet_METgt30_OS	ZCand_Eta	5
 POG_SingleMuon_WithBJet_METgt30_OS	MET	10
+POG_SingleMuon_WithBJet_METgt30_OS	METphi	5
 POG_SingleMuon_WithBJet_METgt30_OS	HT	10
 POG_SingleMuon_WithBJet_METgt30_OS	MT	10
 POG_SingleMuon_WithBJet_METgt30_OS	Jet_Size	-999
@@ -204,6 +209,7 @@ POG_SingleElectron_OS	ZCand_Mass	50
 POG_SingleElectron_OS	ZCand_Pt	20
 POG_SingleElectron_OS	ZCand_Eta	5
 POG_SingleElectron_OS	MET	10
+POG_SingleElectron_OS	METphi	5
 POG_SingleElectron_OS	HT	10
 POG_SingleElectron_OS	MT	10
 POG_SingleElectron_OS	Jet_Size	-999
@@ -240,6 +246,7 @@ POG_SingleElectron_OnZ_OS	ZCand_Mass	50
 POG_SingleElectron_OnZ_OS	ZCand_Pt	20
 POG_SingleElectron_OnZ_OS	ZCand_Eta	5
 POG_SingleElectron_OnZ_OS	MET	10
+POG_SingleElectron_OnZ_OS	METphi	5
 POG_SingleElectron_OnZ_OS	HT	10
 POG_SingleElectron_OnZ_OS	MT	10
 POG_SingleElectron_OnZ_OS	Jet_Size	-999
@@ -276,6 +283,7 @@ POG_SingleElectron_HigherDiLeptonPtCut_OS	ZCand_Mass	50
 POG_SingleElectron_HigherDiLeptonPtCut_OS	ZCand_Pt	20
 POG_SingleElectron_HigherDiLeptonPtCut_OS	ZCand_Eta	5
 POG_SingleElectron_HigherDiLeptonPtCut_OS	MET	10
+POG_SingleElectron_HigherDiLeptonPtCut_OS	METphi	5
 POG_SingleElectron_HigherDiLeptonPtCut_OS	HT	10
 POG_SingleElectron_HigherDiLeptonPtCut_OS	MT	10
 POG_SingleElectron_HigherDiLeptonPtCut_OS	Jet_Size	-999
@@ -312,6 +320,7 @@ POG_SingleElectron_mllgt110_TwoJets_METgt30_OS	ZCand_Mass	50
 POG_SingleElectron_mllgt110_TwoJets_METgt30_OS	ZCand_Pt	20
 POG_SingleElectron_mllgt110_TwoJets_METgt30_OS	ZCand_Eta	5
 POG_SingleElectron_mllgt110_TwoJets_METgt30_OS	MET	10
+POG_SingleElectron_mllgt110_TwoJets_METgt30_OS	METphi	5
 POG_SingleElectron_mllgt110_TwoJets_METgt30_OS	HT	10
 POG_SingleElectron_mllgt110_TwoJets_METgt30_OS	MT	10
 POG_SingleElectron_mllgt110_TwoJets_METgt30_OS	Jet_Size	-999
@@ -348,6 +357,7 @@ POG_SingleElectron_WithBJet_METgt30_OS	ZCand_Mass	50
 POG_SingleElectron_WithBJet_METgt30_OS	ZCand_Pt	20
 POG_SingleElectron_WithBJet_METgt30_OS	ZCand_Eta	5
 POG_SingleElectron_WithBJet_METgt30_OS	MET	10
+POG_SingleElectron_WithBJet_METgt30_OS	METphi	5
 POG_SingleElectron_WithBJet_METgt30_OS	HT	10
 POG_SingleElectron_WithBJet_METgt30_OS	MT	10
 POG_SingleElectron_WithBJet_METgt30_OS	Jet_Size	-999
@@ -384,6 +394,7 @@ POG_SingleMuon_SS	ZCand_Mass	50
 POG_SingleMuon_SS	ZCand_Pt	20
 POG_SingleMuon_SS	ZCand_Eta	5
 POG_SingleMuon_SS	MET	10
+POG_SingleMuon_SS	METphi	5
 POG_SingleMuon_SS	HT	10
 POG_SingleMuon_SS	MT	10
 POG_SingleMuon_SS	Jet_Size	-999
@@ -420,6 +431,7 @@ POG_SingleMuon_OnZ_SS	ZCand_Mass	50
 POG_SingleMuon_OnZ_SS	ZCand_Pt	20
 POG_SingleMuon_OnZ_SS	ZCand_Eta	5
 POG_SingleMuon_OnZ_SS	MET	10
+POG_SingleMuon_OnZ_SS	METphi	5
 POG_SingleMuon_OnZ_SS	HT	10
 POG_SingleMuon_OnZ_SS	MT	10
 POG_SingleMuon_OnZ_SS	Jet_Size	-999
@@ -456,6 +468,7 @@ POG_SingleMuon_HigherDiLeptonPtCut_SS	ZCand_Mass	50
 POG_SingleMuon_HigherDiLeptonPtCut_SS	ZCand_Pt	20
 POG_SingleMuon_HigherDiLeptonPtCut_SS	ZCand_Eta	5
 POG_SingleMuon_HigherDiLeptonPtCut_SS	MET	10
+POG_SingleMuon_HigherDiLeptonPtCut_SS	METphi	5
 POG_SingleMuon_HigherDiLeptonPtCut_SS	HT	10
 POG_SingleMuon_HigherDiLeptonPtCut_SS	MT	10
 POG_SingleMuon_HigherDiLeptonPtCut_SS	Jet_Size	-999
@@ -492,6 +505,7 @@ POG_SingleMuon_mllgt110_TwoJets_METgt30_SS	ZCand_Mass	50
 POG_SingleMuon_mllgt110_TwoJets_METgt30_SS	ZCand_Pt	20
 POG_SingleMuon_mllgt110_TwoJets_METgt30_SS	ZCand_Eta	5
 POG_SingleMuon_mllgt110_TwoJets_METgt30_SS	MET	10
+POG_SingleMuon_mllgt110_TwoJets_METgt30_SS	METphi	5
 POG_SingleMuon_mllgt110_TwoJets_METgt30_SS	HT	10
 POG_SingleMuon_mllgt110_TwoJets_METgt30_SS	MT	10
 POG_SingleMuon_mllgt110_TwoJets_METgt30_SS	Jet_Size	-999
@@ -528,6 +542,7 @@ POG_SingleMuon_WithBJet_METgt30_SS	ZCand_Mass	50
 POG_SingleMuon_WithBJet_METgt30_SS	ZCand_Pt	20
 POG_SingleMuon_WithBJet_METgt30_SS	ZCand_Eta	5
 POG_SingleMuon_WithBJet_METgt30_SS	MET	10
+POG_SingleMuon_WithBJet_METgt30_SS	METphi	5
 POG_SingleMuon_WithBJet_METgt30_SS	HT	10
 POG_SingleMuon_WithBJet_METgt30_SS	MT	10
 POG_SingleMuon_WithBJet_METgt30_SS	Jet_Size	-999
@@ -564,6 +579,7 @@ POG_SingleElectron_SS	ZCand_Mass	50
 POG_SingleElectron_SS	ZCand_Pt	20
 POG_SingleElectron_SS	ZCand_Eta	5
 POG_SingleElectron_SS	MET	10
+POG_SingleElectron_SS	METphi	5
 POG_SingleElectron_SS	HT	10
 POG_SingleElectron_SS	MT	10
 POG_SingleElectron_SS	Jet_Size	-999
@@ -600,6 +616,7 @@ POG_SingleElectron_OnZ_SS	ZCand_Mass	50
 POG_SingleElectron_OnZ_SS	ZCand_Pt	20
 POG_SingleElectron_OnZ_SS	ZCand_Eta	5
 POG_SingleElectron_OnZ_SS	MET	10
+POG_SingleElectron_OnZ_SS	METphi	5
 POG_SingleElectron_OnZ_SS	HT	10
 POG_SingleElectron_OnZ_SS	MT	10
 POG_SingleElectron_OnZ_SS	Jet_Size	-999
@@ -636,6 +653,7 @@ POG_SingleElectron_HigherDiLeptonPtCut_SS	ZCand_Mass	50
 POG_SingleElectron_HigherDiLeptonPtCut_SS	ZCand_Pt	20
 POG_SingleElectron_HigherDiLeptonPtCut_SS	ZCand_Eta	5
 POG_SingleElectron_HigherDiLeptonPtCut_SS	MET	10
+POG_SingleElectron_HigherDiLeptonPtCut_SS	METphi	5
 POG_SingleElectron_HigherDiLeptonPtCut_SS	HT	10
 POG_SingleElectron_HigherDiLeptonPtCut_SS	MT	10
 POG_SingleElectron_HigherDiLeptonPtCut_SS	Jet_Size	-999
@@ -672,6 +690,7 @@ POG_SingleElectron_mllgt110_TwoJets_METgt30_SS	ZCand_Mass	50
 POG_SingleElectron_mllgt110_TwoJets_METgt30_SS	ZCand_Pt	20
 POG_SingleElectron_mllgt110_TwoJets_METgt30_SS	ZCand_Eta	5
 POG_SingleElectron_mllgt110_TwoJets_METgt30_SS	MET	10
+POG_SingleElectron_mllgt110_TwoJets_METgt30_SS	METphi	5
 POG_SingleElectron_mllgt110_TwoJets_METgt30_SS	HT	10
 POG_SingleElectron_mllgt110_TwoJets_METgt30_SS	MT	10
 POG_SingleElectron_mllgt110_TwoJets_METgt30_SS	Jet_Size	-999
@@ -708,6 +727,7 @@ POG_SingleElectron_WithBJet_METgt30_SS	ZCand_Mass	50
 POG_SingleElectron_WithBJet_METgt30_SS	ZCand_Pt	20
 POG_SingleElectron_WithBJet_METgt30_SS	ZCand_Eta	5
 POG_SingleElectron_WithBJet_METgt30_SS	MET	10
+POG_SingleElectron_WithBJet_METgt30_SS	METphi	5
 POG_SingleElectron_WithBJet_METgt30_SS	HT	10
 POG_SingleElectron_WithBJet_METgt30_SS	MT	10
 POG_SingleElectron_WithBJet_METgt30_SS	Jet_Size	-999
@@ -744,6 +764,7 @@ POG_SingleMuon_W_CR	ZCand_Mass	50
 POG_SingleMuon_W_CR	ZCand_Pt	20
 POG_SingleMuon_W_CR	ZCand_Eta	5
 POG_SingleMuon_W_CR	MET	10
+POG_SingleMuon_W_CR	METphi	5
 POG_SingleMuon_W_CR	HT	10
 POG_SingleMuon_W_CR	MT	10
 POG_SingleMuon_W_CR	Jet_Size	-999
@@ -780,6 +801,7 @@ POG_SingleElectron_W_CR	ZCand_Mass	50
 POG_SingleElectron_W_CR	ZCand_Pt	20
 POG_SingleElectron_W_CR	ZCand_Eta	5
 POG_SingleElectron_W_CR	MET	10
+POG_SingleElectron_W_CR	METphi	5
 POG_SingleElectron_W_CR	HT	10
 POG_SingleElectron_W_CR	MT	10
 POG_SingleElectron_W_CR	Jet_Size	-999

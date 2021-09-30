@@ -1,23 +1,24 @@
-\begin{table}[h]
-\begin{center}
-\begin{tabular}{lr@{\hspace{0.5mm}}c@{\hspace{0.5mm}}c@{\hspace{0.5mm}}l}
+\begin{table}[ptb]
+\centering
+\cmsTable{
+\begin{tabular}{lcccc}
 \hline
 \hline
 Source & \multicolumn{4}{c}{} \\ 
 \hline
-tt& 69500.0& $\pm$ & 0.0&$^{0}_{0}$ \\
-VVInc& 67600.0& $\pm$ & 100.0&$^{0}_{0}$ \\
-NonPrompt& 1723600.0& $\pm$ & 800.0&$^{0}_{0}$ \\
-ZJets& 36905500.0& $\pm$ & 11800.0&$^{0}_{0}$ \\
-Xgamma& 97500.0& $\pm$ & 200.0&$^{0}_{0}$ \\
+$\mathrm{t}\bar{\mathrm{t}}$[powheg]& 66506.0& $\pm$ & 48.0&$^{+3325.3}_{-3325.3}$ \\
+VV[Pythia]& 66716.0& $\pm$ & 146.0&$^{+3335.8}_{-3335.8}$ \\
+DY$\rightarrow \ell\ell$& 37878299.0& $\pm$ & 12168.0&$^{+1893914.9500000002}_{-1893914.9500000002}$ \\
+X+$\gamma$& 95890.0& $\pm$ & 158.0&$^{+4794.5}_{-4794.5}$ \\
 \hline
-Total& 38863800& $\pm$ & 11900&$^{+0}_{0}$ \\
+Total& 38107410& $\pm$ & 12170&$^{+1893927}_{-1893927}$ \\
 \hline
-Data& \multicolumn{4}{c}{$37904585$}\\ 
+Data& \multicolumn{4}{c}{$37752849$}\\ 
 \hline
-Signficance&  \multicolumn{4}{c}{$-100.0\sigma$}\\ 
+Signifficance&  \multicolumn{4}{c}{$-0.0\sigma$}\\ 
 \hline
 \hline
 \end{tabular}
-\end{center}
+}
+\caption{Single Muon Trigger On Z shell, OS dilepton pair}
 \end{table}

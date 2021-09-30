@@ -64,12 +64,13 @@ class Variable:
 
 ## Region ##
 class Region:
-  def __init__(self, Name, PrimaryDataset, UnblindData=True, Logy=-1, TLatexAlias=""):
+  def __init__(self, Name, PrimaryDataset, UnblindData=True, Logy=-1, TLatexAlias="", CutFlowCaption="Test"):
     self.Name = Name
     self.PrimaryDataset = PrimaryDataset
     self.UnblindData = UnblindData
     self.Logy = Logy
     self.TLatexAlias = TLatexAlias
+    self.CutFlowCaption = CutFlowCaption
 
     self.DrawData = True
     self.DrawRatio = True
@@ -200,7 +201,7 @@ class Plotter:
 
   def DoCutFlow(self,Hist_Name):
 
-    nprec = -2
+    nprec = 0
     print ('[Plotter.Cutflow()] ')
 
     CutFlowDir='/Users/john/GIT/HNDiLeptonWorskspace/CutFlow/'
@@ -231,23 +232,26 @@ class Plotter:
 
       total_bkg_integral=0.
       total_bkg_staterror=0.
-
+      sys_total_bkg_up=0
+      sys_total_bkg_down=0
             
       CutFlowLatexFile = open (CutFlowDir+'/Cutflow'+Region.Name+'.tex','w')
       CutFlowLatexFile.write('\\documentclass[10pt]{article}\n')
       CutFlowLatexFile.write('\\usepackage{epsfig,subfigure,setspace,xtab,xcolor,array,colortbl}\n')
+      CutFlowLatexFile.write('\providecommand{\\cmsTable}[1]{\\resizebox{\\textwidth}{!}{#1}}\n')
       CutFlowLatexFile.write('\\begin{document}\n')
       CutFlowLatexFile.write('\\input{"/Users/john/GIT/HNDiLeptonWorskspace/CutFlow/Tables/Cutflow'+Region.Name+'Table.txt"}\n')
       CutFlowLatexFile.write('\\end{document}\n')
       CutFlowLatexFile.close()
-      columnname=""
+      caption=Region.CutFlowCaption
       CutFlowLatexTableFile = open ('/Users/john/GIT/HNDiLeptonWorskspace/CutFlow/Tables/Cutflow'+Region.Name+'Table.txt','w')
-      CutFlowLatexTableFile.write("\\begin{table}[h]\n" )
-      CutFlowLatexTableFile.write("\\begin{center}\n" )
-      CutFlowLatexTableFile.write("\\begin{tabular}{lr@{\\hspace{0.5mm}}c@{\\hspace{0.5mm}}c@{\\hspace{0.5mm}}l}\n" )
+      CutFlowLatexTableFile.write("\\begin{table}[ptb]\n" )
+      CutFlowLatexTableFile.write("\\centering\n" )
+      CutFlowLatexTableFile.write("\\cmsTable{\n" )
+      CutFlowLatexTableFile.write("\\begin{tabular}{lcccc}\n" )
       CutFlowLatexTableFile.write("\\hline\n" )
       CutFlowLatexTableFile.write("\\hline\n" )   
-      CutFlowLatexTableFile.write("Source & \\multicolumn{4}{c}{" + columnname + "} \\\\ \n" )
+      CutFlowLatexTableFile.write("Source & \\multicolumn{4}{c}{} \\\\ \n" )
       CutFlowLatexTableFile.write("\\hline\n" )   
       
       
@@ -255,7 +259,7 @@ class Plotter:
 
         bkg_integral=0.
         bkg_staterror=0.
-        
+
         
         for Sample in SampleGroup.Samples:
           if self.DoDebug:
@@ -297,31 +301,46 @@ class Plotter:
         print (Sample + " integral = " + str(bkg_integral))
         bkg_integral=round(bkg_integral,nprec)
         bkg_staterror=round(bkg_staterror,nprec)
+        sys_bkg_up = 0.05*bkg_integral
+        sys_bkg_down = 0.05*bkg_integral
+        sys_total_bkg_up = math.sqrt(sys_total_bkg_up*sys_total_bkg_up+sys_bkg_up*sys_bkg_up)
+        sys_total_bkg_down = math.sqrt(sys_total_bkg_down*sys_total_bkg_down+sys_bkg_down*sys_bkg_down)
         
         if bkg_integral > 0:
-          CutFlowLatexTableFile.write( SampleGroup.LatexAlias + "& " +  str(bkg_integral) + "& $\\pm$ & "  + str(bkg_staterror)  +  "&$^{0}_{0}$ \\\\\n" )
+          CutFlowLatexTableFile.write( SampleGroup.LatexAlias + "& " +  str(bkg_integral) + "& $\\pm$ & "  + str(bkg_staterror)  +  "&$^{+"+str(sys_bkg_up)+"}_{-"+str(sys_bkg_down)+"}$ \\\\\n" )
 
-
+      sys_total_bkg_up   = int(round(sys_total_bkg_up))
+      sys_total_bkg_down   = int(round(sys_total_bkg_down))
       total_bkg_integral=   int(round(total_bkg_integral,nprec))
       total_bkg_staterror = int(round(total_bkg_staterror,nprec))
 
-      significance = (data_integral - total_bkg_integral) / (math.sqrt(total_bkg_staterror*total_bkg_staterror + data_error.value*data_error.value ))
       CutFlowLatexTableFile.write('\\hline\n')
-      CutFlowLatexTableFile.write('Total& ' + str(total_bkg_integral)  + "& $\\pm$ & "  + str(total_bkg_staterror)  +  "&$^{+0}_{0}$ \\\\\n" )
+
+      significance_up = (data_integral - total_bkg_integral) / (math.sqrt(total_bkg_staterror*total_bkg_staterror+sys_total_bkg_up*sys_total_bkg_up + data_error.value*data_error.value ))
+      significance_down = (data_integral - total_bkg_integral) / (math.sqrt(total_bkg_staterror*total_bkg_staterror+sys_total_bkg_down*sys_total_bkg_down + data_error.value*data_error.value ))
+      significance=significance_up
+      if significance_down > significance_up:
+        significance=significance_down
+
+
+      sys_total_bkg_up=int(round(sys_total_bkg_up,nprec))
+      sys_total_bkg_down=int(round(sys_total_bkg_down,nprec))
+      CutFlowLatexTableFile.write('Total& ' + str(total_bkg_integral)  + "& $\\pm$ & "  + str(total_bkg_staterror)  +  "&$^{+"+str(sys_total_bkg_up)+"}_{-"+str(sys_total_bkg_down)+"}$ \\\\\n" )
       CutFlowLatexTableFile.write('\\hline\n')
       CutFlowLatexTableFile.write('Data& \\multicolumn{4}{c}{$' + str(int(data_integral)) + '$}\\\\ \n')
       CutFlowLatexTableFile.write('\\hline\n')
       significance=round(significance,nprec)
       if significance < 0:
-        CutFlowLatexTableFile.write("Signficance&  \\multicolumn{4}{c}{$" + str(significance) + "\\sigma$}\\\\ \n")
+        CutFlowLatexTableFile.write("Significance&  \\multicolumn{4}{c}{$" + str(significance) + "\\sigma$}\\\\ \n")
       else:
-        CutFlowLatexTableFile.write("Signficance&  \\multicolumn{4}{c}{$" + str(significance) + "\\sigma$}\\\\ \n")
+        CutFlowLatexTableFile.write("Signifficance&  \\multicolumn{4}{c}{$" + str(significance) + "\\sigma$}\\\\ \n")
 
       CutFlowLatexTableFile.write('\\hline\n')
       CutFlowLatexTableFile.write('\\hline\n')
-      CutFlowLatexTableFile.write('\\end{tabular}\n')
-      CutFlowLatexTableFile.write('\\end{center}\n')
-      CutFlowLatexTableFile.write('\\end{table}\n')
+      CutFlowLatexTableFile.write('\end{tabular}\n')
+      CutFlowLatexTableFile.write('}\n')
+      CutFlowLatexTableFile.write("\\caption{"+caption+"}\n")
+      CutFlowLatexTableFile.write('\end{table}\n')
 
       cdir=os.getenv("PWD")
 
@@ -339,7 +358,7 @@ class Plotter:
       run_latex.write(dvi_command + '\n')
       run_latex.write(mv_command + '\n')
       run_latex.write('rm Cutflow'+Region.Name+'.aux\n')
-      run_latex.write('rm Cutflow'+Region.Name+'.tex\n')
+      #run_latex.write('rm Cutflow'+Region.Name+'.tex\n')
       run_latex.write('rm Cutflow'+Region.Name+'.dvi\n')
       
       run_latex.write('cd -')
@@ -696,7 +715,8 @@ class Plotter:
         lg = 0
         ## No signal
         if len(self.SignalsToDraw)==0:
-          lg = ROOT.TLegend(0.55, 0.45, 0.92, 0.90)
+          #lg = ROOT.TLegend(0.55, 0.45, 0.92, 0.90)
+          lg = ROOT.TLegend(0.6, 0.55, 0.92, 0.90)
         ## With Signal
         else:
           if Region.DrawRatio:
