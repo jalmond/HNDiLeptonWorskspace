@@ -13,7 +13,7 @@ void setTDRStyle();
 bool CheckFile(TFile* f);
 bool CheckHist(TH2* h);
 
-void make_fakreta_mu(int era){
+void make_promptrate_mu(int era){
 
   TString s_era = "2017";
   TString year = "2017";
@@ -31,12 +31,12 @@ void make_fakreta_mu(int era){
   TString skim_name    = "";
   TString analyzername = "FakeRateHN";
   TString data_path=  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+"_"+skim_name+"data_"+dataset+".root";
-  TString mc_path  =  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+"_"+skim_name+"MC.root";
-  
+
+  cout << data_path << endl;
   /// Set Plotting style
   setTDRStyle();   gStyle->SetPalette(1);
     
-  TString outfile = "rootfiles/HNL_FakeRate_Muon_"+s_era+".root";
+  TString outfile = "rootfiles/HNL_PromptRate_UnPrescaled_Muon_"+s_era+".root";
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   
   std::vector<TString> electron_ids ={                                    "HNTightV1",
@@ -45,53 +45,40 @@ void make_fakreta_mu(int era){
                                       "POGTightWithTightIso"};
 
   TFile * fdata = new TFile(data_path);
-  TFile * fmc   = new TFile(mc_path);
   
   /// Set Plotting style
   setTDRStyle();  gStyle->SetPalette(1);
     
 
-  std::vector<TString> jetpt = {"60","40","30","20"};
   std::vector<TString> ptlabel = {"ptcone_eta","pt_eta","ptcone_ptfix_eta"};
  
   double ptbinscone[10] = { 6.,10., 15.,20.,30.,40.,50.,  60., 100.,200.};
   Float_t etabins2[5] = { 0.,0.8,  1.479, 2.,  2.5};
   
   for(auto i : electron_ids){
-    for(auto j : jetpt){
-      for(auto k : ptlabel){
             
-	TString denom = "Fake_LooseMuMu_" + i +"_MuMu_"+j+"_"+k;
-	TString num   = "Fake_TightMuMu_" + i +"_MuMu_"+j+"_"+k;
-	cout << denom << " " << num << endl;
-	TH2F* hist_pt_num    = (TH2F*)fdata->Get(num.Data()  );
-	TH2F* hist_pt_denom  = (TH2F*)fdata->Get(denom.Data());
-	TH2F* hist_mcpt_num  = (TH2F*)fmc->Get(num.Data()    );
-	TH2F* hist_mcpt_denom= (TH2F*)fmc->Get(denom.Data()  );
-	
-	CheckHist(hist_pt_denom);        CheckHist(hist_pt_num);
-	CheckHist(hist_mcpt_denom);      CheckHist(hist_mcpt_num);
-	
-	TString name = i+"_"+k;
-	
-	TH2F* file_fake_rate = (TH2F*)hist_pt_num->Clone((name+"_AwayJetPt"+j).Data());
-	file_fake_rate->Add(hist_mcpt_num,-1.);
-	
-	TH2F* hratedenom = (TH2F*)hist_pt_denom->Clone((name +"_denom").Data());
-	hratedenom->Add(hist_mcpt_denom,-1.);
-	
-	file_fake_rate->Divide(file_fake_rate,hratedenom,1.,1.,"cl=0.683 b(1,1) mode");
-
-	hist_pt_num->Divide(hist_pt_denom);
-	
-	PrintHistBins(file_fake_rate, s_era+" Rate [MCsub] "+i+" "+j+" "+k);
-	PrintHistBins(hist_pt_num, s_era+" Rate [No MCsub] "+i+" "+j+" "+k);
-	fout->cd();
-	
-	file_fake_rate->Write();
-	origDir->cd();
-      }
-    }
+    TString denom = "Prompt_LooseMuMu_" + i +"_MuMu_TZ_ptcone_eta";
+    TString num   = "Prompt_TightMuMu_" + i +"_MuMu_TZ_ptcone_eta";
+    cout << denom << " " << num << endl;
+    TH2F* hist_pt_num    = (TH2F*)fdata->Get(num.Data()  );
+    TH2F* hist_pt_denom  = (TH2F*)fdata->Get(denom.Data());
+    
+    CheckHist(hist_pt_denom);        CheckHist(hist_pt_num);
+    
+    TString name = i+"_ptcone_eta_UnPrescaled";
+    
+    TH2F* file_fake_rate = (TH2F*)hist_pt_num->Clone((name).Data());
+    
+    TH2F* hratedenom = (TH2F*)hist_pt_denom->Clone((name +"_denom").Data());
+    
+    file_fake_rate->Divide(file_fake_rate,hratedenom,1.,1.,"cl=0.683 b(1,1) mode");
+    
+    hist_pt_num->Divide(hist_pt_denom);
+    
+    fout->cd();
+    
+    file_fake_rate->Write();
+    origDir->cd();
   }
   
   return;

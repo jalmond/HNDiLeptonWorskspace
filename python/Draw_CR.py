@@ -32,13 +32,14 @@ m.DoDebug = args.debug
 m.DataYear = args.Year
 str_Year = str(args.Year)
 #m.InputDirectory = WORKING_DIR+'/rootfiles/'+dataset+"/Regions/"
-m.InputDirectory = WORKING_DIR+'/rootfiles/'+dataset+"/"
+m.InputDirectory = WORKING_DIR+'/InputFiles/MergedFiles/'+dataset+"/HNL_DileptonCR/"
+
 if args.Year<0:
   str_Year = 'YearCombined'
 
 #HNtypeI_Dilepton_SkimTree_HNMultiLep_Electron.root
 m.DataDirectory = str_Year
-m.Filename_prefix = "HNtypeI_Dilepton"
+m.Filename_prefix = "HNL_DileptonCR"
 m.Filename_suffix = ""
 m.Filename_skim = "_SkimTree_HNMultiLep"
 
@@ -106,7 +107,7 @@ from PredefinedSamples import *
 if args.Category==0:
   #### Define Samples
   if args.Year>0:
-    exec('m.SampleGroups = [SampleGroup_Top_%s, SampleGroup_VV_incl_%s, SampleGroup_SSWW_%s, SampleGroup_DY_%s , SampleGroup_XG_%s , SampleGroup_WJets_%s , SampleGroup_VVV_%s]'%(args.Year,args.Year,args.Year,args.Year, args.Year,args.Year,args.Year))
+        exec('m.SampleGroups = [SampleGroup_Top_%s, SampleGroup_WZ_powheg_%s,  SampleGroup_ZZ_powheg_%s,SampleGroup_NonPrompt_Muon_%s, SampleGroup_DY_%s , SampleGroup_CF_%s,SampleGroup_Others_%s,SampleGroup_ZG_%s, SampleGroup_WG_%s ]'%(args.Year,args.Year, args.Year,args.Year,args.Year,args.Year,args.Year,args.Year,args.Year))
   else:
     m.SampleGroups = [
       SampleGroup_Others_2016, SampleGroup_Others_2017, SampleGroup_Others_2018,
@@ -122,14 +123,49 @@ if args.Category==0:
   IDs=["POG"]
   #### Define reiongs
   m.RegionsToDraw = [
+    Region('HNL_HighMass1Jet_TwoLepton_CR_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_HighMass1Jet_TwoLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_HighMassNP_TwoLepton_CR_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_HighMassNP_TwoLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_HighMassSR1_TwoLepton_CR_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_HighMassSR1_TwoLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_HighMassSR2_TwoLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_OSPresel_TwoLepton_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_HighMassSR2_TwoLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_OSPresel_TwoLepton_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_SSPresel_TwoLepton_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_SSPresel_TwoLepton_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_SSVBFPresel_TwoLepton_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_SSVBFPresel_TwoLepton_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_TopAK8_TwoLepton_CR_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_TopAK8_TwoLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_WZ2_ThreeLepton_CR_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_WZ2_ThreeLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_WZB_ThreeLepton_CR_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_WZB_ThreeLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_WZ_ThreeLepton_CR_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_WZ_ThreeLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_WpWpNP_TwoLepton_CR_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_WpWpNP_TwoLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_WpWp_TwoLepton_CR_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_WpWp_TwoLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_ZAK8_TwoLepton_CR_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_ZAK8_TwoLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_ZG_ThreeLepton_CR_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_ZG_ThreeLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_ZNP_ThreeLepton_CR_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_ZNP_ThreeLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_ZZLoose_FourLepton_CR_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_ZZLoose_FourLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_ZZ_FourLepton_CR_OptID_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
+    Region('HNL_ZZ_FourLepton_CR_Version1_Electron' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
 
     #Region('HNL_WZ_ThreeLepton_CR_Electron_HNtypeI_Dilepton_Version1' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
     #Region('HNL_WZ_ThreeLepton_CR_Muon_HNtypeI_Dilepton_Version1' , 'Muon', UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#muX}{WZ->lll CR}'),   
     #Region('HNL_WZ_ThreeLepton_CR_Electron_HNtypeI_Dilepton_EXO17028' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
     #Region('HNL_WZ_ThreeLepton_CR_Muon_HNtypeI_Dilepton_EXO17028' , 'Muon', UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#muX}{WZ->lll CR}'),
     #Region('HNL_WZ_ThreeLepton_CR_Electron_HNtypeI_Dilepton_Opt' , 'Electron', UnblindData=True, Logy=0, TLatexAlias='#splitline{eeX}{WZ->lll CR}'),
-    Region('POG_SingleMuon_OnZ_OS' , 'Muon', UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{Z->ll CR}'),
-
+    
     #Region('HNWR_SingleMuon_Boosted_DYCR', 'SingleMuon', UnblindData=True, Logy=1, TLatexAlias='#splitline{#mu#mu}{Boosted DY CR}'),
   ]
   m.PrintRegions()
@@ -142,12 +178,15 @@ if args.Category==0:
 
 #### Define Variables
 m.VariablesToDraw = [
-  #Variable('Lep1_pt', 'p_{T} of the leading lepton', 'GeV'),
-  #Variable('MET', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),
-  Variable('ZCand_Mass', 'm(ll)','')
+  Variable('pt_Lep1', 'p_{T} of the leading lepton', 'GeV'),
+  Variable('pt_Lep2', 'p_{T} of the leading lepton', 'GeV'),
+  Variable('MET', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),
+  Variable('M_ll', 'm(ll)',''),
+  Variable('M_lll', 'm(lll)',''),
 
 ]
 m.PrintVariables()
 
 #### Draw
 m.Draw()
+m.DoCutFlow('NEvent')

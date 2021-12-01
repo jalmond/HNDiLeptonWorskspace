@@ -1,13 +1,13 @@
 cd /Users/john/GIT/HNDiLeptonWorskspace/CutFlow/
-latex CutflowPOG_SingleMuon_W_CR.tex
-dvipdf CutflowPOG_SingleMuon_W_CR.dvi
-mv /Users/john/GIT/HNDiLeptonWorskspace/CutFlow//CutflowPOG_SingleMuon_W_CR.pdf  /Users/john/Dropbox/HNL_13TeV/DiLepton/plots//Run2UltraLegacy_v2_Default/HNL_Validation/2018//POG_SingleMuon_W_CR/
-rm CutflowPOG_SingleMuon_W_CR.aux
-rm CutflowPOG_SingleMuon_W_CR.dvi
+latex CutflowHNL_WZ_ThreeLepton_CR_OptID_Electron.tex
+dvipdf CutflowHNL_WZ_ThreeLepton_CR_OptID_Electron.dvi
+mv /Users/john/GIT/HNDiLeptonWorskspace/CutFlow//CutflowHNL_WZ_ThreeLepton_CR_OptID_Electron.pdf  /Users/john/Dropbox/HNL_13TeV/DiLepton/plots//Run2UltraLegacy_v2_Default/HNL_DileptonCR/2017//HNL_WZ_ThreeLepton_CR_OptID_Electron/
+rm CutflowHNL_WZ_ThreeLepton_CR_OptID_Electron.aux
+rm CutflowHNL_WZ_ThreeLepton_CR_OptID_Electron.dvi
 cd -cd /Users/john/GIT/HNDiLeptonWorskspace/CutFlow/
-latex CutflowPOG_SingleElectron_W_CR.tex
-dvipdf CutflowPOG_SingleElectron_W_CR.dvi
-mv /Users/john/GIT/HNDiLeptonWorskspace/CutFlow//CutflowPOG_SingleElectron_W_CR.pdf  /Users/john/Dropbox/HNL_13TeV/DiLepton/plots//Run2UltraLegacy_v2_Default/HNL_Validation/2018//POG_SingleElectron_W_CR/
-rm CutflowPOG_SingleElectron_W_CR.aux
-rm CutflowPOG_SingleElectron_W_CR.dvi
+latex CutflowHNL_WZ_ThreeLepton_CR_Version1_Electron.tex
+dvipdf CutflowHNL_WZ_ThreeLepton_CR_Version1_Electron.dvi
+mv /Users/john/GIT/HNDiLeptonWorskspace/CutFlow//CutflowHNL_WZ_ThreeLepton_CR_Version1_Electron.pdf  /Users/john/Dropbox/HNL_13TeV/DiLepton/plots//Run2UltraLegacy_v2_Default/HNL_DileptonCR/2017//HNL_WZ_ThreeLepton_CR_Version1_Electron/
+rm CutflowHNL_WZ_ThreeLepton_CR_Version1_Electron.aux
+rm CutflowHNL_WZ_ThreeLepton_CR_Version1_Electron.dvi
 cd -

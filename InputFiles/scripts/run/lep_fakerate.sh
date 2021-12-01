@@ -1,1 +1,1 @@
-python3 MergeFilesForPlotting.py -a FakeRateHN -s SkimTree_HNFake
+python MergeFilesForPlotting.py -a FakeRateHN  --SYNC --Data --MC

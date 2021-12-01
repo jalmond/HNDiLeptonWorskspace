@@ -35,6 +35,8 @@ def merge_2016(test_run,analyser,skim):
     from os import listdir
     from os.path import isfile,isdir, join
 
+    print('MERGE 2016')
+    
 
     dir_2016 = os.environ['FILE_MERGED_PATH'] +analyser + "/2016/"
     if not os.path.exists(dir_2016):
@@ -45,13 +47,23 @@ def merge_2016(test_run,analyser,skim):
 
     dirlist_2016 =  [f for f in listdir(preVFP_path) if isfile(join(preVFP_path,f))]
 
+    pwd = os.getenv('PWD')
+    #os.chdir(preVFP_path)
+    print(preVFP_path)
+
+    _dirs = os.listdir( preVFP_path )
+    for files in _dirs:
+        print '- ' + files
+    for _file in dirlist_2016:
+        print preVFP_path+"/"+_file
+
     for _file in dirlist_2016:
         if os.path.exists(dir_2016+'/'+_file):
             os.system('rm ' + dir_2016+'/'+_file)
         os.system('hadd ' + dir_2016+'/'+_file + ' ' + preVFP_path + '/'+_file + ' ' + postVFP_path + '/'+_file)
         
 
-        
+       
 def merge_all_years(test_run,analyser,skim):
 
     print ('')
@@ -140,7 +152,7 @@ def merge_data_flavour(test_run,analyser,skim,  label, flavours):
         if not test_run:
             out = getoutput(hadd_cmd,'')
             for x in out:
-                if "ERROR" in x  or "Error" in x:
+                if "ERROR" in x  or "Error" in x or "error" in x:
                     print ("ERROR found in hadd_cmd=" + hadd_cmd)
                     print (x)
                     sys.exit()
@@ -151,7 +163,48 @@ def merge_data_flavour(test_run,analyser,skim,  label, flavours):
 
 
 
-            
+def merge_cf(test_run,analyser,skim, flavour, flav_dir):
+
+    eras = ["2016preVFP", "2016postVFP", "2017", "2018"]
+    n_era=-1
+    for era in eras:
+        n_era+=1
+
+	local_dir=os.environ['FILE_MERGED_PATH'] +analyser
+        if not os.path.exists(local_dir):
+            os.system('mkdir ' +local_dir)
+
+	local_dir=os.environ['FILE_MERGED_PATH'] +analyser + "/" +era
+        if not os.path.exists(local_dir):
+            os.system('mkdir ' + local_dir)
+        
+        out_file=local_dir+"/"+analyser+skim+"_CF_"+flavour+".root"
+        if os.path.exists(out_file):
+            os.remove(out_file)
+        string_hadd = ""
+        _dir=flav_dir[n_era]
+        print (_dir)
+        for x in range(1, len(_dir)):
+            file_path=os.environ['FILE_PATH'] + analyser + "/" +era+"/"+_dir[0]+"DATA/"+analyser+skim + _dir[x]+"* "
+            string_hadd = string_hadd+file_path
+        hadd_cmd="hadd  " + out_file + " " + string_hadd
+        print (out_file + " [hadd output]")
+        print(' ' )
+        print ("hadd [input] :")
+        if not test_run:
+            out = getoutput(hadd_cmd,'data_'+era+'_'+_dir[0]+'_'+_dir[1])
+            for x in out:
+                if "ERROR" in x  or "Error" in x or "error" in x:
+                    print ("ERROR found in hadd_cmd=" + hadd_cmd)
+                    print (x)
+                    sys.exit()
+                if "Warning" in out:
+                    print ("Warning found in hadd_cmd=" + hadd_cmd)
+                    print (x)
+                    sys.exit()
+
+
+        
 def merge_data(test_run,analyser,skim, flavour, flav_dir):
 
     print (' ')
@@ -167,11 +220,11 @@ def merge_data(test_run,analyser,skim, flavour, flav_dir):
         
         local_dir=os.environ['FILE_MERGED_PATH'] +analyser
         if not os.path.exists(local_dir):
-            os.mkdir(local_dir)
+            os.system('mkdir ' +local_dir)
 
         local_dir=os.environ['FILE_MERGED_PATH'] +analyser + "/" +era
         if not os.path.exists(local_dir):
-            os.mkdir(local_dir)
+            os.system('mkdir ' + local_dir)
 
             
         #HNL_Validation_SkimTree_HNFake_NonPrompt_Muon.root HNL_Validation_SkimTree_HNFake_data_Muon.root
@@ -179,26 +232,32 @@ def merge_data(test_run,analyser,skim, flavour, flav_dir):
         out_file=local_dir+"/"+analyser+skim+"_data_"+flavour+".root"
         if "NonPrompt" in flavour:
             out_file=local_dir+"/"+analyser+skim+"_"+flavour+".root"
+        if "CF" in flavour:
+            out_file=local_dir+"/"+analyser+skim+"_"+flavour+".root"
 
         if os.path.exists(out_file):
             os.remove(out_file)
 
         string_hadd = ""
         _dir=flav_dir[n_era]
-        print _dir
-        file_path=os.environ['FILE_PATH'] + analyser + "/" +era+"/"+_dir[0]+"DATA/"+analyser+skim + _dir[1]+"* "
-        string_hadd = string_hadd+file_path
+        print (_dir)
+        for x in range(1, len(_dir)):
             
-        hadd_cmd="hadd  " + out_file + " " + file_path
+            file_path=os.environ['FILE_PATH'] + analyser + "/" +era+"/"+_dir[0]+"DATA/"+analyser+skim + _dir[x]+"* "
+            if "CF" in flavour:
+                file_path=os.environ['FILE_PATH'] + analyser + "/" +era+"/"+_dir[0]+"DATA/"+analyser + _dir[x]+"* "
+
+            string_hadd = string_hadd+file_path
+        hadd_cmd="hadd  " + out_file + " " + string_hadd
         print (out_file + " [hadd output]")
         print(' ' )
         print ("hadd [input] :")
-        mclist =os.system("ls " + os.environ['FILE_PATH'] + analyser + "/" +era+"/"+_dir[0]+"DATA/"+analyser+skim + _dir[1]+"* ")
+        mclist =os.system("ls " + string_hadd)
         
         if not test_run:
             out = getoutput(hadd_cmd,'data_'+era+'_'+_dir[0]+'_'+_dir[1])
             for x in out:
-                if "ERROR" in x  or "Error" in x:
+                if "ERROR" in x  or "Error" in x or "error" in x:
                     print ("ERROR found in hadd_cmd=" + hadd_cmd)
                     print (x)
                     sys.exit()
@@ -220,11 +279,11 @@ def merge_mc(test_run,analyser, skim):
 
         local_dir=os.environ['FILE_MERGED_PATH'] +analyser
         if not os.path.exists(local_dir):
-            os.mkdir(local_dir)
+            os.system('mkdir ' +local_dir)
 
         local_dir=os.environ['FILE_MERGED_PATH'] +analyser + "/" +era
         if not os.path.exists(local_dir):
-            os.mkdir(local_dir)
+            os.system('mkdir ' + local_dir)
 
         out_file=local_dir+"/"+analyser+skim+"_MC.root"
         if os.path.exists(out_file):
@@ -243,7 +302,7 @@ def merge_mc(test_run,analyser, skim):
         if not test_run:
             out = getoutput(hadd_cmd,'')
             for x in out:
-                if "ERROR" in x  or "Error" in x:
+                if "ERROR" in x  or "Error" in x or "error" in x:
                     print ("ERROR found in hadd_cmd=" + hadd_cmd)
                     print (x)
                     sys.exit()
@@ -262,12 +321,30 @@ def merge_data_setup(_isTest,_analyser_name,_skim_name):
     print ('---'*30)
     print (' ')
 
-    if analyser_name == "FakeRateHN":
-        merge_data(_isTest,_analyser_name,_skim_name,"Electron", [["/","SingleElectron_"]])
-        merge_data(_isTest,_analyser_name,_skim_name,"Muon",     [["SingleMuon"], ["SingleMuon"], ["SingleMuon"], ["SingleMuon"]])
+
+    if analyser_name =="HNL_DileptonCR":
+        merge_data(_isTest,_analyser_name,_skim_name,"Electron", [["","_DoubleEG"],["","_DoubleEG"],["","_DoubleEG"],["","_EGamma"]])
+        merge_data(_isTest,_analyser_name,_skim_name,"Muon",     [["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"]])
+        merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_Electron",   [["/RunFake__/","_DoubleEG"],["/RunFake__/","_DoubleEG"],["/RunFake__/","_DoubleEG"],["/RunFake__/","_EGamma"]])
+        merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_Muon",       [["/RunFake__/","_DoubleMuon"],["/RunFake__/","_DoubleMuon"],["/RunFake__/","_DoubleMuon"],["/RunFake__/","_DoubleMuon"]])
+
+        merge_data(_isTest,_analyser_name,_skim_name,"CF",     [["/RunCF__/","_DoubleEG"],["/RunCF__/","_DoubleEG"],["/RunCF__/","_DoubleEG"],["/RunCF__/","_EGamma"]])
+
+        time.sleep(30)
+        merge_data_flavour(_isTest,_analyser_name,_skim_name , "Lepton", ["Muon","Electron"])
+        time.sleep(30)
+        
+    if analyser_name =="FakeRateHNUnPrescaled":
+        merge_data(_isTest,_analyser_name,_skim_name,"Electron", [["","_SingleElectron"],["","_SingleElectron"],["","_SingleElectron"],["","_EGamma"]])
+        merge_data(_isTest,_analyser_name,_skim_name,"Muon",     [["","_SingleMuon"],["","_SingleMuon"],["","_SingleMuon"],["","_SingleMuon"]])
+
+    if analyser_name =="FakeRateHN":
+        merge_data(_isTest,_analyser_name,_skim_name,"Electron", [["","_DoubleEG"],["","_DoubleEG"],["","_DoubleEG","_SingleElectron"],["","_EGamma"]])
+        merge_data(_isTest,_analyser_name,_skim_name,"Muon",     [["","_DoubleMuon"],["","_DoubleMuon"],["","_SingleMuon","_DoubleMuon"],["","_SingleMuon","_DoubleMuon"]])
+
         merge_data_flavour(_isTest,_analyser_name,_skim_name , "Lepton", ["Muon","Electron"])
 
-    elif analyser_name == "HNL_Validation":
+    if analyser_name == "HNL_Validation":
         
         merge_data(_isTest,_analyser_name,_skim_name,"Electron",   [["/","_SingleElectron"],["/","_SingleElectron"],["/","_SingleElectron"],["/","_EGamma"]])
         merge_data(_isTest,_analyser_name,_skim_name,"Muon",       [["/","_SingleMuon"],["/","_SingleMuon"],["/","_SingleMuon"],["/","_SingleMuon"]])
@@ -288,6 +365,7 @@ import argparse
 parser = argparse.ArgumentParser(description='option')
 parser.add_argument('--Data', action='store_true')
 parser.add_argument('--MC', action='store_true')
+parser.add_argument('--FullRun2', action='store_true')
 parser.add_argument('--mergeFlavour', action='store_true')
 parser.add_argument('--Test', action='store_true')
 parser.add_argument('--SYNC', action='store_true')
@@ -314,22 +392,20 @@ if analyser_name == "NULL":
 
 if args.SYNC:
     rsync_tamsa(analyser_name)
+
+
 if args.NoMerge:
     exit()
-    
+
+
+if args.MC:
+    merge_mc(isTest,analyser_name,skim_name)
+
 if isData:
     merge_data_setup(isTest,analyser_name,skim_name)
     merge_2016(isTest,analyser_name,skim_name)
     
-elif args.MC:
-    merge_mc(isTest,analyser_name,skim_name)
-
-    
-else:
-    
-    merge_data_setup(isTest,analyser_name,skim_name)
-    merge_2016(isTest,analyser_name,skim_name)
-    merge_mc(isTest,analyser_name,skim_name)
+if args.FullRun2:
     merge_all_years(isTest,analyser_name,skim_name )
 
 

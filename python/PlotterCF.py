@@ -226,7 +226,6 @@ class Plotter:
       if not h_Data:
         print (Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root missing ' +Region.Name+'/'+Hist_Name+'_'+Region.Name)
         print (Hist_Name+'_'+Region.Name+'.pdf ==> No data, skipped')
-        print ('---- ' + Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root')
         continue
       data_integral=h_Data.Integral()
       data_error  = ctypes.c_double(0.)
@@ -287,9 +286,8 @@ class Plotter:
 
           ## Scale
           MCSF, MCSFerr = 1., 0.
-          #if self.ScaleMC:
-          #  if "DYJets" in Sample:
-          MCSF= mylib.GetNormSF(SampleGroup.Year, Region.Name)
+          if self.ScaleMC:
+              MCSF = mylib.GetNormSF(SampleGroup.Year, Sample)
 
           h_Sample.Scale( MCSF )
 
@@ -359,7 +357,6 @@ class Plotter:
       run_latex.write(latex_command + '\n')
       run_latex.write(dvi_command + '\n')
       run_latex.write(mv_command + '\n')
-      print(mv_command)
       run_latex.write('rm Cutflow'+Region.Name+'.aux\n')
       #run_latex.write('rm Cutflow'+Region.Name+'.tex\n')
       run_latex.write('rm Cutflow'+Region.Name+'.dvi\n')
@@ -368,6 +365,7 @@ class Plotter:
       run_latex.close()
 
       print ('Table ==> ' + Outdir + '/Cutflow'+Region.Name+'.pdf')
+
 
 
 
@@ -383,7 +381,7 @@ class Plotter:
       print ('## Drawing '+Region.Name)
 
       ## Read binning data
-      Rebins, XaxisRanges = self.ReadBinningInfo(Region.Name)
+      #Rebins, XaxisRanges = self.ReadBinningInfo(Region.Name)
 
       ## Input/Output directotry
       Indir = self.InputDirectory
@@ -403,15 +401,9 @@ class Plotter:
       for Variable in self.VariablesToDraw:
 
         ## BinInfo
-        nRebin = 5
-        if len(Rebins) > 0:
-          print(Variable.Name + ' rebinning to ' + str(Rebins[Variable.Name]))
-          nRebin = Rebins[Variable.Name]
-        xMin= 0
-        xMax=100000.
-        if Variable.Name in XaxisRanges:
-          xMin = XaxisRanges[Variable.Name][0]
-          xMax = XaxisRanges[Variable.Name][1]
+        nRebin = 1#Rebins[Variable.Name]
+        xMin = 0#XaxisRanges[Variable.Name][0]
+        xMax = 10#XaxisRanges[Variable.Name][1]
         yMax = -999
 
         if self.DoDebug:
@@ -420,11 +412,6 @@ class Plotter:
 
         ## xtitle
         xtitle = Variable.TLatexAlias
-        if Variable.Name=="NCand_Mass":
-          if "Resolved" in Region.Name:
-            xtitle = "m_{ljj} (GeV)"
-          else:
-            xtitle = "m_{lJ} (GeV)"
 
         ## Save hists
         ## For legend later..
@@ -439,6 +426,10 @@ class Plotter:
           print (Variable.Name+'_'+Region.Name+'.pdf ==> No data, skipped')
           continue
 
+        list_x_binlabel = []
+        for x in range(1, h_Data.GetNbinsX()+1):
+          list_x_binlabel.append(h_Data.GetXaxis().GetBinLabel(x))
+          
         ## Make overflow
         h_Data.GetXaxis().SetRangeUser(xMin,xMax)
         h_Data = mylib.MakeOverflowBin(h_Data)
@@ -546,8 +537,8 @@ class Plotter:
               MCSF, MCSFerr = 1., 0.
               if self.ScaleMC:
                 ## now, only for DY
-                if "DYJets" in Sample:
-                  MCSF, MCSFerr = mylib.GetDYNormSF(SampleGroup.Year, Region.Name)
+                MCSF = mylib.GetNormSF(SampleGroup.Year, Sample)
+
               h_Sample.Scale( MCSF )
 
               ## Manual systematic
@@ -818,7 +809,7 @@ class Plotter:
 
         h_dummy_down = ROOT.TH1D('h_dumy_down', '', nBin, xBins)
         h_dummy_down.GetYaxis().SetRangeUser(0.,2.0)
-
+        
         if ('DYCR' in Region.Name):
           h_dummy_down.GetYaxis().SetRangeUser(0.70,1.30)
         if ('DYCR2' in Region.Name):
@@ -834,7 +825,11 @@ class Plotter:
             #h_dummy_down.GetYaxis().SetRangeUser(0.0,2.0)
 
         h_dummy_down.SetNdivisions(504,"Y")
-        h_dummy_down.GetXaxis().SetRangeUser(xMin, xMax)
+        ibin=1
+        for x in list_x_binlabel:
+          h_dummy_down.GetXaxis().SetBinLabel(ibin, x)
+          ibin=ibin+1
+          
         h_dummy_down.GetXaxis().SetTitle(xtitle)
         h_dummy_down.GetYaxis().SetTitle("#frac{Data}{Sim.}")
         h_dummy_down.SetFillColor(0)
@@ -915,6 +910,7 @@ class Plotter:
           h_Data.Draw("phistsame")
           gr_Data.Draw("p0same")
 
+          
         #### 2020/10/14 For the ARC comments
         #for ix in range(0,h_Data.GetXaxis().GetNbins()):
         #  iBin = ix+1

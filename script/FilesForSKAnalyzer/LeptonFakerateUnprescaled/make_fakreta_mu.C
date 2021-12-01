@@ -36,7 +36,7 @@ void make_fakreta_mu(int era){
   /// Set Plotting style
   setTDRStyle();   gStyle->SetPalette(1);
     
-  TString outfile = "rootfiles/HNL_FakeRate_Muon_"+s_era+".root";
+  TString outfile = "rootfiles/HNL_FakeRate_UnPrescaled_Muon_"+s_era+".root";
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   
   std::vector<TString> electron_ids ={                                    "HNTightV1",
@@ -74,7 +74,7 @@ void make_fakreta_mu(int era){
 	
 	TString name = i+"_"+k;
 	
-	TH2F* file_fake_rate = (TH2F*)hist_pt_num->Clone((name+"_AwayJetPt"+j).Data());
+	TH2F* file_fake_rate = (TH2F*)hist_pt_num->Clone((name+"_UnPrescaled_AwayJetPt"+j).Data());
 	file_fake_rate->Add(hist_mcpt_num,-1.);
 	
 	TH2F* hratedenom = (TH2F*)hist_pt_denom->Clone((name +"_denom").Data());

@@ -338,6 +338,22 @@ def GetSignalXsec(filepath,  mN):
       return float(words[1])
   print ('Xsec not found for mN=%d'%(mN))
 
+
+
+def GetNormSF(DataYear, sample):
+
+  WORKING_DIR = os.environ["PLOTTER_WORKING_DIR"]
+  CorrFile = WORKING_DIR + '/data/Run2UltraLegacy_v2_Default/'+str(DataYear)+'/MCSF.txt'
+
+  lines = open(CorrFile).readlines()
+  MCSF=1.
+  for line in lines:
+    words = line.strip('\n').split()
+    if words[0] == sample:
+      MCSF = words[1]
+      
+  return float(MCSF)
+
 def GetKFactor(mN, Era='2016preVFP', lepch=0):
 
   ##==== lepch : 0=ee, 1=mm, 2=em

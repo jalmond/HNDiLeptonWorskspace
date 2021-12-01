@@ -24,10 +24,10 @@ void make_fakreta_el(int era){
   else return;
     
   TString ENV_FILE_PATH= (getenv("FILE_MERGED_PATH"));
-  TString skim_name = "SkimTree_HNFake";
+  TString skim_name = "";
   TString analyzername = "FakeRateHN";
-  TString data_path=  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+"_"+skim_name+"_"+dataset+"_data.root";
-  TString mc_path  =  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+"_"+skim_name+"_MC.root";
+  TString data_path=  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+"_"+skim_name+"data_"+dataset+".root";
+  TString mc_path  =  ENV_FILE_PATH + "/"+analyzername+"/"+s_era+"/"+analyzername+"_"+skim_name+"MC.root";
   /// Set Plotting style
   setTDRStyle();   gStyle->SetPalette(1);
     
@@ -65,8 +65,8 @@ void make_fakreta_el(int era){
     for(auto j : jetpt){
       for(auto k : ptlabel){
             
-	TString denom = "LooseElEE_" + i +"_"+j+"_"+k;
-	TString num   = "TightElEE_" + i +"_"+j+"_"+k;
+	TString denom = "Fake_LooseEE_" + i +"_EE_"+j+"_"+k;
+	TString num   = "Fake_TightEE_" + i +"_EE_"+j+"_"+k;
 
 	cout << denom << " " << num << endl;
 	TH2F* hist_pt_num    = (TH2F*)fdata->Get(num.Data()  );

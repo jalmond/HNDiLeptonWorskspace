@@ -2,8 +2,62 @@
 #include "Macros.h"
 #include "mylib.h"
 #include "canvas_margin.h"
+#include <fstream>
 
-void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel="EE"){ 
+
+void GetSignalOverB_combinedSR_IDMAIN(vector<TString> IDs, TString _y = "2016",TString isotag="_iso_", TString suffix="ipB", TString smass="100", double mass=100, TString channel="EE");
+std::vector<TString>	GetIDList();
+
+void GetSignalOverB_combinedSR_ID(){
+
+  vector<TString> years={"2016"};//,"2017","2018"};
+  
+  for (auto y : years) {
+    vector <TString> masses = {"100"};//,"500","1000"};                                                                                                                                    
+    vector <double> d_masses = {100.};//,500.,1000.};                                                                                                                                       
+
+    vector<TString> IDnames = GetIDList();
+    return;
+    for(int i = 0; i <  masses.size(); i++){
+      GetSignalOverB_combinedSR_IDMAIN(IDnames,y,"", "FullOpt_iso", masses[i], d_masses[i]);
+      //GetSignalOverB_combinedSR_IDMAIN(IDnames,y,"", "FullOpt_Miniiso", masses[i], d_masses[i]);
+      
+    }
+  }
+
+}
+
+
+std::vector<TString> GetIDList(){
+
+  TString ENV_MERGEDFILE_PATH = getenv("FILE_MERGED_PATH");
+  TString analysername="HNL_IDOpt" ;
+  
+  TString promptpath1 = ENV_MERGEDFILE_PATH+ analysername + "/2016/"+analysername+"_SkimTree_HNMultiLep_DoubleMuon.root";
+  cout << promptpath1 << endl;
+  vector<TString> IDs;
+  
+  return IDs;
+  
+  TFile * _file1 = new TFile(promptpath1);
+  TH1* h_id  = (TH1*)_file1->Get("FillEventCutflow/Fullopt_testhist_events");
+
+
+  for(unsigned int i=1 ; i < h_id->GetNbinsX()+1; i++){
+
+    TString hname = h_id->GetXaxis()->GetBinLabel(i);
+    IDs.push_back(hname);
+    if(! (i % 1000)) cout << hname << " i " << i << endl;
+  }
+
+
+  cout << "Number of IDs = " << IDs.size() << endl;
+
+  return IDs;
+
+}
+
+void GetSignalOverB_combinedSR_IDMAIN(vector<TString> IDs, TString _y = "2016",TString isotag="_iso_",TString suffix="ipB",TString smass, double mass, TString channel="EE"){ 
 
   bool debug(true);
   // basic declarations 
@@ -12,6 +66,8 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
   // check which pc is running script to setup local paths
   TString s_hostname = GetHostname();
 
+  ofstream myfile;
+  myfile.open (_y+suffix+smass+isotag+".txt");
   
   vector<TString> code_names= {"HNDilepton"};
 
@@ -34,7 +90,7 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
   output+="/Combined/";              MakeDir(output);
   output+="SignalRegions/";          MakeDir(output);
 
-  cout << "GetSignalEfficiency_combinedSR::LOG Output dir = " << output << endl;
+  myfile << "GetSignalEfficiency_combinedSR::LOG Output dir = " << output << endl;
   
   if(s_hostname == "JohnMB2018s-MacBook-Pro.local")    input_path = "/Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/";
 
@@ -56,11 +112,9 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
   vector<TString> PTBins = {"_HighPt","_LowPt"};
 
 
-  vector<TString> IDs = {};  
-  
-  vector <TString> masses = {"100"};//,"300","500","1000"};
-  vector <double> d_masses = {100.};//,300.,500.,1000.};
-  
+  vector <TString> masses = {smass};//,"300","500","1000"};
+  vector <double> d_masses = {mass};//,300.,500.,1000.};
+  if (mass == 0.) d_masses = {100., 300.};
   TString _channel = channel;
   
   // hist leg
@@ -73,10 +127,10 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
   TString promptpath1 = ENV_MERGEDFILE_PATH+ analysername+"/2016/"+analysername+"_SkimTree_SSHN_Muon.root";
   if(channel=="EE") promptpath1 = ENV_MERGEDFILE_PATH+ analysername+"/2016/"+analysername+"_SkimTree_SSHN_DoubleEG.root";
 
-  cout << "---------------------------------------------------------" << endl;
-  cout << "Channel : " << channel << " , datafile = " << promptpath1 << endl;
-  cout << "---------------------------------------------------------" << endl;
-  cout << "Is this correct? Type Y if correct. " << endl;
+  myfile << "---------------------------------------------------------" << endl;
+  myfile << "Channel : " << channel << " , datafile = " << promptpath1 << endl;
+  myfile << "---------------------------------------------------------" << endl;
+  myfile << "Is this correct? Type Y if correct. " << endl;
 
   if(!debug){
     cin >> input_user ;
@@ -85,56 +139,21 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
   }
   
   TFile * _file1 = new TFile(promptpath1);
-  TDirectory* _dir1 = _file1->GetDirectory("PreselEEYields");
-  TList* list1 = _dir1->GetListOfKeys() ;
-  TIter next(list1) ;
-  TKey* key1 ;
-  TObject* obj1 ;
-
-  vector<TString> histlist;
   
-  cout << "---------------------------------------------------------" << endl;
-  cout << "List of signals = " << endl;
+  myfile << "---------------------------------------------------------" << endl;
+  myfile << "List of signals = " << endl;
   vector<TString> years={"2016","2017","2018"};
   if (_y != "") years = {_y};
   for (auto y : years)  for (auto im : masses) {
       TString sigpathS = ENV_MERGEDFILE_PATH+ "/"+analysername+"/"+y+"/SIG/"+analysername+"_DYTypeI_SS_"+_channel+"_M"+im+".root";
-      cout << sigpathS << endl;
+      myfile << sigpathS << endl;
     }
   
-  cout << "Is this correct? Type Y if correct. " << endl;
+  myfile << "Is this correct? Type Y if correct. " << endl;
   if(!debug){
     cin >> input_user ;
     if( TString(input_user) != "Y") return;
   }
-  while ( (key1 = (TKey*)next()) ) {
-    obj1 = key1->ReadObj() ;
-    TString hname = obj1->GetName();
-    TString objname= obj1->ClassName();
-
-
-    if(!hname.Contains(suffix)) continue;
-    histlist.push_back(hname);
-
-    cout << hname << endl;
-    if(!hname.Contains("LowPt")) continue;
-    if(!hname.Contains("SR2")) continue;
-    
-    
-
-    hname = hname.ReplaceAll("_HighPt","");
-    hname = hname.ReplaceAll("_LowPt","");
-    hname = hname.ReplaceAll("presel_EE_same_sign_SR2_njets_HNDilepton_EE_","");
-    hname = hname.ReplaceAll("presel_EE_same_sign_SR1_njets_HNDilepton_EE_","");
-    hname = hname.ReplaceAll("presel_EE_same_sign/","");
-	
-    IDs.push_back(hname);
-  }
-
-  cout << "Number of IDs  = " << IDs.size() << endl;
-
-
-  //* Loop over years 2-16/17/18
 
   
   vector<double> binvalues;
@@ -144,7 +163,8 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
   
   //-- Simply naming the 2D histogram
   TString histlabel= _channel +  +"_highmass_"+analysername;
-  TH2D* hist2 = new TH2D(histlabel,histlabel,masses.size()+1,0,masses.size()+1., IDs.size(),0., IDs.size());
+
+  //  TH2D* hist2 = new TH2D(histlabel,histlabel,masses.size()+1,0,masses.size()+1., IDs.size(),0., IDs.size());
 
   //-- create map with ID/mass punzi value and string connected 
   map<double, TString> map_punzi;
@@ -161,50 +181,45 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
 
 	if(ptbin == "_LowPt" && _sr == "SR2") continue;
 	
-	//if(d_masses[i] <= 200. &&  _sr == "SR2") continue;
-	//if(d_masses[i] >= 1000. &&  _sr == "SR1") continue;
-	//if(d_masses[i] >= 300. &&  ptbin == "_LowPt") continue;
-	
-
 	//-- vector of IDvalues
 	vector<double> IDvalues;	
 
 	//-- Make string for data file
-	TString promptpath = ENV_MERGEDFILE_PATH+ analysername+"/"+year+"/"+analysername+"_SkimTree_SSHN_Muon.root";
-	if(channel=="EE") promptpath = ENV_MERGEDFILE_PATH+ analysername+"/"+year+"/"+analysername+"_SkimTree_SSHN_DoubleEG.root";
+	TString promptpath = ENV_MERGEDFILE_PATH+ analysername+"/"+year+"/"+analysername+"_SkimTree_SSHN_DoubleEG.root";
 	if(channel=="EE"&&year=="2018") promptpath = ENV_MERGEDFILE_PATH+ analysername+"/"+year+"/"+analysername+"_SkimTree_SSHN_EGamma.root";
 	
 	TFile * file_prompt = new TFile((promptpath).Data());
 
 	
 	//**** loop over IDs to get integrate hists
+
+	
+	TString n_sr_hist ="PreselEEYields/"+suffix+ptbin+"_"+_sr+"_events";
+	TString n_sr_hist_def ="PreselEEYields/FullOpt_StandardIDs"+ptbin+"_"+_sr+"_events";
+	
+	//-- access histogram in bkg file                                                                                                                                    
+	cout << n_sr_hist << endl;
+	TH1D* hpass = (TH1D*)(file_prompt->Get(n_sr_hist));
+	TH1D* hpass2 = (TH1D*)(file_prompt->Get(n_sr_hist_def));
+	hpass->Add(hpass2);
+	  
 	int id_counter(0);
-	for(auto _id : IDs){
+	for(unsigned int ibin=1; ibin  < IDs.size()+1; ibin++){
 	  id_counter++;
-
-	  //-- set Y axis label of 2D hist
-	  hist2->GetYaxis()->SetBinLabel(id_counter, _id);
-
-	  //-- Get hist name for current histogram
-	  TString n_sr_hist ="preselMuMu_same_sign/preselMuMu_same_sign_"+_sr+"_njets_HNDilepton_"+channel+"_"+_id+ptbin;
-	  if(channel=="EE")n_sr_hist ="presel_EE_same_sign/presel_EE_same_sign_"+_sr+"_njets_HNDilepton_"+channel+"_"+_id+ptbin;
-
-	  //-- access histogram in bkg file
-	  TH1D* hpass = (TH1D*)(file_prompt->Get(n_sr_hist));
-
-	  //-- get bkg number from hist
-	  double total_p = hpass->Integral();
+	  
+	  double total_p = hpass->GetBinContent(ibin);
 	  double total_b = sqrt(total_p);
 
 	  //-- useful OUTPUT message showing ID and sqrtB
-	  cout << _sr << " " << ptbin << " : " <<  id_counter << " / " << IDs.size() << " "  << _id << " sqrt B = "  << total_b << endl;
+	  myfile << _sr << " " << ptbin << " : " <<  id_counter << " / " << IDs.size() << " "  << IDs[id_counter-1] << " sqrt B = "  << total_b << endl;
+	  cout  << _sr << " " << ptbin << " : " <<  id_counter << " / " << IDs.size() << " "  << IDs[id_counter-1] << " sqrt B = "  << total_b << endl;
 	  IDvalues.push_back(total_b);
 	  //-- IDvalues  contains bkg numbers for this SR/ptbin  
-
+	  
 	}//**** END ID loop
+	
       
-
-	//-- ibin int keeps track of 2D bin number                                                                                                                                                                
+	//-- ibin int keeps track of 2D bin number                                                                                                                                                              
 	int ibin(0);
 	
 	//**** Loop over the masses 
@@ -219,12 +234,14 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
 	  double total_mass_value(0.);
 
 	  //-- set x axis label
-	  hist2->GetXaxis()->SetBinLabel(mass_counter, im);
+	  //hist2->GetXaxis()->SetBinLabel(mass_counter, im);
 
 
 	  ///-- Get signal file
 	  TString sigpathS = ENV_MERGEDFILE_PATH+ "/"+analysername+"/"+year+"/SIG/"+analysername+"_DYTypeI_SS_"+_channel+"_M"+im+".root";
+	  //TString sigpathT = ENV_MERGEDFILE_PATH+ "/"+analysername+"/"+year+"/SIG/"+analysername+"_VBFTypeI_SS_"+_channel+"_M"+im+".root";
 	  TFile * filemm = new TFile((sigpathS).Data());
+	  //TFile * filemmT = new TFile((sigpathT).Data());
 
 	  //-- Check file is ok to read IF not set mass value to 0.
 	  if(CheckFile(filemm) > 0) {
@@ -240,37 +257,48 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
 	  //***** loop over IDs for this signal mass
 	  
 	  int sig_id_counter(0);
-	  for(auto _id : IDs){
+
+
+	  TH1D* hsigS = (TH1D*)(filemm->Get(n_sr_hist));
+	  TH1D* hsigS2 = (TH1D*)(filemm->Get(n_sr_hist_def));
+	  if(hsigS)	  hsigS->Add(hsigS2);
+	  //	  if(im != "100") {
+	  // //TH1D* hsigT = (TH1D*)(filemmT->Get(n_sr_hist));
+	  //TH1D* hsigT2 = (TH1D*)(filemmT->Get(n_sr_hist_def));
+	    //  hsigS->Add(hsigT2);
+	    // }
+
+	  
+	  for(unsigned int ibin=1; ibin  < IDs.size()+1; ibin++){
+
+	    TString _id = IDs[ibin-1];
+
 	    sig_id_counter++;
 
 	    ///-- set histogram name for signal
-	    TString n_sr_hist ="preselMuMu_same_sign/preselMuMu_same_sign_"+_sr+"_njets_HNDilepton_"+channel+"_"+_id+ptbin;
-	    if(channel=="EE")n_sr_hist ="presel_EE_same_sign/presel_EE_same_sign_"+_sr+"_njets_HNDilepton_"+channel+"_"+_id+ptbin;
 
 	    //-- Get number of signal events
 	    float nsig= 1.;
-	    TH1D* hpass1 = (TH1D*)(filemm->Get(n_sr_hist));
-
+	    
 	    double err ;  double  punzi = 0.;
-	    if(hpass1){
+	    if(hsigS){
       
-	      hpass1->IntegralAndError(1, hpass1->GetNbinsX()+1, err    , "");
-	      punzi = (IDvalues[sig_id_counter-1] > 0) ?  ((hpass1->Integral()) /(nsig)) /IDvalues[sig_id_counter-1] : 0.;
+	      float nsig= hsigS->GetBinContent(ibin);
+	      punzi = (IDvalues[sig_id_counter-1] > 0) ?  (nsig) /IDvalues[sig_id_counter-1] : 0.;
 	      
 	      //-- useful OUTPUT message showing ID and punzi                                                                                                                                                           
-	      cout << _sr << " " << ptbin << " : " << _id << " " << hpass1->Integral() << " / " << IDvalues[sig_id_counter-1] <<  " punzi =" << punzi<< endl;
+	      myfile << _sr << " " << ptbin << " : " << IDs[sig_id_counter-1] << " " << nsig << " / " << IDvalues[sig_id_counter-1] <<  " punzi =" << punzi<< endl;
+	      cout << _sr << " " << ptbin << " : " << IDs[sig_id_counter-1] << " " << nsig << " / " << IDvalues[sig_id_counter-1] <<  " punzi =" << punzi<< endl;
 	    }
 	    else {
 	      
-	      cout << _sr << " " << ptbin << " : " << _id << " 0.  " << IDvalues[sig_id_counter-1] <<  " " << punzi<< endl;
-	      
-              //cout << "Missing file " << n_sr_hist << " in signal " << endl;
-	      // for(auto _hist : histlist) cout << _hist << endl;
-
+	      myfile << _sr << " " << ptbin << " : " << IDs[sig_id_counter-1] << " 0.  " << IDvalues[sig_id_counter-1] <<  " " << punzi<< endl;
+		      
 	    }
+	    
 	    mass_values.push_back(punzi);
 	    total_mass_value+= punzi;
-
+	    
 	    //map_punzi[punzi] = _id;
 	    map<TString, double>::iterator mit = map_id.find(_id);
 	    if (mit == map_id.end())     map_id[_id]      = punzi;
@@ -281,93 +309,41 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
 	  ///-- close file
 	  filemm->Close();
 	  delete filemm;
-	  
-	  for(unsigned int l = 0 ; l < IDs.size(); l++){
-	    
-	    binvalues[ibin] = binvalues[ibin] + mass_values[l];
-	    ibin++;
-	  }
-	  
+	  //filemmT->Close();
+          //delete filemmT;
+      	  
 	} //**** mass loop
-	hist2->GetXaxis()->SetBinLabel(masses.size()+1, "Sum");
-	
       } //*** ptbin loop
-      
-      
     }//** SR loop
   }
   
   // Now redo histogram to get average
-  int counter(0);
-  
-  //** mass loop
-  int _mass_counter(0);
-  for(auto im : masses){
-    
-    double _average(0.);
-    double _count(0.);
-    _mass_counter++;
-    //*** ID loop
-    int counter_tmp=counter;
-    for(unsigned int l = 0 ; l < IDs.size(); l++){
-      _average+=binvalues[counter_tmp];
-      if(binvalues[counter_tmp] > 0.) _count=_count+1.;
-      counter_tmp++;
-    } //*** ID loop
-    
-    _average=_average/_count;
-    
-    //*** ID loop
-    for(unsigned int l = 0 ; l < IDs.size(); l++){
-      cout << "HIST " << _mass_counter << " " << l+1 << " " << binvalues[counter]/_average << endl;
-      hist2->SetBinContent(_mass_counter, l+1, binvalues[counter]/_average);
-      counter++;
-    }      //*** ID loop
-  }//** mass loop
-  
-  
-  
-  
-  counter=0;
-  double max_punzi = -999.;
-  int _max_id=-1;
-  for(unsigned int l = 0 ; l < IDs.size(); l++){
-    
-    double total_id(0);
-    for(unsigned int i = 0 ; i < masses.size(); ++i){
-	total_id+= hist2->GetBinContent(i+1, l+1);
-	cout << hist2->GetBinContent(i+1, l+1) << endl;
-	counter++;
-    }
-    hist2->SetBinContent(masses.size()+1, l+1, total_id/masses.size());
-    if(total_id/masses.size() > max_punzi) {
-      max_punzi = total_id/masses.size();
-      _max_id = l;
-    }
-  } //** ID loop
-  
   
   for(auto mit : map_id) map_punzi[mit.second] = mit.first;
   
-  cout << " MAX ID = " << IDs[_max_id] << "  " << max_punzi  << endl;
-  
-  for (auto i: map_punzi) cout <<  i.first << " " << i.second << endl;
-  
+  for(auto mit : map_punzi) myfile << mit.second << " s/sqrt(B) = " << mit.first << endl;
+  for(auto mit : map_punzi) cout << mit.second << " s/sqrt(B) = " << mit.first << endl; 
+    
+  //myfile << " MAX ID = " << IDs[_max_id] << "  " << max_punzi  << endl;
+
+
   TString canvasname2="SR12_highmass_njets_"+analysername+"_JA_"+_channel+ptbin+channel;
+  
   TCanvas* c2 = new TCanvas(canvasname2,canvasname2, 800,800);
   c2->cd();
   
   TString outfile = output  +  "/TH2D_"+ptbin+"SR12highmass_signaloverbackground_"+analysername+"_"+_chan+"_"+channel+suffix+_y+".root";
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   
-  hist2->Draw("colztext");
-  hist2->Write();
+  //hist2->Draw("colztext");
+  //hist2->Write();
   
-  TString save_sg= output + "/TH2D_"+ptbin+"SR12highmass_signaloverbackground_"+analysername+"_"+_chan+"_"+channel+suffix+_y+".pdf";
+  TString save_sg= output + "/TH2D_"+ptbin+"SR12highmass_signaloverbackground_"+analysername+"_"+_chan+"_"+channel+suffix+_y+"_mN"+smass+".pdf";
   
   c2->SaveAs(save_sg);
   
-  
+  myfile.close();
+
   return;
       
     
