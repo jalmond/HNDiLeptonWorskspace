@@ -59,6 +59,17 @@ TLegend* MakeRatioLegend( TH1D* h1, TH1D* h2){
 }
 
 
+double GetMax(vector<double> vec){
+
+  double val=-99999999.;
+
+  for (auto i: vec){
+    if(i > val) val = i;
+  }
+  
+  return val;
+}
+
 void    SetupHist(TH1D* hist_data, int rbin, double _max){
   hist_data->Rebin(rbin);
   hist_data->SetLineColor(kBlack);
@@ -71,6 +82,46 @@ void    SetupHist(TH1D* hist_data, int rbin, double _max){
 
 }
 
+void Message(TString message , bool m_debug){
+
+  if(m_debug) cout << message << endl;
+}
+
+double GetBinValue(double value, TH1* h, TString mode){
+
+  if(mode =="RL"){
+    for (Int_t i=h->GetNbinsX(); i > 0 ; i--)  {
+      if(h->GetBinContent(i) < value) return  h->GetBinLowEdge(i);
+    }
+  }
+  if(mode =="LR"){
+    for (Int_t i=1; i < h->GetNbinsX(); i++)  {
+      if(h->GetBinContent(i) < value) return  h->GetBinLowEdge(i);
+    }
+  }
+
+  return -999.;
+}
+
+void GetEfficiencyHist(TH1* h, TH1* h2, TString mode){
+
+  if(mode =="RL"){
+
+    double integral_hist = h->Integral();
+    h->GetYaxis()->SetRangeUser(0.01, 1.1);
+    for (Int_t i=1;i<=h->GetNbinsX()+1;i++)       h->SetBinContent(i, h2->Integral(0, i) / integral_hist);
+    
+  }
+  if(mode =="LR"){
+
+    double integral_hist = h->Integral();
+    h->GetYaxis()->SetRangeUser(0.01, 1.1);
+    for (Int_t i=1;i<=h->GetNbinsX()+1;i++) {
+      h->SetBinContent(i, h2->Integral(i, h2->GetNbinsX()) / integral_hist);
+    }
+
+  }
+}
 
 TH1D* GetDataError(TH1D* h_data, TH1D* h_nominal , TH1D* h_up, TH1D* h_down){
 
@@ -728,6 +779,33 @@ THStack*  MakeStack(TLegend* legend_g,map<TString,vector<TString> > _map, TStrin
 
 
 }
+
+vector<TString> GetListFromKeys(TFile* _file, TString dirname, TString _type){
+
+  vector<TString> vlist;
+  
+  //if(CheckFile(_file) > 0)  return vlist;
+  TDirectory* _dir = _file->GetDirectory(dirname);
+  TList* list = _dir->GetListOfKeys() ;
+  TIter next(list) ;
+  TKey* key ;
+  TObject* obj ;
+
+  while ( (key = (TKey*)next()) ) {
+    obj = key->ReadObj() ;
+    TString hname = obj->GetName();
+    TString objname= obj->ClassName();
+    
+    if(!(objname == _type)) continue;
+
+    hname = hname.ReplaceAll(dirname+"/", "");
+    vlist.push_back(hname);
+
+  }
+
+  return vlist;
+}
+
 vector<TString> GetHistNames(TString file, TString dirname, TString analyzername,TString flavour, TString ID){
 
   cout << "GetHistNames[] "<< endl;
@@ -1472,6 +1550,16 @@ void DrawLatex(TString year){
   else latex_Lumi.DrawLatex(0.72, 0.96, "137.3 fb^{-1} (13 TeV)");
 
 }
+
+void DrawLatexLabel(TString label, float x, float y){
+
+  TLatex channelname;
+  channelname.SetNDC();
+  channelname.SetTextSize(0.03);
+  channelname.DrawLatex(x, y,label);
+
+
+}
 void DrawLatexWithLabel(TString year,TString label, float x, float y){
 
   DrawLatex(year);
@@ -1548,6 +1636,14 @@ bool CheckHist(TFile* file, TString name ){
   return true;
 }
 
+
+void NormHist(TH1* hist){
+
+  hist->Scale(1./ hist->Integral());
+
+}
+
+
 TH1D* GetHist(TFile* file, TString name , bool return_void=true, bool debug=false){
   
   TString name_fix = name;
@@ -1619,6 +1715,138 @@ TH1D* GetHist(TFile* file, TString name , bool return_void=true, bool debug=fals
   return h;
   
   
+}
+
+void PrintBins(TString histname, TH1* h){
+
+  cout << "############################################"<<endl;
+  cout << "Print out for " << histname << endl;
+  cout << "############################################"<<endl;
+
+  TAxis *axis = h->GetXaxis();
+
+  cout << "Number of bins = " <<  axis->GetNbins() << endl;
+  double _sumerr(0.);
+  for(unsigned int i=0; i < axis->GetNbins()+1 ; i++){
+
+    Double_t xmin = axis->GetBinLowEdge(i);
+    Double_t xmax = axis->GetBinLowEdge(i+1);
+    if(h->GetBinContent(i) != 0.)cout << "Bin " << i << "  boundary " << xmin << " - " <<  xmax << " value = " << h->GetBinContent(i) << " error = " << h->GetBinError(i) <<  " error % = " << 100*h->GetBinError(i)/h->GetBinContent(i) << endl;
+    if(h->GetBinContent(i) > 0.)_sumerr+= h->GetBinError(i)/h->GetBinContent(i);
+  }
+  cout << "############################################"<<endl;
+  cout << "Sum error ("<< histname <<") = " << _sumerr/axis->GetNbins() << endl;
+  cout << " " << endl;
+
+}
+
+TString GetCutDir(TString var){
+
+  if (var.Contains("mva")) return "LR";
+  
+  return "RL";
+}
+
+vector<double> GetLowStatRebin(TH1* hist, bool rebinsmart){
+
+  double threshold_bin_stat = 0.2;
+  
+  TAxis *axis = hist->GetXaxis();
+  
+  vector<double> new_xbins;
+
+  double t_err=0.;
+  double t_val=0.;
+  for(Int_t i=1; i< axis->GetNbins()+1; i++){
+
+    Double_t xmin = axis->GetBinLowEdge(i);
+
+    if(!rebinsmart) {      new_xbins.push_back(xmin); continue;}
+
+    if(i==1) {
+      new_xbins.push_back(xmin);
+
+      continue;
+    }
+    if(i==axis->GetNbins())       {
+      Double_t xmax = axis->GetBinLowEdge(i+1);
+      new_xbins.push_back(xmax);
+
+      continue;
+    }
+
+    double err = hist->GetBinError(i);
+    double val = hist->GetBinContent(i);
+    
+    if(val <= 0.) continue;
+
+    t_err = sqrt(t_err*t_err+err*err);
+    t_val = t_val+val;
+    double err_val = t_err/t_val;
+    if(err_val > threshold_bin_stat) continue;
+    t_err=0;
+    t_val=0;
+    new_xbins.push_back(xmin);
+  }
+  
+  return new_xbins;
+}
+
+TH1D* RebinStat(TH1D* hist, TString tag){
+
+  double threshold_bin_stat = 0.1;
+
+  TAxis *axis = hist->GetXaxis();
+
+  Double_t new_xbins[1000];
+  int k=0;
+  for(Int_t i=0; i< axis->GetNbins(); i++){
+
+    Double_t xmin = axis->GetBinLowEdge(i);
+
+    if(i==0) {
+      new_xbins[k] = xmin;
+      k++;
+      continue;
+    }
+    double err = hist->GetBinError(i);
+    double val = hist->GetBinContent(i);
+
+    
+    if(err/val > threshold_bin_stat) continue;
+
+    new_xbins[k] = xmin;
+    k++;
+  }
+
+  
+  TH1D *hnew = (TH1D*)hist->Rebin(k,"hnew"+tag,new_xbins);
+  return hnew;
+  
+}
+
+
+TH1D* GetHistFull(vector<double> newrbins,  TFile* file, TString name, Color_t _linecol=kBlack, Width_t _width = 999, Style_t _style = 999, Color_t _fillcol = kBlack,  bool return_void=true, bool debug=false){
+
+  TH1D* hist_tmp =  GetHist(file, name, return_void, debug);
+
+  Double_t array_newrbins[newrbins.size()];
+  for(unsigned int i=0; i < newrbins.size() ; i++) array_newrbins[i] = newrbins[i];
+
+  TH1D* hist;
+
+  bool rebin=true;
+  if(newrbins.size() < 3) rebin = false;
+  
+  if(rebin) hist = (TH1D*)hist_tmp->Rebin(newrbins.size()-1, name+"rebin", array_newrbins);
+  else hist = hist_tmp;
+
+  if(_linecol != kBlack) hist->SetLineColor(_linecol);
+  if(_fillcol != kBlack) hist->SetFillColor(_fillcol);
+  if(_width != 999) hist->SetLineWidth(_width);
+  if(_style != 999) hist->SetLineStyle(_style);
+
+  return hist;
 }
 
 double GetSignalIntegral( double mass, TString year, TString sigpath,  TString n_sr_hist, TString hist_all){
