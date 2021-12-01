@@ -21,6 +21,9 @@
 //using namespace std;
 
 int CheckFile(TFile* f){
+
+  cout << "########################"<< endl;
+  cout << "Check file: " << f->GetName() << endl;
   if (f->IsZombie()) return 1;
   if (f->TestBit(1024)) return 2;
 

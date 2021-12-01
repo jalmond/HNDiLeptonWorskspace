@@ -1,3 +1,12 @@
-hadd Target file: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles//HNDilepton/2018/HNDilepton_SkimTree_SSHN_SingleMuon.root
+hadd Target file: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles//HNDilepton/2016/HNDilepton_SkimTree_SSHN_DoubleEG.root
 hadd compression setting for all output: 1
-hadd Source file 1: /Users/john/HNDiLeptonWorskspace/Files//HNDilepton/2018/isSingleMu__/DATA/HNDilepton_SkimTree_SSHN_SingleMuon*
+hadd Source file 1: /Users/john/HNDiLeptonWorskspace/Files//HNDilepton/2016/isEE__/DATA/HNDilepton_SkimTree_SSHN_DoubleEG.root
+hadd Source file 2: /Users/john/HNDiLeptonWorskspace/Files//HNDilepton/2016/isEE__/DATA/HNDilepton_SkimTree_SSHN_DoubleEG_B_ver2.root
+hadd Source file 3: /Users/john/HNDiLeptonWorskspace/Files//HNDilepton/2016/isEE__/DATA/HNDilepton_SkimTree_SSHN_DoubleEG_C.root
+hadd Source file 4: /Users/john/HNDiLeptonWorskspace/Files//HNDilepton/2016/isEE__/DATA/HNDilepton_SkimTree_SSHN_DoubleEG_D.root
+hadd Source file 5: /Users/john/HNDiLeptonWorskspace/Files//HNDilepton/2016/isEE__/DATA/HNDilepton_SkimTree_SSHN_DoubleEG_E.root
+hadd Source file 6: /Users/john/HNDiLeptonWorskspace/Files//HNDilepton/2016/isEE__/DATA/HNDilepton_SkimTree_SSHN_DoubleEG_F.root
+hadd Source file 7: /Users/john/HNDiLeptonWorskspace/Files//HNDilepton/2016/isEE__/DATA/HNDilepton_SkimTree_SSHN_DoubleEG_G.root
+hadd Source file 8: /Users/john/HNDiLeptonWorskspace/Files//HNDilepton/2016/isEE__/DATA/HNDilepton_SkimTree_SSHN_DoubleEG_H.root
+hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles//HNDilepton/2016/HNDilepton_SkimTree_SSHN_DoubleEG.root:/
+hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles//HNDilepton/2016/HNDilepton_SkimTree_SSHN_DoubleEG.root:/FillEventCutflow

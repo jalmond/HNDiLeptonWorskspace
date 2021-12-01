@@ -3,7 +3,7 @@
 #include "mylib.h"
 #include "canvas_margin.h"
 
-void ElectronPlots(TString year = "2016"){
+void ElectronTypePlotsNoCF(TString year = "2016"){
   
 
   TString skim="SkimTree_SSNonIso";
@@ -60,62 +60,46 @@ void ElectronPlots(TString year = "2016"){
 
   
   // canvas for hists
-  vector<TString> vars = GetListFromKeys(file_mc,"NonFakeel","TH1D");
+  vector<TString> vars = GetListFromKeys(file_mc,"FillEventFullType","TH2D");
 
   
   for (auto var: vars){
     
     TString canvasname= var;
     TCanvas* c1 = new TCanvas(canvasname,canvasname, 800,800);
-    c1->SetLogy();
 
-    TString s_fake = "Fakeel/"+var;
-    TString s_fake_conv = "Fake_Convel/"+var;
+    TString s_mc = "FillEventFullType/"+var;
 
-    // Get TH1 for each type
 
-    TH1* hn_dummy          =  (TH1*)GetHist(file_mc,"NonFakeel/"+var)->Clone("DUMMY");
-    vector<double> newrbins = GetLowStatRebin(hn_dummy);
-    Double_t array_newrbins[newrbins.size()];
-    
-    TH1* hn_nonfake        = GetHistFull(newrbins, file_mc,"NonFakeel/"+var, kRed, 3.);
-    TH1* hn_nonfake_cf     = GetHistFull(newrbins,file_mc,"NonFake_CFel/"+var, kGreen, 3.);
-    TH1* hn_nonfake_conv   = GetHistFull(newrbins,file_mc,"NonFake_Convel/"+var, kBlue, 3.);
-    TH1* hn_nonfake_cfconv = GetHistFull(newrbins,file_mc,"NonFake_Conv_CFel/"+var, kCyan, 3.);
-    
-    TH1* hn_fake           = GetHistFull(newrbins,file_mc,"Fakeel/"+var, kRed, 3.,7);
-    TH1* hn_fake_conv      = GetHistFull(newrbins,file_mc,"Fake_Convel/"+var, kBlue, 3.,7);
-    // add conversions for fake and non fake due to stats
-    hn_fake_conv->Add(hn_nonfake_conv);
-    
+    TH2D* hn_dummy          =  (TH2D*)file_mc->Get(s_mc);
+    hn_dummy->GetXaxis()->SetTitle("lepton_{1}");
+    hn_dummy->GetYaxis()->SetTitle("lepton_{2}");
 
-    //PrintBins("hn_nonfake_rb",hn_nonfake_rb);
+    double total_hist(0);
+
+    for(unsigned int ix =0; ix  < hn_dummy->GetNbinsX() +1 ; ix++){
+      for(unsigned int iy =0; iy  < hn_dummy->GetNbinsY() +1 ; iy++){
+	if(ix== 8 && iy == 8){ hn_dummy->SetBinContent(ix,iy, 0. ); continue;}
+	total_hist+= hn_dummy->GetBinContent(ix,iy);
+      }
+    }
+
+    for(unsigned int ix =0; ix  < hn_dummy->GetNbinsX() +1 ; ix++){
+      for(unsigned int iy =0; iy  < hn_dummy->GetNbinsY() +1 ; iy++){
+    	
+	hn_dummy->SetBinContent(ix,iy,hn_dummy->GetBinContent(ix,iy)/total_hist);
+	//	hn_dummy->SetBinContent(128, -2.);
+      }
+    }
 
     c1->cd();
 
-    NormHist(hn_nonfake);
-    NormHist(hn_nonfake_cf);
-    NormHist(hn_nonfake_cfconv);
-    NormHist(hn_fake);
-    NormHist(hn_fake_conv);
+    
+    hn_dummy->Draw("colztext");
+
 
     
-    hn_nonfake->Draw("hist");
-    hn_nonfake_cf->Draw("histsame");
-    hn_fake->Draw("histsame");
-    hn_fake_conv->Draw("histsame");
-
-    TLegend *legend = MakeLegend(0.65, 0.75, 0.9, 0.92);
-    legend->AddEntry(hn_nonfake,"NonFake El","l");
-    legend->AddEntry(hn_fake,"Fake El","l");
-    legend->AddEntry(hn_nonfake_cf, "CF El","l");
-    legend->AddEntry(hn_fake_conv,"Convertion el","l");
-    
-    legend->Draw();
-    
-    setTDRStyle();
-    
-    TString save_sg= output + "/"+var+ "_"+year+".pdf";
+    TString save_sg= output + "/FullType"+var+ "_"+year+"NoCF.pdf";
     
     c1->SaveAs(save_sg);
 

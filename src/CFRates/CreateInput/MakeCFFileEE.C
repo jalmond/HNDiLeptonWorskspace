@@ -48,6 +48,15 @@ void MakeCFFileEE(TString year,TString dataset="Electron"){
   //  fakes40.push_back("passPOGTightv1_TTrig_HNTC");
   //  fakes40.push_back("passPOGTightv2_TTrig_HNTC");
   fakes40.push_back("HNTightV1");
+  fakes40.push_back("HNTight2016");
+  fakes40.push_back("HN2016");
+  fakes40.push_back("HN2016RelaxedIP");
+  fakes40.push_back("HN2017");
+  fakes40.push_back("HN2017RelaxedIP");
+  fakes40.push_back("HN2018");
+  fakes40.push_back("HN2018RelaxedIP");
+
+
   
   //  KEY: TH1D	el_endcap_ptpassMVAID_noIso_WP90V16;1	
   //  KEY: TH1D	el_endcap_ptpassPOGTight_TTrig_HNTC;1	

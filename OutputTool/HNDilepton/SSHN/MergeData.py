@@ -12,6 +12,7 @@ datalist = [ ["2016" , [ "DoubleEG", "DoubleMuon"]],
 
 analyzername="HNDilepton"
 for d in datalist:
+
     
     outpath = os.getenv("INFILE_MERGED_PATH") +"/"+analyzername+"/" +d[0] + "/"
     MakeDirectory(outpath)
@@ -29,6 +30,7 @@ for d in datalist:
         else:
             inpath += "isEE__/DATA/"
 
+            
         hadd = "hadd " + outpath + analyzername+"_SkimTree_SSHN_"+dataset + ".root "
         hadd = hadd + inpath +analyzername+"_SkimTree_SSHN_"+dataset + "* " 
 

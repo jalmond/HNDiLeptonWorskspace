@@ -3,7 +3,28 @@
 #include "mylib.h"
 #include "canvas_margin.h"
 
-void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel="EE"){ 
+
+void GetSignalOverB_combinedSR_IPMAIN(TString _y = "2016",TString suffix="ipB", TString smass="100", double mass=100, TString channel="EE");
+
+
+void GetSignalOverB_combinedSR_IP(){
+
+  vector<TString> years={"2016","2017","2018"};
+  
+  for (auto y : years) {
+    vector <TString> masses = {"100","300","500","1000"};                                                                                                                                    
+    vector <double> d_masses = {100.,300.,500.,1000.};                                                                                                                                       
+
+    for(int i = 0; i <  masses.size(); i++){
+      GetSignalOverB_combinedSR_IPMAIN(y, "ipB", masses[i], d_masses[i]);
+      GetSignalOverB_combinedSR_IPMAIN(y, "ipE", masses[i], d_masses[i]);
+    }
+  }
+
+}
+
+
+void GetSignalOverB_combinedSR_IPMAIN(TString _y = "2016",TString suffix="ipB",TString smass, double mass, TString channel="EE"){ 
 
   bool debug(true);
   // basic declarations 
@@ -58,8 +79,8 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
 
   vector<TString> IDs = {};  
   
-  vector <TString> masses = {"100"};//,"300","500","1000"};
-  vector <double> d_masses = {100.};//,300.,500.,1000.};
+  vector <TString> masses = {smass};//,"300","500","1000"};
+  vector <double> d_masses = {mass};//,300.,500.,1000.};
   
   TString _channel = channel;
   
@@ -112,11 +133,12 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
     TString hname = obj1->GetName();
     TString objname= obj1->ClassName();
 
-
-    if(!hname.Contains(suffix)) continue;
+    if(!hname.Contains("HNTightV1")){
+      if(!hname.Contains(suffix)) continue;
+    }
     histlist.push_back(hname);
 
-    cout << hname << endl;
+
     if(!hname.Contains("LowPt")) continue;
     if(!hname.Contains("SR2")) continue;
     
@@ -132,8 +154,6 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
     hname = hname.ReplaceAll("PreselEEYields/","");
     IDs.push_back(hname);
   }
-
-  cout << "Number of IDs  = " << IDs.size() << endl;
 
 
   //* Loop over years 2-16/17/18
@@ -191,8 +211,10 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
 	  TString n_sr_hist ="preselMuMu_same_sign/preselMuMu_same_sign_"+_sr+"_njets_HNDilepton_"+channel+"_"+_id+ptbin;
 	  //PreselEEYields/HNDilepton_EE_HN_mva0.900000_mva0.900000_mva0.520000_LowPt_SR2_events
 
-	  if(channel=="EE")n_sr_hist ="PreselEEYields/HNDilepton_EE_"+_id+ptbin + "_"+_sr+"_events";
-
+	  TString tag="";
+	  if(_id.Contains("ip")) tag="HNDilepton_EE_";
+	  if(channel=="EE")n_sr_hist ="PreselEEYields/"+tag+_id+ptbin + "_"+_sr+"_events";
+	  
 	  //-- access histogram in bkg file
 	  TH1D* hpass = (TH1D*)(file_prompt->Get(n_sr_hist));
 
@@ -202,7 +224,7 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
 	  double total_b = sqrt(total_p);
 
 	  //-- useful OUTPUT message showing ID and sqrtB
-	  cout << _sr << " " << ptbin << " : " <<  id_counter << " / " << IDs.size() << " "  << _id << " sqrt B = "  << total_b << endl;
+	  //	  cout << _sr << " " << ptbin << " : " <<  id_counter << " / " << IDs.size() << " "  << _id << " sqrt B = "  << total_b << endl;
 	  IDvalues.push_back(total_b);
 	  //-- IDvalues  contains bkg numbers for this SR/ptbin  
 
@@ -252,7 +274,10 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
 
 	    ///-- set histogram name for signal
 	    TString n_sr_hist ="preselMuMu_same_sign/preselMuMu_same_sign_"+_sr+"_njets_HNDilepton_"+channel+"_"+_id+ptbin;
-	    if(channel=="EE")n_sr_hist ="PreselEEYields/HNDilepton_EE_"+_id+ptbin + "_"+_sr+"_events";
+	    TString tag="";
+	    if(_id.Contains("ip")) tag="HNDilepton_EE_";
+	    if(channel=="EE")n_sr_hist ="PreselEEYields/"+tag+_id+ptbin + "_"+_sr+"_events";
+
 
 
 	    //-- Get number of signal events
@@ -269,11 +294,11 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
 	      punzi = (IDvalues[sig_id_counter-1] > 0) ?  ((hpass1->Integral()) /(nsig)) /IDvalues[sig_id_counter-1] : 0.;
 	      
 	      //-- useful OUTPUT message showing ID and punzi                                                                                                                                                           
-	      cout << _sr << " " << ptbin << " : " << _id << " " << hpass1->Integral() << " / " << IDvalues[sig_id_counter-1] <<  " punzi =" << punzi<< endl;
+	      //cout << _sr << " " << ptbin << " : " << _id << " " << hpass1->Integral() << " / " << IDvalues[sig_id_counter-1] <<  " punzi =" << punzi<< endl;
 	    }
 	    else {
 	      
-	      cout << _sr << " " << ptbin << " : " << _id << " 0.  " << IDvalues[sig_id_counter-1] <<  " " << punzi<< endl;
+	      //	      cout << _sr << " " << ptbin << " : " << _id << " 0.  " << IDvalues[sig_id_counter-1] <<  " " << punzi<< endl;
 	      
               //cout << "Missing file " << n_sr_hist << " in signal " << endl;
 	      // for(auto _hist : histlist) cout << _hist << endl;
@@ -333,7 +358,7 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
     
     //*** ID loop
     for(unsigned int l = 0 ; l < IDs.size(); l++){
-      cout << "HIST " << _mass_counter << " " << l+1 << " " << binvalues[counter]/_average << endl;
+      //cout << "HIST " << _mass_counter << " " << l+1 << " " << binvalues[counter]/_average << endl;
       hist2->SetBinContent(_mass_counter, l+1, binvalues[counter]/_average);
       counter++;
     }      //*** ID loop
@@ -350,7 +375,7 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
     double total_id(0);
     for(unsigned int i = 0 ; i < masses.size(); ++i){
 	total_id+= hist2->GetBinContent(i+1, l+1);
-	cout << hist2->GetBinContent(i+1, l+1) << endl;
+	//cout << hist2->GetBinContent(i+1, l+1) << endl;
 	counter++;
     }
     hist2->SetBinContent(masses.size()+1, l+1, total_id/masses.size());
@@ -364,20 +389,111 @@ void GetSignalOverB_combinedSR(TString _y = "",TString suffix="",TString channel
   for(auto mit : map_id) map_punzi[mit.second] = mit.first;
   
   cout << " MAX ID = " << IDs[_max_id] << "  " << max_punzi  << endl;
+  map <double,double> HNTightMedium_map;
+  map <double,double> HNTight_map;
+  map <double,double> HNTightTight_map;
+  map <double,double> HNMedium_map;
+  map <double,double> HNTightV1_map;
   
-  for (auto i: map_punzi) cout <<  i.first << " " << i.second << endl;
+  for (auto i: map_id) {
+
+    if(i.first.Contains("HNTightV1")) {
+      TString fix_name = i.first;
+      fix_name=fix_name.ReplaceAll("HNTightV1_"+suffix, "");
+      double fix_d  = atof (fix_name.Data());
+      HNTightV1_map[fix_d] = i.second ;
+    }
+
+    else if(i.first.Contains("HNTightMedium")) {
+      TString fix_name = i.first;
+      fix_name = fix_name.ReplaceAll("HNTightMedium_"+suffix, "");
+      double fix_d  = atof (fix_name.Data());
+      HNTightMedium_map[fix_d] = i.second ;
+      cout << fix_d << " " << i.second << endl;
+    }
+    
+    else  if(i.first.Contains("HNTightTight")) {
+      TString fix_name = i.first;
+      fix_name = fix_name.ReplaceAll("HNTightTight_"+suffix, "");
+      double fix_d  = atof (fix_name.Data());
+      HNTightTight_map[fix_d] = i.second ;
+    }
+    else if(i.first.Contains("HNTight")) {
+      TString fix_name = i.first;
+      fix_name = fix_name.ReplaceAll("HNTight_"+suffix, "");
+      double fix_d  = atof (fix_name.Data());
+      HNTight_map[fix_d] = i.second ;
+    }
+    else      if(i.first.Contains("HNMedium")) {
+      TString fix_name = i.first;
+      fix_name = fix_name.ReplaceAll("HNMedium_"+suffix, "");
+      double fix_d  = atof (fix_name.Data());
+      HNMedium_map[fix_d] = i.second ;
+    }
+
+  }
+  
+  TH1D* h_ip_medium = new TH1D ("h_ip_medium","h_ip_medium", 100, 0., 10.);
+
+  for (auto i: HNMedium_map) {
+    h_ip_medium->Fill(i.first+0.001, i.second);
+
+  }
+
+  
+  TH1D* h_ip_tightV1 = new TH1D ("h_ip_tightV1","h_ip_tightv1", 1, 0., 10.);
+  for (auto i: HNTightV1_map)    {
+    h_ip_tightV1->Fill(i.first, i.second);
+  }
+
+
+  
+  TH1D* h_ip_tight = new TH1D ("h_ip_tight","h_ip_tight", 100, 0., 10.);
+  for (auto i: HNTight_map) {
+    h_ip_tight->Fill(i.first+0.01, i.second);
+  }
+
+  TH1D* h_ip_tighttight = new TH1D ("h_ip_tighttight","h_ip_tighttight", 100, 0., 10.);
+  for (auto i: HNTightTight_map)     h_ip_tighttight->Fill(i.first+0.001, i.second);
+
+  TH1D* h_ip_tightmedium = new TH1D ("h_ip_tightmedium","h_ip_tightmedium", 100, 0., 10.);
+  for (auto i: HNTightMedium_map) {
+    h_ip_tightmedium->Fill(i.first+0.001, i.second);
+  }
+
+
+  
+
+  
+  
+  
+  //cout <<  i.first << " " << i.second << endl;
   
   TString canvasname2="SR12_highmass_njets_"+analysername+"_JA_"+_channel+ptbin+channel;
   TCanvas* c2 = new TCanvas(canvasname2,canvasname2, 800,800);
   c2->cd();
+  h_ip_medium->GetYaxis()->SetRangeUser(0.001, 0.05);
+  h_ip_medium->GetXaxis()->SetTitle("SIP");
+  h_ip_medium->SetLineColor(kRed);h_ip_medium->SetLineWidth(2.);  h_ip_medium->SetMarkerColor(kRed);  h_ip_medium->Draw("hist");
+  h_ip_tight->SetLineWidth(2.);h_ip_tight->SetLineColor(kCyan);  h_ip_tight->SetMarkerColor(kCyan);  h_ip_tight->Draw("histsame");
+  h_ip_tightV1->SetLineWidth(2.);h_ip_tightV1->SetLineColor(kRed-2);  h_ip_tightV1->SetMarkerColor(kCyan); h_ip_tightV1->SetMarkerStyle(2);  h_ip_tightV1->Draw("histsame");
+  h_ip_tighttight->SetLineWidth(2.);h_ip_tighttight->SetLineColor(kBlue);  h_ip_tighttight->SetMarkerColor(kBlue);  h_ip_tighttight->Draw("histsame");
+  h_ip_tightmedium->SetLineWidth(2.);h_ip_tightmedium->SetLineColor(kGreen);  h_ip_tightmedium->SetMarkerColor(kGreen);  h_ip_tightmedium->Draw("histsame");
+
+  legend->AddEntry(h_ip_medium, "Medium v1", "p");
+  legend->AddEntry(h_ip_tight, "Tight v1", "p");
+  legend->AddEntry(h_ip_tighttight, "Medium v2", "p");
+  legend->AddEntry(h_ip_tightmedium, "Tight v2", "p");
+  legend->AddEntry(h_ip_tightV1, "Tight SNU", "p");
+  legend->Draw();
   
   TString outfile = output  +  "/TH2D_"+ptbin+"SR12highmass_signaloverbackground_"+analysername+"_"+_chan+"_"+channel+suffix+_y+".root";
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   
-  hist2->Draw("colztext");
+  //hist2->Draw("colztext");
   hist2->Write();
   
-  TString save_sg= output + "/TH2D_"+ptbin+"SR12highmass_signaloverbackground_"+analysername+"_"+_chan+"_"+channel+suffix+_y+".pdf";
+  TString save_sg= output + "/TH2D_"+ptbin+"SR12highmass_signaloverbackground_"+analysername+"_"+_chan+"_"+channel+suffix+_y+"_mN"+smass+".pdf";
   
   c2->SaveAs(save_sg);
   
