@@ -46,6 +46,19 @@ void MakeFRFileEE(TString year,TString dataset="Electron"){
   std::vector<TString> fakes40;
   fakes40.push_back("HNTightV1");
 
+  fakes40.push_back("HNTight2016");
+  fakes40.push_back("HN2016");
+  fakes40.push_back("HN2016RelaxedIP");
+  fakes40.push_back("HN2017");
+  fakes40.push_back("HN2017RelaxedIP");
+  fakes40.push_back("HN2018");
+  fakes40.push_back("HN2018RelaxedIP");
+
+
+  
+  //  KEY: TH1D	el_endcap_ptpassMVAID_noIso_WP90V16;1	
+  //  KEY: TH1D	el_endcap_ptpassPOGTight_TTrig_HNTC;1	
+
   
   double ptbinscone[10] = { 6.,10., 15.,20.,30.,40.,50.,  60., 100.,200.};
   

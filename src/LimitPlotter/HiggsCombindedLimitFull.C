@@ -6,7 +6,7 @@
 //==== ReturnWhat = 2 : +- 1sd
 //==== ReturnWhat = 3 : +- 2sd
 
-void  HiggsCombindedLimit(int i=6, int j=0, TString dirname="", int ReturnWhat=0, bool RunFullCLs=true){
+void  HiggsCombindedLimitFull(int i=6, int j=0, TString dirname="", int ReturnWhat=0, bool RunFullCLs=true){
 
   bool DrawObserved = false;
 
@@ -81,7 +81,7 @@ void  HiggsCombindedLimit(int i=6, int j=0, TString dirname="", int ReturnWhat=0
   string elline;
   cout << filepath+ "/result.txt" << endl;
   ifstream in(filepath+ "/result.txt");
-  int n_central = 13; //28, but now removing 80 Gev
+  int n_central = 29;//, but now removing 80 Gev
   double mass[n_central], obs[n_central], limit[n_central], onesig_left[n_central], onesig_right[n_central], twosig_left[n_central], twosig_right[n_central];
 
   int dummyint=0;
@@ -90,7 +90,6 @@ void  HiggsCombindedLimit(int i=6, int j=0, TString dirname="", int ReturnWhat=0
 
   cout << filepath+ "/result.txt"<< endl;
   while(getline(in,elline)){
-    cout << "ell line = " << elline << endl;
     std::istringstream is( elline );
     is >> mass[dummyint];
     is >> obs[dummyint];
@@ -109,14 +108,15 @@ void  HiggsCombindedLimit(int i=6, int j=0, TString dirname="", int ReturnWhat=0
     
     double scale=0.01; //mixing squared is 0.01 now
     if(mass[dummyint]<=60) scale *= 0.01;
-    else if(mass[dummyint]<=200) scale *= 0.001;
-    else if(mass[dummyint]<=600) scale *= 0.1;
-    else if(mass[dummyint]<=1000) scale *= 1.;
-    else scale *= 10.;
+    else if(mass[dummyint]<=100) scale *= 0.1;
+    else if(mass[dummyint]<=300) scale *= 1.;
+    else if(mass[dummyint]<=700) scale *= 10.;
+    else scale *= 100.;
 
-    //    scale*=  0.01; //FIXME
+    scale *= 0.01; //FIXME
 
     if(channel=="MuEl") scale *= 0.5;
+
 
     obs[dummyint] *= scale;
 
@@ -157,7 +157,15 @@ void  HiggsCombindedLimit(int i=6, int j=0, TString dirname="", int ReturnWhat=0
   
   cout << "Max : " << max_obs_mass << "\t" << max_obs << endl;
   cout << "Min : " << min_obs_mass << "\t" << min_obs << endl;
-
+  
+  cout << "Mass : observed limit = " << endl;                                                                                                            
+  for(unsigned int k = 0; k < n_central ; k++){
+    //cout << "Mass = " << mass[k] << " observed limit = " << obs[k] << endl;
+    cout <<  mass[k] << " " << obs[k] << endl;    
+  }
+    
+  return;
+  
   //TGraph *gr_13TeV_obs = new TGraph(n_central,mass,obs);
   TGraphAsymmErrors *gr_13TeV_obs = new TGraphAsymmErrors(n_central,mass,obs,0,0,0,0);
   gr_13TeV_obs->SetLineWidth(3);
@@ -278,12 +286,14 @@ void  HiggsCombindedLimit(int i=6, int j=0, TString dirname="", int ReturnWhat=0
 
   //=== EXO-17-028 overlay
   const int nm_17028 = 19;
+
   double mass_17028[nm_17028] = {
-    100, 125, 150,200,
-    250, 300, 400, 500,
-    600, 700, 800, 900,
-    1000, 1100, 1200, 1300,
-    1400, 1500, 1700
+				 //		 20, 30, 40, 50, 60, 70, 75, 85, 90,
+				 100, 125, 150,200,
+				 250, 300, 400, 500,
+				 600, 700, 800, 900,
+				 1000, 1100, 1200, 1300,
+				 1400, 1500, 1700
   };
 
   

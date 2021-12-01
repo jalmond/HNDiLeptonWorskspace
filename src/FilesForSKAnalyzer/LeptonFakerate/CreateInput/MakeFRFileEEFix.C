@@ -66,10 +66,14 @@ void MakeFRFileEEFix(TString year,TString dataset="Electron"){
   //  fakes40.push_back("passMVAID_noIso_WP90V16");
   //  fakes40.push_back("passPOGTight_TTrig_HNTC");
   
-  fakes40.push_back("HNTight_dxy02_02_dz01_ip4_4");
-  fakes40.push_back("HNTight_dxy05_05_dz01_ip4_4");
-  fakes40.push_back("passPOGTightv1_TTrig_HNTC");
-  fakes40.push_back("passPOGTightv2_TTrig_HNTC");
+  fakes40.push_back("HNTightV1");
+  fakes40.push_back("HNTight2016");
+  fakes40.push_back("HN2016");
+  fakes40.push_back("HN2016RelaxedIP");
+  fakes40.push_back("HN2017");
+  fakes40.push_back("HN2017RelaxedIP");
+  fakes40.push_back("HN2018");
+  fakes40.push_back("HN2018RelaxedIP");
 
   /*
 hadd Target path: /Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/FakeRateHN/2018/FakeRateHN_SkimTree_HNFake_MC.root:/SingleTightElJet_matched_HNMediumV1
