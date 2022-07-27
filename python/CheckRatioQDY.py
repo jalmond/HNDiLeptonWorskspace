@@ -1,5 +1,6 @@
 import os,ROOT
 import mylib
+from array import array
 
 import CMS_lumi, tdrstyle
 
@@ -62,12 +63,19 @@ ROOT.gErrorIgnoreLevel = ROOT.kFatal
 tdrstyle.setTDRStyle()
 ROOT.TH1.AddDirectory(False)
 ROOT.gROOT.SetBatch(True)
+ROOT.gStyle.SetOptStat(0)
+
+PLOT_PATH = os.environ['PLOT_PATH']
 
 for era in eras:
     
-    c1 = ROOT.TCanvas('c1', '', 800, 800)
-    c1.cd()
     
+    outdir = PLOT_PATH+'/CheckRatioQ/'+era+'/'
+    os.system("mkdir -p " + PLOT_PATH+'/CheckRatioQ/')
+    os.system("mkdir -p " + PLOT_PATH+'/CheckRatioQ/'+era)
+
+    
+    c1 = ROOT.TCanvas('c1'+era, era, 800, 800)
 
     latex_CMSPriliminary = ROOT.TLatex()
     latex_Lumi = ROOT.TLatex()
@@ -80,25 +88,71 @@ for era in eras:
         
     latex_Lumi.SetTextSize(0.035)
     latex_Lumi.SetTextFont(42)
+
+    h_ssww = ROOT.TH1F('h_ssww_'+era, '', len(sig_mass_list), 0 , float(len(sig_mass_list)))
+
+    h_ssww.SetTitle("");
+    h_ssww.GetYaxis().SetLabelSize(0.04);
+    h_ssww.GetYaxis().SetTitleSize(0.054);
+    h_ssww.GetYaxis().SetTitleOffset(1.30);
+    h_ssww.GetXaxis().SetLabelSize(0.03);
+    h_ssww.GetXaxis().SetTitleSize(0.05);
+    h_ssww.SetDirectory(0)
+    h_ssww.Draw("Axis")
+
     latex_Lumi.DrawLatex(0.73, 0.96, mylib.TotalLumi(float(era))+" fb^{-1} (13 TeV)")
 
+    
+    #h_ssww.GetXaxis().SetRangeUser(0.,2E4)
+    h_ssww.GetYaxis().SetRangeUser(1E-5,10)
+    
+    h_ssww.GetYaxis().SetTitle("Ration of ++/--")
+    h_ssww.GetXaxis().SetTitle('m_{N} (GeV)')
+    h_ssww.Draw("histsame")
 
-    h_ssww = ROOT.TH1D('h_ssww_'+era, '', len(sig_mass_list), 0 , len(sig_mass_list))
-    h_dy = ROOT.TH1D('h_ssww_'+era, '', len(sig_mass_list), 0 , len(sig_mass_list))
-    h_vbf = ROOT.TH1D('h_ssww_'+era, '', len(sig_mass_list), 0 , len(sig_mass_list))
-    h_ssww.GetXaxis().SetTitle("mN (GeV)")
-    h_dy.GetXaxis().SetTitle("mN (GeV)")
-    h_vbf.GetXaxis().SetTitle("mN (GeV)")
     nbin=0
     for x in sig_mass_list :
         nbin=nbin+1
         h_ssww.GetXaxis().SetBinLabel(nbin, str(x))
-        h_dy.GetXaxis().SetBinLabel(nbin, str(x))
-        h_vbf.GetXaxis().SetBinLabel(nbin, str(x))
 
 
 
+    h_ssww_mm = h_ssww.Clone("h_ssww_mm"+era)
+    h_ssww_ee = h_ssww.Clone("h_ssww_ee"+era)
+    h_ssww_em = h_ssww.Clone("h_ssww_em"+era)
+
+    h_dy_mm = h_ssww.Clone("h_dy_mm"+era)
+    h_dy_ee = h_ssww.Clone("h_dy_ee"+era)
+    h_dy_em = h_ssww.Clone("h_dy_em"+era)
+
+
+    h_vbf_mm = h_ssww.Clone("h_vbf_mm"+era)
+    h_vbf_ee = h_ssww.Clone("h_vbf_ee"+era)
+    h_vbf_em = h_ssww.Clone("h_vbf_em"+era)
+
+
+
+    lg = ROOT.TLegend(0.8, 0.4, 0.91, 0.91)
+    lg.SetBorderSize(0)
+    lg.SetFillStyle(0)
+    
+    g_mN=[]
+    g_RSSMM=[]
+    g_RSSEE=[]
+    g_RSSEM=[]
+
+    nbin=0
     for x in sig_mass_list :
+        nbin=nbin+1
+        h_ssww.GetXaxis().SetBinLabel(nbin, str(x))
+
+
+
+
+    nmass=-1    
+    for x in sig_mass_list :
+        nmass=nmass+1
+        g_mN.append(int(x))
         print "==="*40
         print "Mass = " + str(x)  + " GeV"
         mass = x
@@ -164,11 +218,18 @@ for era in eras:
             print "["+sigSSWW+"] [ElEl] Ratio ++/-- =  "+ str(tot_plus_ssww_ee/tot_minus_ssww_ee)
             print "["+sigSSWWDF+"] [ElMu] Ratio ++/-- =  "+ str(tot_plus_ssww_em/tot_minus_ssww_em)
 
-            #h_ssww.Fill(x, tot_plus_ssww/tot_minus_ssww)
+            h_ssww_mm.Fill(nmass, tot_plus_ssww_mm/tot_minus_ssww_mm)
+            h_ssww_ee.Fill(nmass, tot_plus_ssww_ee/tot_minus_ssww_ee)
+            h_ssww_em.Fill(nmass, tot_plus_ssww_em/tot_minus_ssww_em)
+
             f_sig.Close()
             f_sigDF.Close()
-
-
+            
+            g_RSSMM.append(tot_plus_ssww_mm/tot_minus_ssww_mm)
+            g_RSSEE.append(tot_plus_ssww_mm/tot_minus_ssww_mm)
+            g_RSSEM.append(tot_plus_ssww_mm/tot_minus_ssww_mm)
+        else:
+            g_RSSMM.append(0.)
             
         tot_plus_dy_mm=0
         tot_minus_dy_mm=0
@@ -211,6 +272,11 @@ for era in eras:
 
             tot_plus=tot_plus+tot_plus_dy_mm+tot_plus_dy_ee+tot_plus_dy_em
             tot_minus=tot_minus+tot_minus_dy_mm+tot_minus_dy_ee+tot_minus_dy_em
+
+            h_dy_mm.Fill(nmass, tot_plus_dy_mm/tot_minus_dy_mm)
+            h_dy_ee.Fill(nmass, tot_plus_dy_ee/tot_minus_dy_ee)
+            h_dy_em.Fill(nmass, tot_plus_dy_em/tot_minus_dy_em)
+
 
             print "["+sigDY+"] [MuMu] Ratio ++/-- =  "+ str(tot_plus_dy_mm/tot_minus_dy_mm)
             print "["+sigDY+"] [ElEl] Ratio ++/-- =  "+ str(tot_plus_dy_ee/tot_minus_dy_ee)
@@ -271,6 +337,10 @@ for era in eras:
             print "["+sigVBF+"] [ElEl] Ratio ++/-- =  "+ str(tot_plus_vbf_ee/tot_minus_vbf_ee)
             print "["+sigVBF+"] [ElMu] Ratio ++/-- =  "+ str(tot_plus_vbf_em/tot_minus_vbf_em)
 
+            h_vbf_mm.Fill(nmass, tot_plus_vbf_mm/tot_minus_vbf_mm)
+            h_vbf_ee.Fill(nmass, tot_plus_vbf_ee/tot_minus_vbf_ee)
+            h_vbf_em.Fill(nmass, tot_plus_vbf_em/tot_minus_vbf_em)
+
             #h_vbf.Fill(x, tot_plus_vbf/tot_minus_vbf)
 
             f_sig.Close()
@@ -280,13 +350,86 @@ for era in eras:
         print "[Total] Ratio ++/-- =  "+ str(tot_plus/tot_minus)
         print ""*40    
             
-    ## Save
-    c1.cd()
-    #h_ssww.SetLineColor(kRed)
-    h_ssww.Draw("histsame")
-    #h_dy.Draw("histsame")
-    #h_vbf.Draw("histsame")
-    c1.SaveAs(era+'_sis_Qratio.pdf')
-    print era+'_ssww.pdf'
+
+    gr_ssww_mm = ROOT.TGraphAsymmErrors(h_ssww_mm)
+
+    
+    for i in range(0, gr_ssww_mm.GetN()):
+
+        #N = gr_Data.GetY()[i]
+        gr_ssww_mm.SetPointEYlow(i, 0)
+        gr_ssww_mm.SetPointEYhigh(i, 0)
+
+    #gr_ssww_mm = ROOT.TGraph(len(g_mN), array("d", g_mN), array("d", g_RSSMM))
+    #gr_ssww_mm.SetName('gr_r_pp_mm_mN')
+    gr_ssww_mm.SetMarkerStyle(20)
+    gr_ssww_mm.SetMarkerSize(1.2)
+        
+    for x in range (0, len(g_mN)):
+        print str(g_mN[x]) + ' ' + str(g_RSSMM[x])
+
+    counter = 2
+    gr_ssww_mm.SetMarkerColor(counter)
+    gr_ssww_mm.SetLineColor(counter)
+
+    
+    h_ssww_mm.SetLineColor(ROOT.kGreen-2) 
+    h_ssww_ee.SetLineColor(ROOT.kRed) 
+    h_ssww_em.SetLineColor(ROOT.kCyan) 
+
+    h_dy_mm.SetLineColor(ROOT.kGreen-2)
+    h_dy_ee.SetLineColor(ROOT.kRed)
+    h_dy_em.SetLineColor(ROOT.kCyan)
+
+    h_dy_mm.SetLineStyle(2)
+    h_dy_ee.SetLineStyle(2)
+    h_dy_em.SetLineStyle(2)
+
+    h_vbf_mm.SetLineColor(ROOT.kGreen-2)
+    h_vbf_ee.SetLineColor(ROOT.kRed)
+    h_vbf_em.SetLineColor(ROOT.kCyan)
+    
+    h_vbf_mm.SetLineStyle(3)
+    h_vbf_ee.SetLineStyle(3)
+    h_vbf_em.SetLineStyle(3)
+    
+
+    
+    h_ssww_mm.Draw("histsame")
+    h_ssww_ee.Draw("histsame")
+    h_ssww_em.Draw("histsame")
+
+    h_dy_mm.Draw("histsame")
+    h_dy_ee.Draw("histsame")
+    h_dy_em.Draw("histsame")
+
+
+    h_vbf_mm.Draw("histsame")
+    h_vbf_ee.Draw("histsame")
+    h_vbf_em.Draw("histsame")
+
+    #gr_ssww_mm.SetLineWidth(2)
+    #gr_ssww_mm.SetMarkerSize(0.)
+    #gr_ssww_mm.SetMarkerColor(ROOT.kBlack)
+    #gr_ssww_mm.SetLineColor(ROOT.kBlack)
+    #gr_ssww_mm.Draw('p0same')
+
+    #ROOT.gPad.Update()
+    lg.AddEntry( h_ssww_mm, 'SSWW MM', 'h')
+    lg.AddEntry( h_ssww_ee, 'SSWW EE', 'h')
+    lg.AddEntry( h_ssww_em, 'SSWW EM', 'h')
+
+    lg.AddEntry( h_dy_mm, 'DY MM', 'h')
+    lg.AddEntry( h_dy_ee, 'DY EE', 'h')
+    lg.AddEntry( h_dy_em, 'DY EM', 'h')
+
+    lg.AddEntry( h_vbf_mm, 'VBF MM', 'h')
+    lg.AddEntry( h_vbf_ee, 'VBF EE', 'h')
+    lg.AddEntry( h_vbf_em, 'VBF EM', 'h')
+    lg.Draw()
+    
+    print 'Saving ==> '+outdir+'/Graph_Qratio_All.pdf'
+    c1.SaveAs(outdir+'/Graph_Qratio_All.pdf')
+    
     
     c1.Close()

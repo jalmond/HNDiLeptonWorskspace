@@ -33,14 +33,14 @@ eras = ["2018"]
 sig_mass_list =[]
 for era in eras:
 
-    List = GetSignalList(era,"SSWW") +   GetSignalList(era,"DY") +  GetSignalList(era,"VBF")
+    List = GetSignalList(era,"SSWW") #+   GetSignalList(era,"DY") +  GetSignalList(era,"VBF")
 
     for x in List:
         mass = x
         mass=mass.replace("SSWWTypeI_NLO_SF_M","")
         mass=mass.replace("SSWWTypeI_NLO_DF_M","")
-        mass=mass.replace("DYTypeI_NLO_DF_M","")
-        mass=mass.replace("VBFTypeI_NLO_DF_M","")
+        #mass=mass.replace("DYTypeI_NLO_DF_M","")
+        #mass=mass.replace("VBFTypeI_NLO_DF_M","")
         
         if not int(mass) in sig_mass_list:
             sig_mass_list.append(int(mass))
@@ -110,6 +110,19 @@ for era in eras:
     h_ssww.GetXaxis().SetTitle('m_{N} (GeV)')
     h_ssww.Draw("histsame")
 
+    nbin=0
+    for x in sig_mass_list :
+        nbin=nbin+1
+        h_ssww.GetXaxis().SetBinLabel(nbin, str(x))
+
+
+
+    h_ssww_mm = h_ssww.Clone("h_ssww_mm"+era)
+    h_ssww_ee = h_ssww.Clone("h_ssww_ee"+era)
+    h_ssww_em = h_ssww.Clone("h_ssww_em"+era)
+
+
+
     lg = ROOT.TLegend(0.8, 0.4, 0.91, 0.91)
     lg.SetBorderSize(0)
     lg.SetFillStyle(0)
@@ -119,15 +132,10 @@ for era in eras:
     g_RSSEE=[]
     g_RSSEM=[]
 
-    h_dy = ROOT.TH1D('h_ssww_'+era, '', len(sig_mass_list), 0 , len(sig_mass_list))
-    h_vbf = ROOT.TH1D('h_ssww_'+era, '', len(sig_mass_list), 0 , len(sig_mass_list))
-
     nbin=0
     for x in sig_mass_list :
         nbin=nbin+1
         h_ssww.GetXaxis().SetBinLabel(nbin, str(x))
-        h_dy.GetXaxis().SetBinLabel(nbin, str(x))
-        h_vbf.GetXaxis().SetBinLabel(nbin, str(x))
 
 
 
@@ -141,13 +149,9 @@ for era in eras:
         mass = x
 
         sigSSWW=""
-        sigDY=""
-        sigVBF=""
 
         sigSSWW =  "SSWWTypeI_NLO_SF_M"+str(x)
         sigSSWWDF =  "SSWWTypeI_NLO_DF_M"+str(x)
-        sigDY  =   "DYTypeI_NLO_DF_M"+str(x)
-        sigVBF =   "VBFTypeI_NLO_DF_M"+str(x)
         
 
            
@@ -201,9 +205,9 @@ for era in eras:
             print "["+sigSSWW+"] [ElEl] Ratio ++/-- =  "+ str(tot_plus_ssww_ee/tot_minus_ssww_ee)
             print "["+sigSSWWDF+"] [ElMu] Ratio ++/-- =  "+ str(tot_plus_ssww_em/tot_minus_ssww_em)
 
-            h_ssww.Fill(nmass, tot_plus_ssww_mm/tot_minus_ssww_mm)
-            h_ssww.Fill(nmass, tot_plus_ssww_mm/tot_minus_ssww_mm)
-            h_ssww.Fill(nmass, tot_plus_ssww_mm/tot_minus_ssww_mm)
+            h_ssww_mm.Fill(nmass, tot_plus_ssww_mm/tot_minus_ssww_mm)
+            h_ssww_ee.Fill(nmass, tot_plus_ssww_ee/tot_minus_ssww_ee)
+            h_ssww_em.Fill(nmass, tot_plus_ssww_em/tot_minus_ssww_em)
 
             f_sig.Close()
             f_sigDF.Close()
@@ -214,110 +218,6 @@ for era in eras:
         else:
             g_RSSMM.append(0.)
             
-        tot_plus_dy_mm=0
-        tot_minus_dy_mm=0
-
-        tot_plus_dy_ee=0
-        tot_minus_dy_ee=0
-
-        tot_plus_dy_em=0
-        tot_minus_dy_em=0
-
-
-
-        if os.path.exists("/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalStudies/"+era+"/HNL_SignalStudies_"+sigDY+".root"):
-
-            f_sig = ROOT.TFile(   "/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalStudies/"+era+"/HNL_SignalStudies_"+sigDY+".root")
-            h_sig = f_sig.Get("SignalProcess/FillEventCutflow/SplitChannel")
-
-
-            for z in range(0,h_sig.GetXaxis().GetNbins()):
-                x_l = h_sig.GetXaxis().GetBinLowEdge(z+1)
-                x_r = h_sig.GetXaxis().GetBinUpEdge(z+1)
-                y = h_sig.GetBinContent(z+1)
-                bl = h_sig.GetXaxis().GetBinLabel(z+1)
-
-                if bl in mm_phist:
-                    tot_plus_dy_mm=tot_plus_dy_mm+y
-                if bl in mm_mhist:
-                    tot_minus_dy_mm=tot_minus_dy_mm+y
-
-                if bl in ee_phist:
-                    tot_plus_dy_ee=tot_plus_dy_ee+y
-                if bl in ee_mhist:
-                    tot_minus_dy_ee=tot_minus_dy_ee+y
-
-                if bl in em_phist:
-                    tot_plus_dy_em=tot_plus_dy_em+y
-                if bl in em_mhist:
-                    tot_minus_dy_em=tot_minus_dy_em+y
-
-
-            tot_plus=tot_plus+tot_plus_dy_mm+tot_plus_dy_ee+tot_plus_dy_em
-            tot_minus=tot_minus+tot_minus_dy_mm+tot_minus_dy_ee+tot_minus_dy_em
-
-            print "["+sigDY+"] [MuMu] Ratio ++/-- =  "+ str(tot_plus_dy_mm/tot_minus_dy_mm)
-            print "["+sigDY+"] [ElEl] Ratio ++/-- =  "+ str(tot_plus_dy_ee/tot_minus_dy_ee)
-            print "["+sigDY+"] [ElMu] Ratio ++/-- =  "+ str(tot_plus_dy_em/tot_minus_dy_em)
-
-            #h_dy.Fill(x, tot_plus_dy/tot_minus_dy)
-            f_sig.Close()
-
-
-
-
-        tot_plus_vbf_mm=0
-        tot_minus_vbf_mm=0
-
-        tot_plus_vbf_ee=0
-        tot_minus_vbf_ee=0
-
-        tot_plus_vbf_em=0
-        tot_minus_vbf_em=0
-
-
-
-        
-        if os.path.exists("/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalStudies/"+era+"/HNL_SignalStudies_"+sigVBF+".root"):
-
-            f_sig = ROOT.TFile(   "/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalStudies/"+era+"/HNL_SignalStudies_"+sigVBF+".root")
-            h_sig = f_sig.Get("SignalProcess/FillEventCutflow/SplitChannel")
-
-
-            for z in range(0,h_sig.GetXaxis().GetNbins()):
-                x_l = h_sig.GetXaxis().GetBinLowEdge(z+1)
-                x_r = h_sig.GetXaxis().GetBinUpEdge(z+1)
-                y = h_sig.GetBinContent(z+1)
-                bl = h_sig.GetXaxis().GetBinLabel(z+1)
-
-
-
-                if bl in mm_phist:
-                    tot_plus_vbf_mm=tot_plus_vbf_mm+y
-                if bl in mm_mhist:
-                    tot_minus_vbf_mm=tot_minus_vbf_mm+y
-
-                if bl in ee_phist:
-                    tot_plus_vbf_ee=tot_plus_vbf_ee+y
-                if bl in ee_mhist:
-                    tot_minus_vbf_ee=tot_minus_vbf_ee+y
-
-                if bl in em_phist:
-                    tot_plus_vbf_em=tot_plus_vbf_em+y
-                if bl in em_mhist:
-                    tot_minus_vbf_em=tot_minus_vbf_em+y
-
-
-            tot_plus=tot_plus+tot_plus_vbf_mm+tot_plus_vbf_ee+tot_plus_vbf_em
-            tot_minus=tot_minus+tot_minus_vbf_mm+tot_minus_vbf_ee+tot_minus_vbf_em
-
-            print "["+sigVBF+"] [MuMu] Ratio ++/-- =  "+ str(tot_plus_vbf_mm/tot_minus_vbf_mm)
-            print "["+sigVBF+"] [ElEl] Ratio ++/-- =  "+ str(tot_plus_vbf_ee/tot_minus_vbf_ee)
-            print "["+sigVBF+"] [ElMu] Ratio ++/-- =  "+ str(tot_plus_vbf_em/tot_minus_vbf_em)
-
-            #h_vbf.Fill(x, tot_plus_vbf/tot_minus_vbf)
-
-            f_sig.Close()
 
 
         print "-"*40    
@@ -325,7 +225,7 @@ for era in eras:
         print ""*40    
             
 
-    gr_ssww_mm = ROOT.TGraphAsymmErrors(h_ssww)
+    gr_ssww_mm = ROOT.TGraphAsymmErrors(h_ssww_mm)
 
     
     for i in range(0, gr_ssww_mm.GetN()):
@@ -347,21 +247,32 @@ for era in eras:
     gr_ssww_mm.SetLineColor(counter)
 
     
-    #h_ssww.Draw("phistsame")
+    h_ssww_mm.SetLineColor(ROOT.kGreen-2) 
+    h_ssww_ee.SetLineColor(ROOT.kRed) 
+    h_ssww_em.SetLineColor(ROOT.kCyan) 
+
+    
+    h_ssww_mm.Draw("histsame")
+    h_ssww_ee.Draw("histsame")
+    h_ssww_em.Draw("histsame")
+
+
 
     #gr_ssww_mm.SetLineWidth(2)
     #gr_ssww_mm.SetMarkerSize(0.)
     #gr_ssww_mm.SetMarkerColor(ROOT.kBlack)
     #gr_ssww_mm.SetLineColor(ROOT.kBlack)
-    gr_ssww_mm.Draw('p0same')
+    #gr_ssww_mm.Draw('p0same')
 
     #ROOT.gPad.Update()
-    lg.AddEntry( gr_ssww_mm, 'SSWW MM', 'lp')
+    lg.AddEntry( h_ssww_mm, 'SSWW MM', 'l')
+    lg.AddEntry( h_ssww_ee, 'SSWW EE', 'l')
+    lg.AddEntry( h_ssww_em, 'SSWW EM', 'l')
 
-    lg.Draw()
+
     
-    print 'Saving ==> '+outdir+'/Graph_Qratio_SSWW_MM.pdf'
-    c1.SaveAs(outdir+'/Graph_Qratio_SSWW_MM.pdf')
+    print 'Saving ==> '+outdir+'/Graph_Qratio_SSWW.pdf'
+    c1.SaveAs(outdir+'/Graph_Qratio_SSWW.pdf')
     
     
     c1.Close()

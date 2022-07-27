@@ -72,7 +72,7 @@ def LumiError(DataYear):
   else:
     print ("[mylib.py, LumiError()] Wrong DataYear : %d"%DataYear)
     return 0.
-=======
+
 def TotalLumi(DataYear):
 
   if DataYear==2016:
@@ -98,7 +98,7 @@ def LumiError(DataYear):
   #else:
   #  print "[mylib.py, LumiError()] Wrong DataYear : %d"%DataYear
   #  return 0.
->>>>>>> master
+
 
   return 0.018
 
@@ -227,7 +227,7 @@ def ChangeGeVToTeVXaxis(h):
     h_New.SetBinError(iBin, new_BinError)
 
   return h_New
->>>>>>> master
+
 
 def RebinJetPt(hist, region, DataYear):
 
