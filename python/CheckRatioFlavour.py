@@ -47,12 +47,9 @@ sig_mass_list.sort()
 
 channel = "Muon"
 sig_pre = "DYTypeI"
-mm_phist = ["SS_Mu+Mu+"]
-mm_mhist = ["SS_Mu-Mu-"]
-ee_phist = ["SS_El+El+"]
-ee_mhist = ["SS_El-El-"]
-em_phist = ["SS_Mu+El+","SS_El+Mu+"]
-em_mhist = ["SS_Mu-El-","SS_El-Mu-"]
+mm_hist = ["SS_Mu+Mu+","SS_Mu-Mu-"]
+ee_hist = ["SS_El+El+","SS_El-El-"]
+em_hist = ["SS_Mu+El+","SS_El+Mu+","SS_Mu-El-","SS_El-Mu-"]
 
 
 ROOT.gErrorIgnoreLevel = ROOT.kFatal
@@ -67,9 +64,9 @@ PLOT_PATH = os.environ['PLOT_PATH']
 for era in eras:
     
     
-    outdir = PLOT_PATH+'/CheckRatioQ/'+era+'/'
-    os.system("mkdir -p " + PLOT_PATH+'/CheckRatioQ/')
-    os.system("mkdir -p " + PLOT_PATH+'/CheckRatioQ/'+era)
+    outdir = PLOT_PATH+'/CheckRatioFlav/'+era+'/'
+    os.system("mkdir -p " + PLOT_PATH+'/CheckRatioFlav/')
+    os.system("mkdir -p " + PLOT_PATH+'/CheckRatioFlav/'+era)
 
     
     c1 = ROOT.TCanvas('c1'+era, era, 800, 800)
@@ -102,9 +99,9 @@ for era in eras:
 
     
     #h_dy.GetXaxis().SetRangeUser(0.,2E4)
-    h_dy.GetYaxis().SetRangeUser(1E-5,10)
+    h_dy.GetYaxis().SetRangeUser(1E-5,1)
     
-    h_dy.GetYaxis().SetTitle("Ration of ++/--")
+    h_dy.GetYaxis().SetTitle("Ration of ll/ee+mm+em")
     h_dy.GetXaxis().SetTitle('m_{N} (GeV)')
     h_dy.Draw("histsame")
 
@@ -160,27 +157,12 @@ for era in eras:
         
 
            
-        tot_plus=0
-        tot_minus=0
+        tot_lep=0
 
-        tot_plus_dy_mm=0
-        tot_minus_dy_mm=0
+        tot_dy_mm=0
+        tot_dy_ee=0
+        tot_dy_em=0
 
-        tot_plus_dy_ee=0
-        tot_minus_dy_ee=0
-
-        tot_plus_dy_em=0
-        tot_minus_dy_em=0
-
-
-        nw_tot_plus_dy_mm=0
-        nw_tot_minus_dy_mm=0
-
-        nw_tot_plus_dy_ee=0
-        nw_tot_minus_dy_ee=0
-
-        nw_tot_plus_dy_em=0
-        nw_tot_minus_dy_em=0
 
 
         if os.path.exists("/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalStudies/"+era+"/HNL_SignalStudies_"+sigDY+".root"):
@@ -188,7 +170,8 @@ for era in eras:
             f_sig = ROOT.TFile(   "/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalStudies/"+era+"/HNL_SignalStudies_"+sigDY+".root")
             h_sig = f_sig.Get("SignalProcess/FillEventCutflow/SplitChannel")
 
-            
+            print "/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalStudies/"+era+"/HNL_SignalStudies_"+sigDY+".root"
+
             for z in range(0,h_sig.GetXaxis().GetNbins()):
                 x_l = h_sig.GetXaxis().GetBinLowEdge(z+1)
                 x_r = h_sig.GetXaxis().GetBinUpEdge(z+1)
@@ -198,52 +181,42 @@ for era in eras:
 
                 bl = h_sig.GetXaxis().GetBinLabel(z+1) 
 
-                if bl in mm_phist:
-                    tot_plus_dy_mm=tot_plus_dy_mm+y
-                if bl in mm_mhist:
-                    tot_minus_dy_mm=tot_minus_dy_mm+y
+                if bl in mm_hist:
+                    tot_dy_mm=tot_dy_mm+y
+                    tot_lep=tot_lep+y
+                if bl in ee_hist:
+                    tot_dy_ee=tot_dy_ee+y
+                    tot_lep=tot_lep+y
+                if bl in em_hist:
+                    tot_dy_em=tot_dy_em+y
+                    tot_lep=tot_lep+y
 
-                if bl in ee_phist:
-                    tot_plus_dy_ee=tot_plus_dy_ee+y
+               
 
-                if bl in ee_mhist:
-                    tot_minus_dy_ee=tot_minus_dy_ee+y
+            print "["+sigDY+"] [MuMu] Ratio mm/ll =  "+ str(tot_dy_mm/tot_lep)
+            print "["+sigDY+"] [ElEl] Ratio ee/ll =  "+ str(tot_dy_ee/tot_lep)
+            print "["+sigDY+"] [ElMu] Ratio em/ll =  "+ str(tot_dy_em/tot_lep)
 
-                if bl in em_phist:
-                    tot_plus_dy_em=tot_plus_dy_em+y
-
-                if bl in em_mhist:
-                    tot_minus_dy_em=tot_minus_dy_em+y
-
-                
-            tot_plus=tot_plus+tot_plus_dy_mm+tot_plus_dy_ee+tot_plus_dy_em
-            tot_minus=tot_minus+tot_minus_dy_mm+tot_minus_dy_ee+tot_minus_dy_em
-            
-
-            print "["+sigDY+"] [MuMu] Ratio ++/-- =  "+ str(tot_plus_dy_mm/tot_minus_dy_mm)
-            print "["+sigDY+"] [ElEl] Ratio ++/-- =  "+ str(tot_plus_dy_ee/tot_minus_dy_ee)
-            print "["+sigDY+"] [ElMu] Ratio ++/-- =  "+ str(tot_plus_dy_em/tot_minus_dy_em)
-
-            h_dy_mm.Fill(nmass, tot_plus_dy_mm/tot_minus_dy_mm)
-            h_dy_ee.Fill(nmass, tot_plus_dy_ee/tot_minus_dy_ee)
-            h_dy_em.Fill(nmass, tot_plus_dy_em/tot_minus_dy_em)
+            h_dy_mm.Fill(nmass, tot_dy_mm/tot_lep)
+            h_dy_ee.Fill(nmass, tot_dy_ee/tot_lep)
+            h_dy_em.Fill(nmass, tot_dy_em/tot_lep)
 
             f_sig.Close()
             
-            g_RSSMM.append(tot_plus_dy_mm/tot_minus_dy_mm)
+            g_RSSMM.append(tot_dy_mm/tot_lep)
             g_RSSMM_exl.append(0)
             g_RSSMM_exh.append(0)
             g_RSSMM_eyl.append(0)
             g_RSSMM_eyh.append(0)
 
-            g_RSSEE.append(tot_plus_dy_ee/tot_minus_dy_ee)
+            g_RSSEE.append(tot_dy_ee/tot_lep)
             g_RSSEE_exl.append(0)
             g_RSSEE_exh.append(0)
             g_RSSEE_eyl.append(0)
             g_RSSEE_eyh.append(0)
 
 
-            g_RSSEM.append(tot_plus_dy_em/tot_minus_dy_em)
+            g_RSSEM.append(tot_dy_em/tot_lep)
             g_RSSEM_exl.append(0)
             g_RSSEM_exh.append(0)
             g_RSSEM_eyl.append(0)
@@ -251,15 +224,6 @@ for era in eras:
 
      
 
-        print "-"*40    
-        print "[Total] Ratio ++/-- =  "+ str(tot_plus/tot_minus)
-        print ""*40    
-            
-
-    # gr_dy_mm = ROOT.TGraphAsymmErrors(h_dy_mm)
-    # #gr_dy_ee = ROOT.TGraphAsymmErrors(h_dy_ee)
-    #gr_dy_em = ROOT.TGraphAsymmErrors(h_dy_em)
-  
     gr_dy_mm  = ROOT.TGraphAsymmErrors(nmass+1,array("d",  g_mN), array("d",  g_RSSMM),array("d",  g_RSSMM_exl),array("d",  g_RSSMM_exh),array("d",  g_RSSMM_eyl),array("d",  g_RSSMM_eyh));
     gr_dy_ee  = ROOT.TGraphAsymmErrors(nmass+1,array("d",  g_mN), array("d",  g_RSSEE),array("d",  g_RSSEE_exl),array("d",  g_RSSEE_exh),array("d",  g_RSSEE_eyl),array("d",  g_RSSEE_eyh));
     gr_dy_em  = ROOT.TGraphAsymmErrors(nmass+1,array("d",  g_mN), array("d",  g_RSSEM),array("d",  g_RSSEM_exl),array("d",  g_RSSEM_exh),array("d",  g_RSSEM_eyl),array("d",  g_RSSEM_eyh));
@@ -329,9 +293,9 @@ for era in eras:
 
     lg.Draw()
     
-    print 'Saving ==> '+outdir+'/Graph_Qratio_DY.pdf'
+    print 'Saving ==> '+outdir+'/Graph_Flavourratio_DY.pdf'
 
-    c1.SaveAs(outdir+'/Graph_Qratio_DY.pdf')
+    c1.SaveAs(outdir+'/Graph_Flavourratio_DY.pdf')
     
     
     c1.Close()
