@@ -1,0 +1,25 @@
+\begin{table}[ptb]
+\centering
+\cmsTable{
+\begin{tabular}{lcccc}
+\hline
+\hline
+Source & \multicolumn{4}{c}{} \\ 
+\hline
+$\mathrm{t}\bar{\mathrm{t}}$[powheg]& 34160.0& $\pm$ & 34.0&$^{+1708.0}_{-1708.0}$ \\
+VV[Pythia]& 35100.0& $\pm$ & 104.0&$^{+1755.0}_{-1755.0}$ \\
+NonPrompt& 605795.0& $\pm$ & 428.0&$^{+30289.75}_{-30289.75}$ \\
+DY$\rightarrow \ell\ell$& 17910650.0& $\pm$ & 8245.0&$^{+895532.5}_{-895532.5}$ \\
+X+$\gamma$& 51237.0& $\pm$ & 114.0&$^{+2561.8500000000004}_{-2561.8500000000004}$ \\
+\hline
+Total& 18636942& $\pm$ & 8258&$^{+896052}_{-896052}$ \\
+\hline
+Data& \multicolumn{4}{c}{$17306787$}\\ 
+\hline
+Significance&  \multicolumn{4}{c}{$-1.0\sigma$}\\ 
+\hline
+\hline
+\end{tabular}
+}
+\caption{Single Electron Trigger On Z shell, OS dilepton pair}
+\end{table}

@@ -12,7 +12,7 @@ export FILE_MERGED_PATH=$HNDILEPTONWORKSPACE_DIR/InputFiles/MergedFiles/$SKANVER
 
 if [[ ! -d $FILE_MERGED_PATH ]]; then mkdir $FILE_MERGED_PATH ; fi
 export FILE_PATH=$HNDILEPTONWORKSPACE_DIR/InputFiles/rootfiles/$SKANVERSION/
-export OUTFILE_PATH=$HNDILEPTONWORKSPACE_DIR/OutputFiles/rootfiles/$SKANVERSION/
+export OUTFILE_PATH=$HNDILEPTONWORKSPACE_DIR/Output/rootfiles/$SKANVERSION/
 
 export DATACARD_SHAPE_PATH=$HNDILEPTONWORKSPACE_DIR/Limits/DataCardsShape/
 export LIMIT_PATH=$HNDILEPTONWORKSPACE_DIR/LimitCode/CMS-StatisticalTools/:$HNDILEPTONWORKSPACE_DIR/Limits/MakeShapeInput
@@ -41,3 +41,4 @@ printf "@@@@ Current HNL_Plotter branch : "${BGreen}$CurrentGitBranch${Color_Off
 alias run="bash "$SCRIPT_DIR"/run.sh"
 alias skout='cd '$PLOT_PATH
 
+python python/UsefulTwiki_sites.py

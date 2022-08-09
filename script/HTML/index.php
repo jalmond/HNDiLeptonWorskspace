@@ -102,7 +102,15 @@ foreach (glob("*") as $filename) {
         if (is_dir($filename)) {
             print "<li>[DIR] <a href=\"$filename\">$filename</a></li>";
         } else {
-            print "<li><a href=\"$filename\">$filename</a></li>";
+   if (strpos($filename,"~")==false){
+   
+   if (strpos($filename,"png")!==false){
+   print "<li><a href=\"$filename\">$filename</a> <img src= \"$filename\" width=100%></li>";
+   }else{
+   print "<li><a href=\"$filename\">$filename</a></li>";
+   
+   }
+   }
         }
     }
 }

@@ -1,0 +1,26 @@
+\begin{table}[ptb]
+\centering
+\cmsTable{
+\begin{tabular}{lcccc}
+\hline
+\hline
+Source & \multicolumn{4}{c}{} \\ 
+\hline
+$\mathrm{t}\bar{\mathrm{t}}$[powheg]& 2089787.0& $\pm$ & 296.0&$^{+104489.35}_{-104489.35}$ \\
+VV[Pythia]& 303908.0& $\pm$ & 356.0&$^{+15195.400000000001}_{-15195.400000000001}$ \\
+NonPrompt& 4030035.0& $\pm$ & 1171.0&$^{+201501.75}_{-201501.75}$ \\
+DY$\rightarrow \ell\ell$& 4008715.0& $\pm$ & 4234.0&$^{+200435.75}_{-200435.75}$ \\
+X+$\gamma$& 339890.0& $\pm$ & 411.0&$^{+16994.5}_{-16994.5}$ \\
+W$\rightarrow \ell \nu$& 132777392.0& $\pm$ & 75353.0&$^{+6638869.600000001}_{-6638869.600000001}$ \\
+\hline
+Total& 143549728& $\pm$ & 75483&$^{+6645811}_{-6645811}$ \\
+\hline
+Data& \multicolumn{4}{c}{$150495005$}\\ 
+\hline
+Signifficance&  \multicolumn{4}{c}{$1.0\sigma$}\\ 
+\hline
+\hline
+\end{tabular}
+}
+\caption{Single Electron Trigger W boson selection}
+\end{table}

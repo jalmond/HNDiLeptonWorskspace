@@ -53,9 +53,9 @@ def merge_2016(test_run,analyser,skim):
 
     _dirs = os.listdir( preVFP_path )
     for files in _dirs:
-        print '- ' + files
+        print ('- ' + files)
     for _file in dirlist_2016:
-        print preVFP_path+"/"+_file
+        print (preVFP_path+"/"+_file)
 
     for _file in dirlist_2016:
         if os.path.exists(dir_2016+'/'+_file):
@@ -127,7 +127,6 @@ def merge_data_flavour(test_run,analyser,skim,  label, flavours):
     eras = ["2016preVFP", "2016postVFP", "2017", "2018"]
 
     for era in eras:
-        
         local_dir=os.environ['FILE_MERGED_PATH'] +analyser + "/" +era
 
         out_file =local_dir+"/"+analyser+skim+"_data_"+label+".root"
@@ -168,13 +167,14 @@ def merge_cf(test_run,analyser,skim, flavour, flav_dir):
     eras = ["2016preVFP", "2016postVFP", "2017", "2018"]
     n_era=-1
     for era in eras:
-        n_era+=1
 
-	local_dir=os.environ['FILE_MERGED_PATH'] +analyser
+        n_era+=1
+        local_dir=os.environ['FILE_MERGED_PATH'] +analyser
+
         if not os.path.exists(local_dir):
             os.system('mkdir ' +local_dir)
 
-	local_dir=os.environ['FILE_MERGED_PATH'] +analyser + "/" +era
+        local_dir=os.environ['FILE_MERGED_PATH'] +analyser + "/" +era
         if not os.path.exists(local_dir):
             os.system('mkdir ' + local_dir)
         
@@ -295,7 +295,7 @@ def merge_mc(test_run,analyser, skim):
 
         print (out_file + " [hadd output]")
         print(' ' )
-	print ("hadd [input] :")
+        print ("hadd [input] :")
         _list =os.system("ls " + os.environ['FILE_PATH'] + analyser + "/" +era+"/"+analyser+skim+"*")
         
         
@@ -372,6 +372,7 @@ parser.add_argument('--SYNC', action='store_true')
 parser.add_argument('--NoMerge', action='store_true')
 parser.add_argument('-a',dest='Analyzer', default='NULL')
 parser.add_argument('-s',dest='Skim', default='')
+parser.add_argument('-e',dest='Era', default='')
 
 
 args = parser.parse_args()

@@ -1,0 +1,25 @@
+\begin{table}[ptb]
+\centering
+\cmsTable{
+\begin{tabular}{lcccc}
+\hline
+\hline
+Source & \multicolumn{4}{c}{} \\ 
+\hline
+$\mathrm{t}\bar{\mathrm{t}}$[powheg]& 3194019.0& $\pm$ & 367.0&$^{+159700.95}_{-159700.95}$ \\
+VV[Pythia]& 522028.0& $\pm$ & 468.0&$^{+26101.4}_{-26101.4}$ \\
+DY$\rightarrow \ell\ell$& 12864370.0& $\pm$ & 7196.0&$^{+643218.5}_{-643218.5}$ \\
+X+$\gamma$& 642051.0& $\pm$ & 555.0&$^{+32102.550000000003}_{-32102.550000000003}$ \\
+W$\rightarrow \ell \nu$& 315691171.0& $\pm$ & 116962.0&$^{+15784558.55}_{-15784558.55}$ \\
+\hline
+Total& 332913639& $\pm$ & 117186&$^{+15798520}_{-15798520}$ \\
+\hline
+Data& \multicolumn{4}{c}{$339752865$}\\ 
+\hline
+Signifficance&  \multicolumn{4}{c}{$0.0\sigma$}\\ 
+\hline
+\hline
+\end{tabular}
+}
+\caption{Single Muon Trigger W boson selection}
+\end{table}

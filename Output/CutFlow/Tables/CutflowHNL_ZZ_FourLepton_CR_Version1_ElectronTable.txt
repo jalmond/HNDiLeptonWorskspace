@@ -1,0 +1,22 @@
+\begin{table}[ptb]
+\centering
+\cmsTable{
+\begin{tabular}{lcccc}
+\hline
+\hline
+Source & \multicolumn{4}{c}{} \\ 
+\hline
+ZZ[powheg]& 48.0& $\pm$ & 0.0&$^{+2.4000000000000004}_{-2.4000000000000004}$ \\
+NonPrompt& 4.0& $\pm$ & 1.0&$^{+0.2}_{-0.2}$ \\
+\hline
+Total& 52& $\pm$ & 1&$^{+2}_{-2}$ \\
+\hline
+Data& \multicolumn{4}{c}{$42$}\\ 
+\hline
+Significance&  \multicolumn{4}{c}{$-1.0\sigma$}\\ 
+\hline
+\hline
+\end{tabular}
+}
+\caption{Test}
+\end{table}

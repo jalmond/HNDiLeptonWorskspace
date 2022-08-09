@@ -1,0 +1,22 @@
+\begin{table}[ptb]
+\centering
+\cmsTable{
+\begin{tabular}{lcccc}
+\hline
+\hline
+Source & \multicolumn{4}{c}{} \\ 
+\hline
+ZZ[powheg]& 99.0& $\pm$ & 0.0&$^{+4.95}_{-4.95}$ \\
+NonPrompt& 5.0& $\pm$ & 1.0&$^{+0.25}_{-0.25}$ \\
+\hline
+Total& 104& $\pm$ & 1&$^{+5}_{-5}$ \\
+\hline
+Data& \multicolumn{4}{c}{$105$}\\ 
+\hline
+Signifficance&  \multicolumn{4}{c}{$0.0\sigma$}\\ 
+\hline
+\hline
+\end{tabular}
+}
+\caption{Test}
+\end{table}

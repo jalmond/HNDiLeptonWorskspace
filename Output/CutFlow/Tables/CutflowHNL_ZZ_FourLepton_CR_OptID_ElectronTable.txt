@@ -1,0 +1,22 @@
+\begin{table}[ptb]
+\centering
+\cmsTable{
+\begin{tabular}{lcccc}
+\hline
+\hline
+Source & \multicolumn{4}{c}{} \\ 
+\hline
+ZZ[powheg]& 82.0& $\pm$ & 0.0&$^{+4.1000000000000005}_{-4.1000000000000005}$ \\
+NonPrompt& 4.0& $\pm$ & 1.0&$^{+0.2}_{-0.2}$ \\
+\hline
+Total& 85& $\pm$ & 1&$^{+4}_{-4}$ \\
+\hline
+Data& \multicolumn{4}{c}{$83$}\\ 
+\hline
+Signifficance&  \multicolumn{4}{c}{$-0.0\sigma$}\\ 
+\hline
+\hline
+\end{tabular}
+}
+\caption{Test}
+\end{table}

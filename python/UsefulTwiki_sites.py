@@ -4,4 +4,4 @@ site = [  ["ElectronID_94","https://indico.cern.ch/event/732971/contributions/30
           ["git_js_2016_plotter","https://github.com/jedori0228/HN_dilepton_plotter/tree/v8-0-7.37_Approved"]]
 
 for s in site:
-    print "Nickname : "  + s[0]  +  " --- " + s[1] 
+    print ("Nickname : "  + s[0]  +  " --- " + s[1] )
