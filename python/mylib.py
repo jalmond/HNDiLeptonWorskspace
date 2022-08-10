@@ -73,6 +73,33 @@ def LumiError(DataYear):
     print ("[mylib.py, LumiError()] Wrong DataYear : %d"%DataYear)
     return 0.
 
+def TotalLumi(DataYear):
+
+  if DataYear==2016:
+    return "35.92"
+  if DataYear==2017:
+    return "41.53"
+  if DataYear==2018:
+    return "59.74"
+  if DataYear<0:
+    return "138"
+  else:
+    print "[mylib.py, TotalLumi()] Wrong DataYear : %d"%DataYear
+    return "35.9"
+
+def LumiError(DataYear):
+
+  #if DataYear==2016:
+  #  return 0.025
+  #elif DataYear==2017:
+  #  return 0.023
+  #elif DataYear==2018:
+  #  return 0.025
+  #else:
+  #  print "[mylib.py, LumiError()] Wrong DataYear : %d"%DataYear
+  #  return 0.
+
+
   return 0.018
 
 def MakeOverflowBin(hist):
@@ -152,6 +179,18 @@ def RebinNMass(hist, region, DataYear):
 
   if ('LowWR' in region):
     tmp_vec_bins = [0, 50, 75]
+
+def RebinWRMass(hist, region, DataYear):
+
+  lastbin = hist.GetXaxis().GetNbins()
+  vec_bins = [800, 1000, 1200, 1400, 1600, 2000, 2400, 2800, 3200, 8000]
+  if "Boosted" in region:
+    vec_bins = [800, 1000, 1200, 1500, 1800, 8000]
+
+  #if ('LowWR' in region) or ('DYCR' in region):
+  if ('LowWR' in region):
+    tmp_vec_bins = [0, 200, 300, 400, 500, 600, 700, 800]
+
     for b in vec_bins:
       tmp_vec_bins.append(b)
     vec_bins = tmp_vec_bins
@@ -159,6 +198,36 @@ def RebinNMass(hist, region, DataYear):
   n_bin = len(vec_bins)-1
   hist = hist.Rebin(n_bin, hist.GetName(), array("d", vec_bins) )
   return hist
+
+  return ChangeGeVToTeVXaxis(hist)
+  #return hist
+
+def ChangeGeVToTeVXaxis(h):
+
+  x_New = []
+  x_New.append( h.GetXaxis().GetBinLowEdge(1)/1000. )
+  for ix in range(0, h.GetXaxis().GetNbins()):
+    iBin = ix+1
+    x_New.append( h.GetXaxis().GetBinUpEdge(iBin)/1000. )
+  h_New = ROOT.TH1D(h.GetName(), '', len(x_New)-1, array("d", x_New))
+
+  targetBinWidth = 0.2#TeV
+
+  for ix in range(0, h.GetXaxis().GetNbins()):
+    iBin = ix+1
+
+    new_BinContent = h.GetBinContent(iBin)
+    new_BinError = h.GetBinError(iBin)
+
+    #this_BinWidth = h_New.GetXaxis().GetBinUpEdge(iBin) - h_New.GetXaxis().GetBinLowEdge(iBin)
+    #new_BinContent = new_BinContent/this_BinWidth * targetBinWidth
+    #new_BinError = new_BinError/this_BinWidth * targetBinWidth
+
+    h_New.SetBinContent(iBin, new_BinContent)
+    h_New.SetBinError(iBin, new_BinError)
+
+  return h_New
+
 
 def RebinJetPt(hist, region, DataYear):
 
@@ -189,6 +258,7 @@ def GetMaximum(a, ErrorScale=1.):
 
     if (y.value+ErrorScale*yerr_high > maxval):
       maxval = y.value+ErrorScale*yerr_high
+
 
   return maxval
 
@@ -332,6 +402,7 @@ def GetSignalXsec(filepath,  mN):
   lines = open(filepath).readlines()
   for line in lines:
     words = line.split()
+
     if len(words) != 2:
       continue
     if ( int(words[0])==int(mN) ):
