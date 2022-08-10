@@ -296,8 +296,8 @@ for era in eras:
     
     c1.SaveAs(outdir+'/Graph_'+era+'_Flavourratio_SSWW.pdf')
     c1.SaveAs(outdir+'/Graph_'+era+'_Flavourratio_SSWW.png')
-    os.system("scp " + outdir+"/Graph_"+era+"_Flavourratio_SSWW.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/")
-    os.system("scp " + outdir+"/Graph_"+era+"_Flavourratio_SSWW.png jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/")
+    os.system("scp " + outdir+"/Graph_"+era+"_Flavourratio_SSWW.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/LepRatio/")
+    os.system("scp " + outdir+"/Graph_"+era+"_Flavourratio_SSWW.png jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/LepRatio/")
     
 
     

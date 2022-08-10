@@ -42,6 +42,10 @@ for era in eras:
     for x in List:
         mass = x
         mass=mass.replace("VBFTypeI_NLO_DF_M","")
+        mass=mass.replace("VBFTypeI_DF_ll_M","")
+        mass=mass.replace("VBFTypeI_SF_ll_M","")
+        mass=mass.replace("VBFTypeI_DF_M","")
+        mass=mass.replace("_private","")
         
         if not int(mass) in sig_mass_list:
             sig_mass_list.append(int(mass))
@@ -157,7 +161,8 @@ for era in eras:
 
         sigVBF=""
 
-        sigVBF =  "VBFTypeI_NLO_DF_M"+str(x)
+        sigVBF =  "VBFTypeI_DF_ll_M"+str(x)
+        sigVBFDF =  "VBFTypeI_DF_ll_M"+str(x)
         
 
            
@@ -173,6 +178,9 @@ for era in eras:
            
             f_sig = ROOT.TFile(   "/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalStudies/"+era+"/HNL_SignalStudies_"+sigVBF+".root")
             h_sig = f_sig.Get("SignalProcess/FillEventCutflow/SplitChannel")
+            f_sig2 = ROOT.TFile(   "/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalStudies/"+era+"/HNL_SignalStudies_"+sigVBF+".root")
+            h_sig2 = f_sig.Get("SignalProcess/FillEventCutflow/SplitChannel")
+            h_sig.Add(h_sig2)
 
             print "/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalStudies/"+era+"/HNL_SignalStudies_"+sigVBF+".root"
 
@@ -299,12 +307,12 @@ for era in eras:
     
     print 'Saving ==> '+outdir+'/Graph_Flavourratio_VBF.pdf'
 
-    c1.SaveAs(outdir+'/Graph_'+era+'_Flavourratio_VBF.pdf')
-    c1.SaveAs(outdir+'/Graph_'+era+'_Flavourratio_VBF.png')
-    print ("scp " + outdir+"/Graph_"+era+"_Flavourratio_VBF.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/")
-    os.system("scp " + outdir+"/Graph_"+era+"_Flavourratio_VBF.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/")
-    print ("scp " + outdir+"/Graph_"+era+"_Flavourratio_VBF.png jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/")
-    os.system("scp " + outdir+"/Graph_"+era+"_Flavourratio_VBF.png jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/")
+    c1.SaveAs(outdir+'/Graph_'+era+'_Flavourratio_VBF_official.pdf')
+    c1.SaveAs(outdir+'/Graph_'+era+'_Flavourratio_VBF_official.png')
+    print ("scp " + outdir+"/Graph_"+era+"_Flavourratio_VBF_official.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/LepRatio/")
+    os.system("scp " + outdir+"/Graph_"+era+"_Flavourratio_VBF_official.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/LepRatio/")
+    print ("scp " + outdir+"/Graph_"+era+"_Flavourratio_VBF_official.png jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/LepRatio/")
+    os.system("scp " + outdir+"/Graph_"+era+"_Flavourratio_VBF_official.png jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/LepRatio/")
     
     
     

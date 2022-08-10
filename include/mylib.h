@@ -1514,7 +1514,7 @@ void FormatHist(TH1* h , TString fill, Color_t t){
 
   if(fill.Contains("f")){
     h->SetFillColor(t);
-    h->SetLineColor(t);
+    h->SetLineColr(t);
   h->SetLineWidth(10);    
   }
   if(fill.Contains("l")){

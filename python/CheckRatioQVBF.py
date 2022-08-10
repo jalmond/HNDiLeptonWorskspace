@@ -34,7 +34,7 @@ def GetSignalList(era, signalChannel):
 eras = ["2016preVFP", "2016postVFP","2017","2018"]
 
 
-eras = ["2018"] 
+eras = ["2017"] 
 
 
 sig_mass_list =[]
@@ -45,12 +45,16 @@ for era in eras:
     for x in List:
         mass = x
         mass=mass.replace("VBFTypeI_NLO_DF_M","")
-        
+        mass=mass.replace("VBFTypeI_DF_ll_M","")
+        mass=mass.replace("VBFTypeI_SF_ll_M","")
+        mass=mass.replace("VBFTypeI_DF_M","")
+        mass=mass.replace("_private","")
         if not int(mass) in sig_mass_list:
             sig_mass_list.append(int(mass))
         continue
 
 sig_mass_list.sort()
+
 
 channel = "Muon"
 sig_pre = "VBFTypeI"
@@ -171,9 +175,9 @@ for era in eras:
 
         sigVBF=""
 
-        sigVBF =  "VBFTypeI_NLO_DF_M"+str(x)
+        sigVBF =  "VBFTypeI_SF_ll_M"+str(x)
+        sigVBFDF =  "VBFTypeI_DF_ll_M"+str(x)
         
-
            
         tot_plus=0
         tot_minus=0
@@ -203,12 +207,16 @@ for era in eras:
         
 
 
-
+        #HNL_SignalStudies_VBFTypeI_DF_ll_M3000
 
         if os.path.exists("/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalStudies/"+era+"/HNL_SignalStudies_"+sigVBF+".root"):
            
             f_sig = ROOT.TFile(   "/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalStudies/"+era+"/HNL_SignalStudies_"+sigVBF+".root")
             h_sig = f_sig.Get("SignalProcess/FillEventCutflow/SplitChannel")
+
+            f_sig2 = ROOT.TFile(   "/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalStudies/"+era+"/HNL_SignalStudies_"+sigVBFDF+".root")
+            h_sig2 = f_sig2.Get("SignalProcess/FillEventCutflow/SplitChannel")
+            h_sig.Add(h_sig2)
 
             
             for z in range(0,h_sig.GetXaxis().GetNbins()):
@@ -288,12 +296,12 @@ for era in eras:
             g_RSSEM_exh.append(0)
             g_RSSEM_eyl.append(GetError(tot_plus_vbf_em, tot_minus_vbf_em, tot_plus_vbf_em_err, tot_minus_vbf_em_err))
             g_RSSEM_eyh.append(GetError(tot_plus_vbf_em, tot_minus_vbf_em, tot_plus_vbf_em_err, tot_minus_vbf_em_err))
-
+        else:
+            print "/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalStudies/"+era+"/HNL_SignalStudies_"+sigVBF+".root"
+            print "FAIL"
+            exit()
      
 
-        print "-"*40    
-        print "[Total] Ratio ++/-- =  "+ str(tot_plus/tot_minus)
-        print ""*40    
             
 
     # gr_vbf_mm = ROOT.TGraphAsymmErrors(h_vbf_mm)
@@ -321,6 +329,7 @@ for era in eras:
         
     for x in range (0, len(g_mN)):
         print str(g_mN[x]) + ' ' + str(g_RSSMM[x])
+
     counter = 2
     gr_vbf_mm.SetMarkerColor(counter)
     gr_vbf_mm.SetLineColor(counter)
@@ -389,7 +398,11 @@ for era in eras:
     
     print 'Saving ==> '+outdir+'/Graph_Qratio_VBF.pdf'
 
-    c1.SaveAs(outdir+'/Graph_Qratio_VBF.pdf')
+    c1.SaveAs(outdir+'/Graph_'+era+'_Qratio_VBF_private.pdf')
+    c1.SaveAs(outdir+'/Graph_'+era+'_Qratio_VBF_private.png')
     
+    os.system("scp " + outdir+"/Graph_"+era+"_Qratio_VBF_private.png jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/CheckRatioQ/")
+    os.system("scp " + outdir+"/Graph_"+era+"_Qratio_VBF_private.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/CheckRatioQ/")
+
     
     c1.Close()
