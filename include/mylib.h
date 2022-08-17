@@ -1514,7 +1514,7 @@ void FormatHist(TH1* h , TString fill, Color_t t){
 
   if(fill.Contains("f")){
     h->SetFillColor(t);
-    h->SetLineColr(t);
+    h->SetLineColor(t);
   h->SetLineWidth(10);    
   }
   if(fill.Contains("l")){
@@ -1675,6 +1675,7 @@ TH1D* GetHist(TFile* file, TString name , bool return_void=true, bool debug=fals
     TString objname= obj->ClassName();
     if(hname == name) hist_found=true;
   }
+  /*
   if(!hist_found){
 
     cout << "File " << file->GetName() << " missing file " << name << endl;
@@ -1708,6 +1709,7 @@ TH1D* GetHist(TFile* file, TString name , bool return_void=true, bool debug=fals
       else       return this_hist;
     }
   }
+  */
   TH1D* h = (TH1D*)(file->Get(name));
 
   //TH1D* h_C = (TH1D*)h_C->Clone(name+"clone2"+file->GetName());
@@ -1871,27 +1873,17 @@ double GetIntegral( TFile * filemm,  TString n_sr_hist){
 
 }
 
+double SignalScale(double yield){
+  if(yield==0.) return 0.;
+  return 5./yield; 
+}
 
-double SignalScale(TString year, TString mass){
+double SignalScale(TString year, double  mass){
 
   float scale = 1.;
-  if(mass == "100") scale = 0.1;
-  else if(mass == "125") scale = 0.1;
-  else if(mass == "200") scale = 0.1;
-  else if(mass == "250") scale = 1.;
-  else if(mass == "300") scale = 1.;
-  else if(mass == "400") scale = 1.;
-  else if(mass == "500") scale = 1.;
-  else if(mass == "600") scale = 1.;
-  else if(mass == "700") scale = 10.;
-  else if(mass == "800") scale = 10.;
-  else if(mass == "900") scale = 10.;
-  else if(mass == "1000") scale = 10.;
-  else if(mass == "1100") scale = 100.;
-  else if(mass == "1200") scale = 100.;
-  else if(mass == "1300") scale = 100.;
-  else if(mass == "1400") scale = 100.;
-  else if(mass == "1500") scale = 100.;
+  if(mass <= 200) scale = 0.1;
+  else if(mass <= 600) scale = 1.;
+  else if(mass <= 1000) scale = 10.;
   else scale = 100.;
   
   if (year == "2017") scale *= 41.54/36.47;
@@ -1901,126 +1893,7 @@ double SignalScale(TString year, TString mass){
 
   
 }
-void WriteToFile(TString mass, TString year, TString signal, TFile* fo, TString path_, vector<pair<TString,TString> > samples, TString histname, vector<TString> systs){
 
-  for (unsigned int i = 0 ; i < samples.size(); i++){
-    for(const auto& _syst: systs) {
-      
-      if(samples[i].first.Contains("data") && _syst!= "")continue;
-      TString h_path =  path_ + samples[i].second + ".root";
-      TFile * file_ = new TFile((h_path).Data());
-      cout << h_path << endl;
-      TString _systname = "";
-      if (_syst != "") _systname = "_"+_syst;
-      cout << histname+_syst << endl;
-      bool ishist=CheckHist(file_, histname+_syst);
-      if (!ishist){
-	cout << "missing histname " << histname << endl;
-	if(histname.Contains("reco")){
-	  if(!histname.Contains("fine")){
-	    double ml1jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-	    double ml2jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-	    double mlljbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-	    TH1D* this_hist = new TH1D(histname+"__", "", 6, ml1jbins);
-	    fo->cd();
-	    this_hist->SetName(samples[i].first+_systname);
-	    this_hist->Write();
-	    delete this_hist;
-
-	  }
-	}
-	else{
-	  
-	  TH1D* this_hist = new TH1D(histname+"__", "", 24, 0.,24.);
-	  fo->cd();
-	  this_hist->SetName(samples[i].first+_systname);
-	  this_hist->Write();
-	  delete this_hist;
-	  
-	}
-	
-      }
-      else{
-	cout << "found" << endl;
-	//TH1* hist = GetHist(file_, histname+_syst);
-	TH1D* hist = (TH1D*)(file_->Get(histname+_syst));
-
-	cout << hist << endl;
-	fo->cd();
-	cout << "Writing " << samples[i].first+_systname << endl;
-	cout << hist->Integral() << endl;
-	hist->SetName(samples[i].first+_systname);
-	int _int = int(hist->Integral());
-	if(samples[i].first.Contains("data"))hist->Scale(_int/hist->Integral());
-	//else  hist->Scale(0.8);
-	hist->Write();
-	cout << h_path << " " << samples[i].first+_systname << " " << hist->Integral() << endl;
-      }
-      file_->Close();
-    }
-  }
-
-  for(const auto& _syst: systs) {
-
-    TString h_path = signal;
-    TFile * file_ = new TFile((h_path).Data());
-
-    TString _systname =	"";
-    if (_syst != "") _systname = "_"+_syst;
-
-    bool ishist=CheckHist(file_, histname+_syst);
-
-    if (!ishist){
-      if(histname.Contains("reco")){
-	double ml1jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-	double ml2jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-	double mlljbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-	TH1D* this_hist = new TH1D(histname+"__", "", 6, ml1jbins);
-	fo->cd();
-	this_hist->SetName("signal"+_systname);
-	this_hist->Write();
-	delete this_hist;
-	
-      }
-      else{
-
-	TH1D* this_hist = new TH1D(histname+"__", "", 24, 0.,24.);
-	fo->cd();
-	this_hist->SetName("signal"+_systname);
-	this_hist->Write();
-	delete this_hist;
-
-      }      
-    }
-    else{
-      
-      //TH1* hist = GetHist(file_, histname+_syst);
-      
-
-
-    TH1D* hist = (TH1D*)(file_->Get(histname+_syst));
-
-    hist->SetName("signal" +_systname+"_noscale");   
-    double _scale= SignalScale(year,mass);
-    hist->Scale(_scale);
-
-    fo->cd();
-    //hist->Write();
-    
-    int _int = int(hist->Integral());
-   
-    TH1* hist_tmp = (TH1*)hist->Clone(histname+_syst+"_nocale");       
-
-    hist_tmp->Scale(_scale);
-    hist_tmp->SetName("signal" +_systname);
-    hist_tmp->Write();
-    cout << "Signal integral = " << hist_tmp->Integral() << " " << histname <<" " << h_path <<  endl;
-						       
-    }
-    file_->Close();
-  }
-  
-}
 
 double GetMaximum(TGraphAsymmErrors* g1, vector<TGraphAsymmErrors*> grs){
 

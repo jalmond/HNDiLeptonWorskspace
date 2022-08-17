@@ -21,8 +21,8 @@ def getoutput(_command,tag):
 def rsync_tamsa(_dir):
     print (' ')
     print ('---'*30)
-    print('rsync -av -e "ssh -p 1240 " jalmond@147.47.242.42:/data6/Users/jalmond/SKFlatOutput/'+os.getenv('SKFLATVERSION')+'/'+_dir + ' ' + os.environ['FILE_PATH'])
-    os.system('rsync -av -e "ssh -p 1240 " jalmond@147.47.242.42:/data6/Users/jalmond/SKFlatOutput/'+os.environ['SKFLATVERSION']+'/'+_dir + ' ' + os.environ['FILE_PATH'])
+    print('rsync -av -e "ssh -p 1240 " jalmond@147.47.242.42:/data6/Users/jalmond/SKFlatOutput/'+os.getenv('FLATVERSION')+'/'+_dir + ' ' + os.environ['INFILE_PATH'])
+    os.system('rsync -av -e "ssh -p 1240 " jalmond@147.47.242.42:/data6/Users/jalmond/SKFlatOutput/'+os.environ['FLATVERSION']+'/'+_dir + ' ' + os.environ['INFILE_PATH'])
     print (' ')
     print ('---'*30)
 
@@ -36,6 +36,7 @@ def merge_2016(test_run,analyser,skim):
     from os.path import isfile,isdir, join
 
     print('MERGE 2016')
+
     
 
     dir_2016 = os.environ['FILE_MERGED_PATH'] +analyser + "/2016/"
@@ -185,7 +186,7 @@ def merge_cf(test_run,analyser,skim, flavour, flav_dir):
         _dir=flav_dir[n_era]
         print (_dir)
         for x in range(1, len(_dir)):
-            file_path=os.environ['FILE_PATH'] + analyser + "/" +era+"/"+_dir[0]+"DATA/"+analyser+skim + _dir[x]+"* "
+            file_path=os.environ['INFILE_PATH'] + analyser + "/" +era+"/"+_dir[0]+"DATA/"+analyser+skim + _dir[x]+"* "
             string_hadd = string_hadd+file_path
         hadd_cmd="hadd  " + out_file + " " + string_hadd
         print (out_file + " [hadd output]")
@@ -243,9 +244,9 @@ def merge_data(test_run,analyser,skim, flavour, flav_dir):
         print (_dir)
         for x in range(1, len(_dir)):
             
-            file_path=os.environ['FILE_PATH'] + analyser + "/" +era+"/"+_dir[0]+"DATA/"+analyser+skim + _dir[x]+"* "
+            file_path=os.environ['INFILE_PATH'] + analyser + "/" +era+"/"+_dir[0]+"DATA/"+analyser+skim + _dir[x]+"* "
             if "CF" in flavour:
-                file_path=os.environ['FILE_PATH'] + analyser + "/" +era+"/"+_dir[0]+"DATA/"+analyser + _dir[x]+"* "
+                file_path=os.environ['INFILE_PATH'] + analyser + "/" +era+"/"+_dir[0]+"DATA/"+analyser + _dir[x]+"* "
 
             string_hadd = string_hadd+file_path
         hadd_cmd="hadd  " + out_file + " " + string_hadd
@@ -267,6 +268,7 @@ def merge_data(test_run,analyser,skim, flavour, flav_dir):
                     sys.exit()
 
 
+
 def merge_mc(test_run,analyser, skim):
 
     print ('')
@@ -285,18 +287,18 @@ def merge_mc(test_run,analyser, skim):
         if not os.path.exists(local_dir):
             os.system('mkdir ' + local_dir)
 
-        out_file=local_dir+"/"+analyser+skim+"_MC.root"
+        out_file=local_dir+"/"+analyser+skim+"_SSPrompt.root"
         if os.path.exists(out_file):
             os.system('rm ' +out_file)
 
-        file_path=os.environ['FILE_PATH'] + analyser + "/" +era+"/"+analyser+skim+"*"
+        file_path=os.environ['INFILE_PATH'] + analyser + "/" +era+"/"+analyser+skim+"*"
         os.system('cp ' + file_path + ' '  + local_dir)
         hadd_cmd="hadd  " + out_file + " " + file_path
 
         print (out_file + " [hadd output]")
         print(' ' )
         print ("hadd [input] :")
-        _list =os.system("ls " + os.environ['FILE_PATH'] + analyser + "/" +era+"/"+analyser+skim+"*")
+        _list =os.system("ls " + os.environ['INFILE_PATH'] + analyser + "/" +era+"/"+analyser+skim+"*")
         
         
         if not test_run:
@@ -322,27 +324,39 @@ def merge_data_setup(_isTest,_analyser_name,_skim_name):
     print (' ')
 
 
-    if analyser_name =="HNL_DileptonCR":
-        merge_data(_isTest,_analyser_name,_skim_name,"Electron", [["","_DoubleEG"],["","_DoubleEG"],["","_DoubleEG"],["","_EGamma"]])
-        merge_data(_isTest,_analyser_name,_skim_name,"Muon",     [["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"]])
-        merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_Electron",   [["/RunFake__/","_DoubleEG"],["/RunFake__/","_DoubleEG"],["/RunFake__/","_DoubleEG"],["/RunFake__/","_EGamma"]])
-        merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_Muon",       [["/RunFake__/","_DoubleMuon"],["/RunFake__/","_DoubleMuon"],["/RunFake__/","_DoubleMuon"],["/RunFake__/","_DoubleMuon"]])
+    if analyser_name =="HNL_IDSFTmp":    
+        merge_data(_isTest,_analyser_name,_skim_name,"EE", [["","_DoubleEG"],["","_DoubleEG"],["","_DoubleEG"],["","_EGamma"]])
+        merge_data(_isTest,_analyser_name,_skim_name,"MuMu",     [["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"]])
 
-        merge_data(_isTest,_analyser_name,_skim_name,"CF",     [["/RunCF__/","_DoubleEG"],["/RunCF__/","_DoubleEG"],["/RunCF__/","_DoubleEG"],["/RunCF__/","_EGamma"]])
+    if analyser_name =="HNL_DileptonCR" or analyser_name == "HNL_SignalRegionPlotter":
+        merge_data(_isTest,_analyser_name,_skim_name,"EE", [["","_DoubleEG"],["","_DoubleEG"],["","_DoubleEG"],["","_EGamma"]])
+        merge_data(_isTest,_analyser_name,_skim_name,"MuMu",     [["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"]])
+        merge_data(_isTest,_analyser_name,_skim_name,"EMu",     [["","_MuonEG"],["","_MuonEG"],["","_MuonEG"],["","_MuonEG"]])
+        
+        merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_EE",   [["/RunFake__/","_DoubleEG"],["/RunFake__/","_DoubleEG"],["/RunFake__/","_DoubleEG"],["/RunFake__/","_EGamma"]])
+        merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_MuMu",       [["/RunFake__/","_DoubleMuon"],["/RunFake__/","_DoubleMuon"],["/RunFake__/","_DoubleMuon"],["/RunFake__/","_DoubleMuon"]])
+        merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_EMu",       [["/RunFake__/","_MuonEG"],["/RunFake__/","_MuonEG"],["/RunFake__/","_MuonEG"],["/RunFake__/","_MuonEG"]])
+
+        #merge_data(_isTest,_analyser_name,_skim_name,"CF",     [["/RunCF__/","_DoubleEG"],["/RunCF__/","_DoubleEG"],["/RunCF__/","_DoubleEG"],["/RunCF__/","_EGamma"]])
 
         time.sleep(30)
-        merge_data_flavour(_isTest,_analyser_name,_skim_name , "Lepton", ["Muon","Electron"])
+        merge_data_flavour(_isTest,_analyser_name,_skim_name , "Lepton", ["MuMu","EE","EMu"])
         time.sleep(30)
         
     if analyser_name =="FakeRateHNUnPrescaled":
         merge_data(_isTest,_analyser_name,_skim_name,"Electron", [["","_SingleElectron"],["","_SingleElectron"],["","_SingleElectron"],["","_EGamma"]])
         merge_data(_isTest,_analyser_name,_skim_name,"Muon",     [["","_SingleMuon"],["","_SingleMuon"],["","_SingleMuon"],["","_SingleMuon"]])
 
-    if analyser_name =="FakeRateHN":
-        merge_data(_isTest,_analyser_name,_skim_name,"Electron", [["","_DoubleEG"],["","_DoubleEG"],["","_DoubleEG","_SingleElectron"],["","_EGamma"]])
-        merge_data(_isTest,_analyser_name,_skim_name,"Muon",     [["","_DoubleMuon"],["","_DoubleMuon"],["","_SingleMuon","_DoubleMuon"],["","_SingleMuon","_DoubleMuon"]])
+    if analyser_name =="HNL_FakeRate":
+        print "_skim_name  = " + _skim_name
+        if _skim_name == "_SkimTree_Dilepton":
+            merge_data(_isTest,_analyser_name,_skim_name,"Electron", [["","_DoubleEG"],["","_DoubleEG"],["","_DoubleEG"],["","_EGamma"]])
+            merge_data(_isTest,_analyser_name,_skim_name,"Muon",     [["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"]])
+            
+        else:
+            merge_data(_isTest,_analyser_name,_skim_name,"Electron", [["","_DoubleEG"],["","_DoubleEG"],["","_SingleElectron"],["","_EGamma"]])
+            merge_data(_isTest,_analyser_name,_skim_name,"Muon",     [["","_DoubleMuon"],["","_DoubleMuon"],["","_SingleMuon","_DoubleMuon"],["","_SingleMuon","_DoubleMuon"]])
 
-        merge_data_flavour(_isTest,_analyser_name,_skim_name , "Lepton", ["Muon","Electron"])
 
     if analyser_name == "HNL_Validation":
         
@@ -386,7 +400,7 @@ isTest=args.Test
 
 if analyser_name == "NULL":
     print ("input -a analyser not added: use one from FILE_MERGED_PATH")
-    os.system('ls  ' + os.getenv('FILE_PATH'))
+    os.system('ls  ' + os.getenv('INFILE_PATH'))
     
     exit()
 

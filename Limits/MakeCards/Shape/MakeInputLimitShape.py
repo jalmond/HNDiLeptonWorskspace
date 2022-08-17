@@ -27,6 +27,7 @@ if config_file == "None":
     exit()
 
 _setup=[]
+
 _channels =  GetConfig("channels",    config_file,_setup)
 flavours  =  GetConfig("flavours",    config_file,_setup)
 years     =  GetConfig("years",       config_file,_setup)
@@ -78,6 +79,7 @@ for _iter in range(0,niter):
            for mass in _masses:
                isVBF=ChooseTag(_channel)
                _var = GetVariableName(_var,SR)
+               _var = SR  ### Fix for now
                
                #card_2016_EE_SR1_N200_combined_passTightID.txt
                cardname = "/card_"+year+"_"+flavour + "_" + SR+"_N" + mass + isVBF+"_" +_id+"_"+_var+".txt"
@@ -90,7 +92,7 @@ for _iter in range(0,niter):
                print card_output_dir + cardname
                all_list.write(card_output_dir + cardname + "\n") 
                
-               input_rootfile = "HN_"+_channel+"_"+ mass + "_highmass_Run2Legacy_v4_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+_var+".root"
+               input_rootfile = "HN_"+_channel+"_"+ mass + "_highmass_Run2UltraLegacy_v3_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+_var+".root"
 
                input_filepath =  card_output_dir +input_rootfile
                if not os.path.exists(input_filepath):
@@ -118,13 +120,13 @@ for _iter in range(0,niter):
                limitfile.write("# the second 'process' line must have a positive number for backgrounds, and 0 for signal\n")
                limitfile.write("# then we list the independent sources of uncertainties, and give their effect (syst. error)\n")
                limitfile.write("# on each process and bin\n")
-               limitfile.write("bin	bin1	bin1	bin1	bin1\n")
-               limitfile.write("process	prompt	fake	cf	signal\n")
-               limitfile.write("process	1	2	3	0\n")
+               limitfile.write("bin	bin1	bin1	bin1	bin1   \n")
+               limitfile.write("process	prompt	fake	cf	signal \n")
+               limitfile.write("process	1	2	3	0   \n")
 
 
                
-               rate_line = "rate  " + str(GetCountShape(_channel,"prompt",flavour,SR, mass,year,_id,_var,Analyzer)) + " " + str(GetCountShape(_channel,"fake",flavour,SR, mass,year,_id,_var,Analyzer)) + " " + str(GetCountShape(_channel,"cf",flavour,SR,mass,year,_id,_var,Analyzer)) + " " + str(GetSignalEventsShape(flavour,SR,mass,year, _channel,_id,_var,Analyzer))
+               rate_line = "rate  " + str(GetCountShape(_channel,"prompt",flavour,SR, mass,year,_id,_var,Analyzer)) + " " + str(GetCountShape(_channel,"fake",flavour,SR, mass,year,_id,_var,Analyzer)) + " " + str(GetCountShape(_channel,"cf",flavour,SR,mass,year,_id,_var,Analyzer)) + " " + str(GetSignalEventsShape("signalDYVBF",flavour,SR,mass,year, _channel,_id,_var,Analyzer))
 
                rate_line += "\n"
                limitfile.write(rate_line)

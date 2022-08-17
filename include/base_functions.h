@@ -146,21 +146,40 @@ void           OutMessage(TString s_code, TString  s_file){
   cout << s_code << " : created file " << s_file << endl;
 }
 
-vector<TString> GetMassType1Strings(vector<TString> ignore_masses, TString channel){
-
-  //TString split_string = ignore_masses;
-  //split_string= split_string.ReplaceAll("/"," ");
-  TH1* h;
-  //vector<TString> v//{_getsplit(string(split_string), ' ')};
-
+bool IsVBFMass(TString mass){
 
   vector <TString> masses ;
-  if(channel != "Tchannel"){
-    masses.push_back("100");
-    masses.push_back("125");
-    masses.push_back("200");
-    masses.push_back("250");
+  masses.push_back("500");
+  masses.push_back("600");
+  masses.push_back("700");
+  masses.push_back("800");
+  masses.push_back("900");
+  masses.push_back("1000");
+  masses.push_back("1100");
+  masses.push_back("1200");
+  masses.push_back("1300");
+  masses.push_back("1500");
+  masses.push_back("1700");
+  masses.push_back("2000");
+  masses.push_back("2500");
+  masses.push_back("3000");
+
+  for(auto imass: masses){
+    if(imass == mass) return true;
   }
+  
+  return false;
+}
+bool IsDYMass(TString mass){
+
+  vector <TString> masses ;
+  masses.push_back("85");
+  masses.push_back("90");
+  masses.push_back("95");
+  masses.push_back("100");
+  masses.push_back("125");
+  masses.push_back("200");
+  masses.push_back("250");
   masses.push_back("300");
   masses.push_back("400");
   masses.push_back("500");
@@ -172,11 +191,92 @@ vector<TString> GetMassType1Strings(vector<TString> ignore_masses, TString chann
   masses.push_back("1100");
   masses.push_back("1200");
   masses.push_back("1300");
-  masses.push_back("1400");
   masses.push_back("1500");
   masses.push_back("1700");
   masses.push_back("2000");
+  masses.push_back("2500");
+  masses.push_back("3000");
+  for(auto imass: masses){
+    if(imass == mass) return true;
+  }
 
+  return false;
+
+}
+
+bool IsSSWWMass(TString mass){
+  
+  vector <TString> masses ;
+  masses.push_back("500");
+  masses.push_back("600");
+  masses.push_back("700");
+  masses.push_back("800");
+  masses.push_back("900");
+  masses.push_back("1000");
+  masses.push_back("1100");
+  masses.push_back("1200");
+  masses.push_back("1300");
+  masses.push_back("1500");
+  masses.push_back("1700");
+  masses.push_back("2000");
+  masses.push_back("2500");
+  masses.push_back("3000");
+
+  masses.push_back("5000");
+  //masses.push_back("7500");
+  masses.push_back("10000");
+  masses.push_back("15000");
+  masses.push_back("20000");
+
+  for(auto imass: masses){
+    if(imass == mass) return true;
+  }
+
+  return false;
+
+}
+vector<TString> GetMassType1Strings(vector<TString> ignore_masses, TString channel){
+
+  //TString split_string = ignore_masses;
+  //split_string= split_string.ReplaceAll("/"," ");
+  TH1* h;
+  //vector<TString> v//{_getsplit(string(split_string), ' ')};
+
+
+  vector <TString> masses ;
+  if(channel != "Tchannel"){
+    masses.push_back("85");
+    masses.push_back("90");
+    masses.push_back("95");
+    masses.push_back("100");
+    masses.push_back("125");
+    masses.push_back("200");
+    masses.push_back("250");
+    masses.push_back("300");
+    masses.push_back("400");
+  }  
+  masses.push_back("500");
+  masses.push_back("600");
+  masses.push_back("700");
+  masses.push_back("800");
+  masses.push_back("900");
+  masses.push_back("1000");
+  masses.push_back("1100");
+  masses.push_back("1200");
+  masses.push_back("1300");
+  masses.push_back("1500");
+  masses.push_back("1700");
+  masses.push_back("2000");
+  masses.push_back("2500");
+  masses.push_back("3000");
+
+  masses.push_back("5000");
+  masses.push_back("7500");
+  masses.push_back("10000");
+  masses.push_back("15000");
+  masses.push_back("20000");
+
+  
   vector <TString> _masses ;
   for(unsigned int i=0; i < masses.size(); i++){
     bool ignore=false;
@@ -201,31 +301,10 @@ vector<double> GetMassType1Doubles(vector<TString> ignore_masses, TString channe
   //split_string= split_string.ReplaceAll("/"," ");
   TH1* h;
   //vector<string> v{_getsplit(string(split_string), ' ')};
-  
-  
-  vector <TString> masses ;
-  if(channel != "Tchannel"){
-    masses.push_back("100");
-    masses.push_back("125");
-    masses.push_back("200");
-    masses.push_back("250");
-  }
-  masses.push_back("300");
-  masses.push_back("400");
-  masses.push_back("500");
-  masses.push_back("600");
-  masses.push_back("700");
-  masses.push_back("800");
-  masses.push_back("900");
-  masses.push_back("1000");
-  masses.push_back("1100");
-  masses.push_back("1200");
-  masses.push_back("1300");
-  masses.push_back("1400");
-  masses.push_back("1500");
-  masses.push_back("1700");
-  masses.push_back("2000");
-  vector <double> _masses ;
+
+  vector <TString> masses = GetMassType1Strings(ignore_masses, channel);
+
+  vector <double> _masses;
   for(unsigned int i=0; i < masses.size(); i++){
     bool ignore=false;
     for(unsigned int j=0; j < ignore_masses.size(); j++){

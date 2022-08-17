@@ -25,9 +25,10 @@ export SCRIPT_DIR=$HNDILEPTONWORKSPACE_DIR/script/
 if [[ $HOSTNAME == "tamsa1" ]];
 then
     
-    export INFILE_PATH=/data6/Users/jalmond/SKFlatOutput/${SKFlatV}
+    export INFILE_PATH=$SKFlatOutputDir/$SKFlatV/
     export LIMIT_PATH=$HNDILEPTONWORKSPACE_DIR/LimitCode/CMS-StatisticalTools/:$HNDILEPTONWORKSPACE_DIR/Limits/MakeShapeInput:"/data6/Users/jalmond/Limits/CMSSW_10_2_13/src/HiggsAnalysis/CombinedLimit/data/2016_HNDiLepton/batch/"
     
+
 else
 
 

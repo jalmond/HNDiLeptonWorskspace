@@ -23,36 +23,31 @@ void setTDRStyle();
 bool CheckFile(TFile* f);
 bool CheckHist(TH2* h);
 
-void MakeFRFile(TString year,TString dataset="Electron");
+void MakePRFile(TString year,TString dataset="Electron");
 
 
 
-void MakeFRFileEEFix(){
-  MakeFRFile("2016preVFP","Electron");
-  MakeFRFile("2016postVFP","Electron");
-  MakeFRFile("2017","Electron");
-  MakeFRFile("2018","Electron");
+void MakePRFileEE(){
+  MakePRFile("2016preVFP","Electron");
+  MakePRFile("2016postVFP","Electron");
+  MakePRFile("2017","Electron");
+  MakePRFile("2018","Electron");
 }
 
-void MakeFRFile(TString year,TString dataset="Electron"){
+void MakePRFile(TString year,TString dataset="Electron"){
 
 
   
-  TString path= "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_FakeRate/"+year+"/HNL_FakeRate_SkimTree_HNFake_data_"+dataset+".root";
-  TString mcpath= "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_FakeRate/"+year+"/HNL_FakeRate_SkimTree_HNFake_MC.root";
-
-  TString DYpath= "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_FakeRate/"+year+"/HNL_FakeRate_SkimTree_HNFake_DYJets.root";
+  TString path= "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_FakeRate/"+year+"/HNL_FakeRate_SkimTree_Dilepton_data_"+dataset+".root";
 
   
   TFile * fdata = new TFile(path);
-  TFile * fmc = new TFile(mcpath);
-  TFile * fDY = new TFile(DYpath);
-
+  
   /// Set Plotting style
   setTDRStyle();
   gStyle->SetPalette(1);
     
-  TString outfile = "FakeRate13TeV_el_ptfix_"+year+".root";
+  TString outfile = "PromptRate13TeV_el_"+year+".root";
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   fout->cd();
 
@@ -66,36 +61,24 @@ void MakeFRFile(TString year,TString dataset="Electron"){
   for(unsigned int i=0; i < IDs.size(); i++){
      
       
-    TString denom = "Fake_LooseEE_" +IDs[i] +"_EE_40_ptcone_ptfix_eta";
-    TString num   = "Fake_TightEE_" +IDs[i] +"_EE_40_ptcone_ptfix_eta";
+    TString denom = "Prompt_LooseEE_" +IDs[i] +"_EE_ptcone_eta";
+    TString num   = "Prompt_TightEE_" +IDs[i] +"_EE_ptcone_eta";
     
     cout << denom << endl;
     //    return;
     TH2D* h_pt_num= (TH2D*)fdata->Get(num.Data());
     TH2D* h_pt_denom= (TH2D*)fdata->Get(denom.Data());
-    TH2D* h_mcpt_num= (TH2D*)fmc->Get(num.Data());
-    TH2D* h_mcpt_denom= (TH2D*)fmc->Get(denom.Data());
     
-
-    TH2D* h_DYpt_num= (TH2D*)fDY->Get(num.Data());
-    TH2D* h_DYpt_denom= (TH2D*)fDY->Get(denom.Data());
-
-
     CheckHist(h_pt_denom);
     CheckHist(h_pt_num);
     TString name = IDs[i] ;
 
 
-    h_mcpt_num->Add(h_DYpt_num, -0.4);
-    h_mcpt_denom->Add(h_DYpt_denom, -0.4);
-
-    TH2D* eff_rate = (TH2D*)h_pt_num->Clone((name+"_ptcone_ptfix_eta_AwayJetPt40").Data());
-    eff_rate->Add(h_mcpt_num,-1.);
+    TH2D* eff_rate = (TH2D*)h_pt_num->Clone((name+"_ptcone_eta_central").Data());
     TH2D* hratedenom = (TH2D*)h_pt_denom->Clone((name +"_denom").Data());
-    hratedenom->Add(h_mcpt_denom,-1.);
     
     eff_rate->Divide(eff_rate,hratedenom,1.,1.,"cl=0.683 b(1,1) mode");
-    
+ 
     for(int x = 1 ; x < eff_rate->GetNbinsX()+1 ; x++){
       for(int y = 1 ; y < eff_rate->GetNbinsY()+1 ; y++){
         cout << x << " : " << y << " " << eff_rate->GetBinContent(x,y) << endl;

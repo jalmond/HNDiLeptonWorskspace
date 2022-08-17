@@ -601,11 +601,10 @@ def GetSignalEffSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
     return round((float(2.*total)/float(no_cut)),4)
 
 
-def GetSignalEventsShape(flavour,SR, mass,year, channel,_id,_var,analyzername):
+def GetSignalEventsShape(histname,flavour,SR, mass,year, channel,_id,_var,analyzername):
 
-    histname="signal"
 
-    filepath = os.getenv("DATACARD_SHAPE_PATH") + "/" + analyzername+"/"+ year + "/" + flavour + "_"+ SR + "/HN_"+channel+"_"+ mass + "_highmass_Run2Legacy_v4_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+ _var+".root"
+    filepath = os.getenv("DATACARD_SHAPE_PATH") + "/" + analyzername+"/"+ year + "/" + flavour + "_"+ SR + "/HN_"+channel+"_"+ mass + "_highmass_Run2UltraLegacy_v3_"+year + "_"+SR + "_"+ flavour + "_"+_id + "_"+ _var+".root"
 
     total=0
 

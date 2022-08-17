@@ -23,24 +23,23 @@ void setTDRStyle();
 bool CheckFile(TFile* f);
 bool CheckHist(TH2* h);
 
-void MakeFRFile(TString year,TString dataset="Electron");
+void MakeFRFile(TString year,TString dataset="Muon");
 
 
 
-void MakeFRFileEEFix(){
-  MakeFRFile("2016preVFP","Electron");
-  MakeFRFile("2016postVFP","Electron");
-  MakeFRFile("2017","Electron");
-  MakeFRFile("2018","Electron");
+void MakeFRFileMMFix(){
+  MakeFRFile("2016preVFP","Muon");
+  MakeFRFile("2016postVFP","Muon");
+  MakeFRFile("2017","Muon");
+  MakeFRFile("2018","Muon");
 }
 
-void MakeFRFile(TString year,TString dataset="Electron"){
+void MakeFRFile(TString year,TString dataset="Muon"){
 
 
   
   TString path= "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_FakeRate/"+year+"/HNL_FakeRate_SkimTree_HNFake_data_"+dataset+".root";
   TString mcpath= "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_FakeRate/"+year+"/HNL_FakeRate_SkimTree_HNFake_MC.root";
-
   TString DYpath= "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_FakeRate/"+year+"/HNL_FakeRate_SkimTree_HNFake_DYJets.root";
 
   
@@ -52,7 +51,7 @@ void MakeFRFile(TString year,TString dataset="Electron"){
   setTDRStyle();
   gStyle->SetPalette(1);
     
-  TString outfile = "FakeRate13TeV_el_ptfix_"+year+".root";
+  TString outfile = "FakeRate13TeV_mu_ptfix_"+year+".root";
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   fout->cd();
 
@@ -60,14 +59,14 @@ void MakeFRFile(TString year,TString dataset="Electron"){
   std::vector<TString> IDs;
   IDs.push_back("HNTightV2");
   IDs.push_back("HNTight_17028");
-  IDs.push_back("passPOGTight");
+  IDs.push_back("POGTightWithTightIso");
 
   
   for(unsigned int i=0; i < IDs.size(); i++){
      
       
-    TString denom = "Fake_LooseEE_" +IDs[i] +"_EE_40_ptcone_ptfix_eta";
-    TString num   = "Fake_TightEE_" +IDs[i] +"_EE_40_ptcone_ptfix_eta";
+    TString denom = "Fake_LooseMuMu_" +IDs[i] +"_MuMu_40_ptcone_ptfix_eta";
+    TString num   = "Fake_TightMuMu_" +IDs[i] +"_MuMu_40_ptcone_ptfix_eta";
     
     cout << denom << endl;
     //    return;
@@ -76,7 +75,6 @@ void MakeFRFile(TString year,TString dataset="Electron"){
     TH2D* h_mcpt_num= (TH2D*)fmc->Get(num.Data());
     TH2D* h_mcpt_denom= (TH2D*)fmc->Get(denom.Data());
     
-
     TH2D* h_DYpt_num= (TH2D*)fDY->Get(num.Data());
     TH2D* h_DYpt_denom= (TH2D*)fDY->Get(denom.Data());
 
@@ -84,7 +82,6 @@ void MakeFRFile(TString year,TString dataset="Electron"){
     CheckHist(h_pt_denom);
     CheckHist(h_pt_num);
     TString name = IDs[i] ;
-
 
     h_mcpt_num->Add(h_DYpt_num, -0.4);
     h_mcpt_denom->Add(h_DYpt_denom, -0.4);
@@ -102,7 +99,6 @@ void MakeFRFile(TString year,TString dataset="Electron"){
 
       }
     }
-
     eff_rate->Write();
     
   }
