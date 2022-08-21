@@ -9,7 +9,7 @@ import ROOT as rt
 cmsText     = "CMS";
 cmsTextFont   = 61  
 
-writeExtraText = Frue
+writeExtraText = True
 extraText   = "Preliminary"
 extraTextFont = 52 
 

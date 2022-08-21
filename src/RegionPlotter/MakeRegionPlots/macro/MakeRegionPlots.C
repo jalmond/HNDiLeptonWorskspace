@@ -12,20 +12,22 @@ void MakeRegionPlots(TString config_file="config.txt"){
   
   vector<TString> code_names= {"HNL_Validation"};
 
-  vector<TString> channel_names= {"Schannel","Tchannel"};
-  vector<TString> range_names = {"all","low","high"};
+  vector<TString> channel_names= {""};
+  vector<TString> range_names = {""};
   
+
   map<TString,TString> configmap = ConfigMap(config_file);
-  
   map<TString,int> configmapInt = ConfigMapInt(config_file);
   map<TString,double> configmapDouble = ConfigMapDouble(config_file);
   map<TString,vector<TString> > bkgmap    = BkgConfigMap(config_file);
+
   map<TString,Color_t> colormap  = BkgColorMap(config_file);
   map<TString,Color_t> sigcolormap  = SigColorMap(config_file);
   map<TString,TString>  sigmap   = SigConfigMap(config_file);
   if(configmap.size()==0) return;
   
 
+  
   TString savetag      = configmap["savetag"];
   TString showdata     = configmap["showdata"];
   TString plotsig      = configmap["plotsig"];
@@ -37,9 +39,8 @@ void MakeRegionPlots(TString config_file="config.txt"){
   TString cut_dir      = configmap["cut_dir"];
   TString data_file    = configmap["data_file"];
   if(!CheckFileInput(configmap["data_file"] ))  return;
-  vector<TString> dir_name = GetDirName(configmap["data_file"]);
-  if(!CheckInput(dir_name,configmap["cut_dir"], "cutname" ))  return;
-
+  //vector<TString> dir_name = GetDirName(configmap["data_file"]);
+  //if(!CheckInput(dir_name,configmap["cut_dir"], "cutname" ))  return;
   
   int  rbin         = configmapInt["rebin"];
   int  logy         = configmapInt["logy"];
@@ -52,12 +53,13 @@ void MakeRegionPlots(TString config_file="config.txt"){
   TString year         = configmap["year"];
   TString id           = configmap["id"];
   TString flavour      = configmap["flavour"];
-  vector<TString> id_name  = GetIDNames(configmap["data_file"],cut_dir, flavour,region );
-  if(!CheckInput(id_name, id, "ID" ))  return;  
+  //  vector<TString> id_name  = GetIDNames(configmap["data_file"],cut_dir, flavour,region );
+  //if(!CheckInput(id_name, id, "ID" ))  return;  
   TString histname           = configmap["histname"];
   //vector<TString> hist_names = GetHistNames(configmap["data_file"],cut_dir,analysername,flavour,id_name[0]);
 
 
+  cout << "Test2" << endl;
   //  if(!CheckInput(hist_names, histname, "histname" ))  return;
 
   cout << "-------------------------------------------" << endl;
@@ -116,7 +118,7 @@ void MakeRegionPlots(TString config_file="config.txt"){
 
   TString postfix="_noconv";
   postfix="";
-  TString n_sr_hist = plot_dir+"/"+ histname + "_" + plot_dir;
+  TString n_sr_hist = flavour+"/"+id+"/"+cut_dir+"/"+ histname ;
 
   THStack * hs       = MakeStack(legend_g,bkgmap,n_sr_hist, colormap,rbin,0);
   THStack * hs_up    = MakeStack(legend_g,bkgmap,n_sr_hist, colormap,rbin,2);
@@ -144,7 +146,7 @@ void MakeRegionPlots(TString config_file="config.txt"){
   cout<<  "bkgmap = " << bkgmap.size() << endl;
   double stack_count = GetIntegral(bkgmap,n_sr_hist);
   
-  TString canvasname2=plot_dir+"_"+ histname + "_"+analysername+"_"+flavour+"_"+ id;
+  TString canvasname2=cut_dir+"_"+ histname + "_"+analysername+"_"+flavour+"_"+ id;
   TCanvas* c2 = new TCanvas(canvasname2,canvasname2, 800,800);
   if(logy==1) c2->SetLogy();
   c2->cd();
@@ -348,10 +350,23 @@ void MakeRegionPlots(TString config_file="config.txt"){
   
   //MakeTexFile(histmap,output,"SR1+SR2");
   TString save_sg= output + "/"+savetag+"_hist_"+histname+"_highmass_"+analysername+"_"+flavour+"_"+id+postfix+".pdf";
+  TString save_sg_png= output + "/"+savetag+"_hist_"+histname+"_highmass_"+analysername+"_"+flavour+"_"+id+postfix+".png";
 
   //c2->SetLogy();
   c2->SaveAs(save_sg);
+  c2->SaveAs(save_sg_png);
   OutMessage("MakeRegionPlots",save_sg);
+
+  system("ssh jalmond@lxplus.cern.ch 'mkdir -p /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/RegionPlots/'");
+  system("ssh jalmond@lxplus.cern.ch 'mkdir -p /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/RegionPlots/"+plot_dir+"'");
+        
+  system("ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/RegionPlots/"+plot_dir+"'");
+
+  system("scp " + save_sg + "  jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/RegionPlots/"+plot_dir);
+  system("scp " + save_sg_png +" jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/RegionPlots/"+plot_dir);
+        
+  cout << "https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/RegionPlots/"+plot_dir+"" << endl;
+
 
 
   if(f_data) {

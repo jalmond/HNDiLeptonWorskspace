@@ -1,6 +1,5 @@
 import os 
 
-
 Analyser="HNL_SignalRegionPlotter"
 
 if os.getenv("FILE_MERGED_PATH") == "NULL":

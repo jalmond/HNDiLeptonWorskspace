@@ -5,6 +5,29 @@ try:
 except ImportError:
     pass
 
+def GetColor(bkg):
+    
+    if "prompt" in bkg:
+        return "8"
+    if "VV" in bkg:
+        return "kGreen-2"
+    if "VVV" in bkg:
+        return "802"
+    if "Xgamma" in bkg:
+        return "400"
+    if "WJet"in bkg:
+        return "8"
+    if "Top" in bkg:
+        return "632"
+    if "DY" in bkg:
+        return "400"
+    if "wwpp" in bkg:
+        return "840"
+    if "fake" in bkg:
+        return "870"
+        
+    print "Failed to  find " + bkg
+
 
 def GetEXO_17_028_Bkg(channel,SR,mass):
     
@@ -518,7 +541,32 @@ def GetHistNameSRMassBin(channel,SR, mass,year, _id,Analyzer):
 
 
 
+def GetMassList(_era):
+
+    #Get List of masses available
+
+    SampleList= []
+    with open(os.getenv('SKFlat_WD')+'/data/'+os.getenv('SKFlatV')+'/'+str(_era)+'/Sample/SampleSummary_Signal_Type1.txt','r') as f:
+        for line in f:
+            if len(line.split())>0:
+                signame=line.split()[0]
+                if not 'private' in signame:
+                    continue
+                if not 'Type' in signame:
+                    continue
+                signame=signame.replace('SSWWTypeI','')
+                signame=signame.replace('DYTypeI','')
+                signame=signame.replace('VBFTypeI','')
+                signame=signame.replace('_SF_M','')
+                signame=signame.replace('_DF_M','')
+                signame=signame.replace('_private','')
+                if not signame in SampleList:
+                    SampleList.append(signame)
+
+    return SampleList
+
 def GetMassBin(mass, VBF):
+
 
     masses = ["100",
               "125",

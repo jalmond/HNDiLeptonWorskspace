@@ -10,12 +10,20 @@ from array import array
 
 ## SampleGroup ##
 class SampleGroup:
-  def __init__(self, Name, Type, Samples, Year, Color=0, Style=1, TLatexAlias="", LatexAlias=""):
+  def __init__(self, Name, Type, Samples,  Era, Color=0, Style=1, TLatexAlias="", LatexAlias=""):
 
     self.Name = Name
     self.Type = Type
     self.Samples = Samples
-    self.Year = Year
+    self.Era = Era
+    if "16" in Era:
+      self.Year = 2016
+    elif Era == "YearCombined":
+      print Name + " " + Era
+      self.Year =Era
+    else:
+      self.Year=int(Era)
+
     self.Color = Color
     self.Style = Style
     self.TLatexAlias = TLatexAlias
@@ -27,6 +35,7 @@ class SampleGroup:
     print (  'Samples = '),
     print (self.Samples)
     print (  'Year = '+str(self.Year))
+    print (  'Era = '+str(self.Era))
     print (  'Color = '+str(self.Color))
     print (  'TLatexAlias = '+str(self.TLatexAlias))
     print (  'LatexAlias = '+str(self.LatexAlias))
@@ -64,9 +73,10 @@ class Variable:
 
 ## Region ##
 class Region:
-  def __init__(self, Name, PrimaryDataset, UnblindData=True, Logy=-1, TLatexAlias="", CutFlowCaption="Test"):
+  def __init__(self, Name, PrimaryDataset, PName, UnblindData=True, Logy=-1, TLatexAlias="", CutFlowCaption="Test"):
     self.Name = Name
     self.PrimaryDataset = PrimaryDataset
+    self.ParamName = PName
     self.UnblindData = UnblindData
     self.Logy = Logy
     self.TLatexAlias = TLatexAlias
@@ -105,8 +115,8 @@ class Plotter:
     self.DoDebug = False
 
     self.DataYear = 2016
+    self.DataEra = ""
     self.DataDirectory = "2016"
-
 
     self.SampleGroups = []
     self.RegionsToDraw = []
@@ -117,8 +127,10 @@ class Plotter:
     self.InputDirectory = ""
     self.Filename_prefix = ""
     self.Filename_suffix = ""
+    self.Filename_data_skim = ""
     self.Filename_skim = ""
     self.OutputDirectory = ""
+    self.OutputDirectoryLocal = ""
 
     self.ScaleMC = False
 
@@ -166,21 +178,54 @@ class Plotter:
     self.RebinFilepath = RebinFilepath
     self.XaxisFilepath = XaxisFilepath
     self.YaxisFilepath = YaxisFilepath
+    self.RebinFilepathDefault = os.environ['HNDILEPTONWORKSPACE_DIR']+'/data/'+os.environ['FLATVERSION']+'/YearCombined/Rebins.txt'
+    self.XaxisFilepathDefault = os.environ['HNDILEPTONWORKSPACE_DIR']+'/data/'+os.environ['FLATVERSION']+'/YearCombined/Xaxis.txt'
+    self.YaxisFilepathDefault = os.environ['HNDILEPTONWORKSPACE_DIR']+'/data/'+os.environ['FLATVERSION']+'/YearCombined/Yaxis.txt'
+
   def ReadBinningInfo(self, Region):
     ## Rebin
     Rebins = dict()
+    
+    if self.DoDebug:
+      print("Reading from : "+ str(self.RebinFilepathDefault))
+    for line in open(self.RebinFilepathDefault).readlines():
+      words = line.split()
+      if Region!=words[0]:
+        continue
+      if self.DoDebug:
+        print ("Setting rebin " + str(words[1]) + " " + str(words[2]))
+      Rebins[words[1]] = int(words[2])
+
     for line in open(self.RebinFilepath).readlines():
       words = line.split()
       if Region!=words[0]:
         continue
       Rebins[words[1]] = int(words[2])
+      if self.DoDebug:
+        print ("Setting rebin " + str(words[1]) + " " + str(words[2]))
+
+
+
+    if len(Rebins) == 0:
+      print("No binnings set for " +str(Region) )
+
     ## xaxis
     XaxisRanges = dict()
+
+    for line in open(self.XaxisFilepathDefault).readlines():
+      words = line.split()
+      if Region!=words[0]:
+        continue
+      XaxisRanges[words[1]] = [float(words[2]), float(words[3])]
+
     for line in open(self.XaxisFilepath).readlines():
       words = line.split()
       if Region!=words[0]:
         continue
       XaxisRanges[words[1]] = [float(words[2]), float(words[3])]
+
+    if len(XaxisRanges) == 0:
+      print("No binnings set for " +str(Region) )
 
     return Rebins, XaxisRanges
   def Rebin(self, hist, region, var, nRebin):
@@ -204,29 +249,35 @@ class Plotter:
     nprec = 0
     print ('[Plotter.Cutflow()] ')
 
-    CutFlowDir='/Users/john/GIT/HNDiLeptonWorskspace/CutFlow/'
-
-    os.system('rm '+CutFlowDir+'/Cutflow.sh')
+    CutFlowDir= os.getenv("HNDILEPTONWORKSPACE_DIR")+'/CutFlow/'
+    
+    if os.path.exists(CutFlowDir+'/Cutflow.sh'):
+      os.system('rm '+CutFlowDir+'/Cutflow.sh')
     
     ROOT.gErrorIgnoreLevel = ROOT.kFatal
 
     tdrstyle.setTDRStyle()
     ROOT.TH1.AddDirectory(False)
 
-    for Region in self.RegionsToDraw:
-      Indir = self.InputDirectory
-      Outdir = self.OutputDirectory+'/'+Region.Name+'/'
-      if self.ScaleMC:
-        Outdir = self.OutputDirectory+'/ScaleMC/'+Region.Name+'/'
 
-        
-      f_Data = ROOT.TFile(Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root')
-      print (Region.Name+'/'+Hist_Name+'_'+Region.Name)
-      h_Data = f_Data.Get(Region.Name+'/'+Hist_Name+'_'+Region.Name)
+    for Region in self.RegionsToDraw:
+      print Region.Name
+      Indir = self.InputDirectory
+      Outdir = self.OutputDirectoryLocal+'/'+Region.Name+'/'
+      if self.ScaleMC:
+        Outdir = self.OutputDirectoryLocal+'/ScaleMC/'+Region.Name+'/'
+      os.system('mkdir -p '+Outdir)
+
+      print("self.Filename_prefix " + str(self.Filename_prefix))
+      #f_Data = ROOT.TFile(Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_data_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root')
+
+      f_Data = ROOT.TFile(Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_data_skim+'_data_Lepton'+self.Filename_suffix+'.root')
+      print (Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Hist_Name) #######
+      h_Data = f_Data.Get(Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Hist_Name)
       if not h_Data:
-        print (Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root missing ' +Region.Name+'/'+Hist_Name+'_'+Region.Name)
+        print (Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_data_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root missing ' +Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Hist_Name)
         print (Hist_Name+'_'+Region.Name+'.pdf ==> No data, skipped')
-        print ('---- ' + Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root')
+        print ('---- ' + Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_data_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root')
         continue
       data_integral=h_Data.Integral()
       data_error  = ctypes.c_double(0.)
@@ -237,16 +288,17 @@ class Plotter:
       sys_total_bkg_up=0
       sys_total_bkg_down=0
             
-      CutFlowLatexFile = open (CutFlowDir+'/Cutflow'+Region.Name+'.tex','w')
+      CutFlowLatexFile = open (CutFlowDir+'/Cutflow_'+Region.PrimaryDataset+"_"+Region.Name+'.tex','w')
       CutFlowLatexFile.write('\\documentclass[10pt]{article}\n')
       CutFlowLatexFile.write('\\usepackage{epsfig,subfigure,setspace,xtab,xcolor,array,colortbl}\n')
       CutFlowLatexFile.write('\providecommand{\\cmsTable}[1]{\\resizebox{\\textwidth}{!}{#1}}\n')
       CutFlowLatexFile.write('\\begin{document}\n')
-      CutFlowLatexFile.write('\\input{"/Users/john/GIT/HNDiLeptonWorskspace/CutFlow/Tables/Cutflow'+Region.Name+'Table.txt"}\n')
+      CutFlowLatexFile.write('\\input{"'+CutFlowDir+'/Tables/Cutflow_'+self.DataDirectory+'_'+Region.Name+Region.PrimaryDataset+'Table.txt"}\n')
       CutFlowLatexFile.write('\\end{document}\n')
       CutFlowLatexFile.close()
       caption=Region.CutFlowCaption
-      CutFlowLatexTableFile = open ('/Users/john/GIT/HNDiLeptonWorskspace/CutFlow/Tables/Cutflow'+Region.Name+'Table.txt','w')
+      print ("Caption = " + caption)
+      CutFlowLatexTableFile = open (CutFlowDir+'/Tables/Cutflow_'+self.DataDirectory+'_'+Region.Name+Region.PrimaryDataset+'Table.txt','w')
       CutFlowLatexTableFile.write("\\begin{table}[ptb]\n" )
       CutFlowLatexTableFile.write("\\centering\n" )
       CutFlowLatexTableFile.write("\\cmsTable{\n" )
@@ -267,7 +319,7 @@ class Plotter:
           if self.DoDebug:
             print ('[DEBUG] Trying to make histogram for Sample = '+Sample)
             
-          f_Sample = ROOT.TFile(Indir+'/'+str(SampleGroup.Year)+'/'+self.Filename_prefix+self.Filename_skim+'_'+Sample+self.Filename_suffix+'.root')
+          f_Sample = ROOT.TFile(Indir+'/'+str(SampleGroup.Era)+'/'+self.Filename_prefix+self.Filename_skim+'_'+Sample+self.Filename_suffix+'.root')
           h_Sample = 0
           #if (Syst.Year>0) and (Syst.Year!=SampleGroup.Year):
           #  tmp_dirName = Region.Name
@@ -279,7 +331,7 @@ class Plotter:
           #else:
           dirName = Region.Name
 
-          h_Sample = f_Sample.Get(dirName+'/'+Hist_Name+'_'+dirName)
+          h_Sample = f_Sample.Get(Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Hist_Name)
 
           if not h_Sample:
             continue
@@ -290,7 +342,8 @@ class Plotter:
           #if self.ScaleMC:
           #  if "DYJets" in Sample:
           MCSF= mylib.GetNormSF(SampleGroup.Year, Region.Name)
-
+          
+          print "MCSF = " + str(MCSF)
           h_Sample.Scale( MCSF )
 
           stat_error  = ctypes.c_double(0.)
@@ -303,8 +356,8 @@ class Plotter:
         print (Sample + " integral = " + str(bkg_integral))
         bkg_integral=round(bkg_integral,nprec)
         bkg_staterror=round(bkg_staterror,nprec)
-        sys_bkg_up = 0.05*bkg_integral
-        sys_bkg_down = 0.05*bkg_integral
+        sys_bkg_up =  mylib.GetMCUncertainty(SampleGroup.Name)*bkg_integral
+        sys_bkg_down = mylib.GetMCUncertainty(SampleGroup.Name)*bkg_integral
         sys_total_bkg_up = math.sqrt(sys_total_bkg_up*sys_total_bkg_up+sys_bkg_up*sys_bkg_up)
         sys_total_bkg_down = math.sqrt(sys_total_bkg_down*sys_total_bkg_down+sys_bkg_down*sys_bkg_down)
         
@@ -349,9 +402,9 @@ class Plotter:
       #os.chdir(CutFlowDir)
       #print ('CutFlowDir='+CutFlowDir)
       
-      latex_command = "latex Cutflow"+Region.Name+".tex"
-      dvi_command = "dvipdf Cutflow"+Region.Name+".dvi"
-      mv_command = "mv " + CutFlowDir+"/Cutflow"+Region.Name+".pdf  " + Outdir
+      latex_command = "latex " +  CutFlowDir+"/Cutflow_"+Region.PrimaryDataset+'_'+Region.Name+".tex"
+      dvi_command = "dvipdf "+ CutFlowDir +"/Cutflow_"+Region.PrimaryDataset+'_'+Region.Name+".dvi"
+      mv_command = "mv " + CutFlowDir+"/Cutflow_"+Region.PrimaryDataset+'_'+Region.Name+".pdf  " + Outdir
 
       print ('DoCutFlow: source '+CutFlowDir+"/Cutflow.sh") 
       run_latex = open(CutFlowDir+"/Cutflow.sh","a")
@@ -359,16 +412,42 @@ class Plotter:
       run_latex.write(latex_command + '\n')
       run_latex.write(dvi_command + '\n')
       run_latex.write(mv_command + '\n')
+      print '-'*40
+      print '-'*40
+      print(latex_command)
+      print '-'*40
+      print(dvi_command)
+      print '-'*40
       print(mv_command)
-      run_latex.write('rm Cutflow'+Region.Name+'.aux\n')
-      #run_latex.write('rm Cutflow'+Region.Name+'.tex\n')
-      run_latex.write('rm Cutflow'+Region.Name+'.dvi\n')
+      run_latex.write('rm Cutflow_'+Region.PrimaryDataset+'_'+Region.Name+'.aux\n')
+      run_latex.write('rm Cutflow_'+Region.PrimaryDataset+'_'+Region.Name+'.tex\n')
+      run_latex.write('rm Cutflow_'+Region.PrimaryDataset+'_'+Region.Name+'.dvi\n')
       
       run_latex.write('cd -')
       run_latex.close()
 
+      cwd= os.getenv("PWD")
+      os.chdir(CutFlowDir)
+      os.system(latex_command)
+      os.system(dvi_command)
+      os.system(mv_command)
+      #os.system('rm Cutflow'+Region.Name+'.aux\n')                                                                                    
+      #os.system('rm Cutflow'+Region.Name+'.tex\n')                                                                                   
+      #os.system('rm Cutflow'+Region.Name+'.dvi\n')                                                                                    
+      os.chdir(cwd)
+            
       print ('Table ==> ' + Outdir + '/Cutflow'+Region.Name+'.pdf')
 
+      
+      if not self.OutputDirectory =="":
+        OutdirLXPLUS= self.OutputDirectory +'/'+Region.Name+'/'
+        if self.ScaleMC:
+          os.system("ssh jalmond@lxplus.cern.ch 'mkdir -p " + self.OutputDirectory +"/ScaleMC/'")
+          OutdirLXPLUS= self.OutputDirectory +'/ScaleMC/'+Region.Name+'/'
+          
+      print( 'scp ' + Outdir + '/Cutflow_'+Region.PrimaryDataset+'_'+ Region.Name+'.pdf  jalmond@lxplus.cern.ch:'+OutdirLXPLUS+'/')
+      os.system('scp ' + Outdir + '/Cutflow_'+Region.PrimaryDataset+'_'+Region.Name+'.pdf  jalmond@lxplus.cern.ch:'+OutdirLXPLUS+'/')
+      
 
 
   def Draw(self):
@@ -387,29 +466,51 @@ class Plotter:
 
       ## Input/Output directotry
       Indir = self.InputDirectory
-      Outdir = self.OutputDirectory+'/'+Region.Name+'/'
+      Outdir = self.OutputDirectoryLocal+'/'+Region.Name+'/'
       if self.ScaleMC:
-        Outdir = self.OutputDirectory+'/ScaleMC/'+Region.Name+'/'
+        Outdir = self.OutputDirectoryLocal+'/ScaleMC/'+Region.Name+'/'
+
+      if not self.OutputDirectory =="":
+        OutdirLXPLUS= self.OutputDirectory +'/'+Region.Name+'/'
+        os.system("ssh jalmond@lxplus.cern.ch 'mkdir -p " + OutdirLXPLUS + "'")
+        if self.ScaleMC:
+          os.system("ssh jalmond@lxplus.cern.ch 'mkdir -p " + self.OutputDirectory +"/ScaleMC/'")
+          OutdirLXPLUS= self.OutputDirectory +'/ScaleMC/'+Region.Name+'/'
+          os.system("ssh jalmond@lxplus.cern.ch 'mkdir -p " + OutdirLXPLUS + "'")
+
+
       print ('##   Outputs => '+Outdir)
+      
       os.system('mkdir -p '+Outdir)
-      os.system('cp ' + os.getenv('HTML_DIR') + '/index.php ' + Outdir+'/')
+      if not self.OutputDirectory =="":
+        print('scp ' + os.getenv('HTML_DIR') + '/index.php ' + 'jalmond@lxplus.cern.ch:'+ OutdirLXPLUS+'/')
+        os.system('scp ' + os.getenv('HTML_DIR') + '/index.php ' + 'jalmond@lxplus.cern.ch:'+ OutdirLXPLUS+'/')
 
 
       ## Data file
-      f_Data = ROOT.TFile(Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root')
+      #f_Data = ROOT.TFile(Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_data_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root')
+      f_Data = ROOT.TFile(Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_data_skim+'_data_Lepton'  +self.Filename_suffix+'.root')
+      
+      if self.DoDebug:
+        print ('[DEBUG] Trying to read from data file' + Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_data_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root')
+
 
       ## Loop over variables
 
       for Variable in self.VariablesToDraw:
 
         ## BinInfo
-        nRebin = 5
-        if len(Rebins) > 0:
+        nRebin = 1
+        
+        if  Variable.Name in  Rebins.keys():
           print(Variable.Name + ' rebinning to ' + str(Rebins[Variable.Name]))
           nRebin = Rebins[Variable.Name]
+
+          
         xMin= 0
         xMax=100000.
-        if Variable.Name in XaxisRanges:
+
+        if  Variable.Name in  XaxisRanges.keys():
           xMin = XaxisRanges[Variable.Name][0]
           xMax = XaxisRanges[Variable.Name][1]
         yMax = -999
@@ -433,8 +534,8 @@ class Plotter:
         ## Get data first
         if self.DoDebug:
           print ('[DEBUG] Trying to get data histogram..')
-          print (Region.Name+'/'+Variable.Name+'_'+Region.Name)
-        h_Data = f_Data.Get(Region.Name+'/'+Variable.Name+'_'+Region.Name)
+          print (Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Variable.Name)
+        h_Data = f_Data.Get(Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Variable.Name)
         if not h_Data:
           print (Variable.Name+'_'+Region.Name+'.pdf ==> No data, skipped')
           continue
@@ -488,14 +589,14 @@ class Plotter:
             Syst.Print()
 
           h_Bkgd_ForSyst = 0
-          dirName = Region.Name
+          paraName = Region.ParamName
 
           if Syst.Name!="Central":
 
             if Syst.Direction>0:
-              dirName = "Syst_"+Syst.Name+"Up_"+Region.Name
+              paraName = "Syst_"+Syst.Name+"Up_"+Region.ParamName
             else:
-              dirName = "Syst_"+Syst.Name+"Down_"+Region.Name
+              paraName = "Syst_"+Syst.Name+"Down_"+Region.ParamName
 
           for SampleGroup in self.SampleGroups:
             Color = SampleGroup.Color
@@ -506,31 +607,29 @@ class Plotter:
               if self.DoDebug:
                 print ('[DEBUG] Trying to make histogram for Sample = '+Sample)
 
-              f_Sample = ROOT.TFile(Indir+'/'+str(SampleGroup.Year)+'/'+self.Filename_prefix+self.Filename_skim+'_'+Sample+self.Filename_suffix+'.root')
+              f_Sample = ROOT.TFile(Indir+'/'+str(SampleGroup.Era)+'/'+self.Filename_prefix+self.Filename_skim+'_'+Sample+self.Filename_suffix+'.root')
               h_Sample = 0
 
               ## Uncorrelated sources has Syst.Year = 2016 or 2017 or 2018
               ## For this cases, SampleGroup.Year should be matched
               if (Syst.Year>0) and (Syst.Year!=SampleGroup.Year):
-                tmp_dirName = Region.Name
-                h_Sample = f_Sample.Get(tmp_dirName+'/'+Variable.Name+'_'+tmp_dirName)
-              ## Exception control
-              ## 1) ZPtRw only for the samples with "Reweighted"
-              ## if other samples, we just call nominal shape
-              elif ("ZPtRw" in Syst.Name) and ("Reweighted" not in Sample):
-                tmp_dirName = Region.Name
-                h_Sample = f_Sample.Get(tmp_dirName+'/'+Variable.Name+'_'+tmp_dirName)
-              ## 2) Lumi, MC normalizaion
+                tmp_paraName = Region.ParamName
+                h_Sample = f_Sample.Get(Region.PrimaryDataset + '/'+ tmp_paraName + '/'+ Region.Name+'/'+Variable.Name)
+
+              ## 1) Lumi, MC normalizaion
               ## Use central and scale them later
-              elif (Syst.Name in ["Lumi", "DYNorm", "NonPromptNorm", "OthersNorm"]):
-                tmp_dirName = Region.Name
-                h_Sample = f_Sample.Get(tmp_dirName+'/'+Variable.Name+'_'+tmp_dirName)
+              elif (Syst.Name in ["Lumi"]):
+                tmp_paraName = Region.ParamName
+                h_Sample = f_Sample.Get(Region.PrimaryDataset + '/'+ tmp_paraName + '/'+ Region.Name+'/'+Variable.Name)
               ## For all other cases
               else:
-                h_Sample = f_Sample.Get(dirName+'/'+Variable.Name+'_'+dirName)
+                h_Sample = f_Sample.Get(Region.PrimaryDataset + '/'+ paraName + '/'+ Region.Name+'/'+Variable.Name)
+                if self.DoDebug:
+                  print("Looking in file: "+Indir+'/'+str(SampleGroup.Era)+'/'+self.Filename_prefix+self.Filename_skim+'_'+Sample+self.Filename_suffix+'.root')
+                  print(Region.PrimaryDataset + '/'+ paraName + '/'+ Region.Name+'/'+Variable.Name)
 
               if not h_Sample:
-                #print 'No hist : %s %s'%(Syst.Name,Sample)
+                print 'No hist : %s %s'%(Syst.Name,Sample)
                 continue
 
               ## Make overflow
@@ -553,31 +652,12 @@ class Plotter:
               ## Manual systematic
               ## 1) [Lumi] Uncorrelated
               if (Syst.Name=="Lumi") and (Syst.Year==SampleGroup.Year):
-                lumierr = mylib.LumiError(SampleGroup.Year)
+                lumierr = mylib.LumiError(0)
                 for ix in range(0,h_Sample.GetXaxis().GetNbins()):
                   y = h_Sample.GetBinContent(ix+1)
                   y_new = y + y*float(Syst.Direction)*lumierr
                   h_Sample.SetBinContent(ix+1, y_new)
-              ## 2) [DYNorm] Uncorrelated, only for DY
-              if (Syst.Name=="DYNorm") and ("DYJets" in Sample) and (Syst.Year==SampleGroup.Year):
-                for ix in range(0,h_Sample.GetXaxis().GetNbins()):
-                  y = h_Sample.GetBinContent(ix+1) ## h_Sample is already scaled by MCSF above
-                  y_new = y * ( MCSF + float(Syst.Direction)*MCSFerr ) / MCSF
-                  h_Sample.SetBinContent(ix+1, y_new)
-              # 3) [NonPromptNorm] Uncorrelated, olny for NonPrompt
-              if (Syst.Name=="NonPromptNorm") and ("NonPrompt" in Sample) and (Syst.Year==SampleGroup.Year):
-                NonPromptNormErr = 1.00
-                for ix in range(0,h_Sample.GetXaxis().GetNbins()):
-                  y = h_Sample.GetBinContent(ix+1)
-                  y_new = y + y*float(Syst.Direction)*NonPromptNormErr
-                  h_Sample.SetBinContent(ix+1, y_new)
-              # 4) [OthersNorm] Correlated, only for Others 
-              if (Syst.Name=="OthersNorm") and ("Others" in Sample):
-                OthersNormErr = 0.50
-                for ix in range(0,h_Sample.GetXaxis().GetNbins()):
-                  y = h_Sample.GetBinContent(ix+1)
-                  y_new = y + y*float(Syst.Direction)*OthersNormErr
-                  h_Sample.SetBinContent(ix+1, y_new)
+
 
               ## AddError option
               AddErrorOption = ''
@@ -799,7 +879,7 @@ class Plotter:
 
         latex_Lumi.SetTextSize(0.035)
         latex_Lumi.SetTextFont(42)
-        latex_Lumi.DrawLatex(0.73, 0.96, mylib.TotalLumi(float(self.DataYear))+" fb^{-1} (13 TeV)")
+        latex_Lumi.DrawLatex(0.73, 0.96, mylib.TotalLumiByEra(str(self.DataEra))+" fb^{-1} (13 TeV)")
 
         #### axis histograms
 
@@ -817,7 +897,7 @@ class Plotter:
           h_dummy_up.GetYaxis().SetTitle('Events / bin')
 
         h_dummy_down = ROOT.TH1D('h_dumy_down', '', nBin, xBins)
-        h_dummy_down.GetYaxis().SetRangeUser(0.,2.0)
+        h_dummy_down.GetYaxis().SetRangeUser(0.5,1.5)
 
         if ('DYCR' in Region.Name):
           h_dummy_down.GetYaxis().SetRangeUser(0.70,1.30)
@@ -926,21 +1006,20 @@ class Plotter:
         #  print '%s\t%d\t%d\t%1.2f\t%1.2f\t%1.2f'%(Region.Name, x_l, x_r, y_Data, y_Bkgd, ratio)
 
         ## Signal
-        LeptonChannel = "EE" if ("Electron" in Region.Name) else "MuMu"
         h_Sigs = []
         for Sig in self.SignalsToDraw:
 
-          fname_Sig = self.Filename_prefix+'_WRtoNLtoLLJJ_WR%d_N%d'%(Sig.mWR,Sig.mN)+self.Filename_suffix+'.root'
-          fpullpath_Sig = Indir+'/'+self.DataDirectory+'/Signal_'+LeptonChannel+'/'+fname_Sig
+          fname_Sig = self.Filename_prefix+'_DYVBFTypeI_DF_M%d'%(Sig.mN)+self.Filename_suffix+'_private.root'
+          fpullpath_Sig = Indir+'/'+self.DataDirectory+'/Signals/'+fname_Sig
           if Sig.useOfficial:
-            fname_Sig = self.Filename_prefix+'_Official_FullSim_WR%d_N%d'%(Sig.mWR,Sig.mN)+self.Filename_suffix+'.root'
+            fname_Sig = self.Filename_prefix+'_DYVBFTypeI_DF_ll_M%d'%(Sig.mN)+self.Filename_suffix+'.root'
             fpullpath_Sig = Indir+'/'+self.DataDirectory+'/Signal_'+LeptonChannel+'_Official/'+fname_Sig
 
           f_Sig = ROOT.TFile(fpullpath_Sig)
-          h_Sig = f_Sig.Get(Region.Name+'/'+Variable.Name+'_'+Region.Name)
+          h_Sig = f_Sig.Get(Region.PrimaryDataset + '/'+ paraName + '/'+ Region.Name+'/'+Variable.Name)
           if not h_Sig:
             print (fpullpath_Sig)
-            print (Region.Name+'/'+Variable.Name+'_'+Region.Name)
+            print (Region.PrimaryDataset + '/'+ paraName + '/'+ Region.Name+'/'+Variable.Name)
             continue
 
           ## Make overflow
@@ -951,8 +1030,11 @@ class Plotter:
           h_Sig = self.Rebin(h_Sig, Region.Name, Variable.Name, nRebin)
 
           ## Scale
-          h_Sig.Scale( Sig.xsec * Sig.kfactor * Sig.xsecScale )
-
+          #h_Sig.Scale( Sig.xsec * Sig.kfactor * Sig.xsecScale )
+          if Region.PrimaryDataset != "EMu":
+            print("Scaling xsec by 2. since Signals have E+Mu coupling")
+            h_Sig.Scale(2.)
+          
           ## Att
           h_Sig.SetLineWidth(3)
           h_Sig.SetLineColor(Sig.Color)
@@ -1094,6 +1176,14 @@ class Plotter:
         c1.SaveAs(Outdir+Variable.Name+'_'+Region.Name+'.pdf')
         c1.SaveAs(Outdir+Variable.Name+'_'+Region.Name+'.png')
         print (Variable.Name+'_'+Region.Name+'.pdf ==> Saved')
+
+        print(str(self.OutputDirectory))
+        if not self.OutputDirectory =="":
+          print ('scp ' + Outdir+Variable.Name+'_'+Region.Name+'.pdf  jalmond@lxplus.cern.ch:'+OutdirLXPLUS+'/')
+          os.system('scp ' + Outdir+Variable.Name+'_'+Region.Name+'.pdf  jalmond@lxplus.cern.ch:'+OutdirLXPLUS+'/')
+          os.system('scp ' + Outdir+Variable.Name+'_'+Region.Name+'.png  jalmond@lxplus.cern.ch:'+OutdirLXPLUS+'/')
+
+          
 
         c1.Close()
 

@@ -45,8 +45,7 @@ def TotalLumiByEra(DataEra):
     
   
 def TotalLumi(DataYear):
-  
-  
+    
   if DataYear==2016:
     return "36.3"
   if DataYear==2017:
@@ -55,13 +54,17 @@ def TotalLumi(DataYear):
     return "59.8"
 
   if DataYear<0:
-    return "139.9"
+    return "138"
   else:
     print ("[mylib.py, TotalLumi()] Wrong DataYear : %d"%DataYear)
     return ("36.3")
 
 def LumiError(DataYear):
 
+  print ("Setting Unc. from https://twiki.cern.ch/twiki/bin/viewauth/CMS/TWikiLUM")
+  
+  if DataYear == -1:
+    return 0.016
   
   if DataYear==2016:
     return 0.012
@@ -411,10 +414,19 @@ def GetSignalXsec(filepath,  mN):
 
 
 
+def GetMCUncertainty(SampleName):
+   
+  
+  if "DY" in SampleName:
+    return 0.08
+  else:
+    return 0.1
+
+      
 def GetNormSF(DataYear, sample):
 
-  WORKING_DIR = os.environ["PLOTTER_WORKING_DIR"]
-  CorrFile = WORKING_DIR + '/data/Run2UltraLegacy_v2_Default/'+str(DataYear)+'/MCSF.txt'
+  WORKING_DIR = os.environ["HNDILEPTONWORKSPACE_DIR"]
+  CorrFile = WORKING_DIR + '/data/'+os.getenv("SKFlatV")+'/'+str(DataYear)+'/MCSF.txt'
 
   lines = open(CorrFile).readlines()
   MCSF=1.

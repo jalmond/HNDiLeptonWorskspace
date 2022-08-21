@@ -341,6 +341,7 @@ def merge_data_setup(_isTest,_analyser_name,_skim_name):
 
         time.sleep(30)
         merge_data_flavour(_isTest,_analyser_name,_skim_name , "Lepton", ["MuMu","EE","EMu"])
+        merge_data_flavour(_isTest,_analyser_name,_skim_name , "Lepton", ["NonPrompt_MuMu","NonPrompt_EE","NonPrompt_EMu"])
         time.sleep(30)
         
     if analyser_name =="FakeRateHNUnPrescaled":
@@ -360,13 +361,25 @@ def merge_data_setup(_isTest,_analyser_name,_skim_name):
 
     if analyser_name == "HNL_Validation":
         
-        merge_data(_isTest,_analyser_name,_skim_name,"Electron",   [["/","_SingleElectron"],["/","_SingleElectron"],["/","_SingleElectron"],["/","_EGamma"]])
-        merge_data(_isTest,_analyser_name,_skim_name,"Muon",       [["/","_SingleMuon"],["/","_SingleMuon"],["/","_SingleMuon"],["/","_SingleMuon"]])
-        merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_Electron",   [["/RunFake__/","_SingleElectron"],["/RunFake__/","_SingleElectron"],["/RunFake__/","_SingleElectron"],["/RunFake__/","_EGamma"]])
-        merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_Muon",       [["/RunFake__/","_SingleMuon"],["/RunFake__/","_SingleMuon"],["/RunFake__/","_SingleMuon"],["/RunFake__/","_SingleMuon"]])
+        merge_data(_isTest,_analyser_name,_skim_name,"EE",
+                   [["","_DoubleEG"],["","_DoubleEG"],["","_DoubleEG"],["","_EGamma"]])
+        merge_data(_isTest,_analyser_name,_skim_name,"MuMu",  
+                   [["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"]])
+        merge_data(_isTest,_analyser_name,"","EMu",     
+                   [["","_MuonEG"],["","_MuonEG"],["","_MuonEG"],["","_MuonEG"]])
 
-        merge_data_flavour(_isTest,_analyser_name,_skim_name , "Lepton", ["Muon","Electron"])
-        merge_data_flavour(_isTest,_analyser_name,_skim_name , "NonPrompt_Lepton", ["NonPrompt_Muon","NonPrompt_Electron"])
+        merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_EE",   
+                   [["/RunFake__/","_DoubleEG"],["/RunFake__/","_DoubleEG"],["/RunFake__/","_DoubleEG"],["/RunFake__/","_EGamma"]])
+        merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_MuMu",       
+                   [["/RunFake__/","_DoubleMuon"],["/RunFake__/","_DoubleMuon"],["/RunFake__/","_DoubleMuon"],["/RunFake__/","_DoubleMuon"]])
+        merge_data(_isTest,_analyser_name,"","NonPrompt_EMu",       
+                   [["/RunFake__/","_MuonEG"],["/RunFake__/","_MuonEG"],["/RunFake__/","_MuonEG"],["/RunFake__/","_MuonEG"]])
+
+        #merge_data(_isTest,_analyser_name,_skim_name,"CF",     [["/RunCF__/","_DoubleEG"],["/RunCF__/","_DoubleEG"],["/RunCF__/","_DoubleEG"],["/RunCF__/","_\EGamma"]])                                                                                                                                                     
+        time.sleep(30)
+        merge_data_flavour(_isTest,_analyser_name,_skim_name , "Lepton", ["MuMu","EE","EMu"])
+        time.sleep(30)
+
 
     return
 

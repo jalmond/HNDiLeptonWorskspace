@@ -1544,9 +1544,10 @@ void DrawLatex(TString year){
 
   latex_Lumi.SetTextSize(0.035);
   latex_Lumi.SetTextFont(42);
-  if(year=="2016")latex_Lumi.DrawLatex(0.72, 0.96, "35.9 fb^{-1} (13 TeV)");
+  if(year=="2016a")latex_Lumi.DrawLatex(0.72, 0.96, "19.5 fb^{-1} (13 TeV)");
+  else if(year=="2016b")latex_Lumi.DrawLatex(0.72, 0.96, "16.8 fb^{-1} (13 TeV)");
   else if(year=="2017")latex_Lumi.DrawLatex(0.72, 0.96, "41.5 fb^{-1} (13 TeV)");
-  else if(year=="2018")latex_Lumi.DrawLatex(0.72, 0.96, "59.9 fb^{-1} (13 TeV)");
+  else if(year=="2018")latex_Lumi.DrawLatex(0.72, 0.96, "59.8 fb^{-1} (13 TeV)");
   else latex_Lumi.DrawLatex(0.72, 0.96, "137.3 fb^{-1} (13 TeV)");
 
 }

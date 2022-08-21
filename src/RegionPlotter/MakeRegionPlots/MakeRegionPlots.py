@@ -6,20 +6,24 @@ import sys
 import argparse
 import datetime
 
-sys.path.insert(1, os.getenv("HNDILEPTONWORKSPACE_DIR") +"/python")
+#sys.path.insert(1, os.getenv("HNDILEPTONWORKSPACE_DIR") +"/python")
 
 from GeneralSetup import *
 
 args = setupargs("MakePlotter")
+
 
 #set current directory to memory
 pwd = os.getcwd()
 
 # get config file name
 config_file= args.ConfigFile
-id_file = "ConfigVal/ID.txt"
+#id_file = "ConfigVal/ID.txt"
+
 # now import analysis functions
 from HNType1_config import *
+
+
 
 if config_file == "None":
     print "Need input file to configure job"
@@ -32,8 +36,8 @@ flavours  =  GetConfig("flavours",    config_file,_setup)
 regions   =  GetConfig("regions",    config_file,_setup)
 hists     =  GetConfig("hists",    config_file,_setup)
 years     =  GetConfig("years",       config_file,_setup)
-IDMu      =  GetConfig("IDMu",        id_file,_setup)
-IDEl      =  GetConfig("IDEl",        id_file,_setup)
+IDMu      =  GetConfig("IDMu",        config_file,_setup)
+IDEl      =  GetConfig("IDEl",        config_file,_setup)
 Analyzer  =  GetSConfig("Analyzer",   config_file,_setup)
 Skim      =  GetSConfig("Skim",   config_file,_setup)
 savetag   =  GetSConfig("savetag",   config_file,_setup)
@@ -75,20 +79,8 @@ for _iter in range(0,niter):
 
                config_file = open("config.txt","w")
 
-               if flavour == "EE" and year == "2018":
-                   config_file.write("config          data_file       "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_EGamma.root\n")
-               elif flavour == "EE":
-                   config_file.write("config          data_file       "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_DoubleEG.root\n")
-                   
 
-               if flavour == "SingleElectron" and year == "2018":
-                   config_file.write("config          data_file       "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_EGamma.root\n")
-               elif flavour == "SingleElectron":
-                   config_file.write("config          data_file       "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_Electron_data.root\n")
-                    
-               if flavour == "SingleMuon":
-                   config_file.write("config          data_file       "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_Muon_data.root\n")
-
+               config_file.write("config          data_file       "+MERGE_DIR+Analyzer+"/"+year+"/"+Analyzer+"_"+Skim+"_Muon_data.root\n")
                    
                config_file.write("config          cut_dir         "+ID+"_"+flavour+"_"+region+"\n")
                config_file.write("config          plot_dir        "+ID+"_"+flavour+"_"+region+"\n")
