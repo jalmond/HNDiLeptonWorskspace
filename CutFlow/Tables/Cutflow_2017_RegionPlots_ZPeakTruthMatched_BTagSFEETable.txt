@@ -1,0 +1,24 @@
+\begin{table}[ptb]
+\centering
+\cmsTable{
+\begin{tabular}{lcccc}
+\hline
+\hline
+Source & \multicolumn{4}{c}{} \\ 
+\hline
+tt& 12824.0& $\pm$ & 20.0&$^{+1282.4}_{-1282.4}$ \\
+tW& 1246.0& $\pm$ & 11.0&$^{+124.6}_{-124.6}$ \\
+VV[Pythia]& 19206.0& $\pm$ & 69.0&$^{+1920.6}_{-1920.6}$ \\
+DY$\rightarrow \ell\ell$& 9625497.0& $\pm$ & 4982.0&$^{+770039.76}_{-770039.76}$ \\
+\hline
+Total& 9658772& $\pm$ & 4983&$^{+770043}_{-770043}$ \\
+\hline
+Data& \multicolumn{4}{c}{$9528753$}\\ 
+\hline
+Signifficance&  \multicolumn{4}{c}{$-0.0\sigma$}\\ 
+\hline
+\hline
+\end{tabular}
+}
+\caption{Number of Events in Zmass Window (SingleEG Trigger). Truth matching applied}
+\end{table}

@@ -11,6 +11,9 @@ import argparse
 
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 
+if not os.path.exists('/tmp/ssh-jalmond@lxplus.cern.ch'):
+  print('Setup lxplus connection ')
+  exit()
 
 ## Arguments
 
@@ -93,6 +96,7 @@ m.ScaleMC = args.ScaleMC
 #### Systematic
 tmp_Systematics = [
   "Lumi",
+  "GetMCUncertainty",
   #"JetRes",
   #"JetEn",
   #"JetMass",
@@ -175,34 +179,92 @@ if args.Category==0:
   PNs=["POG_UL"]
   #### Define reiongs
   m.RegionsToDraw = [
-    Region('RegionPlots_ZPeakTruthMatched_BTagSF', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll CR}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ), 
-    Region('RegionPlots_ZPeakTruthMatched_BTagSF', 'EE', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{ee}{DY->ll CR}', CutFlowCaption='Number of Events in Zmass Window (SingleEG Trigger). Truth matching applied' ), 
 
-    # KEY: TDirectoryFileRegionPlots_ZPeakTruthMatched_BTagSF;1RegionPlots_ZPeakTruthMatched_BTagSF
-    #KEY: TDirectoryFileRegionPlots_ZPeakTruthMatched_DYReweight;1RegionPlots_ZPeakTruthMatched_DYReweight
-    #KEY: TDirectoryFileRegionPlots_ZPeakTruthMatched_LeptonID;1RegionPlots_ZPeakTruthMatched_LeptonID
-    #KEY: TDirectoryFileRegionPlots_ZPeakTruthMatched_LumiWeight;1RegionPlots_ZPeakTruthMatched_LumiWeight
-    #KEY: TDirectoryFileRegionPlots_ZPeakTruthMatched_PileUpWight;1RegionPlots_ZPeakTruthMatched_PileUpWight
+    #Region('RegionPlots_ZPeakTruthMatched_BTagSF', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll Z-Peak}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ), 
+    #Region('RegionPlots_DiLep_LumiWeight', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll CR (M>50)}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_DiLep_PileUpWight', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll CR (M>50)}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_DiLep_LeptonID', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll CR (M>50)}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    Region('RegionPlots_DiLep_BTagSF', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll CR (M>50)}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_DiLep_DYReweight', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll CR (M>50)}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_DiLep_TopRW', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll CR (M>50)}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
 
+    #Region('RegionPlots_ZPeak_DYReweight', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll Z-Peak}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_ZPeak_LeptonID', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll Z-Peak}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_ZPeak_LumiWeight', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll Z-Peak}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    Region('RegionPlots_ZPeak_BTagSF', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll Z-Peak}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_ZPeak_TopRW', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll Z-Peak}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_ZPeak_PileUpWight', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll Z-Peak}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+
+    #Region('RegionPlots_BJetCR_PileUpWight', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{Top->ll CR}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    Region('RegionPlots_BJetCR_TopRW', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{Top->ll CR}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_BJetCR_BTagSF', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{Top->ll CR}', CutFlowCaption='Number of Events# in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_BJetCR_LeptonID', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{Top->ll CR}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_BJetCR_LumiWeight', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{Top->ll CR}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_BJetCR_PileUpWight', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{Top->ll CR}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_BJetCR_TopRW', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll CR (M>50)}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+
+    
+    #Region('RegionPlots_ZPeakTruthMatched_BTagSF', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{DY->ll Z-Peak}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_DiLep_LumiWeight', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{DY->ll CR (M>50)}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_DiLep_PileUpWight', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{DY->ll CR (M>50)}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_DiLep_LeptonID', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{DY->ll CR (M>50)}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    Region('RegionPlots_DiLep_BTagSF', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{DY->ll CR (M>50)}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_DiLep_DYReweight', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{DY->ll CR (M>50)}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_DiLep_TopRW', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{DY->ll CR (M>50)}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+
+    #Region('RegionPlots_ZPeak_DYReweight', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{DY->ll Z-Peak}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_ZPeak_LeptonID', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{DY->ll Z-Peak}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_ZPeak_LumiWeight', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{DY->ll Z-Peak}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_ZPeak_BTagSF', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{DY->ll Z-Peak}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_ZPeak_TopRW', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{DY->ll Z-Peak}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_ZPeak_PileUpWight', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{DY->ll Z-Peak}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+
+    #Region('RegionPlots_BJetCR_PileUpWight', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{Top->ll CR}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    Region('RegionPlots_BJetCR_TopRW', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{Top->ll CR}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_BJetCR_BTagSF', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{Top->ll CR}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_BJetCR_LeptonID', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{Top->ll CR}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_BJetCR_LumiWeight', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{Top->ll CR}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_BJetCR_PileUpWight', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{Top->ll CR}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    #Region('RegionPlots_BJetCR_TopRW', 'EMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{e#mu}{Top->ll CR}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+
+
+    
   ]
   m.PrintRegions()
 
 
 #### Define Variables
 m.VariablesToDraw = [
-  Variable('Lep1Pt', 'p_{T} of the leading lepton', 'GeV'),
-  Variable('Lep2Pt', 'p_{T} of the second lepton', 'GeV'),
-  Variable('PuppiMETType1XY', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),
-  Variable('LLMass', 'm(ll)','GeV'),
-  Variable('NJets', 'N_{j}',''),
-  Variable('NBJets', 'N_{bj}',''),
-  Variable('nPV', 'N_{pv}','')
+  #Variable('Lep1Pt', 'p_{T} of the leading lepton', 'GeV'),
+  #Variable('Lep2Pt', 'p_{T} of the second lepton', 'GeV'),
+  #Variable('LLMass', 'm(ll)','GeV'),
+  #Variable('NJets', 'N_{j}',''),
+  #Variable('NBJets', 'N_{bj}',''),
+  #Variable('nPV', 'N_{pv}',''),
+  #Variable('PuppiMETType1XY', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),
+  Variable('PFMETPhiType1', '#slash{E}_{T}^{miss} (#phi)', '#phi'),
+  Variable('PFMETPhiType1POGXY', '#slash{E}_{T}^{miss} (#phi)', '#phi'),
+  Variable('PFMETPhiType1XY', '#slash{E}_{T}^{miss} (#phi)', '#phi'),
+  #Variable('PFMETType1', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),
+  #Variable('PFMETType1POGXY', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),
+  #Variable('PFMETType1XY', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),
+  Variable('PuppiMETPhiType1', '#slash{E}_{T}^{miss} (#phi)', '#phi'),
+  Variable('PuppiMETPhiType1POGXY', '#slash{E}_{T}^{miss} (#phi)', '#phi'),
+  Variable('PuppiMETPhiType1XY', '#slash{E}_{T}^{miss} (#phi)', '#phi'),
+  Variable('PuppiMETPhiType1XYSmeared', '#slash{E}_{T}^{miss} (#phi)', '#phi'),
+  Variable('PuppiMETPhiType1XYSmeared2', '#slash{E}_{T}^{miss} (#phi)', '#phi'),
+  #Variable('PuppiMETType1', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),
+  #Variable('PuppiMETType1POGXY', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),
+  #Variable('PuppiMETType1XY', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),
+  #Variable('PuppiMETType1XYSmeared', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),
+  #Variable('PuppiMETType1XYSmeared2', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),
+
 
 ]
 m.PrintVariables()
 
 #### Draw
-m.Draw()
+#m.Draw()
 print (str(m.Filename_prefix))
 
 m.DoCutFlow('NJets')

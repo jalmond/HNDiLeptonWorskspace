@@ -1,0 +1,24 @@
+\begin{table}[ptb]
+\centering
+\cmsTable{
+\begin{tabular}{lcccc}
+\hline
+\hline
+Source & \multicolumn{4}{c}{} \\ 
+\hline
+tt& 239828.0& $\pm$ & 94.0&$^{+23982.8}_{-23982.8}$ \\
+tW& 23949.0& $\pm$ & 50.0&$^{+2394.9}_{-2394.9}$ \\
+VV[Pythia]& 92411.0& $\pm$ & 187.0&$^{+9241.1}_{-9241.1}$ \\
+DY$\rightarrow \ell\ell$& 40158696.0& $\pm$ & 12605.0&$^{+3212695.68}_{-3212695.68}$ \\
+\hline
+Total& 40514885& $\pm$ & 12607&$^{+3212799}_{-3212799}$ \\
+\hline
+Data& \multicolumn{4}{c}{$39064436$}\\ 
+\hline
+Signifficance&  \multicolumn{4}{c}{$-0.0\sigma$}\\ 
+\hline
+\hline
+\end{tabular}
+}
+\caption{Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied}
+\end{table}

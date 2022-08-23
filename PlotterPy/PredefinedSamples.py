@@ -572,6 +572,56 @@ SampleGroup_DY_2018 = SampleGroup(
 
 
 )
+
+SampleGroup_DY_MG_2016preVFP = SampleGroup(
+  Name='DY_MG',
+    Type='Bkgd',
+    Samples=['DY_MGJets'],
+    Era = "2016preVFP",
+    Color=ROOT.kYellow,
+    Style=1,
+    TLatexAlias='DY_MG#rightarrow l l ',
+    LatexAlias='DY_MG$\\rightarrow \\ell\\ell$'
+)
+
+
+SampleGroup_DY_MG_2016postVFP = SampleGroup(
+  Name='DY_MG',
+    Type='Bkgd',
+    Samples=['DY_MGJets'],
+    Era = "2016postVFP",
+    Color=ROOT.kYellow,
+    Style=1,
+    TLatexAlias='DY_MG#rightarrow l l ',
+    LatexAlias='DY_MG$\\rightarrow \\ell\\ell$'
+)
+SampleGroup_DY_MG_2017 = SampleGroup(
+  Name='DY_MG',
+  Type='Bkgd',
+  Samples=['DY_MGJets'],
+  Era = "2017",
+  Color=ROOT.kYellow,
+  Style=1,
+    TLatexAlias='DY_MG#rightarrow l l ',
+  LatexAlias='DY_MG$\\rightarrow \\ell\\ell$'
+
+
+)
+SampleGroup_DY_MG_2018 = SampleGroup(
+  Name='DY_MG',
+  Type='Bkgd',
+  Samples=['DY_MGJets'],
+  Era = "2018",
+  Color=ROOT.kYellow,
+  Style=1,
+    TLatexAlias='DY_MG#rightarrow l l ',
+  LatexAlias='DY_MG$\\rightarrow \\ell\\ell$'
+
+
+)
+
+
+
 ## WJets_MG_HT
 SampleGroup_WJets_2016preVFP = SampleGroup(
   Name='WJets_MG',
@@ -867,6 +917,18 @@ SampleGroup_TW_2016preVFP = SampleGroup(
   TLatexAlias='tW',
   LatexAlias='tW'
 )
+SampleGroup_TW_2016postVFP = SampleGroup(
+  Name='TW',
+  Type='Bkgd',
+  Samples=['SingleTop_tW_antitop_NoFullyHad','SingleTop_tW_top_NoFullyHad'],
+  Era = "2016postVFP",
+  Color=ROOT.kGray,
+  Style=1,
+  TLatexAlias='tW',
+  LatexAlias='tW'
+)
+
+
 SampleGroup_TW_2017 = SampleGroup(
   Name='TW',
   Type='Bkgd',

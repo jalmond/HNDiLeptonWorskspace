@@ -415,12 +415,17 @@ def GetSignalXsec(filepath,  mN):
 
 
 def GetMCUncertainty(SampleName):
-   
   
   if "DY" in SampleName:
     return 0.08
-  else:
+  elif "WZ" in SampleName:
     return 0.1
+  elif "ZZ" in SampleName:
+    return 0.1
+  elif "Top" in SampleName:
+    return 0.1
+  else:
+    return 0.3
 
       
 def GetNormSF(DataYear, sample):
@@ -434,7 +439,9 @@ def GetNormSF(DataYear, sample):
     words = line.strip('\n').split()
     if words[0] == sample:
       MCSF = words[1]
-      
+
+
+  print "GetNormSF : " + sample + " " + str(MCSF)
   return float(MCSF)
 
 def GetKFactor(mN, Era='2016preVFP', lepch=0):

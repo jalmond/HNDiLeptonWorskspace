@@ -6,7 +6,7 @@ import tdrstyle
 tdrstyle.setTDRStyle()
 ROOT.gStyle.SetOptStat(0)
 
-WORKING_DIR = os.environ['PLOTTER_WORKING_DIR']
+WORKING_DIR = os.environ['HNDILEPTONWORKSPACE_DIR']
 dataset = os.environ['CATANVERSION']
 PLOT_PATH = os.environ['PLOT_PATH']
 

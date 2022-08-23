@@ -1,0 +1,20 @@
+\begin{table}[ptb]
+\centering
+\cmsTable{
+\begin{tabular}{lcccc}
+\hline
+\hline
+Source & \multicolumn{4}{c}{} \\ 
+\hline
+\hline
+Total& 0& $\pm$ & 0&$^{+0}_{-0}$ \\
+\hline
+Data& \multicolumn{4}{c}{$13130733$}\\ 
+\hline
+Signifficance&  \multicolumn{4}{c}{$3624.0\sigma$}\\ 
+\hline
+\hline
+\end{tabular}
+}
+\caption{Number of Events in Zmass Window (SingleEG Trigger). Truth matching applied}
+\end{table}

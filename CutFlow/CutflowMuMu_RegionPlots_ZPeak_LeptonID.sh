@@ -1,0 +1,8 @@
+cd /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow/
+latex /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_MuMu_RegionPlots_ZPeak_LeptonID.tex
+dvipdf /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_MuMu_RegionPlots_ZPeak_LeptonID.dvi
+mv /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_MuMu_RegionPlots_ZPeak_LeptonID.pdf  /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/Output/Plots//Run2UltraLegacy_v3/HNL_Validation/2018//RegionPlots_ZPeak_LeptonID/
+rm Cutflow_MuMu_RegionPlots_ZPeak_LeptonID.aux
+rm Cutflow_MuMu_RegionPlots_ZPeak_LeptonID.tex
+rm Cutflow_MuMu_RegionPlots_ZPeak_LeptonID.dvi
+cd -

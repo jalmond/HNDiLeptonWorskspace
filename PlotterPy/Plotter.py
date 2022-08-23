@@ -1,4 +1,4 @@
-import os,ROOT
+import os,ROOT,time
 import mylib
 import ctypes
 import canvas_margin
@@ -178,24 +178,11 @@ class Plotter:
     self.RebinFilepath = RebinFilepath
     self.XaxisFilepath = XaxisFilepath
     self.YaxisFilepath = YaxisFilepath
-    self.RebinFilepathDefault = os.environ['HNDILEPTONWORKSPACE_DIR']+'/data/'+os.environ['FLATVERSION']+'/YearCombined/Rebins.txt'
-    self.XaxisFilepathDefault = os.environ['HNDILEPTONWORKSPACE_DIR']+'/data/'+os.environ['FLATVERSION']+'/YearCombined/Xaxis.txt'
-    self.YaxisFilepathDefault = os.environ['HNDILEPTONWORKSPACE_DIR']+'/data/'+os.environ['FLATVERSION']+'/YearCombined/Yaxis.txt'
 
   def ReadBinningInfo(self, Region):
     ## Rebin
     Rebins = dict()
     
-    if self.DoDebug:
-      print("Reading from : "+ str(self.RebinFilepathDefault))
-    for line in open(self.RebinFilepathDefault).readlines():
-      words = line.split()
-      if Region!=words[0]:
-        continue
-      if self.DoDebug:
-        print ("Setting rebin " + str(words[1]) + " " + str(words[2]))
-      Rebins[words[1]] = int(words[2])
-
     for line in open(self.RebinFilepath).readlines():
       words = line.split()
       if Region!=words[0]:
@@ -211,12 +198,6 @@ class Plotter:
 
     ## xaxis
     XaxisRanges = dict()
-
-    for line in open(self.XaxisFilepathDefault).readlines():
-      words = line.split()
-      if Region!=words[0]:
-        continue
-      XaxisRanges[words[1]] = [float(words[2]), float(words[3])]
 
     for line in open(self.XaxisFilepath).readlines():
       words = line.split()
@@ -287,18 +268,19 @@ class Plotter:
       total_bkg_staterror=0.
       sys_total_bkg_up=0
       sys_total_bkg_down=0
-            
-      CutFlowLatexFile = open (CutFlowDir+'/Cutflow_'+Region.PrimaryDataset+"_"+Region.Name+'.tex','w')
+      
+      CFName=Region.PrimaryDataset+"_"+Region.Name
+      CutFlowLatexFile = open (CutFlowDir+'/Cutflow_'+CFName+'.tex','w')
       CutFlowLatexFile.write('\\documentclass[10pt]{article}\n')
       CutFlowLatexFile.write('\\usepackage{epsfig,subfigure,setspace,xtab,xcolor,array,colortbl}\n')
       CutFlowLatexFile.write('\providecommand{\\cmsTable}[1]{\\resizebox{\\textwidth}{!}{#1}}\n')
       CutFlowLatexFile.write('\\begin{document}\n')
-      CutFlowLatexFile.write('\\input{"'+CutFlowDir+'/Tables/Cutflow_'+self.DataDirectory+'_'+Region.Name+Region.PrimaryDataset+'Table.txt"}\n')
+      CutFlowLatexFile.write('\\input{"'+CutFlowDir+'/Tables/Cutflow_'+self.DataDirectory+'_'+CFName+'Table.txt"}\n')
       CutFlowLatexFile.write('\\end{document}\n')
       CutFlowLatexFile.close()
       caption=Region.CutFlowCaption
       print ("Caption = " + caption)
-      CutFlowLatexTableFile = open (CutFlowDir+'/Tables/Cutflow_'+self.DataDirectory+'_'+Region.Name+Region.PrimaryDataset+'Table.txt','w')
+      CutFlowLatexTableFile = open (CutFlowDir+'/Tables/Cutflow_'+self.DataDirectory+'_'+CFName+'Table.txt','w')
       CutFlowLatexTableFile.write("\\begin{table}[ptb]\n" )
       CutFlowLatexTableFile.write("\\centering\n" )
       CutFlowLatexTableFile.write("\\cmsTable{\n" )
@@ -341,7 +323,7 @@ class Plotter:
           MCSF, MCSFerr = 1., 0.
           #if self.ScaleMC:
           #  if "DYJets" in Sample:
-          MCSF= mylib.GetNormSF(SampleGroup.Year, Region.Name)
+          MCSF= mylib.GetNormSF(SampleGroup.Year, Sample)
           
           print "MCSF = " + str(MCSF)
           h_Sample.Scale( MCSF )
@@ -397,17 +379,25 @@ class Plotter:
       CutFlowLatexTableFile.write("\\caption{"+caption+"}\n")
       CutFlowLatexTableFile.write('\end{table}\n')
 
+      print "#"*50
+      print "#"*50
+      print ("Starting process for Cutflow:")
+      
+      print ("Moving to Cutflow dir")
+      
       cdir=os.getenv("PWD")
 
-      #os.chdir(CutFlowDir)
+      os.chdir(CutFlowDir)
       #print ('CutFlowDir='+CutFlowDir)
       
-      latex_command = "latex " +  CutFlowDir+"/Cutflow_"+Region.PrimaryDataset+'_'+Region.Name+".tex"
-      dvi_command = "dvipdf "+ CutFlowDir +"/Cutflow_"+Region.PrimaryDataset+'_'+Region.Name+".dvi"
-      mv_command = "mv " + CutFlowDir+"/Cutflow_"+Region.PrimaryDataset+'_'+Region.Name+".pdf  " + Outdir
+      latex_command = "latex " +  CutFlowDir+"/Cutflow_"+CFName+".tex"
+      os.system("ls  " + CutFlowDir)
+      time.sleep(5)
+      dvi_command = "dvipdf "+ CutFlowDir +"/Cutflow_"+CFName+".dvi"
+      mv_command = "mv " + CutFlowDir+"/Cutflow_"+CFName+".pdf  " + Outdir
 
-      print ('DoCutFlow: source '+CutFlowDir+"/Cutflow.sh") 
-      run_latex = open(CutFlowDir+"/Cutflow.sh","a")
+      print ('DoCutFlow: source '+CutFlowDir+"/Cutflow"+CFName+".sh") 
+      run_latex = open(CutFlowDir+"/Cutflow"+CFName+".sh","a")
       run_latex.write('cd ' + CutFlowDir+'\n')
       run_latex.write(latex_command + '\n')
       run_latex.write(dvi_command + '\n')
@@ -419,9 +409,9 @@ class Plotter:
       print(dvi_command)
       print '-'*40
       print(mv_command)
-      run_latex.write('rm Cutflow_'+Region.PrimaryDataset+'_'+Region.Name+'.aux\n')
-      run_latex.write('rm Cutflow_'+Region.PrimaryDataset+'_'+Region.Name+'.tex\n')
-      run_latex.write('rm Cutflow_'+Region.PrimaryDataset+'_'+Region.Name+'.dvi\n')
+      run_latex.write('rm Cutflow_'+CFName+'.aux\n')
+      run_latex.write('rm Cutflow_'+CFName+'.tex\n')
+      run_latex.write('rm Cutflow_'+CFName+'.dvi\n')
       
       run_latex.write('cd -')
       run_latex.close()
@@ -436,7 +426,7 @@ class Plotter:
       #os.system('rm Cutflow'+Region.Name+'.dvi\n')                                                                                    
       os.chdir(cwd)
             
-      print ('Table ==> ' + Outdir + '/Cutflow'+Region.Name+'.pdf')
+      print ('Table ==> ' + Outdir + '/Cutflow'+CFName+'.pdf')
 
       
       if not self.OutputDirectory =="":
@@ -445,9 +435,9 @@ class Plotter:
           os.system("ssh jalmond@lxplus.cern.ch 'mkdir -p " + self.OutputDirectory +"/ScaleMC/'")
           OutdirLXPLUS= self.OutputDirectory +'/ScaleMC/'+Region.Name+'/'
           
-      print( 'scp ' + Outdir + '/Cutflow_'+Region.PrimaryDataset+'_'+ Region.Name+'.pdf  jalmond@lxplus.cern.ch:'+OutdirLXPLUS+'/')
-      os.system('scp ' + Outdir + '/Cutflow_'+Region.PrimaryDataset+'_'+Region.Name+'.pdf  jalmond@lxplus.cern.ch:'+OutdirLXPLUS+'/')
-      
+      print( 'scp ' + Outdir + '/Cutflow_'+CFName+'.pdf  jalmond@lxplus.cern.ch:'+OutdirLXPLUS+'/')
+      os.system('scp ' + Outdir + '/Cutflow_'+CFName+'.pdf  jalmond@lxplus.cern.ch:'+OutdirLXPLUS+'/')
+
 
 
   def Draw(self):
@@ -456,7 +446,7 @@ class Plotter:
 
     tdrstyle.setTDRStyle()
     ROOT.TH1.AddDirectory(False)
-
+    lxplus_dir=[]
     for Region in self.RegionsToDraw:
 
       print ('## Drawing '+Region.Name)
@@ -509,6 +499,7 @@ class Plotter:
           
         xMin= 0
         xMax=100000.
+
 
         if  Variable.Name in  XaxisRanges.keys():
           xMin = XaxisRanges[Variable.Name][0]
@@ -622,6 +613,9 @@ class Plotter:
                 tmp_paraName = Region.ParamName
                 h_Sample = f_Sample.Get(Region.PrimaryDataset + '/'+ tmp_paraName + '/'+ Region.Name+'/'+Variable.Name)
               ## For all other cases
+              elif (Syst.Name in ["GetMCUncertainty"]):
+                tmp_paraName = Region.ParamName
+                h_Sample = f_Sample.Get(Region.PrimaryDataset + '/'+ tmp_paraName + '/'+ Region.Name+'/'+Variable.Name)
               else:
                 h_Sample = f_Sample.Get(Region.PrimaryDataset + '/'+ paraName + '/'+ Region.Name+'/'+Variable.Name)
                 if self.DoDebug:
@@ -647,6 +641,8 @@ class Plotter:
                 ## now, only for DY
                 if "DYJets" in Sample:
                   MCSF, MCSFerr = mylib.GetDYNormSF(SampleGroup.Year, Region.Name)
+
+              MCSF= mylib.GetNormSF(SampleGroup.Year, Sample)
               h_Sample.Scale( MCSF )
 
               ## Manual systematic
@@ -657,8 +653,16 @@ class Plotter:
                   y = h_Sample.GetBinContent(ix+1)
                   y_new = y + y*float(Syst.Direction)*lumierr
                   h_Sample.SetBinContent(ix+1, y_new)
-
-
+                  
+              if (Syst.Name=="GetMCUncertainty") and (Syst.Year==SampleGroup.Year):
+                mcerr = mylib.GetMCUncertainty(SampleGroup.Name)
+                for ix in range(0,h_Sample.GetXaxis().GetNbins()):
+                  y = h_Sample.GetBinContent(ix+1)
+                  y_new = y + y*float(Syst.Direction)*mcerr
+                  h_Sample.SetBinContent(ix+1, y_new)
+                  
+                  
+                  
               ## AddError option
               AddErrorOption = ''
               if self.AddErrorLinear:
@@ -687,7 +691,7 @@ class Plotter:
                   LegendAdded = True
               ## else (i.e., systematic), add to h_Bkgd_ForSyst
               else:
-
+                print ("Adding hist to syst " + Syst.Name)
                 if not h_Bkgd_ForSyst:
                   h_Bkgd_ForSyst = h_Sample.Clone()
                 else:
@@ -897,7 +901,7 @@ class Plotter:
           h_dummy_up.GetYaxis().SetTitle('Events / bin')
 
         h_dummy_down = ROOT.TH1D('h_dumy_down', '', nBin, xBins)
-        h_dummy_down.GetYaxis().SetRangeUser(0.5,1.5)
+        h_dummy_down.GetYaxis().SetRangeUser(0.,2.)
 
         if ('DYCR' in Region.Name):
           h_dummy_down.GetYaxis().SetRangeUser(0.70,1.30)
@@ -939,6 +943,9 @@ class Plotter:
         ## Yaxis range
         yMin = 0.
         yMaxScale = 1.2
+        if "METPhi" in Variable.Name:
+          yMaxScale = 2.
+
         if Region.Logy>0:
           yMaxScale = 10
           yMin = Region.Logy
@@ -1173,26 +1180,32 @@ class Plotter:
         exec(self.ExtraLines)
 
         ## Save
-        c1.SaveAs(Outdir+Variable.Name+'_'+Region.Name+'.pdf')
-        c1.SaveAs(Outdir+Variable.Name+'_'+Region.Name+'.png')
+        c1.SaveAs(Outdir+Variable.Name+'_'+Region.PrimaryDataset+'_'+Region.Name+'.pdf')
+        c1.SaveAs(Outdir+Variable.Name+'_'+Region.PrimaryDataset+'_'+Region.Name+'.png')
         print (Variable.Name+'_'+Region.Name+'.pdf ==> Saved')
 
         print(str(self.OutputDirectory))
         if not self.OutputDirectory =="":
-          print ('scp ' + Outdir+Variable.Name+'_'+Region.Name+'.pdf  jalmond@lxplus.cern.ch:'+OutdirLXPLUS+'/')
-          os.system('scp ' + Outdir+Variable.Name+'_'+Region.Name+'.pdf  jalmond@lxplus.cern.ch:'+OutdirLXPLUS+'/')
-          os.system('scp ' + Outdir+Variable.Name+'_'+Region.Name+'.png  jalmond@lxplus.cern.ch:'+OutdirLXPLUS+'/')
-
+          print ('scp ' + Outdir+Variable.Name+'_'+Region.PrimaryDataset+'_'+Region.Name+'.pdf  jalmond@lxplus.cern.ch:'+OutdirLXPLUS+'/')
+          os.system('scp ' + Outdir+Variable.Name+'_'+Region.PrimaryDataset+'_'+Region.Name+'.pdf  jalmond@lxplus.cern.ch:'+OutdirLXPLUS+'/')
+          os.system('scp ' + Outdir+Variable.Name+'_'+Region.PrimaryDataset+'_'+Region.Name+'.png  jalmond@lxplus.cern.ch:'+OutdirLXPLUS+'/')
+          lxplus_dir.append(OutdirLXPLUS)
           
 
         c1.Close()
 
       ##==>End Variable loop
-
+      
       if self.DoDebug:
         print ('[DEBUG] All variables are done for this region, closing data TFile')
       f_Data.Close()
 
     ##==>End Region loop
+
+    print ("List of output dir:")
+    for _dir in lxplus_dir:
+      htmlname=_dir
+      htmlname.replace('/afs/cern.ch/user/j/jalmond/www/','https://jalmond.web.cern.ch/jalmond/')
+      print htmlname
     if self.DoDebug:
       print ('[DEBUG] All regions are done.')

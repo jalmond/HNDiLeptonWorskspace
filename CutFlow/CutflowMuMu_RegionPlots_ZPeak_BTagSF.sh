@@ -1,0 +1,29 @@
+cd /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow/
+latex /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.tex
+dvipdf /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.dvi
+mv /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.pdf  /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/Output/Plots//Run2UltraLegacy_v3/HNL_Validation/2018//RegionPlots_ZPeak_BTagSF/
+rm Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.aux
+rm Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.tex
+rm Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.dvi
+cd -cd /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow/
+latex /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.tex
+dvipdf /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.dvi
+mv /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.pdf  /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/Output/Plots//Run2UltraLegacy_v3/HNL_Validation/2016postVFP//RegionPlots_ZPeak_BTagSF/
+rm Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.aux
+rm Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.tex
+rm Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.dvi
+cd -cd /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow/
+latex /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.tex
+dvipdf /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.dvi
+mv /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.pdf  /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/Output/Plots//Run2UltraLegacy_v3/HNL_Validation/2016postVFP//RegionPlots_ZPeak_BTagSF/
+rm Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.aux
+rm Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.tex
+rm Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.dvi
+cd -cd /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow/
+latex /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.tex
+dvipdf /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.dvi
+mv /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.pdf  /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/Output/Plots//Run2UltraLegacy_v3/HNL_Validation/2016postVFP//RegionPlots_ZPeak_BTagSF/
+rm Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.aux
+rm Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.tex
+rm Cutflow_MuMu_RegionPlots_ZPeak_BTagSF.dvi
+cd -

@@ -4,6 +4,14 @@ site = [  ["ElectronID_94","https://indico.cern.ch/event/732971/contributions/30
           ["git_js_2016_plotter","https://github.com/jedori0228/HN_dilepton_plotter/tree/v8-0-7.37_Approved"],
           ["MUON18","https://twiki.cern.ch/twiki/bin/view/CMS/MuonUL2018"],
           ["GD","https://docs.google.com/spreadsheets/d/1d5ZOqy1uv3FyIcNQ6a87LxRCuomur4RFxIKHFAMS1sI/edit#gid=851619247"],
+          ["PileupJSON","https://twiki.cern.ch/twiki/bin/view/CMS/PileupJSONFileforData"],
+          ["LUMI","https://twiki.cern.ch/twiki/bin/viewauth/CMS/TWikiLUM"],
+          ["PDdmv","https://twiki.cern.ch/twiki/bin/view/CMS/PdmVRun2LegacyAnalysis"],
+          ["MUONPOG","https://twiki.cern.ch/twiki/bin/view/CMS/MuonPOG"],
+          ["",""],
+          ["",""],
+          ["",""],
+          ["",""],
           ["",""],
           ["EXO-20-006","http://cms-results.web.cern.ch/cms-results/public-results/preliminary-results/EXO-20-006/"],
           ["EXOPUB","https://twiki.cern.ch/twiki/bin/view/CMSPublic/PhysicsResultsEXO"],
@@ -13,8 +21,8 @@ site = [  ["ElectronID_94","https://indico.cern.ch/event/732971/contributions/30
           ["Publications","https://twiki.cern.ch/twiki/bin/view/CMS/Internal/PubGuidelines"],
           ["Publications","https://twiki.cern.ch/twiki/bin/view/CMS/Internal/PaperSubmissionPrep"],
           ["Publications","https://twiki.cern.ch/twiki/bin/view/CMS/Internal/Publications"],
-
-      ]
+          ["Datasets","https://twiki.cern.ch/twiki/bin/view/CMS/PdmVDatasetsUL2016"],
+]
 
 for s in site:
     if s[0] == "":
