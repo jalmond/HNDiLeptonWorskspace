@@ -19,7 +19,7 @@ for filename in arr_tamsadir:
     print filename
     sswwsamples.append(filename)
 
-
+os.system("mkdir -p " + os.getenv("FILE_MERGED_PATH")+"/"+Analyser +"/2016/")
 os.system("mkdir -p " + path_2016)
 for x in sswwsamples:
     if os.path.exists(path_2016 +"/"+x  ):

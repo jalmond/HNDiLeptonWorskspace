@@ -11,9 +11,9 @@ import argparse
 
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 
-if not os.path.exists('/tmp/ssh-jalmond@lxplus.cern.ch'):
-  print('Setup lxplus connection ')
-  exit()
+#if not os.path.exists('/tmp/ssh-jalmond@lxplus.cern.ch'):
+check_lxplus_connection()
+
 
 ## Arguments
 

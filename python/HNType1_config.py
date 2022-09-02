@@ -5,31 +5,181 @@ try:
 except ImportError:
     pass
 
+def GetXSecUnityCoupling(mass, Sig):
+    
+    return 100*GetXSec(mass,Sig)
+
+def GetXSec(mass, Sig):
+    
+    EXO17=True
+    mass = float(mass)
+    if Sig == "DY" and EXO17:
+        
+        if mass ==85:
+            return 2.57E-01
+        if mass ==90:
+            return 1.54E-02
+
+        if mass ==95:
+            return 1.09E-01
+
+        if mass ==100: 
+            return 7.77E-02
+        if mass ==125: 
+            return 2.45E-02
+        if mass ==150: 
+            return 1.10E-02
+        if mass ==200: 
+            return 3.40E-03
+        if mass ==250: 
+            return 1.43E-03
+        if mass ==300: 
+            return 7.13E-04
+        if mass ==400: 
+            return 2.37E-04
+        if mass ==500: 
+            return 9.86E-05
+        if mass ==600:
+            return 4.72E-05
+        if mass ==700: 
+            return 2.47E-05
+        if mass ==800: 
+            return 1.38E-05
+        if mass ==900: 
+            return 8.11E-06
+        if mass ==1000: 
+            return 4.96E-06
+        if mass ==1100: 
+            return 3.12E-06
+        if mass ==1200: 
+            return 2.02E-06
+        if mass ==1300: 
+            return 1.33E-06
+        if mass ==1400: 
+            return 8.91E-07
+        if mass ==1500: 
+            return 6.05E-07
+
+    if Sig == "VBF" and EXO17:
+        if mass ==100: 
+            return 9.65E-04
+        if mass ==150: 
+            return 4.91E-04
+        if mass ==200: 
+            return 3.28E-04
+        if mass ==300: 
+            return 1.83E-04
+        if mass ==400: 
+            return 1.16E-04
+        if mass ==500: 
+            return 7.81E-05
+        if mass ==600: 
+            return 5.50E-05
+        if mass ==700: 
+            return 3.98E-05
+        if mass ==800: 
+            return 2.94E-05
+        if mass ==900: 
+            return 2.22E-05
+        if mass ==1000: 
+            return 1.69E-05
+        if mass ==1100: 
+            return 1.30E-05
+        if mass ==1200: 
+            return 1.02E-05
+        if mass ==1300: 
+            return 7.94E-06
+        if mass ==1400: 
+            return 6.27E-06
+        if mass ==1500: 
+            return 5.00E-06
+        if mass ==1700: 
+            return 3.21E-06
+        if mass ==2000: 
+            return 1.69E-06
+                
+    return 0.
+
 def GetColor(bkg):
     
-    if "prompt" in bkg:
-        return "8"
-    if "VV" in bkg:
-        return "kGreen-2"
+    if bkg == "CF":
+        return 74
+    
+    if bkg == "SSPrompt":
+        return 8
+
+    if bkg == "VV":
+        return ROOT.kSpring-1
+
+    if bkg == "WZ":
+        return ROOT.kSpring-1
+
+    if bkg == "ZZ":
+        return ROOT.kBlue-1
+
     if "VVV" in bkg:
-        return "802"
-    if "Xgamma" in bkg:
-        return "400"
+        return ROOT.kSpring+10
+
+    if "XG" in bkg:
+        return ROOT.kSpring-7
+
+    if "ZG" in bkg:
+        return ROOT.kSpring-7
+
+    if "WG" in bkg:
+        return ROOT.kGreen-7
+
     if "WJet"in bkg:
-        return "8"
+        return ROOT.kGreen
+
     if "Top" in bkg:
-        return "632"
+        return ROOT.kRed
+
     if "DY" in bkg:
-        return "400"
+        return ROOT.kYellow
+
     if "wwpp" in bkg:
-        return "840"
+        return ROOT.kGray
+
     if "fake" in bkg:
-        return "870"
+        return 870
+
+    if "NonPrompt" in bkg:
+        return 870
+        
+    if bkg == "total_background":
+        return ROOT.kGreen+1
+        
+    if bkg == "TTLL":
+        return ROOT.kRed
+
+    if bkg == "TW":
+        return ROOT.kGray
         
     print "Failed to  find " + bkg
 
 
-def GetEXO_17_028_Bkg(channel,SR,mass):
+def GetEXO_17_028_Masses(Channel, isString):
+    
+
+    masses = ["100",              "125",              "200",              "250",              "300",              "400",              "500",              "600",              "700",              "800",              "900",              "1000",              "1100",              "1200",              "1300",              "1400",              "1500", "1700" , "2000","2500","5000" , "10000"]
+
+    masses_vbf =  [            "500",              "600",              "700",              "800",              "900",              "1000",              "1100",              "1200",              "1300",              "1400",              "1500", "1700" , "2000","2500","5000" , "10000"]
+
+    MassList=masses
+    if Channel == "TChannel":
+        MassList=masses_vbf
+
+    Masses_S = []    
+    if isString:
+        for m in MassList:
+                Masses_S.append(float(m))
+        else:
+            Masses_S =MassList
+
+    return MassList
+
+def GetEXO_17_028_Events(channel,SR,mass):
     
     effs=[]
     if channel == "MuMu":
@@ -74,7 +224,7 @@ def GetEXO_17_028_Bkg(channel,SR,mass):
                 ["1400",0.1],
                 ["1500",0.1]]
             
-    if channel == "EE":
+    if channel == "ElEl":
         if SR == "SR1":
             effs = [
                 ["100", 18.6],
@@ -125,104 +275,356 @@ def GetEXO_17_028_Bkg(channel,SR,mass):
 
 
 
-def GetEXO_17_028_Eff(channel,SR,mass):
+def GetEXO_17_028_Eff(channel,SR,mass, Sig):
     
     effs=[]
-    if channel == "MuMu":
-        if SR == "SR1":
-            effs = [
-                ["100", 2.6],
-                ["125", 5.1],
-                ["150", 6.6],
-                ["200", 8.1],
-                ["250", 11],
-                ["300", 13.2],
-                ["400", 11.7],
-                ["500", 8.6],
-                ["600", 7.4],
-                ["700", 6.7],
-                ["800", 6.0],
-                ["900", 5.4],
-                ["1000", 4.6],
-                ["1100", 4.1],
-                ["1200", 3.6],
-                ["1300", 3.2],
-                ["1400", 2.7],
-                ["1500", 2.5]]
-            
-        elif SR == "SR2":
-            effs = [
-                ["100", 0.006],
-                ["125", 0.08],
-                ["150", 0.28],
-                ["200", 1.4],
-                ["250", 3],
-                ["300", 5.4],
-                ["400", 13.3],
-                ["500", 22.4],
-                ["600", 30.2],
-                ["700", 34.6],
-                ["800", 34.8],
-                ["900", 35.8],
-                ["1000", 38.4],
-                ["1100", 36.7],
-                ["1200", 38.5],
-                ["1300", 38.5],
-                ["1400", 35.9],
-                ["1500", 36.4]]
+    if Sig == "DY":
 
-    elif channel == "EE":
         if SR == "SR1":
-            effs = [
-                ["100", 1.1],
-                ["125", 2.6],
-                ["150", 3.1],
-                ["200", 4.9],
-                ["250", 5.9],
-                ["300", 7.6],
-                ["400", 6.6],
-                ["500", 5.5],
-                ["600", 3.8],
-                ["700", 4.0],
-                ["800", 3.6],
-                ["900", 3.2 ],
-                ["1000", 2.6],
-                ["1100", 2.2],
-                ["1200", 2.0],
-                ["1300", 1.8],
-                ["1400", 1.5],
-                ["1500", 1.3]]
-            
-        elif SR == "SR2":
-            effs = [
-                ["100", 0.005],
-                ["125", 0.04],
-                ["150", 0.19],
-                ["200", 0.6],
-                ["250", 2.2],
-                ["300", 3.5],
-                ["400", 9.1],
-                ["500", 14.3],
-                ["600", 17.4],
-                ["700", 19.4],
-                ["800", 20.8],
-                ["900", 19.2],
-                ["1000", 21.5],
-                ["1100", 20.3],
-                ["1200", 20.8],
-                ["1300", 20.5],
-                ["1400", 19.6],
-                ["1500", 19.5]]
+
+            if channel == "MuMu":
+                effs = [
+                    ["85", 0.5],
+                    ["90", 1.21],
+                    ["100", 2.58],
+                    ["125", 5.11],
+                    ["150", 6.6],
+                    ["200", 8.07],
+                    ["250", 10.99],
+                    ["300", 13.21],
+                    ["400", 11.77],
+                    ["500", 8.63],
+                    ["600", 7.45],
+                    ["700", 6.69],
+                    ["800", 6.05],
+                    ["900", 5.38],
+                    ["1000", 4.59],
+                    ["1100", 4.07],
+                    ["1200", 3.59],
+                    ["1300", 3.20],
+                    ["1400", 2.75],
+                    ["1500", 2.5],
+                    ["1700", 1.85]]
+
+            if channel == "ElEl":
+
+                effs = [
+                    ["85", 0.11],
+                    ["90", 0.23],
+                    ["100", 1.11],
+                    ["125", 2.59],
+                    ["150", 3.12],
+                    ["200", 4.94],
+                    ["250", 5.87],
+                    ["300", 7.58],
+                    ["400", 6.63],
+                    ["500", 5.52],
+                    ["600", 3.84],
+                    ["700", 4.02],
+                    ["800", 3.64],
+                    ["900", 3.17],
+                    ["1000", 2.64],
+                    ["1100", 2.22],
+                    ["1200", 1.97],
+                    ["1300", 1.79],
+                    ["1400", 1.47],
+                    ["1500", 1.31],
+                    ["1700", 0.87]]
+            if channel == "MuEl":
+        
+                effs = [
+                    ["85", 0.21],
+                    ["90", 0.59],
+                    ["100", 1.28],
+                    ["125", 3.11],
+                    ["150", 5.06],
+                    ["200", 6.13],
+                    ["250", 8.90],
+                    ["300", 9.02],
+                    ["400", 7.36],
+                    ["500", 6.60],
+                    ["600", 5.89],
+                    ["700", 5.19],
+                    ["800", 4.48],
+                    ["900", 3.82],
+                    ["1000", 3.37],
+                    ["1100", 2.80],
+                    ["1200", 2.45],
+                    ["1300", 2.09],
+                    ["1400", 1.81],
+                    ["1500", 1.53],
+                    ["1700", 1.25]]
+
+        if SR == "SR2":
+
+            if channel == "MuMu":
+
+                effs = [
+                    ["150", 0.28],
+                    ["200", 1.43],
+                    ["250", 3],
+                    ["300", 5.4],
+                    ["400", 13.3],
+                    ["500", 22.4],
+                    ["600", 30.2],
+                    ["700", 34.6],
+                    ["800", 34.8],
+                    ["900", 35.8],
+                    ["1000", 38.4],
+                    ["1100", 36.7],
+                    ["1200", 38.5],
+                    ["1300", 38.5],
+                    ["1400", 35.9],
+                    ["1500", 36.4],
+                    ["1700", 29.0]]
                 
+                
+            elif channel == "ElEl":
+
+                effs = [
+                    ["150", 0.19],
+                    ["200", 0.6],
+                    ["250", 2.2],
+                    ["300", 3.5],
+                    ["400", 9.1],
+                    ["500", 14.3],
+                    ["600", 17.4],
+                    ["700", 19.4],
+                    ["800", 20.8],
+                    ["900", 19.2],
+                    ["1000", 21.5],
+                    ["1100", 20.3],
+                    ["1200", 20.8],
+                    ["1300", 20.5],
+                    ["1400", 19.6],
+                    ["1500", 19.5],
+                    ["1700", 14.45]]
+
+            elif channel == "MuEl":
+
+                effs = [
+                    ["200", 0.86],
+                    ["250", 1.74],
+                    ["300", 4.44],
+                    ["400", 11.79],
+                    ["500", 16.7],
+                    ["600", 20.2],
+                    ["700", 25.0],
+                    ["800", 26.1],
+                    ["900", 25.6 ],
+                    ["1000", 23.5],
+                    ["1100", 26.86],
+                    ["1200", 25.94],
+                    ["1300", 27.12],
+                    ["1400", 26.7],
+                    ["1500", 21.6],
+                    ["1700", 17.0]  ]
+
+    if Sig == "VBF":
+
+
+        if channel == "MuMu":
+
+            if SR == "SR1":
+
+                effs = [
+                    ["300", 5.2],
+                    ["400", 5.14],
+                    ["500", 4.08],
+                    ["600", 4.15],
+                    ["700", 3.93],
+                    ["800", 5.44],
+                    ["900", 4.98],
+                    ["1000", 4.24],
+                    ["1100", 3.77],
+                    ["1200", 3.43],
+                    ["1300", 2.98],
+                    ["1400", 2.68],
+                    ["1500", 2.34],
+                    ["1700", 1.85]]
+                
+            if SR == "SR2":
+
+                effs = [
+                    ["300", 0.73],
+                    ["400", 2.72],
+                    ["500", 6.78],
+                    ["600", 20.44],
+                    ["700", 24.66],
+                    ["800", 24.93],
+                    ["900", 26.92],
+                    ["1000", 28.89],
+                    ["1100", 29.23],
+                    ["1200", 30.06],
+                    ["1300", 30.65],
+                    ["1400", 29.37],
+                    ["1500", 29.98],
+                    ["1700", 29.02]]
+
+
+
+        if channel == "ElEl":
+
+            if SR == "SR1":
+
+                effs = [
+                    ["300", 3.03],
+                    ["400", 3.03],
+                    ["500", 2.68],
+                    ["600", 1.69],
+                    ["700", 2.78],
+                    ["800", 3.],
+                    ["900", 2.86],
+                    ["1000", 2.37],
+                    ["1100", 2.],
+                    ["1200", 1.82],
+                    ["1300", 1.56],
+                    ["1400", 1.31],
+                    ["1500", 1.2],
+                    ["1700", 0.87]]
+
+            if SR == "SR2":
+
+                effs = [
+                    ["300", 0.81],
+                    ["400", 2.71],
+                    ["500", 5.17],
+                    ["600", 13.21],
+                    ["700", 17.59],
+                    ["800", 18.3],
+                    ["900", 18.5],
+                    ["1000", 17.57],
+                    ["1100", 19.56],
+                    ["1200", 19.88],
+                    ["1300", 20.75],
+                    ["1400", 20.82],
+                    ["1500", 18.04],
+                    ["1700", 16.98]]
+
+
+        if channel == "MuEl":
+
+            if SR == "SR1":
+
+                effs = [
+                    ["300", 3.4],
+                    ["400", 2.99],
+                    ["500", 3.01],
+                    ["600", 3.55],
+                    ["700", 3.85],
+                    ["800", 3.72],
+                    ["900", 3.31],
+                    ["1000", 3.03],
+                    ["1100", 2.58],
+                    ["1200", 2.26],
+                    ["1300", 1.89],
+                    ["1400", 1.70],
+                    ["1500", 1.54],
+                    ["1700", 1.25]]
+
+            if SR == "SR2":
+
+                effs = [
+                    ["300", 0.81],
+                    ["400", 2.71],
+                    ["500", 5.17],
+                    ["600", 13.21],
+                    ["700", 17.59],
+                    ["800", 18.3],
+                    ["900", 18.5],
+                    ["1000", 17.57],
+                    ["1100", 19.56],
+                    ["1200", 19.88],
+                    ["1300", 20.75],
+                    ["1400", 20.82],
+                    ["1500", 18.04],
+                    ["1700", 16.98]]
+
+
     for x in effs:
         if str(x[0]) == str(mass):
             return float(x[1])/float(100.)
+    
 
-    return -999.
+    return 0
+
+
+def GetEXO_17_028_Bkg(channel,SR,mass, SIG):
+
+    channels = ["MuMu","ElEl","MuEl"]
+    SRs = ["Bin1", "Bin2","Combined"]
+    SIGS = ["","_VBF","_VBFOnly"]
+    if not channel in channels:
+        print ("Error in GetEXO_17_028_Bkg : channel " )
+        exit()
+
+    if not SR in SRs:
+        print ("Error in GetEXO_17_028_Bkg : SR " )
+        exit()
+
+    if not SIG in SIGS:
+        print ("Error in GetEXO_17_028_Bkg : SIG " )
+        exit()
+
+    DATACARD_PATH=os.getenv("HNDILEPTONWORKSPACE_DIR") + "/Limits/DataCardsCutCount/EXO-17-028/2016/"+channel + "_"+SR + "/HN"+channel+"_"+mass + SIG + ".txt"
+    
+    if not os.path.exists(DATACARD_PATH):
+        print(DATACARD_PATH + " does not exist")
+        exit()
+    
+
+    lines_card = open(DATACARD_PATH).readlines()
+    for line in lines_card:
+        word=line.split()
+        if word[0] == "rate":
+            return str(float(word[1]) + float(word[2]) + float(word[3]))
+
+    return 0
+            
+
+
+def GetEXO_17_028_Yield(channel,SR,mass,SIG):
+    
+
+    channels = ["MuMu","ElEl","MuEl"]
+    SRs = ["Bin1", "Bin2","Combined"]
+    SIGS = ["","_VBF","_VBFOnly"]
+    if not channel in channels:
+        print ("Error in GetEXO_17_028_Bkg : channel " )
+        exit()
+        
+    if not SR in SRs:
+        print ("Error in GetEXO_17_028_Bkg : SR " )
+        exit()
+
+    if not SIG in SIGS:
+        print ("Error in GetEXO_17_028_Bkg : SIG " )
+        exit()
+
+    DATACARD_PATH=os.getenv("HNDILEPTONWORKSPACE_DIR") + "/Limits/DataCardsCutCount/EXO-17-028/2016/"+channel + "_"+SR + "/HN"+channel+"_"+mass + SIG + ".txt"
+
+    if not os.path.exists(DATACARD_PATH):
+        print(DATACARD_PATH + " does not exist")
+        exit()
+
+
+    lines_card = open(DATACARD_PATH).readlines()
+    print ("Using " + DATACARD_PATH)
+    NBkg=0
+    for line in lines_card:
+        word=line.split()
+        if word[0] == "rate":
+            NBkg=float(word[4])
+    
+
+    return NBkg 
+
 
 def PrintList(_list):
     for x in _list:
         print x
+
+
 def ChooseMassList(list1, list2,list3, channel,order_sc):
 
     if order_sc == 1:
@@ -519,25 +921,25 @@ def GetSConfig(tag, configfile,_setup):
         exit()
                 
     
-def GetHistNameSRHighMass(flavour,SR, mass,year, _id,Analyzer):
-    histname = SR+"_highmass/"+SR+"_highmass_njets_"+Analyzer+"_"+flavour + "_"+_id + "_"
-    return histname
+#def GetHistNameSRHighMass(flavour,SR, mass,year, _id,Analyzer):
+#    histname = SR+"_highmass/"+SR+"_highmass_njets_"+Analyzer+"_"+flavour + "_"+_id + "_"
+#    return histname
 
-def GetHistNameNoCut(flavour,_id,Analyzer):
+#def GetHistNameNoCut(flavour,_id,Analyzer):#
+#
+#    #histname = "CutFlow/NoCut_"+Analyzer+"_"+flavour+"_"+Analyzer
+#    #return histname
+#    histname = "FillEventCutflow/"+Analyzer+"_"+flavour + "_"+_id + "exo_17_028_dimu_same_sign";
+#    
+#    if flavour == "EE":
+#        histname = "FillEventCutflow/"+Analyzer+"_"+flavour+ "_"+_id + "exo_17_028_diel_same_sign";
+#    return histname
 
-    #histname = "CutFlow/NoCut_"+Analyzer+"_"+flavour+"_"+Analyzer
-    #return histname
-    histname = "FillEventCutflow/"+Analyzer+"_"+flavour + "_"+_id + "exo_17_028_dimu_same_sign";
-    
-    if flavour == "EE":
-        histname = "FillEventCutflow/"+Analyzer+"_"+flavour+ "_"+_id + "exo_17_028_diel_same_sign";
-    return histname
-
-def GetHistNameSRMassBin(channel,SR, mass,year, _id,Analyzer):
-
-    histname= SR
-    histname+= "/"+ str(histname) +"_mn"+mass +"_nevent_"+str(Analyzer)+"_"+str(channel)+"_"+str(_id)+"_"
-    return histname
+#def GetHistNameSRMassBin(channel,SR, mass,year, _id,Analyzer):#
+#
+#    histname= SR
+#    histname+= "/"+ str(histname) +"_mn"+mass +"_nevent_"+str(Analyzer)+"_"+str(channel)+"_"+str(_id)+"_"
+#    return histname
 
 
 
@@ -718,7 +1120,7 @@ def GetSignalEventsSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
     scale_ = 1.
     if int(mass) <= 200:
         scale_ = 0.1
-    elif int(mass) <= 600:
+    elif int(mass) <= 700:
         scale_ = 1
     elif int(mass) <=1000:
         scale_ = 10.

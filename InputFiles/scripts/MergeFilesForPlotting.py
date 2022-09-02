@@ -86,6 +86,7 @@ def merge_all_years(test_run,analyser,skim):
 
     dirlist_2016 =  [f for f in listdir(preVFP_path) if isfile(join(preVFP_path,f))]
     eras = ["2016postVFP", "2017", "2018"]
+    
     for era in eras:
         file_path = os.environ['FILE_MERGED_PATH'] +analyser + "/"+era+"/"
         dirlist =  [f for f in listdir(file_path) if isfile(join(file_path,f))]
@@ -126,7 +127,7 @@ def merge_data_flavour(test_run,analyser,skim,  label, flavours):
     print (' ')
 
     eras = ["2016preVFP", "2016postVFP", "2017", "2018"]
-
+    eras = ["2018"]
     for era in eras:
         local_dir=os.environ['FILE_MERGED_PATH'] +analyser + "/" +era
 
@@ -214,7 +215,7 @@ def merge_data(test_run,analyser,skim, flavour, flav_dir):
     print ('---'*30) 
     print (' ')
     eras = ["2016preVFP", "2016postVFP", "2017", "2018"]
-
+    eras = ["2018"]
     n_era=-1
     for era in eras:
         n_era+=1
@@ -328,11 +329,7 @@ def merge_data_setup(_isTest,_analyser_name,_skim_name):
         merge_data(_isTest,_analyser_name,_skim_name,"EE", [["","_DoubleEG"],["","_DoubleEG"],["","_DoubleEG"],["","_EGamma"]])
         merge_data(_isTest,_analyser_name,_skim_name,"MuMu",     [["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"]])
 
-    if analyser_name =="HNL_DileptonCR" or analyser_name == "HNL_SignalRegionPlotter":
-        merge_data(_isTest,_analyser_name,_skim_name,"EE", [["","_DoubleEG"],["","_DoubleEG"],["","_DoubleEG"],["","_EGamma"]])
-        merge_data(_isTest,_analyser_name,_skim_name,"MuMu",     [["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"]])
-        merge_data(_isTest,_analyser_name,_skim_name,"EMu",     [["","_MuonEG"],["","_MuonEG"],["","_MuonEG"],["","_MuonEG"]])
-        
+    if analyser_name =="HNL_DileptonCR" or analyser_name == "HNL_SignalRegionPlotter" or analyser_name == "HNL_ControlRegionPlotter":
         merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_EE",   [["/RunFake__/","_DoubleEG"],["/RunFake__/","_DoubleEG"],["/RunFake__/","_DoubleEG"],["/RunFake__/","_EGamma"]])
         merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_MuMu",       [["/RunFake__/","_DoubleMuon"],["/RunFake__/","_DoubleMuon"],["/RunFake__/","_DoubleMuon"],["/RunFake__/","_DoubleMuon"]])
         merge_data(_isTest,_analyser_name,_skim_name,"NonPrompt_EMu",       [["/RunFake__/","_MuonEG"],["/RunFake__/","_MuonEG"],["/RunFake__/","_MuonEG"],["/RunFake__/","_MuonEG"]])
@@ -431,7 +428,7 @@ if args.MC:
 
 if isData:
     merge_data_setup(isTest,analyser_name,skim_name)
-    merge_2016(isTest,analyser_name,skim_name)
+    #merge_2016(isTest,analyser_name,skim_name)
     
 if args.FullRun2:
     merge_all_years(isTest,analyser_name,skim_name )
