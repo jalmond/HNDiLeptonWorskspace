@@ -1,5 +1,6 @@
 #ifndef mylib_h
 #define mylib_h
+#include "TROOT.h"
 
 
 TH1D* GetSignalHistBasics(TString current_sample, TString filepath, TString fullhistname){
@@ -69,6 +70,32 @@ double GetMax(vector<double> vec){
   
   return val;
 }
+
+
+
+void    FormatHist(TH1D* hist_data, int rbin, double _max, Color_t col,TString xaxis_title){
+
+  hist_data->Rebin(rbin);
+  hist_data->SetLineColor(col);
+  hist_data->GetYaxis()->SetTitleOffset(1.4);
+  hist_data->SetMarkerStyle(20);
+  hist_data->SetMarkerSize(1.2);
+  hist_data->SetMarkerColor(col);
+  hist_data->GetYaxis()->SetRangeUser(0.1, _max*1.4);
+  hist_data->GetXaxis()->SetTitle(xaxis_title);
+}
+
+void    FormatHistogram(TH1D* hist, TString var, int col, double ymax){
+
+  double max = (ymax > hist->GetMaximum()) ? ymax : hist->GetMaximum();
+  if(var.Contains("DeltaPhi")) FormatHist (hist,5, max, GetHistColor(col), "#Delta#phi");
+  else if(var.Contains("Lep_Mu_FromW_pt")) FormatHist (hist,2, max, GetHistColor(col), "Lep_Mu_FromW_pt");
+  else if(var.Contains("_eta")) FormatHist (hist,2, max, GetHistColor(col), "#eta");
+  else if(var.Contains("DeltaR")) FormatHist (hist,2, max, GetHistColor(col), "#Delta(R)");
+  else if(var.Contains("_pt")) FormatHist (hist,2, max, GetHistColor(col), "p_{T} (GeV)");
+
+}
+
 
 void    SetupHist(TH1D* hist_data, int rbin, double _max){
   hist_data->Rebin(rbin);

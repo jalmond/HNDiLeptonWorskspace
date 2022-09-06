@@ -2,11 +2,13 @@
 #include "Macros.h"
 #include "mylib.h"
 #include "canvas_margin.h"
+#include<stdlib.h>
+#include <iostream>
 
 void MuonSignalPlots(){
   
-  vector<TString> eras = {"2016postVFP","2016preVFP","2017","2018"};
-
+  //vector<TString> eras = {"2016postVFP","2016preVFP","2017","2018"};
+  vector<TString> eras = {"2018"};
   vector<TString> signals_available;
   vector<TString> signals_missing;
   for (auto year : eras){
@@ -15,22 +17,17 @@ void MuonSignalPlots(){
     TString s_hostname = GetHostname();
     
     //HNtypeI_Dilepton_SkimTree_SSNonIso_DYJets.root
-    TString analysername="HNL_Signal";
+    TString analysername="HNL_SignalStudies";
     
-    vector<TString> code_names= {"HNL_Signal"};
-    
-    if(std::find(code_names.begin(), code_names.end(), analysername) != code_names.end()) cout << "Running with code " << analysername << endl;
-    else {cout << "Error in input of analyzer: " << analysername << endl; for (auto i: code_names)   std::cout << i << ' '; return; }
     
     // local path names
-    TString ENV_FILE_PATH= (getenv("FILE_PATH"));
     TString ENV_MERGEDFILE_PATH = getenv("FILE_MERGED_PATH");
     TString ENV_PLOT_PATH = getenv("PLOT_PATH");
     TString FLATVERSION = getenv("FLATVERSION");
     
     
     MakeDir(ENV_PLOT_PATH + FLATVERSION);
-    TString input_path = ENV_FILE_PATH + FLATVERSION+"/"+analysername+"/";
+    TString input_path = ENV_MERGEDFILE_PATH +"/"+analysername+"/";
     TString output = ENV_PLOT_PATH + FLATVERSION + "/"+analysername+"/";
     
     MakeDir(output);
@@ -42,34 +39,32 @@ void MuonSignalPlots(){
     output+=year+"/";
     MakeDir(output);
     
-    cout << "FakerateType1::LOG Output dir = " << output << endl;
-    
-    if(s_hostname == "JohnMB2018s-MacBook-Pro.local"){
-      input_path = "/Users/john/HNDiLeptonWorskspace/OutputTool/MergedFiles/";
-    }
     
     // Set Plotting style
     setTDRStyle();
     gStyle->SetPalette(1);
     
     
-    vector<TString> SSMasses = {"500","600","700","750","800","900","1000","1100","1200","1300","1500","1700","2000","2500","3000","5000","10000","15000","20000"};
-    vector<TString> DYMasses = {"85","90","95","100","125","150","200","250","300","400","500","600","700","800","900","1000","1100","1200","1300","1500","1700","2000"};
-    vector<TString> VBFMasses = {"500","600","700","800","900","1000","1100","1200","1300","1500","1700","2000"};
+    //vector<TString> SSMasses = {"500","600","700","750","800","900","1000","1100","1200","1300","1500","1700","2000","2500","3000","5000","10000","15000","20000"};
+    //vector<TString> DYMasses = {"85","90","95","100","125","150","200","250","300","400","500","600","700","800","900","1000","1100","1200","1300","1500","1700","2000"};
+    //vector<TString> VBFMasses = {"500","600","700","800","900","1000","1100","1200","1300","1500","1700","2000"};
     
-    
-    //vector<TString> Signals = {"SSWWTypeI_NLO_SF_M","DYTypeI_NLO_SF_M","VBFTypeI_NLO_SF_M"};
-    vector<TString> Signals = {"VBFTypeI_NLO_SF_M"};
+    vector<TString> SSMasses = {"500","800","1000","1500","2000","5000","20000"};
+    vector<TString> DYMasses = {"100","250","500","1000","2000"};              
+    vector<TString> VBFMasses = {"500","1000","2000"};
+    vector<TString> Signals = {"SSWWTypeI_M","DYTypeI_DF_M","VBFTypeI_DF_M"};
     
     for (auto isig: Signals) {
       vector<TString> masses;
-      if(isig == "SSWWTypeI_NLO_SF_M") masses=SSMasses;
-      if(isig == "DYTypeI_NLO_SF_M")masses=DYMasses;
-      if(isig == "VBFTypeI_NLO_SF_M")masses=VBFMasses;
+      if(isig == "SSWWTypeI_M") masses=SSMasses;
+      if(isig == "DYTypeI_DF_M")masses=DYMasses;
+      if(isig == "VBFTypeI_DF_M")masses=VBFMasses;
       
+
+
       for(auto im : masses){
 	
-	TString mc_path = ENV_FILE_PATH+ "/"+analysername+"/"+year+"/HNL_Signal_"+isig+im+".root";
+	TString mc_path = input_path +"/"+year+"/SIG/"+analysername+"_"+isig+im+"_private.root";
 	
 	TFile * file_mc = new TFile((mc_path).Data());
 
@@ -78,16 +73,20 @@ void MuonSignalPlots(){
 	  signals_missing.push_back(year+"_HNL_Signal_"+isig+im+".root");
 	  continue;
 	}
+
 	signals_available.push_back(year+"_HNL_Signal_"+isig+im+".root");
 	
 	
-	TString _dir="Inclusive_SSMuMu";
-	if (!isig.Contains("SS")) _dir="Inclusive_MuMu_SS";
-	// canvas for hists
+	cout << mc_path << endl;
+	TString _dir="SignalGenMuMu";
+
 	vector<TString> vars = GetListFromKeys(file_mc,_dir,"TH1D");
 	
-	
+	int nvar=0;
 	for (auto var: vars){
+	  cout << "Running on variable " << var << endl;
+	  nvar++;
+	  if(nvar > 2) continue;
 
 	  TString canvasname= var;
 	  TCanvas* c1 = new TCanvas(canvasname,canvasname, 800,800);
@@ -101,7 +100,11 @@ void MuonSignalPlots(){
 	  Double_t array_newrbins[newrbins.size()];
 	  
 	  TH1* hn_sig        = GetHistFull(newrbins, file_mc,s_var, kRed, 3.);
-	  
+
+	  if(var.Contains("DeltaPhi")){
+	    hn_sig->Rebin(5);
+	    hn_sig->GetXaxis()->SetTitle("#Delta#phi");
+	  }
 	  c1->cd();
 	  
 	  NormHist(hn_sig);
@@ -112,10 +115,20 @@ void MuonSignalPlots(){
 	  
 	  setTDRStyle();
 	  
-	  TString save_sg= output + "/"+var+ "_"+year+isig+im+".pdf";
+	  TString save_pdf= output + "/"+var+ "_"+year+isig+im+".pdf";
+	  TString save_png= output + "/"+var+ "_"+year+isig+im+".png";
+	  c1->SaveAs(save_pdf);
+	  c1->SaveAs(save_png);
 	  
-	  c1->SaveAs(save_sg);
 	  
+	  system("ssh jalmond@lxplus.cern.ch 'mkdir -p /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalPlots/'");
+	  system("ssh jalmond@lxplus.cern.ch 'mkdir -p /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalPlots/Muon/'");
+	  system("ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalPlots/Muon/'");
+
+	  system("scp " + save_pdf+ "  jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalPlots/Muon/");
+	  system("scp " + save_png +  " jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalPlots/Muon/");
+
+
 	  delete c1;
 	
 	}	
