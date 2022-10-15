@@ -24,68 +24,81 @@ bool CheckFile(TFile* f);
 bool CheckHist(TH2* h);
 
 void MakeFRFile(TString year,TString dataset="Muon");
+TString DoubleToString(double d);
 
 
 
 void MakeFRFileMuMu(){
-  MakeFRFile("2016preVFP","Muon");
-  MakeFRFile("2016postVFP","Muon");
-  MakeFRFile("2017","Muon");
-  MakeFRFile("2018","Muon");
+  MakeFRFile("2016preVFP","MuMu");
+  MakeFRFile("2016postVFP","MuMu");
+  MakeFRFile("2017","MuMu");
+  MakeFRFile("2018","MuMu");
 }
 
 void MakeFRFile(TString year,TString dataset="Muon"){
 
 
   
-  TString path= "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_FakeRate/"+year+"/HNL_FakeRate_SkimTree_HNFake_data_"+dataset+".root";
-  TString mcpath= "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_FakeRate/"+year+"/HNL_FakeRate_SkimTree_HNFake_MC.root";
-  TString DYpath= "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_FakeRate/"+year+"/HNL_FakeRate_SkimTree_HNFake_DYJets.root";
+  TString path= "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3/HNL_FakeRate/"+year+"/HNL_FakeRate_SkimTree_HNFake_data_"+dataset+".root";
+  TString mcpath= "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3/HNL_FakeRate/"+year+"/HNL_FakeRate_SkimTree_HNFake_MC.root";
 
   
   TFile * fdata = new TFile(path);
-  TFile * fmc = new TFile(mcpath);  TFile * fDY = new TFile(DYpath);
-
+  TFile * fmc = new TFile(mcpath);
 
   
   /// Set Plotting style
   setTDRStyle();
   gStyle->SetPalette(1);
     
-  TString outfile = "FakeRate13TeV_mu_"+year+".root";
+  TString outfile = "FakeRate13TeV_mu_"+year+"_mva.root";
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   fout->cd();
 
   
   std::vector<TString> IDs;
-  IDs.push_back("HNTightV2");
-  IDs.push_back("HNTight_17028");
-  IDs.push_back("POGTightWithTightIso");
 
+  vector<TString> vMVAB;
+  vector<TString> vMVAEC;
+  for(unsigned int imva=0 ; imva < 65 ; imva++){
+    double mva_d= -0.4 + double(imva)*0.02;
+    TString mvaST = DoubleToString(mva_d);
+    vMVAB.push_back("MVAB"+mvaST+"_");
+  }
+  for(unsigned int imva=0 ; imva < 80 ; imva++){
+    double mva_d= -0.7 + imva*0.02;
+    TString mvaST = DoubleToString(mva_d);
+    vMVAEC.push_back("MVAEC"+mvaST+"_");
+  }
+
+
+
+  for(auto iMVAB : vMVAB) IDs.push_back(iMVAB+"MVAECneg0p7_ISOB0p15_ISOEC0p15_DXYB1EC1");
+  for(auto iMVAEC : vMVAEC) IDs.push_back(iMVAEC+"MVABneg0p4_ISOB0p15_ISOEC0p15_DXYB1EC1");
+  IDs.push_back("POGT_ISOB0p15_ISOEC0p15_DXYB1EC1");
+  IDs.push_back("POGM_ISOB0p15_ISOEC0p15_DXYB1EC1");
+  
   
   for(unsigned int i=0; i < IDs.size(); i++){
-     
-      
-    TString denom = "Fake_LooseMuMu_" +IDs[i] +"_MuMu_40_ptcone_eta";
-    TString num   = "Fake_TightMuMu_" +IDs[i] +"_MuMu_40_ptcone_eta";
+   
+
     
-    cout << denom << endl;
+    TString denom = "Fake_LooseMuMu_Mu_" +IDs[i] +"_MuMu_40_ptcone_eta";
+    TString num   = "Fake_TightMuMu_Mu_" +IDs[i] +"_MuMu_40_ptcone_eta";
+    
+    //cout << denom << endl;
     //    return;
     TH2D* h_pt_num= (TH2D*)fdata->Get(num.Data());
     TH2D* h_pt_denom= (TH2D*)fdata->Get(denom.Data());
     TH2D* h_mcpt_num= (TH2D*)fmc->Get(num.Data());
     TH2D* h_mcpt_denom= (TH2D*)fmc->Get(denom.Data());
     
-    TH2D* h_DYpt_num= (TH2D*)fDY->Get(num.Data());
-    TH2D* h_DYpt_denom= (TH2D*)fDY->Get(denom.Data());
-
     CheckHist(h_pt_denom);
     CheckHist(h_pt_num);
     TString name = IDs[i] ;
 
-    h_mcpt_num->Add(h_DYpt_num, -0.4);
-    h_mcpt_denom->Add(h_DYpt_denom, -0.4);
-
+    //FakeRate Fake_TightEE_El_POGM_ISOB0.15_ISOEC0.15_DXYB1EC1_MuMu_40_ptcone_eta ptcone_eta   central  FakeRate13TeV_el_2018_mva.root
+    //cout << "FakeRate\t Fake_TightMuMu_Mu_" +IDs[i] +"_MuMu_40 ptcone_eta"  << "\t" << "central " << outfile << endl;
     TH2D* eff_rate = (TH2D*)h_pt_num->Clone((name+"_ptcone_eta_AwayJetPt40").Data());
     eff_rate->Add(h_mcpt_num,-1.);
     TH2D* hratedenom = (TH2D*)h_pt_denom->Clone((name +"_denom").Data());
@@ -291,3 +304,22 @@ bool CheckHist(TH2* h ){
     tdrStyle->cd();
 
   }
+
+TString DoubleToString(double d){
+
+  std::string str = std::to_string (d);
+  str.erase ( str.find_last_not_of('0') + 1, std::string::npos );
+  str.erase ( str.find_last_not_of('.') + 1, std::string::npos );
+
+  TString ts_str = TString(str);
+  ts_str = ts_str.ReplaceAll(".","p");
+  ts_str = ts_str.ReplaceAll("-","neg");
+
+  return ts_str;
+
+
+}
+
+
+
+

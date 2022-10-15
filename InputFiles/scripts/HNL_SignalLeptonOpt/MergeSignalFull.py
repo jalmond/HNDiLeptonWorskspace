@@ -16,20 +16,20 @@ from HNType1_config import *
 
 
 
-eras = ["2016", "2016preVFP", "2016postVFP", "2017", "2018"]
+eras = [ "2017"]
 
 # This code makes /SIG dir in HNDiLeptonWorskspace/InputFiles/MergedFiles for each DataYear
 # It then merges SSWW samples ans merges All signals per mass
 # it then merges 2016a and 2016b
 
-Analyser="HNL_SignalRegionPlotter"
+Analyser="HNL_SignalLeptonOpt"
 
 
 
 for era in eras:
 
-    MassList = GetMassList("2018")
-    
+    MassList = ["100","250","500","800","1200","2000"] 
+
     if os.getenv("FILE_MERGED_PATH") == "NULL":
         print("Env not set.....")
         exit()
@@ -41,6 +41,13 @@ for era in eras:
     for Mass in MassList:
         if os.path.exists(os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"+era+"/SIGMerged/"+Analyser+"_Type1_SS_M"+str(Mass)+".root"):
             os.system("rm " + os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"+era+"/SIGMerged/"+Analyser+"_Type1_SS_M"+str(Mass)+".root")
+ 
+        
         os.system ("hadd " + os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"+era+"/SIGMerged/"+Analyser+"_Type1_SS_M"+str(Mass)+".root "     + os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"+era+"/SIG/*F_M"+str(Mass)+"_*private*")
         
 
+    if os.path.exists(os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"+era+"/SIGMerged/"+Analyser+"_Type1_SS_M0.root"):
+        os.system("rm "  + os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"+era+"/SIGMerged/"+Analyser+"_Type1_SS_M0.root")
+        
+    os.system ("hadd " + os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"+era+"/SIGMerged/"+Analyser+"_Type1_SS_M0.root "     + os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"+era+"/SIGMerged/"+Analyser+"*"+ str(Mass)+"*")
+    

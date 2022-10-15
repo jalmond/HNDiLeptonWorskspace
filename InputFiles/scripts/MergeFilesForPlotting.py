@@ -85,7 +85,7 @@ def merge_all_years(test_run,analyser,skim):
     preVFP_path = os.environ['FILE_MERGED_PATH'] +analyser + "/2016preVFP/"
 
     dirlist_2016 =  [f for f in listdir(preVFP_path) if isfile(join(preVFP_path,f))]
-    eras = ["2016postVFP", "2017", "2018"]
+    eras = ["2016preVFP", "2016postVFP", "2017", "2018"]
     
     for era in eras:
         file_path = os.environ['FILE_MERGED_PATH'] +analyser + "/"+era+"/"
@@ -127,7 +127,7 @@ def merge_data_flavour(test_run,analyser,skim,  label, flavours):
     print (' ')
 
     eras = ["2016preVFP", "2016postVFP", "2017", "2018"]
-    eras = ["2018"]
+
     for era in eras:
         local_dir=os.environ['FILE_MERGED_PATH'] +analyser + "/" +era
 
@@ -215,7 +215,7 @@ def merge_data(test_run,analyser,skim, flavour, flav_dir):
     print ('---'*30) 
     print (' ')
     eras = ["2016preVFP", "2016postVFP", "2017", "2018"]
-    eras = ["2018"]
+
     n_era=-1
     for era in eras:
         n_era+=1
@@ -288,7 +288,7 @@ def merge_mc(test_run,analyser, skim):
         if not os.path.exists(local_dir):
             os.system('mkdir ' + local_dir)
 
-        out_file=local_dir+"/"+analyser+skim+"_SSPrompt.root"
+        out_file=local_dir+"/"+analyser+skim+"_MC.root"
         if os.path.exists(out_file):
             os.system('rm ' +out_file)
 
@@ -345,15 +345,17 @@ def merge_data_setup(_isTest,_analyser_name,_skim_name):
         merge_data(_isTest,_analyser_name,_skim_name,"Electron", [["","_SingleElectron"],["","_SingleElectron"],["","_SingleElectron"],["","_EGamma"]])
         merge_data(_isTest,_analyser_name,_skim_name,"Muon",     [["","_SingleMuon"],["","_SingleMuon"],["","_SingleMuon"],["","_SingleMuon"]])
 
-    if analyser_name =="HNL_FakeRate":
+    if "HNL_FakeRate"  in analyser_name:
         print "_skim_name  = " + _skim_name
         if _skim_name == "_SkimTree_Dilepton":
-            merge_data(_isTest,_analyser_name,_skim_name,"Electron", [["","_DoubleEG"],["","_DoubleEG"],["","_DoubleEG"],["","_EGamma"]])
-            merge_data(_isTest,_analyser_name,_skim_name,"Muon",     [["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"]])
+            merge_data(_isTest,_analyser_name,_skim_name,"EE", [["","_DoubleEG"],["","_DoubleEG"],["","_DoubleEG"],["","_EGamma"]])
+            merge_data(_isTest,_analyser_name,_skim_name,"MuMu",     [["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"],["","_DoubleMuon"]])
             
         else:
-            merge_data(_isTest,_analyser_name,_skim_name,"Electron", [["","_DoubleEG"],["","_DoubleEG"],["","_SingleElectron"],["","_EGamma"]])
-            merge_data(_isTest,_analyser_name,_skim_name,"Muon",     [["","_DoubleMuon"],["","_DoubleMuon"],["","_SingleMuon","_DoubleMuon"],["","_SingleMuon","_DoubleMuon"]])
+            merge_data(_isTest,_analyser_name,_skim_name,"EE", [["","_DoubleEG"],["","_DoubleEG"],["","_SingleElectron"],["","_EGamma"]])
+            merge_data(_isTest,_analyser_name,_skim_name,"MuMu",     [["","_DoubleMuon"],["","_DoubleMuon"],["","_SingleMuon","_DoubleMuon"],["","_SingleMuon","_DoubleMuon"]])
+
+            merge_data_flavour(_isTest,_analyser_name,_skim_name , "Lepton", ["MuMu","EE"])
 
 
     if analyser_name == "HNL_Validation":

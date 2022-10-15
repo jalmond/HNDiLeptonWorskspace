@@ -87,7 +87,7 @@ def TotalLumi(DataYear):
   if DataYear<0:
     return "138"
   else:
-    print "[mylib.py, TotalLumi()] Wrong DataYear : %d"%DataYear
+    print ("[mylib.py, TotalLumi()] Wrong DataYear : %d"%DataYear)
     return "35.9"
 
 def LumiError(DataYear):
@@ -441,7 +441,6 @@ def GetNormSF(DataYear, sample):
       MCSF = words[1]
 
 
-  print "GetNormSF : " + sample + " " + str(MCSF)
   return float(MCSF)
 
 def GetKFactor(mN, Era='2016preVFP', lepch=0):

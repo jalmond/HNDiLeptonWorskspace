@@ -18,6 +18,7 @@ from HNType1_config import *
 
 eras = ["2016preVFP", "2016postVFP", "2017", "2018", "2016"]
 
+eras = [ "2017"]
 
 # This code makes /SIG dir in HNDiLeptonWorskspace/InputFiles/MergedFiles for each DataYear
 # It then merges SSWW samples ans merges All signals per mass
@@ -29,8 +30,8 @@ Analyser="HNL_SignalRegionOpt"
 
 for era in eras:
 
-    MassList = GetMassList("2018")
-    
+    MassList = ["100","250","500","800","1200","2000"] 
+
     if os.getenv("FILE_MERGED_PATH") == "NULL":
         print("Env not set.....")
         exit()

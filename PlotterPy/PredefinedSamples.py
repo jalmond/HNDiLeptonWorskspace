@@ -535,6 +535,55 @@ SampleGroup_VV_2018 = SampleGroup(
     LatexAlias='VV[Powheg]'
 )
 
+SampleGroup_QCD_2016postVFP = SampleGroup(
+    Name='QCD',
+    Type='Bkgd',
+    Samples=['QCD_Pt-15To20_MuEnriched','QCD_Pt-20To30_MuEnriched','QCD_Pt-20to30_EMEnriched','QCD_Pt_20to30_bcToE','QCD_Pt-30to50_EMEnriched','QCD_Pt_30to80_bcToE','QCD_Pt-50to80_EMEnriched','QCD_Pt-50To80_MuEnriched','QCD_Pt-80to120_EMEnriched','QCD_Pt-80To120_MuEnriched','QCD_Pt_80to170_bcToE','QCD_Pt-120to170_EMEnriched','QCD_Pt-120To170_MuEnriched','QCD_Pt_170to250_bcTo','QCD_Pt_250toInf_bcToE','QCD_Pt-300To470_MuEnriched','QCD_Pt-300toInf_EMEnriched','QCD_Pt-470To600_MuEnriched','QCD_Pt-600To800_MuEnriched','QCD_Pt-800To1000_MuEnriched','QCD_Pt-1000_MuEnriched','QCD_Pt_170to250_bcToE','QCD_Pt-170to300_EMEnriched','QCD_Pt-170To300_MuEnriched','QCD_Pt-30To50_MuEnriched'],
+    Era = "2016postVFP",
+    Color=870,
+    Style=1,
+    TLatexAlias='QCD',
+    LatexAlias='QCD'
+)
+
+SampleGroup_QCD_2016preVFP = SampleGroup(
+    Name='QCD',
+    Type='Bkgd',
+    Samples=['QCD_Pt-15To20_MuEnriched','QCD_Pt-20To30_MuEnriched','QCD_Pt-20to30_EMEnriched','QCD_Pt_20to30_bcToE','QCD_Pt-30to50_EMEnriched','QCD_Pt_30to80_bcToE','QCD_Pt-50to80_EMEnriched','QCD_Pt-50To80_MuEnriched','QCD_Pt-80to120_EMEnriched','QCD_Pt-80To120_MuEnriched','QCD_Pt_80to170_bcToE','QCD_Pt-120to170_EMEnriched','QCD_Pt-120To170_MuEnriched','QCD_Pt_170to250_bcTo','QCD_Pt_250toInf_bcToE','QCD_Pt-300To470_MuEnriched','QCD_Pt-300toInf_EMEnriched','QCD_Pt-470To600_MuEnriched','QCD_Pt-600To800_MuEnriched','QCD_Pt-800To1000_MuEnriched','QCD_Pt-1000_MuEnriched','QCD_Pt_170to250_bcToE','QCD_Pt-170to300_EMEnriched','QCD_Pt-170To300_MuEnriched','QCD_Pt-30To50_MuEnriched'],
+    Era = "2016preVFP",
+    Color=870,
+    Style=1,
+    TLatexAlias='QCD',
+    LatexAlias='QCD'
+)
+
+
+SampleGroup_QCD_2017 = SampleGroup(
+    Name='QCD',
+    Type='Bkgd',
+    Samples=['QCD_Pt-15To20_MuEnriched','QCD_Pt-20To30_MuEnriched','QCD_Pt-20to30_EMEnriched','QCD_Pt_20to30_bcToE','QCD_Pt-30to50_EMEnriched','QCD_Pt_30to80_bcToE','QCD_Pt-50to80_EMEnriched','QCD_Pt-50To80_MuEnriched','QCD_Pt-80to120_EMEnriched','QCD_Pt-80To120_MuEnriched','QCD_Pt_80to170_bcToE','QCD_Pt-120to170_EMEnriched','QCD_Pt-120To170_MuEnriched','QCD_Pt_170to250_bcTo','QCD_Pt_250toInf_bcToE','QCD_Pt-300To470_MuEnriched','QCD_Pt-300toInf_EMEnriched','QCD_Pt-470To600_MuEnriched','QCD_Pt-600To800_MuEnriched','QCD_Pt-800To1000_MuEnriched','QCD_Pt-1000_MuEnriched','QCD_Pt_170to250_bcToE','QCD_Pt-170to300_EMEnriched','QCD_Pt-170To300_MuEnriched','QCD_Pt-30To50_MuEnriched'],
+    Era = "2017",
+    Color=870,
+    Style=1,
+    TLatexAlias='QCD',
+    LatexAlias='QCD'
+)
+
+
+SampleGroup_QCD_2018 = SampleGroup(
+    Name='QCD',
+    Type='Bkgd',
+    Samples=['QCD_Pt-15To20_MuEnriched','QCD_Pt-20To30_MuEnriched','QCD_Pt-20to30_EMEnriched','QCD_Pt_20to30_bcToE','QCD_Pt-30to50_EMEnriched','QCD_Pt_30to80_bcToE','QCD_Pt-50to80_EMEnriched','QCD_Pt-50To80_MuEnriched','QCD_Pt-80to120_EMEnriched','QCD_Pt-80To120_MuEnriched','QCD_Pt_80to170_bcToE','QCD_Pt-120to170_EMEnriched','QCD_Pt-120To170_MuEnriched','QCD_Pt_170to250_bcTo','QCD_Pt_250toInf_bcToE','QCD_Pt-300To470_MuEnriched','QCD_Pt-300toInf_EMEnriched','QCD_Pt-470To600_MuEnriched','QCD_Pt-600To800_MuEnriched','QCD_Pt-800To1000_MuEnriched','QCD_Pt-1000_MuEnriched','QCD_Pt_170to250_bcToE','QCD_Pt-170to300_EMEnriched','QCD_Pt-170To300_MuEnriched','QCD_Pt-30To50_MuEnriched'],
+    Era = "2018",
+    Color=870,
+    Style=1,
+    TLatexAlias='QCD',
+    LatexAlias='QCD'
+)
+
+
+
+
 
 SampleGroup_Other_2016preVFP = SampleGroup(
     Name='Other',
@@ -952,6 +1001,52 @@ SampleGroup_TTLL_2018 = SampleGroup(
   Name='TTLL',
   Type='Bkgd',
   Samples=['TTLL_powheg'],
+  Era = "2018",
+  Color=ROOT.kRed,
+  Style=1,
+  TLatexAlias='t#bar{t}',
+  LatexAlias='tt'
+)
+
+
+
+## TTLJ                                                                                                                                                                                                                                    
+SampleGroup_TTLJ_2016preVFP = SampleGroup(
+  Name='TTLJ',
+  Type='Bkgd',
+  Samples=['TTLJ_powheg'],
+  Era = "2016preVFP",
+  Color=ROOT.kRed,
+  Style=1,
+  TLatexAlias='t#bar{t}',
+  LatexAlias='tt'
+)
+
+
+SampleGroup_TTLJ_2016postVFP = SampleGroup(
+  Name='TTLJ',
+  Type='Bkgd',
+  Samples=['TTLJ_powheg'],
+  Era = "2016postVFP",
+  Color=ROOT.kRed,
+  Style=1,
+  TLatexAlias='t#bar{t}',
+  LatexAlias='tt'
+)
+SampleGroup_TTLJ_2017 = SampleGroup(
+  Name='TTLJ',
+  Type='Bkgd',
+  Samples=['TTLJ_powheg'],
+  Era = "2017",
+  Color=ROOT.kRed,
+  Style=1,
+  TLatexAlias='t#bar{t}',
+  LatexAlias='tt'
+)
+SampleGroup_TTLJ_2018 = SampleGroup(
+  Name='TTLJ',
+  Type='Bkgd',
+  Samples=['TTLJ_powheg'],
   Era = "2018",
   Color=ROOT.kRed,
   Style=1,

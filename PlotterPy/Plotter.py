@@ -186,11 +186,9 @@ class Plotter:
     
     for line in open(self.RebinFilepath).readlines():
       words = line.split()
-      if Region!=words[0]:
-        continue
-      Rebins[words[1]] = int(words[2])
+      Rebins[words[0]] = int(words[1])
       if self.DoDebug:
-        print ("Setting rebin " + str(words[1]) + " " + str(words[2]))
+        print ("Setting rebin " + str(words[0]) + " " + str(words[1]))
 
 
 
@@ -202,19 +200,18 @@ class Plotter:
 
     for line in open(self.XaxisFilepath).readlines():
       words = line.split()
-      if Region!=words[0]:
-        continue
-      XaxisRanges[words[1]] = [float(words[2]), float(words[3])]
+      #if Region!=words[0]:
+      #  continue
+      XaxisRanges[words[0]] = [float(words[1]), float(words[2])]
 
     if len(XaxisRanges) == 0:
       print("No binnings set for " +str(Region) )
 
     return Rebins, XaxisRanges
   def Rebin(self, hist, region, var, nRebin):
+    
     if var=='NCand_Mass':
       return mylib.RebinNMass(hist, region, self.DataYear)
-    elif var=='ToBeCorrected_Jet_Pt':
-      return mylib.RebinJetPt(hist, region, self.DataYear)
     else:
       if nRebin>0:
         hist.Rebin(nRebin)
@@ -255,7 +252,14 @@ class Plotter:
 
       f_Data = ROOT.TFile(Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_data_skim+'_data_Lepton'+self.Filename_suffix+'.root')
       print (Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Hist_Name) #######
-      h_Data = f_Data.Get(Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Hist_Name)
+
+      histName = Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Hist_Name
+      
+      if self.Filename_prefix == "HNL_FakeRate":
+        Histogram_Name=Region.PrimaryDataset + '/'+ Region.Name+'/'+Variable.Name
+
+
+      h_Data = f_Data.Get(Histogram_Name)
       if not h_Data:
         print (Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_data_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root missing ' +Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Hist_Name)
         print (Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Hist_Name)
@@ -327,7 +331,8 @@ class Plotter:
           #  if "DYJets" in Sample:
           MCSF= mylib.GetNormSF(SampleGroup.Year, Sample)
           
-          print "MCSF = " + str(MCSF)
+          if self.DoDebug:
+            print "MCSF = " + str(MCSF)
           h_Sample.Scale( MCSF )
 
           stat_error  = ctypes.c_double(0.)
@@ -499,9 +504,8 @@ class Plotter:
           nRebin = Rebins[Variable.Name]
 
           
-        xMin= 0
-        xMax=100000.
-
+        xMin= -999
+        xMax=-999
 
         if  Variable.Name in  XaxisRanges.keys():
           xMin = XaxisRanges[Variable.Name][0]
@@ -528,15 +532,24 @@ class Plotter:
         if self.DoDebug:
           print ('[DEBUG] Trying to get data histogram..')
           print (Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Variable.Name)
-        h_Data = f_Data.Get(Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Variable.Name)
+
+        Histogram_Name= Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Variable.Name
+
+        if self.Filename_prefix == "HNL_FakeRate":
+          Histogram_Name=Region.PrimaryDataset + '/'+ Region.Name+'/'+Variable.Name
+
+        h_Data = f_Data.Get(Histogram_Name)
         if not h_Data:
           print (Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_data_skim+'_data_Lepton'+self.Filename_suffix+'.root')
-          print (Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Variable.Name)
+          print (Histogram_Name)
           print (Variable.Name+'_'+Region.Name+'.pdf ==> No data, skipped')
           continue
 
         ## Make overflow
-        h_Data.GetXaxis().SetRangeUser(xMin,xMax)
+        print ('[DEBUG] (xMin,xMax) = (%s,%s)'%(xMin,xMax))
+
+        if xMin !=  -999:
+          h_Data.GetXaxis().SetRangeUser(xMin,xMax)
         h_Data = mylib.MakeOverflowBin(h_Data)
 
         ## Rebin
@@ -608,30 +621,54 @@ class Plotter:
               ## Uncorrelated sources has Syst.Year = 2016 or 2017 or 2018
               ## For this cases, SampleGroup.Year should be matched
               if (Syst.Year>0) and (Syst.Year!=SampleGroup.Year):
+               
+                print "self.Filename_prefix = " + self.Filename_prefix
                 tmp_paraName = Region.ParamName
-                h_Sample = f_Sample.Get(Region.PrimaryDataset + '/'+ tmp_paraName + '/'+ Region.Name+'/'+Variable.Name)
+                Histogram_Name= Region.PrimaryDataset + '/'+ tmp_paraName + '/'+ Region.Name+'/'+Variable.Name
+                
+                if self.Filename_prefix == "HNL_FakeRate":
+                  Histogram_Name=Region.PrimaryDataset + '/'+ Region.Name+'/'+Variable.Name
+                  print Histogram_Name
+
+                h_Sample = f_Sample.Get(Histogram_Name)
 
               ## 1) Lumi, MC normalizaion
               ## Use central and scale them later
               elif (Syst.Name in ["Lumi"]):
                 tmp_paraName = Region.ParamName
-                h_Sample = f_Sample.Get(Region.PrimaryDataset + '/'+ tmp_paraName + '/'+ Region.Name+'/'+Variable.Name)
+
+                Histogram_Name=Region.PrimaryDataset + '/'+ tmp_paraName + '/'+ Region.Name+'/'+Variable.Name
+                if self.Filename_prefix == "HNL_FakeRate":
+                  Histogram_Name=Region.PrimaryDataset + '/'+ Region.Name+'/'+Variable.Name
+
+                h_Sample = f_Sample.Get(Histogram_Name)
               ## For all other cases
               elif (Syst.Name in ["GetMCUncertainty"]):
                 tmp_paraName = Region.ParamName
-                h_Sample = f_Sample.Get(Region.PrimaryDataset + '/'+ tmp_paraName + '/'+ Region.Name+'/'+Variable.Name)
+
+                Histogram_Name=Region.PrimaryDataset + '/'+ tmp_paraName + '/'+ Region.Name+'/'+Variable.Name
+                if self.Filename_prefix == "HNL_FakeRate":
+                  Histogram_Name=Region.PrimaryDataset + '/'+ Region.Name+'/'+Variable.Name
+
+                h_Sample = f_Sample.Get(Histogram_Name)
               else:
-                h_Sample = f_Sample.Get(Region.PrimaryDataset + '/'+ paraName + '/'+ Region.Name+'/'+Variable.Name)
+
+                Histogram_Name=Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Variable.Name
+                if self.Filename_prefix == "HNL_FakeRate":
+                  Histogram_Name=Region.PrimaryDataset + '/'+ Region.Name+'/'+Variable.Name
+
+                h_Sample = f_Sample.Get(Histogram_Name)
                 if self.DoDebug:
                   print("Looking in file: "+Indir+'/'+str(SampleGroup.Era)+'/'+self.Filename_prefix+self.Filename_skim+'_'+Sample+self.Filename_suffix+'.root')
-                  print(Region.PrimaryDataset + '/'+ paraName + '/'+ Region.Name+'/'+Variable.Name)
+                  print(Histogram_Name)
 
               if not h_Sample:
                 print 'No hist : %s %s'%(Syst.Name,Sample)
                 continue
 
               ## Make overflow
-              h_Sample.GetXaxis().SetRangeUser(xMin,xMax)
+              if xMin !=  -999:
+                h_Sample.GetXaxis().SetRangeUser(xMin,xMax)
               h_Sample = mylib.MakeOverflowBin(h_Sample)
 
               h_Sample = self.Rebin(h_Sample, Region.Name, Variable.Name, nRebin)
@@ -695,7 +732,8 @@ class Plotter:
                   LegendAdded = True
               ## else (i.e., systematic), add to h_Bkgd_ForSyst
               else:
-                print ("Adding hist to syst " + Syst.Name)
+                if self.DoDebug:
+                  print ("Adding hist to syst " + Syst.Name)
                 if not h_Bkgd_ForSyst:
                   h_Bkgd_ForSyst = h_Sample.Clone()
                 else:
@@ -892,7 +930,8 @@ class Plotter:
         #### axis histograms
 
         h_dummy_up = ROOT.TH1D('h_dumy_up', '', nBin, xBins)
-        h_dummy_up.GetXaxis().SetRangeUser(xMin, xMax)
+        if xMin !=  -999:
+          h_dummy_up.GetXaxis().SetRangeUser(xMin, xMax)
         if nRebin>0:
           binsize = h_dummy_up.GetXaxis().GetBinUpEdge(1)-h_dummy_up.GetXaxis().GetBinLowEdge(1)
           str_binsize = '%d'%(binsize)
@@ -907,10 +946,6 @@ class Plotter:
         h_dummy_down = ROOT.TH1D('h_dumy_down', '', nBin, xBins)
         h_dummy_down.GetYaxis().SetRangeUser(0.,2.)
 
-        if ('DYCR' in Region.Name):
-          h_dummy_down.GetYaxis().SetRangeUser(0.70,1.30)
-        if ('DYCR2' in Region.Name):
-          h_dummy_down.GetYaxis().SetRangeUser(0.50,1.60)
 
         if (self.ErrorFromShape):
           #if ('DYCR' in Region.Name) and ('PostFit' in self.OutputDirectory):
@@ -922,7 +957,8 @@ class Plotter:
             #h_dummy_down.GetYaxis().SetRangeUser(0.0,2.0)
 
         h_dummy_down.SetNdivisions(504,"Y")
-        h_dummy_down.GetXaxis().SetRangeUser(xMin, xMax)
+        if xMin != -999:
+          h_dummy_down.GetXaxis().SetRangeUser(xMin, xMax)
         h_dummy_down.GetXaxis().SetTitle(xtitle)
         h_dummy_down.GetYaxis().SetTitle("#frac{Data}{Sim.}")
         h_dummy_down.SetFillColor(0)
@@ -1027,14 +1063,20 @@ class Plotter:
             fpullpath_Sig = Indir+'/'+self.DataDirectory+'/Signal_'+LeptonChannel+'_Official/'+fname_Sig
 
           f_Sig = ROOT.TFile(fpullpath_Sig)
-          h_Sig = f_Sig.Get(Region.PrimaryDataset + '/'+ paraName + '/'+ Region.Name+'/'+Variable.Name)
+
+          Histogram_Name=Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Variable.Name
+          if self.Filename_prefix == "HNL_FakeRate":
+            Histogram_Name=Region.PrimaryDataset + '/'+ Region.Name+'/'+Variable.Name
+
+          h_Sig = f_Sig.Get(Histogram_Name)
           if not h_Sig:
             print (fpullpath_Sig)
-            print (Region.PrimaryDataset + '/'+ paraName + '/'+ Region.Name+'/'+Variable.Name)
+            print (Histogram_Name)
             continue
 
           ## Make overflow
-          h_Sig.GetXaxis().SetRangeUser(xMin,xMax)
+          if xMin !=  -999:
+            h_Sig.GetXaxis().SetRangeUser(xMin,xMax)
           h_Sig = mylib.MakeOverflowBin(h_Sig)
 
           ## Rebin

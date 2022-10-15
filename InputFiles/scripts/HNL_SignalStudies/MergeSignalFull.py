@@ -18,6 +18,8 @@ from HNType1_config import *
 
 eras = ["2016", "2016preVFP", "2016postVFP", "2017", "2018"]
 
+eras = ["2017"]
+
 # This code makes /SIG dir in HNDiLeptonWorskspace/InputFiles/MergedFiles for each DataYear
 # It then merges SSWW samples ans merges All signals per mass
 # it then merges 2016a and 2016b

@@ -2,7 +2,6 @@
 
 import os 
 
-#eras = ["2016preVFP", "2016postVFP", "2017" , "2018"]
 eras = [ "2017"]
 
 
@@ -10,7 +9,7 @@ eras = [ "2017"]
 # It then merges SSWW samples ans merges All signals per mass
 # it then merges 2016a and 2016b
 
-Analyser="HNL_SignalRegionOpt"
+Analyser="HNL_SignalLeptonOpt"
 
 for era in eras:
     

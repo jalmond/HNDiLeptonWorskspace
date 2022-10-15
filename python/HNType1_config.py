@@ -1,4 +1,4 @@
-import os
+import os,math
 
 try:
     import ROOT
@@ -59,6 +59,9 @@ def GetXSec(mass, Sig):
             return 8.91E-07
         if mass ==1500: 
             return 6.05E-07
+        if mass ==1700:
+            return 3.9E-07
+
 
     if Sig == "VBF" and EXO17:
         if mass ==100: 
@@ -156,7 +159,7 @@ def GetColor(bkg):
     if bkg == "TW":
         return ROOT.kGray
         
-    print "Failed to  find " + bkg
+    print ("Failed to  find " + bkg)
 
 
 def GetEXO_17_028_Masses(Channel, isString):
@@ -548,6 +551,46 @@ def GetEXO_17_028_Eff(channel,SR,mass, Sig):
 
     return 0
 
+def GetEXO_17_028_BkgErr(channel,SR,mass, SIG):
+
+    channels = ["MuMu","ElEl","MuEl"]
+    SRs = ["Bin1", "Bin2","Combined"]
+    SIGS = ["","_VBF","_VBFOnly"]
+    if not channel in channels:
+        print ("Error in GetEXO_17_028_Bkg : channel " )
+        exit()
+
+    if not SR in SRs:
+        print ("Error in GetEXO_17_028_Bkg : SR " )
+        exit()
+
+    if not SIG in SIGS:
+        print ("Error in GetEXO_17_028_Bkg : SIG " )
+        exit()
+
+    DATACARD_PATH=os.getenv("HNDILEPTONWORKSPACE_DIR") + "/Limits/DataCardsCutCount/EXO-17-028/2016/"+channel + "_"+SR + "/HN"+channel+"_"+mass + SIG + ".txt"
+
+    if not os.path.exists(DATACARD_PATH):
+        print(DATACARD_PATH + " does not exist")
+        exit()
+
+
+    lines_card = open(DATACARD_PATH).readlines()
+    err_bkg=0
+    for line in lines_card:
+        word=line.split()
+        if len(word) < 2:
+            continue
+        if str(word[1]) == "lnN":
+            if not "-" in  word[2] :
+                err_bkg= err_bkg + (1.-float(word[2]))*(1.-float(word[2]))
+                
+    err_bkg_final = math.sqrt(err_bkg)
+    err_bkg_final = err_bkg_final * float(GetEXO_17_028_Bkg(channel,SR,mass, SIG))
+
+    return err_bkg_final
+
+
 
 def GetEXO_17_028_Bkg(channel,SR,mass, SIG):
 
@@ -622,7 +665,7 @@ def GetEXO_17_028_Yield(channel,SR,mass,SIG):
 
 def PrintList(_list):
     for x in _list:
-        print x
+        print (x)
 
 
 def ChooseMassList(list1, list2,list3, channel,order_sc):
@@ -773,7 +816,7 @@ def PrintSetup(setupconfig):
     for x in setupconfig:
         if len(x) == 2:
             if len(str(x[1])) < 75:
-                print str(x[0]) + " "*(20-len(str(x[0]))) +" : "+ str(x[1])
+                print (str(x[0]) + " "*(20-len(str(x[0]))) +" : "+ str(x[1]))
             else:
                 print str(x[0]) + " "*(20-len(str(x[0]))) +" : "+ str(x[1])[0:75]
                 print " "*(20) +" : "+ str(x[1])[75:150]

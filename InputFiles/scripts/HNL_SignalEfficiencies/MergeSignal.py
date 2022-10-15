@@ -2,15 +2,15 @@
 
 import os 
 
-#eras = ["2016preVFP", "2016postVFP", "2017" , "2018"]
-eras = [ "2017"]
+eras = ["2016preVFP", "2016postVFP", "2017" , "2018"]
 
+eras = ["2017"]
 
 # This code makes /SIG dir in HNDiLeptonWorskspace/InputFiles/MergedFiles for each DataYear
 # It then merges SSWW samples ans merges All signals per mass
 # it then merges 2016a and 2016b
 
-Analyser="HNL_SignalRegionOpt"
+Analyser="HNL_SignalEfficiency"
 
 for era in eras:
     
@@ -18,6 +18,10 @@ for era in eras:
         print("Env not set.....")
         exit()
     
+    os.system("mkdir -p  "+ os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/")
+    os.system("mkdir -p  "+ os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"+era)
+
+
     if not os.path.exists(os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"+era+"/SIG/"):
         os.system("mkdir  "+ os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"+era+"/SIG/")
     

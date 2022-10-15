@@ -6,17 +6,16 @@ if os.getenv("FILE_MERGED_PATH") == "NULL":
     exit()
 
 
-eras = ["2016preVFP", "2016postVFP", "2017" , "2018"]
-
-eras = [  "2017"]
+eras = [ "2016preVFP" , "2016postVFP",  "2017", "2018"]
 
 MergeFake=False
-MergeCF=True
-MergeConv=True
-MergeMC=True
-MergeBkg=True
+MergeCF=False
+MergeConv=False
+MergeMC=False
+MergeBkg=False
 
-Analyser="HNL_SignalRegionOpt"
+
+Analyser="HNL_SignalLeptonOpt"
 InputPath=os.getenv("SKFlatOutputDir")+"/"+os.getenv("SKFlatV") + "/"+Analyser+"/"
 OutputPath=os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"
 SkimName="SkimTree_HNMultiLep"
@@ -84,13 +83,11 @@ if MergeBkg:
         os.system("hadd " +OutFile+  "   " + OutputPath + era + "/"+Analyser+"_"+SkimName+"*")
 
     os.system("python MergeSignal.py")
-    #os.system("python MergeSignal16.py")
-    #os.system("python Merge16.py")
     os.system("python MergeSignalFull.py")
 
 
 
-MergeData=False
+MergeData=True
 if MergeData:
 
     for era in eras:

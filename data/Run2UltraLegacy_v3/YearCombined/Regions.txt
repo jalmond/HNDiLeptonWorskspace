@@ -19,3 +19,4 @@ RegionPlots_BJetCR_LeptonID
 RegionPlots_BJetCR_LumiWeight
 RegionPlots_BJetCR_PileUpWight
 RegionPlots_BJetCR_TopRW
+RegionPlots_SingleLooseMuJet_MuMu_HNTightV2

@@ -82,8 +82,8 @@ if MergeBkg:
         os.system("hadd " +OutFile+  "   " + OutputPath + era + "/"+Analyser+"_SkimTree_HNMultiLep*")
 
     os.system("python MergeSignal.py")
-    #os.system("python MergeSignal16.py")
-    #os.system("python Merge16.py")
+    os.system("python MergeSignal16.py")
+    os.system("python Merge16.py")
     os.system("python MergeSignalFull.py")
 
 MergeData=False
