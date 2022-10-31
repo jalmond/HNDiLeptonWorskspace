@@ -8,11 +8,12 @@ if os.getenv("FILE_MERGED_PATH") == "NULL":
 
 eras = [ "2016preVFP" , "2016postVFP",  "2017", "2018"]
 
+
 MergeFake=False
-MergeCF=False
-MergeConv=False
-MergeMC=False
-MergeBkg=False
+MergeCF=True
+MergeConv=True
+MergeMC=True
+MergeBkg=True
 
 
 Analyser="HNL_SignalLeptonOpt"
@@ -82,21 +83,24 @@ if MergeBkg:
 
         os.system("hadd " +OutFile+  "   " + OutputPath + era + "/"+Analyser+"_"+SkimName+"*")
 
-    os.system("python MergeSignal.py")
-    os.system("python MergeSignalFull.py")
+        os.system("python MergeSignal.py")
+        os.system("python MergeSignalFull.py")
 
 
 
 MergeData=True
 if MergeData:
 
+    OutFile17=OutputPath + "2017/"+Analyser+"_"+SkimName+"_Data.root"
     for era in eras:
 
         OutFile=OutputPath + era + "/"+Analyser+"_"+SkimName+"_data.root"
+        
         if os.path.exists(OutFile):
             os.system("rm " + OutFile)
 
         os.system("hadd " +OutFile + "   " + InputPath + "/"+era+"/DATA/*")
-        
-    os.system("python MergeSignal.py")
-    os.system("python MergeSignalFull.py")
+
+
+    #os.system("python MergeSignal.py")
+    #os.system("python MergeSignalFull.py")

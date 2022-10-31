@@ -1,0 +1,20 @@
+config          data_file       /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles//HNL_Validation/2018/HNL_Validation_data_MuMu.root
+config          cut_dir         RegionPlots_TopCR
+config          plot_dir        MuMu_POG_UL_RegionPlots_TopCR
+config          region          RegionPlots_TopCR
+config          analysername    HNL_Validation
+config          year            2018
+config          id              POG_UL
+config          flavour         MuMu
+#config          histname        PuppiMETType1XY
+config          histname        Lep2Pt
+config          showdata        true
+config          plotsig        false
+config_int          logy        0
+config          savetag         validation_mm
+config_int          rebin        2
+config_double          xmin        0.
+config_double          xmax        400
+sample   DY /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles//HNL_Validation/2018/HNL_Validation_DY.root 400
+sample   Top /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles//HNL_Validation/2018/HNL_Validation_Top.root 632
+sample   VV /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles//HNL_Validation/2018/HNL_Validation_VV.root 300

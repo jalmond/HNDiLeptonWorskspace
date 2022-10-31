@@ -28,7 +28,7 @@ Analyser="HNL_SignalLeptonOpt"
 
 for era in eras:
 
-    MassList = ["100","250","500","800","1200","2000"] 
+    MassList = ["100","125","150", "200","250","300","400","500","600", "700","800","900","1000","1100","1200","1500","2000", "10000","20000"] 
 
     if os.getenv("FILE_MERGED_PATH") == "NULL":
         print("Env not set.....")
