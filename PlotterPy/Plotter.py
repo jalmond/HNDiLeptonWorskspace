@@ -73,7 +73,7 @@ class Variable:
 
 ## Region ##
 class Region:
-  def __init__(self, Name, PrimaryDataset, PName, UnblindData=True, Logy=-1, TLatexAlias="", CutFlowCaption="Test"):
+  def __init__(self, Name, PrimaryDataset, PName, HistTag, OutputTag, UnblindData=True, Logy=-1, TLatexAlias="", CutFlowCaption="Test"): #HistTag : input histogram's tag, OutputTag : output plot's tag
     self.Name = Name
     self.PrimaryDataset = PrimaryDataset
     self.ParamName = PName
@@ -195,7 +195,7 @@ class Plotter:
 
 
     if len(Rebins) == 0:
-      print("No binnings set for " +str(Region) )
+      print("No rebin set for " +str(Region) )
 
     ## xaxis
     XaxisRanges = dict()
@@ -207,7 +207,7 @@ class Plotter:
       XaxisRanges[words[1]] = [float(words[2]), float(words[3])]
 
     if len(XaxisRanges) == 0:
-      print("No binnings set for " +str(Region) )
+      print("No x-axis range set for " +str(Region) )
 
     return Rebins, XaxisRanges
   def Rebin(self, hist, region, var, nRebin):
@@ -245,7 +245,7 @@ class Plotter:
     for Region in self.RegionsToDraw:
       print Region.Name
       Indir = self.InputDirectory
-      Outdir = self.OutputDirectoryLocal+'/'+Region.Name+'/'
+      Outdir = self.OutputDirectoryLocal+'/'+Region.ParamName+'/'+Region.Name+'/' #
       if self.ScaleMC:
         Outdir = self.OutputDirectoryLocal+'/ScaleMC/'+Region.Name+'/'
       os.system('mkdir -p '+Outdir)
@@ -455,10 +455,15 @@ class Plotter:
 
       ## Read binning data
       Rebins, XaxisRanges = self.ReadBinningInfo(Region.Name)
+      if self.DoDebug:
+        print ('[DEBUG] Use rebin : ')
+        print Rebins
+        print ('[DEBUG] Use Xaxis range : ')
+        print XaxisRanges
 
       ## Input/Output directotry
       Indir = self.InputDirectory
-      Outdir = self.OutputDirectoryLocal+'/'+Region.Name+'/'
+      Outdir = self.OutputDirectoryLocal+'/'+Region.ParamName+'/'+Region.Name+'/' #
       if self.ScaleMC:
         Outdir = self.OutputDirectoryLocal+'/ScaleMC/'+Region.Name+'/'
 
@@ -481,7 +486,7 @@ class Plotter:
 
       ## Data file
       #f_Data = ROOT.TFile(Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_data_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root')
-      f_Data = ROOT.TFile(Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_data_skim+'_data_Lepton'  +self.Filename_suffix+'.root')
+      f_Data = ROOT.TFile(Indir+'/'+self.DataDirectory+'/'+Region.ParamName+'/'+self.Filename_prefix+self.Filename_data_skim+'_data'+self.Filename_suffix+'.root') #
       
       if self.DoDebug:
         print ('[DEBUG] Trying to read from data file' + Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_data_skim+'_data_'+Region.PrimaryDataset+self.Filename_suffix+'.root')
@@ -527,11 +532,11 @@ class Plotter:
         ## Get data first
         if self.DoDebug:
           print ('[DEBUG] Trying to get data histogram..')
-          print (Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Variable.Name)
-        h_Data = f_Data.Get(Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Variable.Name)
+          print (Region.Name+'/'+'RegionPlots_'+Region.PrimaryDataset + '/'+ Region.ParamName + '/'+Variable.Name)
+        h_Data = f_Data.Get(Region.Name+'/'+'RegionPlots_'+Region.PrimaryDataset + '/'+ Region.ParamName + '/'+Variable.Name) #CR naming convention
         if not h_Data:
-          print (Indir+'/'+self.DataDirectory+'/'+self.Filename_prefix+self.Filename_data_skim+'_data_Lepton'+self.Filename_suffix+'.root')
-          print (Region.PrimaryDataset + '/'+ Region.ParamName + '/'+ Region.Name+'/'+Variable.Name)
+          print (Indir+'/'+self.DataDirectory+'/'+Region.ParamName+'/'+self.Filename_prefix+self.Filename_data_skim+'_data'+self.Filename_suffix+'.root') #
+          print (Region.Name+'/'+'RegionPlots_'+Region.PrimaryDataset + '/'+ Region.ParamName + '/'+Variable.Name)
           print (Variable.Name+'_'+Region.Name+'.pdf ==> No data, skipped')
           continue
 
@@ -602,7 +607,7 @@ class Plotter:
               if self.DoDebug:
                 print ('[DEBUG] Trying to make histogram for Sample = '+Sample)
 
-              f_Sample = ROOT.TFile(Indir+'/'+str(SampleGroup.Era)+'/'+self.Filename_prefix+self.Filename_skim+'_'+Sample+self.Filename_suffix+'.root')
+              f_Sample = ROOT.TFile(Indir+'/'+str(SampleGroup.Era)+'/'+Region.ParamName+'/'+self.Filename_prefix+self.Filename_skim+'_'+Sample+self.Filename_suffix+'.root') #
               h_Sample = 0
 
               ## Uncorrelated sources has Syst.Year = 2016 or 2017 or 2018
@@ -621,10 +626,10 @@ class Plotter:
                 tmp_paraName = Region.ParamName
                 h_Sample = f_Sample.Get(Region.PrimaryDataset + '/'+ tmp_paraName + '/'+ Region.Name+'/'+Variable.Name)
               else:
-                h_Sample = f_Sample.Get(Region.PrimaryDataset + '/'+ paraName + '/'+ Region.Name+'/'+Variable.Name)
+                h_Sample = f_Sample.Get(Region.Name+'/'+'RegionPlots_'+Region.PrimaryDataset + '/'+ Region.ParamName+Region.HistTag + '/'+Variable.Name) #
                 if self.DoDebug:
-                  print("Looking in file: "+Indir+'/'+str(SampleGroup.Era)+'/'+self.Filename_prefix+self.Filename_skim+'_'+Sample+self.Filename_suffix+'.root')
-                  print(Region.PrimaryDataset + '/'+ paraName + '/'+ Region.Name+'/'+Variable.Name)
+                  print("Looking in file: "+Indir+'/'+str(SampleGroup.Era)+'/'+Region.ParamName+'/'+self.Filename_prefix+self.Filename_skim+'_'+Sample+self.Filename_suffix+'.root')
+                  print(Region.Name+'/'+'RegionPlots_'+Region.PrimaryDataset + '/'+ Region.ParamName+Region.HistTag + '/'+Variable.Name) #
 
               if not h_Sample:
                 print 'No hist : %s %s'%(Syst.Name,Sample)
@@ -1184,9 +1189,9 @@ class Plotter:
         exec(self.ExtraLines)
 
         ## Save
-        c1.SaveAs(Outdir+Variable.Name+'_'+Region.PrimaryDataset+'_'+Region.Name+'.pdf')
-        c1.SaveAs(Outdir+Variable.Name+'_'+Region.PrimaryDataset+'_'+Region.Name+'.png')
-        print (Variable.Name+'_'+Region.Name+'.pdf ==> Saved')
+        #c1.SaveAs(Outdir+Variable.Name+'_'+Region.PrimaryDataset+'_'+Region.Name+Region.HistTag+Region.OutputTag+'.pdf')
+        c1.SaveAs(Outdir+Variable.Name+'_'+Region.PrimaryDataset+'_'+Region.Name+Region.HistTag+Region.OutputTag+'.png') # including output plot tag
+        print (Variable.Name+'_'+Region.Name+'.png ==> Saved')
 
         print(str(self.OutputDirectory))
         if not self.OutputDirectory =="":
