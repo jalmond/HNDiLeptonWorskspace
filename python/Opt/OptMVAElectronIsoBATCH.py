@@ -45,7 +45,6 @@ def GetHNSignificance(Print,nIt,histname,h_LimitInput,h_SigLimitInput):
         bkgErr = 0.2
 
     FOM =  float(tot_sig)/(1+math.sqrt(float(bkgErr)*float(bkgErr)+float(nbkg)))
-    f_Sig.Close()
 
     if Print:
         print ("histname HNTightV2 " + histname + " "  + str(tot_sig) + " nbkg = " + str(nbkg) + " FOM = " + str(FOM))
@@ -119,7 +118,6 @@ def GetSignificance(Print ,DefSig,nIt,histname,h_LimitInput,h_SigLimitInput,A,B,
         bkgErr = 0.2
 
     FOM =  float(tot_sig)/(1+math.sqrt(float(bkgErr)*float(bkgErr)+float(nbkg)))
-    f_Sig.Close()
     if Debug:
         print "GetSignificance " + SInPath + " " + histname + " SIG = " + str(FOM)   + " total_sig = " + str(tot_sig) + " total_bkg = " + str(nbkg)
 
@@ -337,6 +335,7 @@ for channel in channels:
             HNSigHists.append(hn_SigLimitInput)
             HNBkgHists.append(hn_LimitInput)
             print hnhistName + " " 
+        f_Sig.Close()
 
         NhistnamesX = 1
         if args.NProc == 999:

@@ -11,10 +11,10 @@ eras = ["2016preVFP", "2016postVFP", "2017" , "2018"]
 eras = [  "2017"]
 
 MergeFake=False
-MergeCF=True
-MergeConv=True
-MergeMC=True
-MergeBkg=True
+MergeCF=False
+MergeConv=False
+MergeMC=False
+MergeBkg=False
 
 Analyser="HNL_SignalRegionOpt"
 InputPath=os.getenv("SKFlatOutputDir")+"/"+os.getenv("SKFlatV") + "/"+Analyser+"/"
@@ -90,7 +90,7 @@ if MergeBkg:
 
 
 
-MergeData=False
+MergeData=True
 if MergeData:
 
     for era in eras:

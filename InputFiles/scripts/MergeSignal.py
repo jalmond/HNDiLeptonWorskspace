@@ -2,17 +2,21 @@
 
 import os 
 
-eras = [ "2017"]
-
-FlagDir="/RunEE__RunHighPt__"
 
 
+parser = argparse.ArgumentParser(description='SKFlat Command')
+parser.add_argument('-a', dest='Analyzer', default="HNL_SignalLeptonOpt")
+parser.add_argument('-f', dest='Flag', default="/RunEE__RunHighPt__")
+parser.add_argument('-e', dest='Era', default="2017")
+
+args = parser.parse_args()
+FlagDir=args.Flag
+eras = [args.Era]
+Analyser=args.Analyzer
 
 # This code makes /SIG dir in HNDiLeptonWorskspace/InputFiles/MergedFiles for each DataYear
 # It then merges SSWW samples ans merges All signals per mass
 # it then merges 2016a and 2016b
-
-Analyser="HNL_SignalLeptonOpt"
 
 for era in eras:
 

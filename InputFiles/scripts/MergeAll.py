@@ -7,20 +7,42 @@ if os.getenv("FILE_MERGED_PATH") == "NULL":
 
 ##### Flag Dir merges files into dir based on rnun flags
 
-FlagDir="/RunEE__RunHighPt__"
 
+parser = argparse.ArgumentParser(description='SKFlat Command')
+parser.add_argument('-a', dest='Analyzer', default="HNL_SignalLeptonOpt")
+parser.add_argument('-f', dest='Flag', default="/RunEE__RunHighPt__")
+parser.add_argument('-e', dest='Era', default="2017")
 
-eras = ["2017"]
+parser.add_argument('--Data',action='store_true')
+parser.add_argument('--Fake',action='store_true')
+parser.add_argument('--CF',action='store_true')
+parser.add_argument('--Conv',action='store_true')
+parser.add_argument('--MC',action='store_true')
+parser.add_argument('--Full',action='store_true')
+args = parser.parse_args()
 
-MergeFake=False
-MergeCF=False
-MergeConv=False
-MergeMC=False
+FlagDir=args.Flag
+eras = [args.Era]
+if args.Era == "Run2":
+    eras = ["2016preVFP", "2016postVFP", "2017", "2018"]
+
+Analyser=args.Analyzer
+
+MergeFake=args.Fake
+MergeCF=args.CF
+MergeConv=args.Conv
+MergeMC=args.MC
 MergeBkg=False
-MergeData=True
+MergeData=args.Data
 
+if args.Full:
+    MergeFake=True
+    MergeCF=True
+    MergeConv=True
+    MergeMC=True
+    MergeBkg=True
+    MergeData=True
 
-Analyser="HNL_SignalLeptonOpt"
 
 InputPath=os.getenv("SKFlatOutputDir")+"/"+os.getenv("SKFlatV") + "/"+Analyser+"/"
 OutputPath=os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"
@@ -46,14 +68,11 @@ if MergeFake:
         OutFile=OutputPathEra + "/"+Analyser+"_"+SkimName+"_NonPrompt.root"
         if os.path.exists(OutFile):
             os.system("rm " + OutFile)
-        
         os.system("hadd " + OutFile + "  " + InputPathEra+"//RunFake__/DATA/*")
-
 
 if MergeMC:
 
     for era in eras:
-
         OutFile=OutputPathEra + "/"+Analyser+"_"+SkimName+"_MC.root"
         if os.path.exists(OutFile):
             os.system("rm " + OutFile)
@@ -61,11 +80,9 @@ if MergeMC:
         os.system("hadd " + OutFile + "  " + InputPathEra+"/*HNMu*")
 
 
-
 if MergeCF:
 
     for era in eras:
-
         OutFile=OutputPathEra + "/"+Analyser+"_"+SkimName+"_CF.root"
         if os.path.exists(OutFile):
             os.system("rm " + OutFile)
@@ -95,12 +112,10 @@ if MergeBkg:
 
         os.system("hadd " +OutFile+  "   " + OutputPathEra + "/"+Analyser+"_"+SkimName+"*")
 
-        os.system("python MergeSignal.py")
-        os.system("python MergeSignalFull.py")
+        os.system("python MergeSignal.py -a " + Analyser + " -f " + FlagDir + " -e " + era)
+        os.system("python MergeSignalFull.py -a " + Analyser + " -f " + FlagDir + " -e " + era)
 
 
-
-MergeData=True
 if MergeData:
 
     for era in eras:
@@ -113,5 +128,5 @@ if MergeData:
         os.system("hadd " +OutFile + "   " + InputPathEra+"/DATA/*")
 
 
-    os.system("python MergeSignal.py")
-    os.system("python MergeSignalFull.py")
+    os.system("python MergeSignal.py -a " + Analyser + " -f " + FlagDir + " -e " + era)
+    os.system("python MergeSignalFull.py -a " + Analyser + " -f " + FlagDir + " -e " + era)
