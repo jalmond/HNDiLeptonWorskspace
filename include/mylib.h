@@ -1,6 +1,9 @@
 #ifndef mylib_h
 #define mylib_h
+
 #include "TROOT.h"
+#include  "canvas_margin.h"
+#include  "base_functions.h"
 
 
 TH1D* GetSignalHistBasics(TString current_sample, TString filepath, TString fullhistname){
@@ -71,18 +74,49 @@ double GetMax(vector<double> vec){
   return val;
 }
 
+void    FormatHistLine(TH1D* &hist_data, int rbin,  Color_t col,int lineStyle){
 
-
-void    FormatHist(TH1D* hist_data, int rbin, double _max, Color_t col,TString xaxis_title){
-
-  hist_data->Rebin(rbin);
+  if(rbin != 1) hist_data->Rebin(rbin);
   hist_data->SetLineColor(col);
+  hist_data->SetLineWidth(3);
+  hist_data->SetLineStyle(lineStyle);
+  hist_data->SetMarkerStyle(20);
+  hist_data->SetMarkerSize(1.2);
+  hist_data->SetMarkerColor(col);
+  return;
+}
+
+
+void    FormatHist(TH1D* &hist_data, int rbin, double _max, double xmin, double xmax, Color_t col,int lineStyle, TString xaxis_title, TString yaxis_title){
+
+  if(rbin != 1) hist_data->Rebin(rbin);
+  hist_data->SetLineColor(col);
+  hist_data->SetLineWidth(3);
+  hist_data->SetLineStyle(lineStyle);
   hist_data->GetYaxis()->SetTitleOffset(1.4);
   hist_data->SetMarkerStyle(20);
   hist_data->SetMarkerSize(1.2);
   hist_data->SetMarkerColor(col);
-  hist_data->GetYaxis()->SetRangeUser(0.1, _max*1.4);
-  hist_data->GetXaxis()->SetTitle(xaxis_title);
+  hist_data->GetXaxis()->SetRangeUser(xmin, xmax);
+  if(_max > 0 )hist_data->GetYaxis()->SetRangeUser(0.1, _max*1.4);
+  if(xaxis_title != "")hist_data->GetXaxis()->SetTitle(xaxis_title);
+  cout << "Setting hist title to " << yaxis_title << endl;
+  hist_data->GetYaxis()->SetTitle(yaxis_title);
+  return;
+}
+
+void    FormatHist(TH1D* &hist_data, int rbin, double _max,  Color_t col,TString xaxis_title, TString yaxis_title=""){
+
+  if(rbin != 1) hist_data->Rebin(rbin);
+  hist_data->SetLineColor(col);
+  //hist_data->SetLineWidth(4);
+  hist_data->GetYaxis()->SetTitleOffset(1.4);
+  hist_data->SetMarkerStyle(20);
+  hist_data->SetMarkerSize(1.2);
+  hist_data->SetMarkerColor(col);
+  if(_max > 0 )hist_data->GetYaxis()->SetRangeUser(0.1, _max*1.4);
+  if(xaxis_title != "")hist_data->GetXaxis()->SetTitle(xaxis_title);
+  if(yaxis_title != "")hist_data->GetYaxis()->SetTitle(yaxis_title);
 }
 
 void    FormatHistogram(TH1D* hist, TString var, int col, double ymax){
@@ -107,11 +141,6 @@ void    SetupHist(TH1D* hist_data, int rbin, double _max){
   hist_data->SetLineColor(kBlack);
   hist_data->GetYaxis()->SetRangeUser(0.1, _max*1.4);
 
-}
-
-void Message(TString message , bool m_debug){
-
-  if(m_debug) cout << message << endl;
 }
 
 double GetBinValue(double value, TH1* h, TString mode){
@@ -191,20 +220,11 @@ TGraphAsymmErrors* GetratioGraph(TH1D* h_data,TH1D* h_nominal, vector<double> er
 }
 
 
-TH1D* GetMCDataRatio(TH1D* hdata, TH1D* h_nominal){
+TH1D* GetRatioHist(TH1D* h1, TH1D* h2,TString tag){
 
-  TH1D* hdev = (TH1D*)hdata->Clone("hdev");
-
-  for (Int_t i=1;i<=hdev->GetNbinsX()+1;i++) {
-    if(h_nominal->GetBinContent(i) > 0 &&  hdev->GetBinContent(i) > 0){
-      hdev->SetBinContent(i, hdev->GetBinContent(i)/ h_nominal->GetBinContent(i));
-      hdev->SetBinError(i, 0.01);
-    }
-    else {
-      hdev->SetBinContent(i, -99);
-      hdev->SetBinError(i, 0.);
-    }
-  }
+  TH1D* hdev = (TH1D*)h1->Clone("hdev"+tag);
+  
+  hdev->Divide(h1,h2,1.,1.,"cl=0.683 b(1,1) mode");
 
   return hdev;
 }
@@ -605,20 +625,26 @@ void SetXaxisRange(TH1D* hist){
   hist->GetXaxis()->SetRangeUser(this_x_min, this_x_max);
 }
 
-TH1D* MakeOverflowBin(TH1D* hist){
+TH1D* MakeOverflowBin(TH1D* hist, TString ref=""){
 
-    int n_bin_origin = hist->GetXaxis()->GetNbins();
+ 
+  int n_bin_origin = hist->GetXaxis()->GetNbins();
+
   //==== Changed NBins                                                                                                                                                                                                                        
   int bin_first = hist->GetXaxis()->GetFirst();
   int bin_last = hist->GetXaxis()->GetLast();
   int n_bin_inrange = bin_last-bin_first+1;
+  
 
   double x_first_lowedge = hist->GetXaxis()->GetBinLowEdge(bin_first);
   double x_last_upedge = hist->GetXaxis()->GetBinUpEdge(bin_last);
   
   double Allunderflows = hist->Integral(0, bin_first-1);
   double Allunderflows_error = hist->GetBinError(0);
+
+
   Allunderflows_error = Allunderflows_error*Allunderflows_error;
+  
   for(unsigned int i=1; i<=bin_first-1; i++){
     Allunderflows_error += (hist->GetBinError(i))*(hist->GetBinError(i));
   }
@@ -640,8 +666,10 @@ TH1D* MakeOverflowBin(TH1D* hist){
     counter++;
   }
   temp_xbins[n_bin_inrange+1-1] = hist->GetXaxis()->GetBinUpEdge(bin_last);
+
+
   const Double_t *xcopy=temp_xbins;
-  TH1D *hist_out = new TH1D(hist->GetName(), hist->GetTitle(), n_bin_inrange, xcopy);
+  TH1D *hist_out = new TH1D(hist->GetName()+ref, hist->GetTitle(), n_bin_inrange, xcopy);
   for(unsigned int i=1; i<=n_bin_inrange; i++){
     double this_content = hist->GetBinContent(bin_first-1+i);
     double this_error = hist->GetBinError(bin_first-1+i);
@@ -693,6 +721,7 @@ TH1D* GetSignalHist(TLegend* legend_g,TString current_sample, TString filepath, 
 double GetIntegral(map<TString,vector<TString> > _map, TString fullhistname){
 
   double total(0.);
+  
   for (map<TString,vector<TString> >::iterator it = _map.begin(); it != _map.end(); it++){
     
     TString current_sample = it->first;
@@ -727,7 +756,10 @@ double GetIntegral(map<TString,vector<TString> > _map, TString fullhistname){
     total+= hist_temp->Integral();
     file->Close();
 
+    /// delete pointer
+    delete file;
   }
+
   return total;
 }
 THStack*  MakeStack(TLegend* legend_g,map<TString,vector<TString> > _map, TString fullhistname, map<TString,Color_t> _colmap, int rbin, int sys){
@@ -780,6 +812,7 @@ THStack*  MakeStack(TLegend* legend_g,map<TString,vector<TString> > _map, TStrin
 	hist_final->SetBinError(ccc, 0.);
       }
     }
+    
     map<TString,Color_t>::iterator color_it;
     color_it= _colmap.find(current_sample);
     hist_final->SetFillColor(color_it->second);
@@ -800,10 +833,16 @@ THStack*  MakeStack(TLegend* legend_g,map<TString,vector<TString> > _map, TStrin
     }
     hist_final->Rebin(rbin);
     MC_stacked->Add(hist_final);
+
+
+    /// delete pointer
+                                                                                                                                      
+    delete file;
+
   }
 
-  return MC_stacked;
 
+  return MC_stacked;
 
 }
 
@@ -861,6 +900,10 @@ vector<TString> GetHistNames(TString file, TString dirname, TString analyzername
     //hname = hname.ReplaceAll("_","");
     vlist.push_back(hname);
   }
+
+  /// delete pointer                                                                                                                   
+  delete file;
+
   return vlist;
 
 }
@@ -895,7 +938,9 @@ vector<TString> GetIDNames(TString file, TString dirname, TString flavour, TStri
     cout << "---> " << half << endl;
     vlist.push_back(TString(half));
   }
-  
+  /// delete pointer                                                                                                                   
+  delete _file;
+
   return vlist;
    
 }
@@ -918,6 +963,9 @@ vector<TString> GetDirName(TString file){
     if(objname.Contains("Dir")) vlist.push_back(hname);
   }
 
+  /// delete pointer                                                                                                                   
+  delete _file;
+
   return vlist;
   
 }
@@ -934,8 +982,14 @@ bool CheckFileInput(TString fname){
 
   if(CheckFile(file_) > 0)  {
     cout << "CheckInputFile::ERROR missing file " << fname << endl;
+    /// delete pointer                                                                                                                   
+    delete file_;
+
     return false;
   }
+  /// delete pointer                                                                                                                   
+  delete file_;
+
   return true;
 
 
@@ -1435,8 +1489,7 @@ TGraphAsymmErrors* Get2016SigEff(TString sr, TString channel, vector<double> mas
 
 
   TGraphAsymmErrors *out = new TGraphAsymmErrors(Nbins, x, y, xlow, xup, ylow, yup);
-  //out->SetLineWidth(2.0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-  //out->SetMarkerSize(0.);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+  //out->SetLineWidth(2.0);                                                                                                                                                                                                                                                                                                                                                                                                                                                         
   out->GetHistogram()->GetXaxis()->SetTitle("m_{N} (GeV)");
   out->GetHistogram()->GetYaxis()->SetTitle("#epsilon");
   out->SetTitle("");
@@ -1542,7 +1595,7 @@ void FormatHist(TH1* h , TString fill, Color_t t){
   if(fill.Contains("f")){
     h->SetFillColor(t);
     h->SetLineColor(t);
-  h->SetLineWidth(10);    
+    h->SetLineWidth(10);    
   }
   if(fill.Contains("l")){
 
@@ -1588,13 +1641,13 @@ void DrawLatexLabel(TString label, float x, float y){
 
 
 }
-void DrawLatexWithLabel(TString year,TString label, float x, float y){
+void DrawLatexWithLabel(TString year,TString label, double size, float x, float y){
 
   DrawLatex(year);
   
   TLatex channelname;
   channelname.SetNDC();
-  channelname.SetTextSize(0.03);
+  channelname.SetTextSize(size);
   channelname.DrawLatex(x, y,label);
 
   
@@ -1631,7 +1684,41 @@ bool FileHasDir(TFile* file, TString name){
     return false;
 }
 
- 
+void PrintHistList(TList* list){
+
+  TIter next(list) ;
+  TKey* key ;
+  TObject* obj ;
+  while ( (key = (TKey*)next()) ) {
+    obj = key->ReadObj() ;
+    TString hname = obj->GetName();
+    TString objname= obj->ClassName();
+    if(!objname.Contains("Dir"))    cout << hname << " " << objname << endl;
+  }
+}
+void PrintHists(TFile* file){
+  
+  PrintOut("PrintHists");
+  TKey* key ;
+  TObject* obj ;
+  TList* list = file->GetListOfKeys() ;
+  TIter next(list) ;  
+  vector<TString> DirList;
+  while ( (key = (TKey*)next()) ) {
+    obj = key->ReadObj() ;
+    TString hname = obj->GetName();
+    TString objname= obj->ClassName();
+    if(!objname.Contains("Dir"))    cout << hname << " " << objname << endl;
+    else {
+      DirList.push_back(hname);
+      TList* list2 = file->GetDirectory(hname)->GetListOfKeys() ;
+      PrintHistList(list2);
+    }
+  }
+  for(auto i : DirList) cout << "Directory : " << i << endl;
+  
+  return;
+}
 bool CheckHist(TFile* file, TString name ){
   
   TString name_fix = name;
@@ -1672,18 +1759,22 @@ void NormHist(TH1* hist){
 }
 
 
-TH1D* GetHist(TFile* file, TString name , bool return_void=true, bool debug=false){
+TH1D* GetHist(TFile* file, TString name , TString ref="", bool return_void=false, bool debug=false){
   
+  /// This function checks the hist exists in a given file and returns the TH1D pointer
+
+  PreLogMessage();
+  cout << "GetHist " << name << " from " << file->GetName() << endl;
+
   TString name_fix = name;
   name_fix = name_fix.ReplaceAll("/"," ");
-  //TH1* h = new TH1(name);
+
   vector<string> v{_getsplit(string(name_fix), ' ')};
   TList* list ;
   if(v.size() == 2){
     if(FileHasDir(file, TString(v[0])))list = file->GetDirectory(TString(v[0]))->GetListOfKeys() ;
-    //name= v[1];
     else {
-      TH1D* this_hist = new TH1D(name+"__"+file->GetName(), name+"__"+file->GetName(),1,0.,1);
+      TH1D* this_hist = new TH1D(name+"__"+file->GetName()+"__"+ref, name+"__"+file->GetName()+"__"+ref,1,0.,1);
       return this_hist;
 
     }
@@ -1703,45 +1794,30 @@ TH1D* GetHist(TFile* file, TString name , bool return_void=true, bool debug=fals
     TString objname= obj->ClassName();
     if(hname == name) hist_found=true;
   }
-  /*
+  
+  
   if(!hist_found){
 
-    cout << "File " << file->GetName() << " missing file " << name << endl;
-
-    TH1D* this_hist = new TH1D(name+"__"+file->GetName(), name+"__"+file->GetName(),1,0.,1);
-    return this_hist;
-    
-
-    vector<TList*> lists;
-    TList* list2  = file->GetListOfKeys() ;
-    if(v.size() > 0) lists.push_back(list);
-    lists.push_back(list2);    
-    for(unsigned int il=0; il < lists.size();il++){
-      TIter next(lists[il]) ;
-      TKey* key ;
-      TObject* obj ;
-      
-      while ( (key = (TKey*)next()) ) {
-	obj = key->ReadObj() ;
-	TString hname = obj->GetName();
-	TString objname= obj->ClassName();
-	//if(debug)cout << "Possible hist names are " << hname << endl;
-	
-      }
-      double ml1jbins[7] = { 0., 100.,200.,300.,500., 1000., 2000.};
-      
-      TH1D* this_hist = new TH1D(name+"__"+file->GetName(), "", 6, ml1jbins);
-
-      TH1D* this_hist2 = new TH1D(name+"__2"+file->GetName(), name+"__",1,0.,1);
-      if(return_void) return this_hist2;
-      else       return this_hist;
+    TH1D* h = (TH1D*)(file->Get(name));
+    if(h) return h;
+    else if(return_void){
+      cout << "File " << file->GetName() << " missing file " << name << endl;
+      cout << "Returning Empty hist" << endl;
+      TH1D* this_hist = new TH1D(name+"__"+file->GetName()+"__"+ref, name+"__"+file->GetName()+"__"+ref,1,0.,1);
+      return this_hist;
+    }
+    else {
+      PrintHists(file);
+      PreLogMessage();
+      cout << "File " << file->GetName() << " missing file " << name << endl;
+      PreLogMessage();
+      cout << "================= Exiting ================" << endl;
+      gApplication->Terminate();
+     
     }
   }
-  */
+  
   TH1D* h = (TH1D*)(file->Get(name));
-
-  //TH1D* h_C = (TH1D*)h_C->Clone(name+"clone2"+file->GetName());
-
   return h;
   
   

@@ -42,8 +42,8 @@ class SampleGroup:
 
 ## SignalInfo ##
 class SignalInfo:
-  def __init__(self, process , mN):
-    self.process = process
+  def __init__(self,  mN):
+    self.Process = "SS"
     self.mN = mN
     self.xsec = 1.
     self.kfactor = 1.
@@ -52,7 +52,7 @@ class SignalInfo:
     self.Style = 3
     self.useOfficial = False
 
-    self.TLatexAlias = "(m_{N}, Process) = (%d, %d) GeV"%(self.mN, self.Process)
+    self.TLatexAlias = "(m_{N}, Process) = (%d, %s) GeV"%(self.mN, self.Process)
 
   def Print(self):
     print ('( %d, %f, %f)'%( self.mN, self.xsec, self.kfactor))
@@ -993,8 +993,11 @@ class Plotter:
 
         ## Exception control
 
-        if (Variable.Name=="NCand_Mass"):
+        h_dummy_up.GetYaxis().SetRangeUser( 1E-1, yMaxScale*yMax*1.5 )
 
+        if (Variable.Name=="NCand_Mass"):
+          
+          
           if ("_SR" in Region.Name) and ("EMu" not in Region.Name):
             if ("Resolved" in Region.Name):
               h_dummy_up.GetYaxis().SetRangeUser( 1E-1, yMaxScale*yMax )
@@ -1056,11 +1059,8 @@ class Plotter:
         h_Sigs = []
         for Sig in self.SignalsToDraw:
 
-          fname_Sig = self.Filename_prefix+'_DYVBFTypeI_DF_M%d'%(Sig.mN)+self.Filename_suffix+'_private.root'
-          fpullpath_Sig = Indir+'/'+self.DataDirectory+'/Signals/'+fname_Sig
-          if Sig.useOfficial:
-            fname_Sig = self.Filename_prefix+'_DYVBFTypeI_DF_ll_M%d'%(Sig.mN)+self.Filename_suffix+'.root'
-            fpullpath_Sig = Indir+'/'+self.DataDirectory+'/Signal_'+LeptonChannel+'_Official/'+fname_Sig
+          fname_Sig = self.Filename_prefix+'_Type1_SS_M%d'%(Sig.mN)+'.root'
+          fpullpath_Sig = Indir+'/'+self.DataDirectory+'/SIGMerged/'+fname_Sig
 
           f_Sig = ROOT.TFile(fpullpath_Sig)
 

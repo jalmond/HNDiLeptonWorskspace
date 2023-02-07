@@ -38,5 +38,5 @@ TString lumi_7TeV  = "5.1 fb^{-1}";
 
 bool drawLogo      = false;
 
-void CMS_lumiDef( TPad* pad, int iPeriod=3, int iPosX=10 );
-void CMS_lumi( TPad* pad, int iPeriod=3, int iPosX=10 , TString extraText1="", TString extraText2="");
+void CMS_lumi( TPad* pad, int iPeriod=3, int iPosX=10 );
+//void CMS_lumi( TPad* pad, int iPeriod=3, int iPosX=10 , TString extraText1="", TString extraText2="");

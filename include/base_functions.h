@@ -18,10 +18,36 @@
 #include "TROOT.h"
 #include "TH1D.h"
 
-//using namespace std;
+#include "std_functions.h"
+#include "list_functions.h"
+
+void SaveAndCopyLXPLUS(TCanvas* c, TString outpath,TString analyser, TString tag){
+
+  TString save_pdf= outpath+".pdf";
+  TString save_png= outpath+".png";
+
+  //c1->SetLogy();                                                                                                                                           
+  //c->SaveAs(save_pdf);
+  //c->SaveAs(save_png);
+
+  TString lxpath = "/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/"+analyser+tag+"/";
+
+  TString HTMLLink = "HNL/"+analyser+"/";
+  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
+  
+  cout << "ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php "+lxpath+"'" << endl;
+  
+  system("ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php "+lxpath+"'");
+  
+  cout << "scp " +save_pdf+" jalmond@lxplus.cern.ch:"+lxpath+"/" << endl;
+  system("scp " +save_pdf+" jalmond@lxplus.cern.ch:"+lxpath+"/");                    
+  system("scp " +save_png + " jalmond@lxplus.cern.ch:"+lxpath+"/");                    
+  cout << "https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/"+HTMLLink+"/" << endl; 
+  
+}
 
 int CheckFile(TFile* f){
-
+  
   cout << "########################"<< endl;
   cout << "Check file: " << f->GetName() << endl;
   if (f->IsZombie()) return 1;
@@ -30,12 +56,70 @@ int CheckFile(TFile* f){
   return 0;
 }
 
-TLegend* MakeLegend(double x1, double x2, double y1, double y2){
+
+TFile* GetFile(TString path){
+  
+  TFile * file_bkg = new TFile((path).Data());
+  
+  if(CheckFile(file_bkg) > 0) {
+    gApplication->Terminate();
+  }
+  else cout << "CheckFile Success" << endl;
+  
+  return file_bkg;
+}
+
+TCanvas*  MakeCanvas(TString Version, TString tag){
+  
+  int x = 800;
+  int y = 800;
+  if(Version==""){ x= 800; y= 800;};
+
+  TCanvas* c1 = new TCanvas(tag,tag, x,y);
+ 
+  return c1;  
+  
+}
+TString GetOutPut(TString analysername, TString era){
+  
+  TString ENV_PLOT_PATH = getenv("PLOT_PATH");
+  TString FLATVERSION = getenv("FLATVERSION");
+  TString output = ENV_PLOT_PATH + FLATVERSION + "/"+analysername+"/";
+  output+=era+"/";
+  
+  return output;
+
+}
+void SetUpDir(TString analysername, TString era){
+  
+  PrintSetup(analysername,era);
+
+  TString ENV_MERGEDFILE_PATH = getenv("FILE_MERGED_PATH");
+
+  TString ENV_PLOT_PATH = getenv("PLOT_PATH");
+  TString FLATVERSION = getenv("FLATVERSION");
+
+  MakeDir(ENV_PLOT_PATH + FLATVERSION);
+
+  TString output = ENV_PLOT_PATH + FLATVERSION + "/";
+
+  MakeDir(output);
+  output+="/"+analysername+"/";
+  MakeDir(output);
+
+  output+=era+"/";
+  MakeDir(output);
+
+  return;
+}
+
+
+TLegend* MakeLegend(double x1, double x2, double y1, double y2, double size_text=0.04){
 
   TLegend *lg = new TLegend(x1, x2, y1, y2);
   lg->SetFillStyle(0);
   lg->SetBorderSize(0);
-  lg->SetTextSize(0.02);
+  lg->SetTextSize(size_text);
   return lg;
   
 }
@@ -316,32 +400,6 @@ vector<double> GetMassType1Doubles(vector<TString> ignore_masses, TString channe
 
 }
 
-TString GetHostname(){
-  char hostbuffer[256];
-  int hostname = gethostname(hostbuffer, sizeof(hostbuffer));
-
-  TString s_hostname = TString(hostname);
-  return s_hostname;
-}
-
-void sMakeDir(const std::string &s)
-{
-
-  struct stat buffer;
-  if( (stat (s.c_str(), &buffer) == 0)) return;
-  gSystem->mkdir(TString(s));
-
-}
-void MakeDir(TString a){
-  sMakeDir(string(a));
-}
-
-bool IsPathExist(const std::string &s)
-{
-
-  struct stat buffer;
-  return (stat (s.c_str(), &buffer) == 0);
-}
 
 
 #endif

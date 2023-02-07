@@ -16,8 +16,15 @@
 
 void setTDRStyle();
 
+void fixOverlay() {
+  gPad->RedrawAxis();
+}
+
 
 void setTDRStyle() {
+
+  cout << "SETTING UP setTDRStyle "<< endl;
+
   TStyle *tdrStyle = new TStyle("tdrStyle","Style for P-TDR");
   char* ch = "4.2f";
   tdrStyle->SetPaintTextFormat(ch);
@@ -70,9 +77,9 @@ void setTDRStyle() {
 
   // Margins:
   tdrStyle->SetPadTopMargin(0.05);
-  tdrStyle->SetPadBottomMargin(0.15);
-  tdrStyle->SetPadLeftMargin(0.2);
-  tdrStyle->SetPadRightMargin(0.05);
+  tdrStyle->SetPadBottomMargin(0.13);
+  tdrStyle->SetPadLeftMargin(0.16);
+  tdrStyle->SetPadRightMargin(0.02);
 
   // For the Global title:
 
@@ -88,16 +95,18 @@ void setTDRStyle() {
   tdrStyle->SetTitleColor(1, "XYZ");
   tdrStyle->SetTitleColor(4, "Z");
   tdrStyle->SetTitleFont(42, "XYZ");
-  tdrStyle->SetTitleSize(0.035, "XYZ");
+  tdrStyle->SetTitleSize(0.06, "XYZ");
   tdrStyle->SetTitleXOffset(1.2);
   //  tdrStyle->SetTitleXOffset(1.5);
-  tdrStyle->SetTitleYOffset(1.75);
+  tdrStyle->SetTitleXOffset(0.9);
+  tdrStyle->SetTitleYOffset(1.25);
 
   // For the axis labels:
   tdrStyle->SetLabelColor(1, "XYZ");
   tdrStyle->SetLabelFont(42, "XYZ");
   tdrStyle->SetLabelOffset(0.007, "XYZ");
-  tdrStyle->SetLabelSize(0.03, "XYZ");
+  tdrStyle->SetLabelSize(0.05, "XYZ");
+
 
   // For the axis:
   tdrStyle->SetAxisColor(1, "XYZ");
@@ -113,6 +122,16 @@ void setTDRStyle() {
 
   // Postscript options:
   tdrStyle->SetPaperSize(20.,20.);
+
+  tdrStyle->SetHatchesLineWidth(5);
+  tdrStyle->SetHatchesSpacing(0.05);
   tdrStyle->cd();
 
+}
+
+void PlottingSetup(){
+
+  setTDRStyle();
+  gStyle->SetPalette(1);
+  return;
 }

@@ -4,8 +4,8 @@ WORKING_DIR = os.environ['HNDILEPTONWORKSPACE_DIR']
 
 sys.path.insert(1, WORKING_DIR+'/python')
 
-from Plotter import SampleGroup, Variable, Region, Systematic
-from Plotter import Plotter
+from CRPlotter import SampleGroup, Variable, Region, Systematic
+from CRPlotter import Plotter
 from IsCorrelated import IsCorrelated
 
 import argparse
@@ -75,7 +75,7 @@ str_Era=m.DataEra
 m.DataDirectory = str_Era
 m.Filename_prefix = Analyser
 m.Filename_suffix = ""
-m.Filename_skim = "_SkimTree_Dilepton"
+m.Filename_skim = "_SkimTree_HNMultiLep"
 m.Filename_data_skim = ""
 
 m.OutputDirectoryLocal = ENV_PLOT_PATH+"/"+dataset+"/"+Analyser+"/"+str_Era+"/"
@@ -92,12 +92,11 @@ m.Lxplus_User = GetFromConfig('LXPLUS_USER')
 m.Lxplus_Dir = GetFromConfig('LXPLUS_Dir')
 
 print m.Lxplus_User + " " + m.Lxplus_Dir
-exit()
-
 
 
 if OutPutOnLxplus:
-  m.OutputDirectory = m.Lxplus_Dir
+  m.OutputDirectory = m.Lxplus_Dir + "CR/"
+
   print "-"*40
   print("ssh "+m.Lxplus_User+"@lxplus.cern.ch 'mkdir -p " + m.OutputDirectory + "'")
   print "-"*40
@@ -110,7 +109,7 @@ m.ScaleMC = args.ScaleMC
 #### Systematic
 tmp_Systematics = [
   "Lumi",
-  "GetMCUncertainty",
+  #"GetMCUncertainty",
   #"JetRes",
   #"JetEn",
   #"JetMass",
@@ -177,24 +176,21 @@ from PredefinedSamples import *
 if args.Category==0:
   #### Define Samples
   if str_Era != 'YearCombined':
-        exec('m.SampleGroups = [SampleGroup_NonPrompt_MuMu_%s,SampleGroup_Conv_%s, SampleGroup_VV_%s,  SampleGroup_VVV_%s , SampleGroup_Other_%s  ]'%(m.DataEra,m.DataEra, m.DataEra, m.DataEra, m.DataEra))
+        exec('m.SampleGroups = [SampleGroup_NonPrompt_%s,SampleGroup_Conv_%s, SampleGroup_Prompt_%s  ]'%(m.DataEra,m.DataEra, m.DataEra))
   else:
-    m.SampleGroups = [
-      SampleGroup_TTLL_2016preVFP,SampleGroup_TTLL_2016postVFP,SampleGroup_TTLL_2017,SampleGroup_TTLL_2018,
-      SampleGroup_TW_2016preVFP,SampleGroup_TW_2016postVFP,SampleGroup_TW_2017,SampleGroup_TW_2018,
-      SampleGroup_VV_incl_2016preVFP, SampleGroup_VV_incl_2016postVFP, SampleGroup_VV_incl_2017, SampleGroup_VV_incl_2018,
-      SampleGroup_DY_2016preVFP, SampleGroup_DY_2016postVFP, SampleGroup_DY_2017, SampleGroup_DY_2018,
-    ]
+    exec('m.SampleGroups = [SampleGroup_NonPrompt_%s,SampleGroup_Conv_%s, SampleGroup_Prompt_%s  ]'%(m.DataEra,m.DataEra, m.DataEra))
+
 
   #### Signals
   #### Print
   m.PrintSamples()
 
-  PNs=["POG_UL"]
+  PNs=["MVAUL_UL"]
   #### Define reiongs
   m.RegionsToDraw = [
 
-    Region('HNL_WZ_ThreeLepton_CR', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#splitline{#mu#mu}{DY->ll CR (M>50)}', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    Region('HNL_WZ_ThreeLepton_CR', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#mu#mu#mu', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
+    Region('HNL_WZ_ThreeLepton_CR', 'EE', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='eee', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
 
     
   ]
@@ -205,8 +201,8 @@ if args.Category==0:
 m.VariablesToDraw = [
   Variable('Lep_1_pt', 'p_{T} of the leading lepton', 'GeV'),
   Variable('Lep_2_pt', 'p_{T} of the second lepton', 'GeV'),
-  Variable('Lep_3_pt', 'm(ll)','GeV'),
-  #Variable('NJets', 'N_{j}',''),
+  Variable('Lep_3_pt', 'p_{T} of the third lepton', 'GeV'),
+  Variable('NJets', 'N_{j}',''),
   #Variable('NBJets', 'N_{bj}',''),
   #Variable('nPV', 'N_{pv}',''),
   #Variable('PuppiMETType1XY', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),

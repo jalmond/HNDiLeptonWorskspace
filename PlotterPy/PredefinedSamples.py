@@ -3,16 +3,31 @@ from Plotter import SampleGroup
 
 #VV_incl", "DY","Xgamma", "VVV", "top", "WW_double","ttbar"
 
-SampleGroup_Conv_2018 =  SampleGroup(
-    Name='Conv',
+
+SampleGroup_Prompt_2017 =   SampleGroup(
+    Name='Prompt',
+    Type='Bkgd',
+    Samples=['Prompt'],
+    Era = "2017",
+    Color=ROOT.kSpring-1,
+    Style=1,
+    TLatexAlias='Prompt',
+    LatexAlias='Prompt'
+)
+
+
+
+SampleGroup_CF_2017=  SampleGroup(
+    Name='CF',
     Type='Bkgd',
     Samples=['CF'],
-    Era = "2018",
+    Era = "2017",
     Color=74,
     Style=1,
-    TLatexAlias='Conv.',
-    LatexAlias='Conv.'
+    TLatexAlias='Charge MisID.',
+    LatexAlias='Charge MisID.'
 )
+
 
 
 SampleGroup_CF_2016preVFP =  SampleGroup(
@@ -122,6 +137,22 @@ SampleGroup_VVV_2018 = SampleGroup(
 
 
 #Xgamma
+
+
+SampleGroup_Conv_2017=  SampleGroup(
+    Name='Conv',
+    Type='Bkgd',
+    Samples=['CF'],
+    Era = "2017",
+    Color=ROOT.kSpring-7,
+    Style=1,
+    TLatexAlias='X+#gamma',
+    LatexAlias='X+$\\gamma$'
+
+)
+
+
+
 SampleGroup_XG_2016preVFP = SampleGroup(
     Name='XG',
     Type='Bkgd',
@@ -773,6 +804,20 @@ SampleGroup_WJets_2018 = SampleGroup(
 )
 
 ## NonPrompt
+
+
+SampleGroup_NonPrompt_2017=  SampleGroup(
+    Name='NonPrompt',
+    Type='Bkgd',
+    Samples=['NonPrompt'],
+    Era = "2017",
+    Color=870,
+    Style=1,
+    TLatexAlias='Nonprompt',
+    LatexAlias='NonPrompt'
+
+
+)
 SampleGroup_NonPrompt_MuMu_2016preVFP = SampleGroup(
   Name='NonPrompt',
   Type='Bkgd',

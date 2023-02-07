@@ -34,10 +34,10 @@ void hist_axis(TH1D *hist){
   hist->SetTitle("");
 
   hist->GetYaxis()->SetLabelSize(0.04);
-  hist->GetYaxis()->SetTitleSize(0.06);
+  hist->GetYaxis()->SetTitleSize(0.04);
   hist->GetYaxis()->SetTitleOffset(1.10);
 
-  hist->GetXaxis()->SetLabelSize(0.03);
+  hist->GetXaxis()->SetLabelSize(0.04);
   hist->GetXaxis()->SetTitleSize(0.05);
 
 }
@@ -112,7 +112,7 @@ void hist_axis(THStack *hist, TH1D *hist_compare){
   hist->SetTitle("");
 
   //==== top plot
-  hist->GetYaxis()->SetLabelSize(0.05);
+  hist->GetYaxis()->SetLabelSize(0.045);
   hist->GetYaxis()->SetTitleSize(0.07);
   hist->GetYaxis()->SetTitleOffset(1.02);
   //==== hide x-axis for top plot
@@ -125,7 +125,7 @@ void hist_axis(THStack *hist, TH1D *hist_compare){
   hist_compare->GetYaxis()->SetLabelSize(0.08);
   hist_compare->GetYaxis()->SetTitleSize(0.12);
   hist_compare->GetYaxis()->SetTitleOffset(0.5);
-  hist_compare->SetFillColorAlpha(45,0.35);
+  //hist_compare->SetFillColorAlpha(45,0.35);
 
 }
 
@@ -135,7 +135,7 @@ void hist_axis(TH1D *hist, TH1D *hist_compare){
 
   //==== top plot
   hist->GetYaxis()->SetLabelSize(0.05);
-  hist->GetYaxis()->SetTitleSize(0.07);
+  hist->GetYaxis()->SetTitleSize(0.05);
   hist->GetYaxis()->SetTitleOffset(1.02);
   //==== hide x-axis for top plot
   hist->GetXaxis()->SetLabelSize(0);
@@ -147,7 +147,7 @@ void hist_axis(TH1D *hist, TH1D *hist_compare){
   hist_compare->GetYaxis()->SetLabelSize(0.08);
   hist_compare->GetYaxis()->SetTitleSize(0.12);
   hist_compare->GetYaxis()->SetTitleOffset(0.5);
-  hist_compare->SetFillColorAlpha(45,0.35);
+  //hist_compare->SetFillColorAlpha(45,0.35);
 
 }
 

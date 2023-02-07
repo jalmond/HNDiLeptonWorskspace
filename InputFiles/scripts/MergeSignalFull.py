@@ -1,10 +1,11 @@
 #!/usr/bin/python
 
 import os,sys 
+import argparse
 
 parser = argparse.ArgumentParser(description='SKFlat Command')
-parser.add_argument('-a', dest='Analyzer', default="HNL_SignalLeptonOpt")
-parser.add_argument('-f', dest='Flag', default="/RunEE__RunHighPt__")
+parser.add_argument('-a', dest='Analyzer', default="HNL_SignalRegionPlotter")
+parser.add_argument('-f', dest='Flag', default="")
 parser.add_argument('-e', dest='Era', default="2017")
 
 args = parser.parse_args()
@@ -39,7 +40,8 @@ for era in eras:
 
     OutPathEra=os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"+era+FlagDir
 
-    MassList = ["100","500","2000"]
+    MassList = ["100","250","500","900","1000","750","600","5000","3000","2500","1100","1300","2000","150","200","95","90"]
+
 
     if os.getenv("FILE_MERGED_PATH") == "NULL":
         print("Env not set.....")

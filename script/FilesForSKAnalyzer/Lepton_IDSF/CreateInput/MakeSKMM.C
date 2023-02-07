@@ -27,8 +27,8 @@ bool CheckHist(TH2* h);
 void MakeSKMM(TString year,TString dataset="Electron"){
 
   
-  TString path= "/Users/john/GIT/HNDiLeptonWorskspace/rootfiles/LepScaleFactorCalc/"+year+"/LepScaleFactorCalc_data_Muon.root";
-  TString mcpath= "/Users/john/GIT/HNDiLeptonWorskspace/rootfiles/LepScaleFactorCalc/"+year+"/LepScaleFactorCalc_DYJetsToMuMu_MiNNLO.root";
+  TString path= "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/rootfiles/LepScaleFactorCalc/"+year+"/LepScaleFactorCalc_data_Muon.root";
+  TString mcpath= "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/rootfiles/LepScaleFactorCalc/"+year+"/LepScaleFactorCalc_DYJetsToMuMu_MiNNLO.root";                                      
   
   TFile * fdata = new TFile(path);
   TFile * fmc = new TFile(mcpath);

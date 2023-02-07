@@ -2,11 +2,12 @@
 
 import os 
 
+import argparse
 
 
 parser = argparse.ArgumentParser(description='SKFlat Command')
-parser.add_argument('-a', dest='Analyzer', default="HNL_SignalLeptonOpt")
-parser.add_argument('-f', dest='Flag', default="/RunEE__RunHighPt__")
+parser.add_argument('-a', dest='Analyzer', default="HNL_SignalRegionPlotter")
+parser.add_argument('-f', dest='Flag', default="")
 parser.add_argument('-e', dest='Era', default="2017")
 
 args = parser.parse_args()

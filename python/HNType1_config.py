@@ -103,6 +103,29 @@ def GetXSec(mass, Sig):
                 
     return 0.
 
+def GetColorByInt(x):
+
+    import ROOT
+    vCol = []
+    vCol.append(ROOT.kRed)
+    vCol.append(800)
+    vCol.append(870)
+    vCol.append(ROOT.kSpring-1)
+    vCol.append(ROOT.kGray)
+    vCol.append(ROOT.kViolet)
+    vCol.append(ROOT.kYellow+4)
+    vCol.append(ROOT.kCyan)
+    vCol.append(ROOT.kBlue-2)
+    vCol.append(ROOT.kGreen-2)
+    vCol.append(ROOT.kGreen+2)
+    vCol.append(ROOT.kOrange-2)
+    
+
+    if(x > len(vCol)):
+        return ROOT.kBlack
+    return vCol[x]
+
+
 def GetColor(bkg):
     
     if bkg == "CF":

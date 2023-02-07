@@ -1,6 +1,0 @@
-root -l -q -b 'MakeIDFileEE.C("2016")'
-root -l -q -b 'MakeIDFileEE.C("2017")'
-root -l -q -b 'MakeIDFileEE.C("2018","EGamma")'
-root -l -q -b 'MakeIDFileMM.C("2016")'
-root -l -q -b 'MakeIDFileMM.C("2017")'
-root -l -q -b 'MakeIDFileMM.C("2018")'
