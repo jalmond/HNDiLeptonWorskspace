@@ -1,4 +1,7 @@
 .DS_Store
+*/*.pyc
+*/*/*.pyc
+Output/Plots
 */.DS_Store
 script/FilesForSKAnalyzer/LeptonFakerate/rootfiles
 InputFiles/MergedFiles
