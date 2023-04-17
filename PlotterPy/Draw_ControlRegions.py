@@ -170,7 +170,7 @@ else:
 from PredefinedSamples import *
 
 ###############
-#### DY CR ####
+##### CRs #####
 ###############
 
 if args.Category==0:
@@ -191,8 +191,6 @@ if args.Category==0:
 
     Region('HNL_WZ_ThreeLepton_CR', 'MuMu', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='#mu#mu#mu', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
     Region('HNL_WZ_ThreeLepton_CR', 'EE', PNs[0],  UnblindData=True, Logy=0, TLatexAlias='eee', CutFlowCaption='Number of Events in Zmass Window (SingleMuon Trigger). Truth matching applied' ),
-
-    
   ]
   m.PrintRegions()
 
@@ -202,7 +200,9 @@ m.VariablesToDraw = [
   Variable('Lep_1_pt', 'p_{T} of the leading lepton', 'GeV'),
   Variable('Lep_2_pt', 'p_{T} of the second lepton', 'GeV'),
   Variable('Lep_3_pt', 'p_{T} of the third lepton', 'GeV'),
+
   Variable('NJets', 'N_{j}',''),
+
   #Variable('NBJets', 'N_{bj}',''),
   #Variable('nPV', 'N_{pv}',''),
   #Variable('PuppiMETType1XY', '#slash{E}_{T}^{miss} (GeV)', 'GeV'),

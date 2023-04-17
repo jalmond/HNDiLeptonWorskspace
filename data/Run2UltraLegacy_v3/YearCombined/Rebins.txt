@@ -1,6 +1,4 @@
 LLMass	1
-Lep1Pt	1
-Lep2Pt	1
 NBJets	1
 NJets	1
 nPV		1
@@ -20,12 +18,3 @@ PuppiMETType1POGXY   1
 PuppiMETType1XY   1
 PuppiMETType1XYSmeared   1
 PuppiMETType1XYSmeared2   1
-Lep_2_pt		  1
-Lep_3_pt		  1
-JetLepPtRatio             1                                                                                                     
-Lep1_binned_pt 1                                                                                                                 
-Lep1_eta       1                                                                                                                       
-Lep1_pt	       1                                                                                                                        
-Met	       1                                                                                                                            
-MetPhi	       1                                                                                                                         
-Mt	       1                                                                                                                            njets 1                                                                                                                          
