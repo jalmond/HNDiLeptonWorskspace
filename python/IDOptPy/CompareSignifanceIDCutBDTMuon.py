@@ -26,6 +26,10 @@ def GetSignificance(out,h_sig, h_bkg):
 
     SigBins = []
     BkgBins = []
+
+    print ("Nb bins = " + str(h_bkg.GetNbinsX()))
+    print ("Ns bins = " + str(h_sig.GetNbinsX()))
+
     for xbin in range(1,h_sig.GetNbinsX()+1):
         SigBins.append(h_sig.GetBinContent(xbin))
 
@@ -34,13 +38,14 @@ def GetSignificance(out,h_sig, h_bkg):
 
     Signif = 0.
 
+    print ("N bins = " + str(len(BkgBins)))
     for x in range(0, len(BkgBins)):
         Bkg=BkgBins[x] 
         if Bkg <0:
             Bkg = 0.5
         Signif = Signif + SigBins[x]/ math.sqrt(Bkg +1)
         Print(out, "Bin " + str(x+1) + " s/sqrt(B+1) = " + str(SigBins[x]/ math.sqrt(Bkg +1)) + " sig = " + str(SigBins[x]) + " bkg = " + str(Bkg))
-
+    
     return Signif
 
 
@@ -71,9 +76,6 @@ dmasses = [100]
 FOM = "punzi"
 
 channels = ["MuMu"]
-
-
-
 
 parser = argparse.ArgumentParser(description='CR plot commands')
 parser.add_argument('-f', dest='Flag', type=str, default='')
@@ -110,13 +112,16 @@ for channel in channels:
 
     c1 = ROOT.TCanvas('c1'+channel, channel, 800, 800)
 
-    InPath=InputDir + "HNL_SignalLeptonOpt_SkimTree_HNMultiLep_Bkg.root"
+    InPath=InputDir + "HNL_SignalLeptonOpt_SkimTree_HNMultiLepBDT_Bkg.root"
     ##SigInPath=InputDir + "SIGMerged/HNL_SignalLeptonOpt_Type1_SS.root"
 
+    f_Bkg = ROOT.TFile(InPath)
+
+
     for mass in masses:
+        
         SigInPath=InputDir + "SIGMerged/HNL_SignalLeptonOpt_Type1_SS_M"+mass+".root"
         Print (outlog, SigInPath)
-        f_Bkg = ROOT.TFile(InPath)
         f_Sig = ROOT.TFile(SigInPath)
         
         HistNames=[]
@@ -145,7 +150,7 @@ for channel in channels:
 
 
         Print (outlog, DirName+HistName)
-                
+        
         hsigV2 = f_Sig.Get(DirName+HistName)
         hbkgV2 = f_Bkg.Get(DirName+HistName)
         val_HNV2= GetSignificance(outlog,hsigV2,hbkgV2)
@@ -160,7 +165,7 @@ for channel in channels:
 
             _hist = x
             _hist=_hist.replace("100/","")
-            _hist=_hist.replace("500/","")
+            #_hist=_hist.replace("500/","")
             print _hist
             sample_dict2[_hist+"_"+mass] = float(_sig)
             

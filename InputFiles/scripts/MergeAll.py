@@ -107,14 +107,14 @@ if MergeLargeMC:
         os.system("rm " + OutFile+"_W2MC.root")
 
 
-    os.system("hadd " + OutFile + "_ZMC.root  " + InputPathEra+"/*HNMultiLep_Z* &> log/"+args.Era+"_"+Analyser+"Zlog &")
-    os.system("hadd " + OutFile + "_TMC.root  " + InputPathEra+"/*HNMultiLep_T* &> log/"+args.Era+"_"+Analyser+"Tlog &")
-    os.system("hadd " + OutFile + "_tMC.root  " + InputPathEra+"/*HNMultiLep_t* &> log/"+args.Era+"_"+Analyser+"tlog &")
-    os.system("hadd " + OutFile + "_SMC.root  " + InputPathEra+"/*HNMultiLep_S* &> log/"+args.Era+"_"+Analyser+"Slog &")
-    os.system("hadd " + OutFile + "_GMC.root  " + InputPathEra+"/*HNMultiLep_G* &> log/"+args.Era+"_"+Analyser+"Glog &")
-    os.system("hadd " + OutFile + "_DMC.root  " + InputPathEra+"/*HNMultiLep_D* &> log/"+args.Era+"_"+Analyser+"Dlog &")
-    os.system("hadd " + OutFile + "_WMC.root  " + InputPathEra+"/*HNMultiLep_Wp* " + InputPathEra+"/*HNMultiLep_WW* " + InputPathEra+"/*HNMultiLep_WZ*    &> log/"+args.Era+"_"+Analyser+"Wlog &")
-    os.system("hadd " + OutFile + "_W2MC.root  " + InputPathEra+"/*HNMultiLep_WJ* ")
+    os.system("hadd " + OutFile + "_ZMC.root  " + InputPathEra+"/*HNMultiLepBDT_Z* &> log/"+args.Era+"_"+Analyser+"Zlog &")
+    os.system("hadd " + OutFile + "_TMC.root  " + InputPathEra+"/*HNMultiLepBDT_T* &> log/"+args.Era+"_"+Analyser+"Tlog &")
+    os.system("hadd " + OutFile + "_tMC.root  " + InputPathEra+"/*HNMultiLepBDT_t* &> log/"+args.Era+"_"+Analyser+"tlog &")
+    os.system("hadd " + OutFile + "_SMC.root  " + InputPathEra+"/*HNMultiLepBDT_S* &> log/"+args.Era+"_"+Analyser+"Slog &")
+    os.system("hadd " + OutFile + "_GMC.root  " + InputPathEra+"/*HNMultiLepBDT_G* &> log/"+args.Era+"_"+Analyser+"Glog &")
+    os.system("hadd " + OutFile + "_DMC.root  " + InputPathEra+"/*HNMultiLepBDT_D* &> log/"+args.Era+"_"+Analyser+"Dlog &")
+    os.system("hadd " + OutFile + "_WMC.root  " + InputPathEra+"/*HNMultiLepBDT_Wp* " + InputPathEra+"/*HNMultiLepBDT_WW* " + InputPathEra+"/*HNMultiLepBDT_WZ*    &> log/"+args.Era+"_"+Analyser+"Wlog &")
+    os.system("hadd " + OutFile + "_W2MC.root  " + InputPathEra+"/*HNMultiLepBDT_WJ* ")
 
 
 if MergeCF:

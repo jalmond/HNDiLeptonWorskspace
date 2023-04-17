@@ -66,19 +66,11 @@ void BDTInputVariablesJetDisc(TString era="2017",TString histDir="TopJets_TightM
       c1_up->cd();
       
       
-      TString FullHistNameNP=histDir+HistName;
-      TString FullHistName=FullHistNameNP;
-      TString FullHistNameP=FullHistNameNP;
-      FullHistName=FullHistName.ReplaceAll("_NonPromptLep","");
-      FullHistNameP=FullHistNameP.ReplaceAll("_Non","_");
+      TString FullHistName=histDir+HistName;
 
-      cout << FullHistName << endl;
       TH1D* Hist_DATA= (TH1D*)(File_sample->Get(FullHistName))->Clone(FullHistName+"DATA");
 
-      TH1D* Hist_MC = (TH1D*)(File_MCsample->Get(FullHistNameP))->Clone(FullHistName+"MC");
-      TH1D* Hist_MC_NP = (TH1D*)(File_MCsample->Get(FullHistNameNP))->Clone(FullHistName+"MCNP");
-
-      Hist_DATA->Add(Hist_MC_NP,-1);
+      TH1D* Hist_MC = (TH1D*)(File_MCsample->Get(FullHistName))->Clone(FullHistName+"MC");
 
       Hist_MC->Rebin(rebin);
       Hist_DATA->Rebin(rebin);

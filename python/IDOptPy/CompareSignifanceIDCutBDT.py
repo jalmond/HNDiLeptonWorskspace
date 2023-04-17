@@ -64,7 +64,7 @@ from  HNType1_config import *
 
 
 Analyser = "HNL_SignalLeptonOpt"
-masses  = ["250", "500", "1000", "2000"]
+masses  = ["100", "250", "500", "1000", "2000"]
 dmasses = [100]
 
 
@@ -110,7 +110,7 @@ for channel in channels:
 
     c1 = ROOT.TCanvas('c1'+channel, channel, 800, 800)
 
-    InPath=InputDir + "HNL_SignalLeptonOpt_SkimTree_HNMultiLep_Bkg.root"
+    InPath=InputDir + "HNL_SignalLeptonOpt_SkimTree_HNMultiLepBDT_Bkg.root"
     ##SigInPath=InputDir + "SIGMerged/HNL_SignalLeptonOpt_Type1_SS.root"
 
     for mass in masses:
@@ -126,12 +126,6 @@ for channel in channels:
         if mass == "100":
             DirName = "LimitInputBDT"
             HistName="/HNLOpt_UL_HNTightV2/100/FillEventCutflow/ElectronSR"
-
-        #if mass == "500":
-        #    DirName = "LimitInputBDT"
-        #    HistName="/HNLOpt_UL_HNTightV2/500/FillEventCutflow/ElectronSR"
-
-
 
         for k, o in getall(f_Bkg.Get(DirName)):
             if "HNLOpt" in  k:
