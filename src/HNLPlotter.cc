@@ -1014,9 +1014,9 @@ void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_all
     //latex_CMSPriliminary.DrawLatex(0.15, 0.96, "#font[62]{CMS}");
 
     latex_Lumi.SetTextSize(0.035);
-    if(Era=="2016a")latex_Lumi.DrawLatex(0.7, 0.96, "35.5 fb^{-1} (13 TeV)");
-    if(Era=="2016a")latex_Lumi.DrawLatex(0.7, 0.96, "35.5 fb^{-1} (13 TeV)");
-    if(Era=="2016")latex_Lumi.DrawLatex(0.7, 0.96, "35.5 fb^{-1} (13 TeV)");
+    if(Era=="2016a")latex_Lumi.DrawLatex(0.7, 0.96, "19.5 fb^{-1} (13 TeV)");
+    if(Era=="2016a")latex_Lumi.DrawLatex(0.7, 0.96, "16.8 fb^{-1} (13 TeV)");
+    if(Era=="2016")latex_Lumi.DrawLatex(0.7, 0.96, "36.3 fb^{-1} (13 TeV)");
     if(Era=="2017")latex_Lumi.DrawLatex(0.7, 0.96, "41.5 fb^{-1} (13 TeV)");
     if(Era=="2018")latex_Lumi.DrawLatex(0.7, 0.96, "59.9 fb^{-1} (13 TeV)");
     if(Era=="Run2")latex_Lumi.DrawLatex(0.7, 0.96, "137.9 fb^{-1} (13 TeV)");
@@ -1048,7 +1048,7 @@ void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_all
   outputf->cd();
   c1->Write();
 
-  SaveAndCopyLXPLUS(c1,thiscut_plotpath+"/"+histname[i_var],AnalyserName,MacroName);
+  SaveAndCopyLXPLUS(c1,thiscut_plotpath+"/"+histname[i_var],histpath[i_cut],AnalyserName,MacroName,Era);
   
   delete legend;
   delete c1;

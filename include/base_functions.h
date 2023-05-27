@@ -21,19 +21,29 @@
 #include "std_functions.h"
 #include "list_functions.h"
 
-void SaveAndCopyLXPLUS(TCanvas* c, TString outpath,TString analyser, TString tag){
+void SaveAndCopyLXPLUS(TCanvas* c, TString outpath, TString histname, TString analyser, TString tag, TString era){
 
   TString save_pdf= outpath+".pdf";
   TString save_png= outpath+".png";
 
+  tag=tag+histname.ReplaceAll("/","_");
   //c1->SetLogy();                                                                                                                                           
   //c->SaveAs(save_pdf);
   //c->SaveAs(save_png);
 
-  TString lxpath = "/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/"+analyser+tag+"/";
+  TString lxpath = "/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/"+analyser+"/";
+  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
+  lxpath = "/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/"+analyser+"/"+era+"/";
+  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
+  lxpath = "/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/"+analyser+"/"+era+"/"+tag+"/";
+  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
+
+  lxpath = "/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/"+analyser+"/"+era+"/"+tag+"/";
+  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
+
 
   TString HTMLLink = "HNL/"+analyser+"/";
-  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
+
   
   cout << "ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php "+lxpath+"'" << endl;
   
