@@ -14,7 +14,7 @@ TString GetHostname(){
 
 void sMakeDir(const std::string &s)
 {
-
+  cout << "std_functions::MakeDir " << s << endl;
   struct stat buffer;
   if( (stat (s.c_str(), &buffer) == 0)) return;
   gSystem->mkdir(TString(s));
