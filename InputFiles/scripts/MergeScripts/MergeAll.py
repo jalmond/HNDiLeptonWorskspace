@@ -151,8 +151,8 @@ if MergeBkg:
     os.system("hadd " +OutFile+  "   " + OutputPathEra + "/"+Analyser+"_"+SkimName+"*")
     
 if MergeSignal:
-    os.system("python MergeSignal.py -a " + Analyser + " -f " + FlagDir + " -e " + era)
-    os.system("python MergeSignalFull.py -a " + Analyser + " -f " + FlagDir + " -e " + era)
+    os.system("python MergeScripts/MergeSignal.py -a " + Analyser + " -f " + FlagDir + " -e " + era)
+    os.system("python MergeScripts/MergeSignalFull.py -a " + Analyser + " -f " + FlagDir + " -e " + era)
 
 
 if MergeData:
@@ -169,11 +169,11 @@ if MergeData:
 
 
 if Merge16:
-    os.system("python Merge16.py  -a " + Analyser + " -f " + FlagDir )
+    os.system("python MergeScripts/Merge16.py  -a " + Analyser + " -f " + FlagDir )
     
 
 if FullMerge:
-    os.system("python FullMerge.py  -a " + Analyser + " -f " + FlagDir )
+    os.system("python MergeScripts/FullMerge.py  -a " + Analyser + " -f " + FlagDir )
 
 
 

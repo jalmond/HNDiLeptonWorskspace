@@ -1,1 +1,3 @@
+Luminosity	0.025
 FakeLooseID	0.30
+ChrageFlipSyst	0.16

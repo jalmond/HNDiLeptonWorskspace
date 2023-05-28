@@ -9,6 +9,7 @@ public:
   AnalysisInputs();
   void SetMCSF(TString filepath, vector<TString> allbkgs);
   void SetCalculatedSysts(TString filepath);
+  double GetNormFactor(TString samplename);
 
 };
 
@@ -48,8 +49,15 @@ void AnalysisInputs::SetMCSF(TString filepath, vector<TString> allbkgs){
     MCNormSF_uncert[sample] = MCSF_err;
 
   }
+}
 
-
+double AnalysisInputs::GetNormFactor(TString samplename){
+  
+  map<TString, double>::iterator miter = MCNormSF.find(samplename);
+  if(miter == MCNormSF.end()) return 1.;
+  
+  return miter->second;
+  
 }
 
 void AnalysisInputs::SetCalculatedSysts(TString filepath){

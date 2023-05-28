@@ -1,2 +1,0 @@
-Mass    Xsec(pb) for MuMu (BR applied)
-~

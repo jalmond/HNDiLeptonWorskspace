@@ -33,8 +33,10 @@ public:
     BDTSR3 = 13,
     
   };
+
   vector<signal_class> AllSignalClasses;
   signal_class CurrentSC;
+
   
   //==== functions for setting
   void make_bkglist();
@@ -49,13 +51,19 @@ public:
   //void SetCalculatedSysts(TString filepath);
 
   //==== functions for drawing
+  void DrawStackPlots();
+  void DrawStackPlotsWithData();
+  void DrawComparisonPlots();
   void draw_hist();
+  void make_cutflow(TString Hist_For_CutFlow="NEvents");
   TString find_MCsector();
   void clear_legend_info();
   double coupling_constant(int mass);
   void fill_legend(TLegend *lg, TH1D *hist);
   void draw_legend(TLegend *lg, bool DrawData);
   void draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_allerror, TH1D *hist_data, vector<TH1D *> hist_signal, TLegend *legend, bool DrawData, TFile *outputf);
+  void AddHist(TString hn, TString htype, TString hunit,  int rb, double Xmin, double Xmax, double Ymax=1000000.);
+  void Summary();
 
   int n_rebin();
   double y_max();
@@ -66,26 +74,32 @@ public:
   TString DoubleToString(double dx);
 
   void SetupPlotter();
+  void SetupPlotter(TString era, TString skim, TString Analyzer);
 
   void mkdir(TString path);
   void make_plot_directory();
   TString legend_coupling_label(int mass);
 
-  void MakeTexFile(map< TString, TH1D * > hs);
+  double GetHistValue(TH1D * ht, TString hn);
+  double GetHistError(TH1D * ht, TString hn);
+  void MakeTexFile(map< TString, TH1D * > hs, TString Hist_For_CutFlow);
 
   inline void SetSkim(TString skimname) { SkimName=skimname; }
   inline void SetAnalyser(TString anname) { AnalyserName=anname; }
   inline void SetMacroName(TString macname) { MacroName=macname; }
   inline void SetEra(TString eraname) { Era=eraname; }
 
+  void BasicSetup(double logy, bool ratio, TString channel);
   
   //==== variables
   bool DoDebug;
   unsigned int i_cut, i_var, i_file;
   TString infilepath, filename_prefix, filename_suffix, data_class, plotpath, thiscut_plotpath;
-  vector<TString> HistPath, bkglist, samples_to_use, histname, x_title, units, PrimaryDataset;
+  vector<TString> HistPath, bkglist, samples_to_use, HistNames, x_title, units, PrimaryDataset;
   vector<int> Rebins,Xmins,Xmaxs,Ymaxs;
   vector<bool> drawdata, ApplyMCNormSF, drawratio;
+  vector<TString> CutFlowResults, HistResults;
+  vector<TString> LxplusCutFlowResults, LxplusHistResults;
 
   //==== channel type
   vector<int> LeptonChannels;
@@ -94,10 +108,11 @@ public:
   TString GetStringRegion(TString B);
   TString GetStringChannelRegion(int A, TString B);
 
+  TString GetTitleByType(TString htype );
   void UseLogyAll(double b);
   void DrawRatioAll( bool b);
   void DrawDataAll( bool b);
-
+  void ApplyMCNormSFAll(bool v);
 
   vector<double> UseLogy;
   //map<TString, double> MCNormSF, MCNormSF_uncert, CalculatedSysts;
@@ -136,6 +151,7 @@ public:
   TString AnalyserName;
   TString Era;
   bool MakePaperPlot;
-
+  bool MergeZeroBins;
+  bool CopyToWebsite;
 };
 #endif

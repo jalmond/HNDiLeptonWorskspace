@@ -2,49 +2,44 @@
 #include "Macros.h"
 #include "mylib.h"
 #include "canvas_margin.h"
-#include "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_UL_LONG/SKFlatAnalyzer/HNDiLeptonWorskspace/src/HNLPlotter.cc"
+//#include "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_UL_LONG/SKFlatAnalyzer/HNDiLeptonWorskspace/src/HNLPlotter.cc"
+#include "HNLPlotter.cc"                                                                       
 
 void METValidation(){
-  
-  vector<TString> eras =  {"2017"};
+
+    vector<TString> eras =  {"2018"};
   vector<TString> channels = {"EMu"};
   
   for (auto year : eras){
     for (auto channel : channels){
       
       HNLPlotter Plotter("METValidation");
+      //// change def
       Plotter.DoDebug=true;
-      Plotter.SetSkim("SkimTree_Dilepton");
-      Plotter.SetAnalyser("HNL_Validation");
-      Plotter.SetEra(year);
-      Plotter.SetupPlotter();
+      Plotter.MergeZeroBins = false;
+      Plotter.CopyToWebsite = true;
       
-      //Plotter.map_sample_string_to_list["Prompt"] = {"Prompt"};
-      //Plotter.map_sample_string_to_legendinfo["Prompt"] = make_pair("Prompt", kGreen);
-      Plotter.samples_to_use = {"Prompt"};
+      //// Setup plotter
+      Plotter.SetupPlotter(year,"SkimTree_Dilepton", "HNL_Validation");
+      ///Plotter.infilepath = .... if inut file is not in Mergeddir
 
+      Plotter.samples_to_use = {"Prompt"};
       Plotter.HistPath= { channel+"/POG_UL/RegionPlots_BJetCR_BTagSF",
 			  channel+"/POG_UL/RegionPlots_ZPeakPt50_BTagSF"};
 
-      Plotter.RegionType = {"BJetCR","ZPeakPt50"};
-
-      Plotter.LeptonChannel(channel);
-      Plotter.UseLogyAll(-1.);
-      Plotter.DrawRatioAll(true);
-      Plotter.DrawDataAll(true);
-
-      ///// HISTs
-      Plotter.histname= { "METPt_PuppiT1xyULCorr","METPt_PuppiT1xyULCorr_propsmear"};
-      Plotter.x_title = {"#slash{E}_{T}^{miss} [GeV]","#slash{E}_{T}^{miss} [GeV]"};
-      Plotter.units = {"GeV","GeV"};
-      Plotter.Rebins = {2,2};
-      Plotter.Xmins = {0,0};
-      Plotter.Xmaxs = {200,200};
-      Plotter.Ymaxs = {100000,100000};
+      Plotter.RegionType = {"BJetCR","ZCR"};
       
-      Plotter.make_bkglist();
-      Plotter.draw_hist();
-
+      Plotter.BasicSetup(-1., true, channel); //// If same setup for all hists in HistPath then use InitialSetup else need to set vector individually
+      
+      ///// HISTs Setup
+      Plotter.AddHist("METPt_PuppiT1xyULCorr" ,           "MET" , "GeV", 2, 0, 200, 100000);
+      Plotter.AddHist("METPt_PuppiT1xyULCorr_propsmear" , "MET" , "GeV", 2, 0, 200);
+      
+      ////// Make list and run plotting
+      //Plotter.DrawStackPlotsWithData();
+      Plotter.DrawStackPlots();
+      Plotter.make_cutflow("NJets");
+      Plotter.Summary();
       return;
       
     }
