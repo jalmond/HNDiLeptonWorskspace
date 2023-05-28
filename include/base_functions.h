@@ -56,6 +56,29 @@ void SaveAndCopyLXPLUS(TCanvas* c, TString outpath, TString histname, TString an
   
 }
 
+void CopyLXPLUSCutFlow(TString outpath, TString histname, TString analyser, TString tag, TString era){
+
+  TString save_pdf= outpath;
+
+  tag=tag+histname.ReplaceAll("/","_");
+
+
+  TString lxpath = "/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/"+analyser+"/";
+  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
+  lxpath = "/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/"+analyser+"/"+era+"/";
+  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
+  lxpath = "/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/"+analyser+"/"+era+"/"+tag+"/";
+  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
+
+  lxpath = "/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/"+analyser+"/"+era+"/"+tag+"/";
+  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
+  
+  cout << "scp " +save_pdf+" jalmond@lxplus.cern.ch:"+lxpath+"/" << endl;
+  system("scp " +save_pdf+" jalmond@lxplus.cern.ch:"+lxpath+"/");
+
+
+}
+
 int CheckFile(TFile* f){
   
   cout << "########################"<< endl;

@@ -27,12 +27,11 @@ public:
 
   enum signal_class{
     no_class = -1,
-    low = 0,
-    low_SR1 = 1,
-    low_SR2 = 2,
-    high = 10,
-    high_SR1 = 11,
-    high_SR2 = 12,
+    SR1 = 10,
+    SR2 = 11,
+    SR3 = 12,
+    BDTSR3 = 13,
+    
   };
   vector<signal_class> AllSignalClasses;
   signal_class CurrentSC;
@@ -84,15 +83,21 @@ public:
   bool DoDebug;
   unsigned int i_cut, i_var, i_file;
   TString infilepath, filename_prefix, filename_suffix, data_class, plotpath, thiscut_plotpath;
-  vector<TString> histpath, bkglist, samples_to_use, histname, x_title, units, PrimaryDataset;
+  vector<TString> HistPath, bkglist, samples_to_use, histname, x_title, units, PrimaryDataset;
   vector<int> Rebins,Xmins,Xmaxs,Ymaxs;
   vector<bool> drawdata, ApplyMCNormSF, drawratio;
 
   //==== channel type
-  vector<int> LeptonChannels, RegionType;
+  vector<int> LeptonChannels;
+  vector<TString> RegionType;
   TString GetStringChannel(int A);
-  TString GetStringRegion(int B);
-  TString GetStringChannelRegion(int A, int B);
+  TString GetStringRegion(TString B);
+  TString GetStringChannelRegion(int A, TString B);
+
+  void UseLogyAll(double b);
+  void DrawRatioAll( bool b);
+  void DrawDataAll( bool b);
+
 
   vector<double> UseLogy;
   //map<TString, double> MCNormSF, MCNormSF_uncert, CalculatedSysts;
@@ -113,6 +118,9 @@ public:
 
   TString path_rebins, path_y_axis, path_x_axis;
 
+  void SetupSampleInfo();
+  void LeptonChannel(TString ch);
+
   map< TString, int > temp_rebins;
   map< TString, double > temp_y_maxs, temp_x_mins, temp_x_maxs;
 
@@ -121,12 +129,13 @@ public:
   double log_of_generation_mixing;
 
   bool ZeroDataCheckCut(double xlow, double xhigh);
+  vector<double> GetRebinZeroBackground(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_allerror, TH1D *hist_data, vector<TH1D *> &hist_signal);
 
   TString SkimName;
   TString MacroName;
   TString AnalyserName;
   TString Era;
-  
+  bool MakePaperPlot;
 
 };
 #endif
