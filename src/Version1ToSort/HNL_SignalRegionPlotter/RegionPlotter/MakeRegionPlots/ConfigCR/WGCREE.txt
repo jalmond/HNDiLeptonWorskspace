@@ -1,0 +1,18 @@
+### Make sure no spaces in lists 2016,2017,2018 not 2016,2017, 2018
+Analyzer = HNtypeI_Dilepton
+flavours = EE
+skim     = SkimTree_SSHN
+years    = 2016,2017,2018
+IDMu     = X
+IDEl     = passPOGTightv1_TTrig_HNTC,passPOGTightv2_TTrig_HNTC,HNTight_dxy05_05_dz01_ip4_4,HNTight_dxy02_02_dz01_ip4_4
+regions  = WG_cr_EE
+bkgs     = prompt,fake
+#hists    = lep1_eta,lep1_pt,lep2_pt
+hists    = njets,lep2_pt
+xmin     = 999.,0.,0.
+xmax     = 999.,200,200
+showdata = true
+plotsig  = false
+rebin    = 1,2,2
+savetag  = diboson
+logy = 0,0,0

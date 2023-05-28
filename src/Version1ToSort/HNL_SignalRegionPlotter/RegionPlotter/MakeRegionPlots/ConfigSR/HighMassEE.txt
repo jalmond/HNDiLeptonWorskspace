@@ -1,0 +1,19 @@
+### Make sure no spaces in lists 2016,2017,2018 not 2016,2017, 2018
+Analyzer = HNtypeI_Dilepton
+flavours = MuMu,EE
+skim     = SkimTree_SSHN
+years    = 2016,2017,2018
+IDMu     = POGTightPFIsoVeryVeryTight
+IDEl     = HNTightV2
+regions  = SR1_HighmassCR,SR2_HighmassCR
+bkgs     = prompt,fake,cf
+#hists    = lep1_eta,lep1_pt,lep2_pt
+#hists    = njets,lep2_pt
+hists    = njets,met,lep2_pt
+xmin     = 999.,0.,0.
+xmax     = 999.,200,200
+showdata = true
+plotsig  = false
+rebin    = 1,5,2
+logy = 	 0,0,0
+savetag  = highmassSR

@@ -1,0 +1,20 @@
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{lr@{\hspace{0.5mm}}c@{\hspace{0.5mm}}c@{\hspace{0.5mm}}l}
+\hline
+\hline
+Source & \multicolumn{4}{c}{} \\
+\hline
+prompt&45.7& $\pm$& 0.2&$^{+9.1}_{-9.1}$\\
+\hline
+Total&45.7& $\pm$&0.2&$^{+9.1}_{-9.1}$\\
+\hline
+Data&  \multicolumn{4}{c}{$34.0$}\\
+\hline
+Signficance&  \multicolumn{4}{c}{$-1.1\sigma$}\\
+\hline
+\hline
+\end{tabular}
+\caption{ Number of events with two opposite sign muons.}
+\end{center}
+\end{table}

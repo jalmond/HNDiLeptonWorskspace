@@ -1,0 +1,6 @@
+## alias                 |   Legend                                            |  Legend alias     |  Color  | uncert. |
+SSPrompt                 |   prompt                                            |  SSPrompt             |  kSpring-1     | 0.20     |
+CF                       |   chargeflip                                        |  CF              |  kCyan    |      0.4     |
+FakeEE                    |   nonprompt                                         |  FakeEE              |  870   |      0.3     |
+END
+
