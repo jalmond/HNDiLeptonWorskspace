@@ -17,15 +17,71 @@ HNLPlotter::HNLPlotter(TString macroname){
   filename_prefix=AnalyserName;
   filename_suffix=".root";
   infilepath="./";
-
+  MakePaperPlot = false;  
+  //// clear vecs
   RegionType.clear();
   LeptonChannels.clear();
   HistPath.clear();
+  ApplyMCNormSF.clear();
+  HistNames.clear();
+  LxplusCutFlowResults.clear();
+  LxplusHistResults.clear();
+  CutFlowResults.clear();
+  HistResults.clear();
 
-  MakePaperPlot = false;
+  log_of_generation_mixing=0;
 
+  MergeZeroBins= false;
+  CopyToWebsite=true;
 }
 
+
+void HNLPlotter::DrawStackPlots(){
+  DrawDataAll(false);
+  make_bkglist();
+  draw_hist();
+  return;
+}
+
+void HNLPlotter::DrawStackPlotsWithData(){
+
+  DrawDataAll(true);
+  make_bkglist();
+  draw_hist();
+  return;
+}
+
+void HNLPlotter::DrawComparisonPlots(){
+  
+}
+
+void HNLPlotter::AddHist(TString hn, TString htype, TString hunit, int rb, double Xmin, double Xmax, double Ymax){
+
+  HistNames.push_back(hn);
+  x_title.push_back(GetTitleByType(htype));
+  units.push_back(hunit);
+  if(rb > 0 ) Rebins.push_back(rb);
+  Xmins.push_back(Xmin);
+  Xmaxs.push_back(Xmax);
+  Ymaxs.push_back(Ymax);
+
+  return;
+}
+void HNLPlotter::BasicSetup(double logy, bool ratio,  TString channel){
+  
+  /// setups up default options
+  
+  UseLogyAll(logy);
+  DrawRatioAll(true);
+  LeptonChannel(channel);
+}
+
+void HNLPlotter::SetupPlotter(TString era, TString Skim, TString Analyzer){
+  SkimName=Skim;
+  Era=era;
+  AnalyserName=Analyzer;
+  SetupPlotter();
+}
 
 void HNLPlotter::SetupPlotter(){
   
@@ -50,12 +106,250 @@ void HNLPlotter::SetupPlotter(){
 
 }
 
+TString HNLPlotter::GetTitleByType(TString htype ){
+  
+  if(htype == "MET") return "#slash{E}_{T}^{miss} [GeV]";
+
+  return htype; 
+  
+}
+
+
+
 HNLPlotter::~HNLPlotter(){
 
   system("rm -rf "+path_rebins);
   system("rm -rf "+path_y_axis);
   system("rm -rf "+path_x_axis);
   
+}
+
+void HNLPlotter::make_cutflow(TString Hist_For_CutFlow){
+  
+  make_bkglist();
+
+  for(i_cut = 0; i_cut < HistPath.size(); i_cut++){
+
+    thiscut_plotpath = plotpath+"/"+ HistPath[i_cut];
+    mkdir(thiscut_plotpath);
+    
+    cout
+      << endl
+      << "################### Writing in Directory " << Hist_For_CutFlow << " ###################" << endl
+      << endl;
+    
+    
+  
+    
+    if(DoDebug) cout << "========================================================================================" << endl;
+    if(DoDebug) cout << "Running Make_Cutflow : Reading numbers from hist " << Hist_For_CutFlow << endl;
+    
+    map< TString, TH1D * > map_hist_y;
+    
+    TString temp_suffix = HistPath[i_cut];
+    TString DirName = temp_suffix;//.Remove(0,1);                                                                                                                                            
+    if(DoDebug) cout << "Running Make_Cutflow : HistPath =  " << DirName << endl;
+    
+    TH1D* hist_data = NULL;
+    vector<TH1D*> hist_signal;
+    
+    
+    for(i_file = 0; i_file < bkglist.size()+1+signal_mass.size(); i_file++){ // +1 for data                                                                           
+      TString filepath, current_sample, signal_name_for_tex;
+      
+      //==== root file path name                                                                                                                                                                                                         
+      //==== bkg                                                                                                                                                                                                                         
+      if( i_file < bkglist.size() ){
+	TString tmp = bkglist[i_file];
+	if(bkglist[i_file].Contains("fake") || bkglist[i_file].Contains("chargeflip")) tmp += "_"+PrimaryDataset[i_cut];
+	filepath = infilepath + "/"+filename_prefix+"_"+SkimName+"_"+tmp+filename_suffix;
+	cout << "filepath = " << filepath << endl;
+	current_sample = bkglist[i_file];
+      }
+      //==== data for i_file = bkglist.size()                                                                                                                                                                                            
+      else if( i_file == bkglist.size() ){
+	filepath = infilepath + "/"+filename_prefix + "_"+SkimName+"_data.root";
+	current_sample = "data";
+	cout << "filepath =  " << filepath <<endl;
+	
+      }
+      //==== signal starting from i_file = bkglist.size()+1                                                                                                                                                                              
+      else{
+	
+	int signal_index = i_file-bkglist.size()-1;
+	
+	//==== if cut is optimized cut, only draw that signal                                                                                                                                                                            
+	if(HistPath[i_cut].Contains("cutHN")){
+	  TString tmpcut = "_cutHN"+TString::Itoa(signal_mass[signal_index],10);
+	  if(HistPath[i_cut]!=tmpcut) continue;
+	}
+	//==== else, follow signal_draw                                                                                                                                                                                                  
+	else{
+	  if(!signal_draw[signal_index]) continue;
+	}
+	
+	if(DoDebug) cout << "signal_index = " << signal_index << " => mass = " << signal_mass[signal_index] << endl;
+	TString WhichChannel = LeptonChannels[i_cut];
+	TString WhichChannel_for_tex = WhichChannel;
+	
+	//==== TChannel                                                                                                                                                                                                                  
+	if( signal_mass[signal_index] < 0 ){
+	  WhichChannel = "HeavyNeutrinoTo"+WhichChannel+"_Tchannel_M";
+	}
+	else{
+	  WhichChannel = "HN"+WhichChannel+"_";
+	}
+	TString string_signal_mass = WhichChannel+TString::Itoa(abs(signal_mass[signal_index]),10);
+	
+	signal_name_for_tex = "SchHN"+WhichChannel_for_tex+TString::Itoa(abs(signal_mass[signal_index]),10);
+	if(signal_mass[signal_index] < 0 ) signal_name_for_tex = "TchHN"+WhichChannel_for_tex+TString::Itoa(abs(signal_mass[signal_index]),10);
+	
+	filepath = "./rootfiles/"+data_class+"/Signal/"+filename_prefix+"_SK"+string_signal_mass+filename_suffix;
+	//cout << filepath << endl;                                                                                                                                                                                                      
+	current_sample = string_signal_mass;
+      }
+      
+      if(DoDebug){
+	cout
+	  << "filepath = " << filepath << endl
+	  << "hisname = " << HistPath[i_cut]+"/"+Hist_For_CutFlow << endl;
+      }
+      
+      //==== get root file                                                                                                                                                                                                               
+      if(gSystem->AccessPathName(filepath)){
+	if(DoDebug){
+	  cout << "No file : " << filepath << endl;
+	}
+	continue;
+      }
+      TFile* file = new TFile(filepath);
+      if( !file ){
+	if(DoDebug){
+	cout << "No file : " << filepath << endl;
+	}
+	continue;
+      }
+      
+      TDirectory *dir = (TDirectory *)file->Get(DirName);
+      if(!dir){
+	if(DoDebug){
+	  cout << "No Directory : " << file->GetName() << "\t" << DirName << endl;
+	  file->ls();
+	}
+	file->Close();
+	delete file;
+	continue;
+      }
+      file->cd(DirName);
+      
+      //==== full histogram name                                                                                                                                                                                                         
+      TString fullhistname = Hist_For_CutFlow;
+      
+      //==== get histogram                                                                                                                                                                                                               
+      TH1D* hist_temp = (TH1D*)dir->Get(fullhistname);
+      if(!hist_temp || hist_temp->GetEntries() == 0){
+	if(DoDebug){
+	  cout << "No histogram : " << current_sample << endl;
+	}
+	file->Close();
+	delete file;
+	continue;
+      }
+      //==== set histogram name, including sample name                                                                                                                        
+      if(DoDebug)  cout << "Setting Hist TMP name " << fullhistname+"_"+current_sample << endl;
+      
+      hist_temp->SetName(fullhistname+"_"+current_sample);
+      
+      if(DoDebug)  cout << "==== make overflows bins   " << endl;
+      //==== make overflows bins                                                                                                                                                                                                         
+      if(DoDebug)  cout << "MakeOverflowBin " << endl;
+      TH1D *hist_final = MakeOverflowBin(hist_temp);
+      if(DoDebug)  cout << "Integral of hist_final = " << hist_final->Integral() << endl;
+      
+      TString current_MCsector = "";
+      //==== Set Attributes here                                                                                                                                                                                                         
+      //==== bkg                                                                                                                                                                                                                         
+      if( i_file < bkglist.size() ){
+	//==== get which MC sector                                                                                                                                                                                                       
+	current_MCsector = find_MCsector();
+	int n_bins = hist_final->GetXaxis()->GetNbins();
+	//if(!MC_stacked_allerr){
+	
+	//	const Double_t *xcopy=hist_final->GetXaxis()->GetXbins()->GetArray();
+	//	MC_stacked_allerr = new TH1D("MC_stacked_allerr", "", n_bins, xcopy);
+	//	MC_stacked_staterr = new TH1D("MC_stacked_staterr", "", n_bins, xcopy);
+
+	//}
+	//MC_stacked_staterr->Add(hist_final);
+	
+	double ThisSyst = 0.;
+	if( current_sample.Contains("fake") ) ThisSyst = 0.3;
+	else if( current_sample.Contains("chargeflip") ) ThisSyst = 0.1;
+	else{
+	  double mcnorm = 0.1;
+	  double lumi =  0.04;///analysisInputs.CalculatedSysts["Luminosity"];                                                                                                                                                           
+	  ThisSyst = sqrt( mcnorm*mcnorm + lumi*lumi );
+	}
+	
+	for(int i=1; i<=n_bins; i++){
+	  
+	  double error_syst = ThisSyst*(hist_final->GetBinContent(i));
+	  double error_sumw2 = hist_final->GetBinError(i);
+	  double error_combined = sqrt( error_syst*error_syst + error_sumw2*error_sumw2 );
+	  
+	  hist_final->SetBinError(i, error_combined);
+	}
+	
+	//MC_stacked->Add(hist_final);
+	//MC_stacked_allerr->Add(hist_final);
+      }
+      
+      //==== data for i_file = bkglist.size()                                                                                                                                                                                            
+      else if( i_file == bkglist.size() ){
+	hist_data = (TH1D*)hist_final->Clone();
+      }
+      //==== signal starting from i_file = bkglist.size()+1                                                                                                                                                                              
+      else if( i_file > bkglist.size() ){
+	int signal_index = i_file-bkglist.size()-1;
+	if(DoDebug) cout << "signal index = " << signal_index << ", mass = " << signal_mass[signal_index] << endl;
+	
+	TString temp_hist_name(hist_final->GetName());
+	double this_coupling_constant = coupling_constant(signal_mass[signal_index]);
+	
+	hist_final->Scale( k_factor*this_coupling_constant/(1.*TMath::Power(10,log_of_generation_mixing)) );
+	hist_signal.push_back( (TH1D*)hist_final->Clone() );
+	signal_survive_mass.push_back(signal_mass[signal_index]);
+      }
+      else{
+	cout << "[Warning] attirubte setting, i_file > total sample size? This should not happen!" << endl;
+      }
+      
+
+      cout << "current_sample = " << current_sample << endl;
+      TString alias = "";
+      if(current_sample.Contains("data")) alias = "data";
+      else if(current_sample.Contains("HN")) alias = signal_name_for_tex;
+      else{
+	alias = map_sample_string_to_legendinfo[current_MCsector].first;
+      }
+      cout << "==> alias = " << alias << endl;
+      
+      if( map_hist_y.find(alias) == map_hist_y.end() ){
+	map_hist_y[alias] = new TH1D(alias, "", 1, 0., 1);
+      }
+      
+      map_hist_y[alias]->Add(hist_final);
+      if(DoDebug) cout << "Adding to map_hist_y " << alias << " with integral " << hist_final->Integral() << endl;
+      
+      file->Close();
+      delete file;
+    
+      if(DoDebug) cout << "end of this sample" << endl;
+      
+    } // END loop over samples                                                                                                                                   
+    
+    MakeTexFile(map_hist_y,Hist_For_CutFlow);
+  }
 }
 
 void HNLPlotter::draw_hist(){
@@ -83,13 +377,13 @@ void HNLPlotter::draw_hist(){
     TString DirName = temp_suffix;//.Remove(0,1);
     
 
-    for(i_var = 0; i_var < histname.size(); i_var++){
+    for(i_var = 0; i_var < HistNames.size(); i_var++){
 
-      if( find( CutVarSkips.begin(), CutVarSkips.end(), make_pair(HistPath[i_cut], histname[i_var]) ) != CutVarSkips.end() ){
+      if( find( CutVarSkips.begin(), CutVarSkips.end(), make_pair(HistPath[i_cut], HistNames[i_var]) ) != CutVarSkips.end() ){
         continue;
       }
       
-      cout << "[Drawing " << histname[i_var] << "]" << endl;
+      cout << "[Drawing " << HistNames[i_var] << "]" << endl;
       
       TH1D* MC_stacked_staterr = NULL;
       TH1D* MC_stacked_allerr = NULL;
@@ -182,7 +476,7 @@ void HNLPlotter::draw_hist(){
         if(DoDebug){
           cout
           << "filepath = " << filepath << endl
-          << "hisname = " << HistPath[i_cut]+"/"+histname[i_var] << endl;
+          << "hisname = " << HistPath[i_cut]+"/"+HistNames[i_var] << endl;
         }
         
         //==== get root file
@@ -213,7 +507,7 @@ void HNLPlotter::draw_hist(){
         file->cd(DirName);
 
         //==== full histogram name
-        TString fullhistname = histname[i_var];
+        TString fullhistname = HistNames[i_var];
         
         //==== get histogram
         TH1D* hist_temp = (TH1D*)dir->Get(fullhistname);
@@ -231,6 +525,8 @@ void HNLPlotter::draw_hist(){
         hist_temp->SetName(fullhistname+"_"+current_sample);
 
         //==== rebin here
+	
+	
 	hist_temp->Rebin( n_rebin() );
         
       
@@ -333,7 +629,7 @@ void HNLPlotter::draw_hist(){
 	
 	fill_legend(lg, hist_final);
 
-        if(histname[i_var]=="NJets"){
+        if(HistNames[i_var]=="NJets"){
           cout << "current_sample = " << current_sample << endl;
           TString alias = "";
           if(current_sample.Contains("data")) alias = "data";
@@ -357,14 +653,13 @@ void HNLPlotter::draw_hist(){
         
       } // END loop over samples
 
-      if(histname[i_var]=="NJets"){
-        MakeTexFile(map_hist_y);
+      if(HistNames[i_var]=="NJets"){
+        MakeTexFile(map_hist_y,HistNames[i_var]);
       }
 
       if(!AnyEntry) continue;
       if(DoDebug) cout << "[Draw Canvas]" << endl;
       
-      cout << "TEST " << endl;
       if(!drawdata.at(i_cut) && hist_data){
         TString tmpname = hist_data->GetName();
         hist_data = (TH1D*)MC_stacked_allerr->Clone();
@@ -374,10 +669,8 @@ void HNLPlotter::draw_hist(){
         hist_data->SetMarkerColor(kBlack);
         hist_data->SetLineColor(kBlack);
       }
-      cout << "TEST 2 " << drawdata.size() << endl;
       
       draw_canvas(MC_stacked, MC_stacked_staterr, MC_stacked_allerr, hist_data, hist_signal, lg, drawdata.at(i_cut), outputfile);
-      cout << "TEST 3" << endl;
 
       //==== legend is already deleted in draw_canvas()
       //delete lg; 
@@ -394,7 +687,12 @@ void HNLPlotter::draw_hist(){
 }
 
 void HNLPlotter::make_bkglist(){
-
+  
+  if(bkglist.size() > 0) {
+    cout << "NOTE make_bkglist called multiple times, exiting..." << endl;
+    return;
+  }
+  
   for(unsigned int i=0; i<samples_to_use.size(); i++){
     MCsector_first_index.push_back( bkglist.size() );
     if(DoDebug) cout << "[make_bkglist] " << "MCsector_first_index.push_back(" <<  bkglist.size() << ")" << endl;
@@ -509,7 +807,7 @@ void HNLPlotter::MakeRebins(){
   temp_rebins.clear();
   cout << "Rebins.size() = " << Rebins.size() << endl;
   if(Rebins.size() > 0){
-    for(unsigned int i =0; i < Rebins.size(); i++) temp_rebins[histname[i]] = Rebins[i];
+    for(unsigned int i =0; i < Rebins.size(); i++) temp_rebins[HistNames[i]] = Rebins[i];
     return;
   }
   
@@ -536,7 +834,7 @@ void HNLPlotter::MakeYAxis(){
  
  
  if(Ymaxs.size() > 0){
-   for(unsigned int i =0; i < Ymaxs.size(); i++) temp_y_maxs[histname[i]] = Ymaxs[i];
+   for(unsigned int i =0; i < Ymaxs.size(); i++) temp_y_maxs[HistNames[i]] = Ymaxs[i];
    return;
  }
 
@@ -563,8 +861,8 @@ void HNLPlotter::MakeXAxis(){
   temp_x_maxs.clear();
 
   if(Xmaxs.size() > 0){
-    for(unsigned int i =0; i < Xmins.size(); i++) temp_x_mins[histname[i]] = Xmins[i];
-    for(unsigned int i =0; i < Xmaxs.size(); i++) temp_x_maxs[histname[i]] = Xmaxs[i];
+    for(unsigned int i =0; i < Xmins.size(); i++) temp_x_mins[HistNames[i]] = Xmins[i];
+    for(unsigned int i =0; i < Xmaxs.size(); i++) temp_x_maxs[HistNames[i]] = Xmaxs[i];
     return;
   }
 
@@ -587,42 +885,6 @@ void HNLPlotter::MakeXAxis(){
   }
 
 }
-
-/*
-void HNLPlotter::SetMCSF(TString filepath){
-  cout << "[HNLPlotter::SetMCSF] Get MC SF from " << filepath << endl;
-  string elline;
-  ifstream in(filepath);
-  while(getline(in,elline)){
-    std::istringstream is( elline );
-    TString sample;
-    double MCSF, MCSF_err;
-    is >> sample;
-    is >> MCSF;
-    is >> MCSF_err;
-    cout << "[HNLPlotter::SetMCSF] sample : " << sample << endl;
-    cout << "[HNLPlotter::SetMCSF] => MCSF = " << MCSF << ", MCSF_err = " << MCSF_err << endl;
-    MCNormSF[sample] = MCSF;
-    MCNormSF_uncert[sample] = MCSF_err;
-  }
-}
-void HNLPlotter::SetCalculatedSysts(TString filepath){
-  string elline_syst;
-  ifstream in_syst(filepath);
-  cout << "[HNLPlotter::SetCalculatedSysts] Get Systematics from " << filepath << endl;
-  while(getline(in_syst,elline_syst)){
-    std::istringstream is( elline_syst );
-    TString source;
-    double value;
-    is >> source;
-    is >> value;
-    cout << source << " : " << value << endl;
-    CalculatedSysts[source] = value;
-  }
-  double uncert_lumi = CalculatedSysts["Luminosity"];
-  double uncert_fake = CalculatedSysts["FakeLooseID"];
-}
-*/
 
 TString HNLPlotter::find_MCsector(){
   for(unsigned int i=0; i<MCsector_first_index.size()-1; i++){
@@ -769,7 +1031,7 @@ void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_all
   TGraph *g1 = new TGraph(2, x_1, y_1);
 
   //==== If we draw data, prepare top/bottom pads
-  TCanvas* c1 = new TCanvas(histname[i_var], "", 800, 800);
+  TCanvas* c1 = new TCanvas(HistNames[i_var], "", 800, 800);
   c1->Draw();
   c1->cd();
 
@@ -791,7 +1053,7 @@ void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_all
 
   //==== HOTFIX Rebin zero-bkgd
   bool IsMergeZeroBackground = false;
-  if(MakePaperPlot){
+  if(MergeZeroBins){
     vector<double> new_binval = GetRebinZeroBackground(mc_stack, mc_staterror, mc_allerror, hist_data, hist_signal);
     if(new_binval.size()>0){
       IsMergeZeroBackground = true;
@@ -819,7 +1081,6 @@ void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_all
     }
   }
 
-  cout << "TETST " << endl;
   //==== empty histogram for axis
   TH1D *hist_empty = (TH1D*)mc_stack->GetHists()->At(0)->Clone();
   hist_empty->SetName("DUMMY_FOR_AXIS");
@@ -1092,12 +1353,19 @@ void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_all
   }
 
   mkdir(thiscut_plotpath);
-  c1->SaveAs(thiscut_plotpath+"/"+histname[i_var]+".pdf");
-  c1->SaveAs(thiscut_plotpath+"/"+histname[i_var]+".png");
+  c1->SaveAs(thiscut_plotpath+"/"+HistNames[i_var]+".pdf");
+  c1->SaveAs(thiscut_plotpath+"/"+HistNames[i_var]+".png");
   outputf->cd();
   c1->Write();
 
-  SaveAndCopyLXPLUS(c1,thiscut_plotpath+"/"+histname[i_var],HistPath[i_cut],AnalyserName,MacroName,Era);
+  HistResults.push_back(thiscut_plotpath+"/"+HistNames[i_var]+".pdf");
+
+  TString FixName = HistPath[i_cut];
+  FixName = FixName.ReplaceAll("/","_");
+  LxplusHistResults.push_back("https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/"+AnalyserName+"/"+ Era +"/" + MacroName +FixName + "/"+HistNames[i_var]+".pdf");
+
+
+  if(CopyToWebsite)SaveAndCopyLXPLUS(c1,thiscut_plotpath+"/"+HistNames[i_var],HistPath[i_cut],AnalyserName,MacroName,Era);
   
   delete legend;
   delete c1;
@@ -1106,7 +1374,7 @@ void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_all
 int HNLPlotter::n_rebin(){
   
   TString cut = HistPath[i_cut];
-  TString var = histname[i_var];
+  TString var = HistNames[i_var];
   
   map< TString, int >::iterator it = temp_rebins.find( var );
   if( it != temp_rebins.end() ){
@@ -1122,7 +1390,7 @@ int HNLPlotter::n_rebin(){
 double HNLPlotter::y_max(){
   
   TString cut = HistPath[i_cut];
-  TString var = histname[i_var];
+  TString var = HistNames[i_var];
 
   map< TString, double >::iterator it = temp_y_maxs.find( var );
   if( it != temp_y_maxs.end() ){
@@ -1138,7 +1406,7 @@ double HNLPlotter::y_max(){
 void HNLPlotter::SetXaxisRange(TH1D* hist){
   
   TString cut = HistPath[i_cut];
-  TString var = histname[i_var];
+  TString var = HistNames[i_var];
   
   double this_x_min = hist->GetXaxis()->GetBinLowEdge(1);
   double this_x_max = hist->GetXaxis()->GetBinUpEdge( hist->GetXaxis()->GetNbins() );
@@ -1162,7 +1430,7 @@ void HNLPlotter::SetXaxisRange(TH1D* hist){
 void HNLPlotter::SetXaxisRange(THStack* mc_stack){
   
   TString cut = HistPath[i_cut];
-  TString var = histname[i_var];
+  TString var = HistNames[i_var];
   
   double this_x_min = mc_stack->GetXaxis()->GetBinLowEdge(1);
   double this_x_max = mc_stack->GetXaxis()->GetBinUpEdge( mc_stack->GetXaxis()->GetNbins() );
@@ -1186,7 +1454,7 @@ void HNLPlotter::SetXaxisRange(THStack* mc_stack){
 void HNLPlotter::SetXaxisRangeBoth(THStack* mc_stack, TH1D* hist){
 
   TString cut = HistPath[i_cut];
-  TString var = histname[i_var];
+  TString var = HistNames[i_var];
   
   double this_x_min = mc_stack->GetXaxis()->GetBinLowEdge(1);
   double this_x_max = mc_stack->GetXaxis()->GetBinUpEdge( mc_stack->GetXaxis()->GetNbins() );
@@ -1285,7 +1553,7 @@ TH1D* HNLPlotter::MakeOverflowBin(TH1D* hist){
 
 TString HNLPlotter::DoubleToString(double dx){
 
-  //cout << "[HNLPlotter::DoubleToString] var = " << histname[i_var] << endl;
+  //cout << "[HNLPlotter::DoubleToString] var = " << HistNames[i_var] << endl;
   //cout << "[HNLPlotter::DoubleToString] unit = " << units[i_var] << endl;
   //cout << "[HNLPlotter::DoubleToString] dx = " << dx << endl;
 
@@ -1293,7 +1561,7 @@ TString HNLPlotter::DoubleToString(double dx){
   if(units[i_var]=="int"){
     return "Events";
   }
-  else if(histname[i_var].Contains("secondLepton_Pt")){
+  else if(HistNames[i_var].Contains("secondLepton_Pt")){
     return "Events / bin";
   }
   else{
@@ -1365,12 +1633,32 @@ void HNLPlotter::mkdir(TString path){
   
 }
 
+double HNLPlotter::GetHistValue(TH1D * ht, TString hn){
+  
+  if(hn=="NEvents") return ht->GetBinContent(1);
+  else return ht->Integral(0,ht->GetNbinsX()+1);
+  
+}
 
-void HNLPlotter::MakeTexFile(map< TString, TH1D * > hs){
+double HNLPlotter::GetHistError(TH1D * ht, TString hn){
 
+  if(hn=="NEvents") return ht->GetBinError(1);
+  else {
+    Double_t err;
+    Double_t hint = ht->IntegralAndError(0,ht->GetNbinsX()+1, err);
+    return err;
+  }
+  return 0;
+
+}
+
+void HNLPlotter::MakeTexFile(map< TString, TH1D * > hs, TString Hist_For_CutFlow){
+
+  if(DoDebug) cout << "Running MakeTexFile : size = " << hs.size() << endl; 
+  
   TString texfilepath = thiscut_plotpath+"/tex/";
   mkdir(texfilepath);
-
+  CutFlowResults.push_back(texfilepath+"/Yields.pdf");
   ofstream ofile_tex(texfilepath+"/Yields.tex",ios::trunc);
   ofile_tex.setf(ios::fixed,ios::floatfield);
   ofile_tex << "\\documentclass[10pt]{article}" << endl;
@@ -1408,26 +1696,30 @@ void HNLPlotter::MakeTexFile(map< TString, TH1D * > hs){
       continue;
     }
     TH1D *h_bkgd = it->second;
-    ofile << name << " & $"<<h_bkgd->GetBinContent(1)<<" \\pm "<<h_bkgd->GetBinError(1)<<"$ \\\\" << endl;
+    ofile << name << " & $"<<GetHistValue(h_bkgd,Hist_For_CutFlow)<<" \\pm "<<GetHistError(h_bkgd,Hist_For_CutFlow)<<"$ \\\\" << endl;
+    cout << name << " & $"<<GetHistValue(h_bkgd,Hist_For_CutFlow)<<" \\pm "<<GetHistError(h_bkgd,Hist_For_CutFlow)<<"$ \\\\" << endl;
     hist_bkgd->Add(h_bkgd);
   }
   ofile << "\\hline" << endl;
-  ofile << "Total & $" << hist_bkgd->GetBinContent(1) << " \\pm " << hist_bkgd->GetBinError(1) << "$ \\\\" << endl;
+  ofile << "Total & $" << GetHistValue(hist_bkgd,Hist_For_CutFlow) << " \\pm " << GetHistError(hist_bkgd,Hist_For_CutFlow) << "$ \\\\" << endl;
   ofile << "\\hline" << endl;
-
+  
   TH1D *hist_data = hs["data"];
+  if(!drawdata.at(i_cut) && hist_data)         hist_data = (TH1D*) hist_bkgd->Clone();
+  
+
   if(hist_data){
-   ofile << "Data & $" << hist_data->GetBinContent(1) << " \\pm " << hist_data->GetBinError(1) << "$ \\\\" << endl;
-   ofile << "\\hline" << endl;
+    ofile << "Data & $" << GetHistValue(hist_data,Hist_For_CutFlow) <<  "$ \\\\" << endl;
+    ofile << "\\hline" << endl;
   }
   else{
    TH1D *hist_empty = new TH1D("hist_data", "", 1, 0., 1.);
    hist_data = (TH1D*)hist_empty->Clone();
-   ofile << "Data & $" << 0 << " \\pm " << 0 << "$ \\\\" << endl;
+   ofile << "Data & $" << 0 << "$ \\\\" << endl;
    ofile << "\\hline" << endl;
   }
 
-  double signif = (hist_data->GetBinContent(1) - hist_bkgd->GetBinContent(1)) / sqrt( (hist_bkgd->GetBinError(1))*(hist_bkgd->GetBinError(1)) + (hist_data->GetBinError(1))*(hist_data->GetBinError(1)) );
+  double signif = (GetHistValue(hist_data,Hist_For_CutFlow) - GetHistValue(hist_bkgd,Hist_For_CutFlow)) / sqrt( (GetHistError(hist_bkgd,Hist_For_CutFlow)*GetHistError(hist_bkgd,Hist_For_CutFlow)) + (GetHistError(hist_data,Hist_For_CutFlow)*GetHistError(hist_data,Hist_For_CutFlow)) );
 
   ofile << "Significance & $" <<signif<<" \\sigma$ \\\\" << endl;
 
@@ -1445,7 +1737,7 @@ void HNLPlotter::MakeTexFile(map< TString, TH1D * > hs){
 
       TString LeptonChannel = "";
       if(name.Contains("MuMu")) LeptonChannel = "MuMu";
-      if(name.Contains("EE")) LeptonChannel = "ElEl";
+      if(name.Contains("EE"))  LeptonChannel = "ElEl";
       if(name.Contains("EMu")) LeptonChannel = "ElMu";
 
       TString MassString = name;
@@ -1457,7 +1749,7 @@ void HNLPlotter::MakeTexFile(map< TString, TH1D * > hs){
 
       name = SorT+"-channel "+LeptonChannel+" $"+MassString+"$ GeV, $V^{2} = 10^{"+TString::Itoa(log_coupling,10)+"}$";
 
-      ofile << name+" & $" << h_bkgd->GetBinContent(1) << " \\pm " << h_bkgd->GetBinError(1) << "$ \\\\" << endl;
+      ofile << name+" & $" << GetHistValue(hist_bkgd,Hist_For_CutFlow) << " \\pm " << GetHistError(hist_bkgd,Hist_For_CutFlow) << "$ \\\\" << endl;
       }
     }
   }
@@ -1474,10 +1766,34 @@ void HNLPlotter::MakeTexFile(map< TString, TH1D * > hs){
   system("rm *log");
   system("rm *dvi");
   system("mv Yields.pdf "+texfilepath);
+  
+  TString FixName = HistPath[i_cut];
+  FixName = FixName.ReplaceAll("/","_");
+  LxplusCutFlowResults.push_back("https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/"+AnalyserName+"/"+ Era +"/" + MacroName +FixName + "/Yields.pdf");
 
-  CopyLXPLUSCutFlow(texfilepath+"/Yields.pdf",HistPath[i_cut],AnalyserName,MacroName,Era);
+  if(CopyToWebsite) CopyLXPLUSCutFlow(texfilepath+"/Yields.pdf",HistPath[i_cut],AnalyserName,MacroName,Era);
 
 }
+
+
+
+void HNLPlotter::Summary(){
+  
+  cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+  cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+  cout << " "<< endl;
+  cout << "HNLPlotter Ran StackPlots : With Data. Results sent to : " << endl;
+
+  if(CopyToWebsite){
+    cout << "Hists sent to : "  << endl;
+    for (auto i : LxplusHistResults) cout << i << endl;
+    cout << "Yield table sent to : "  << endl;
+    for (auto i : LxplusCutFlowResults) cout << i << endl;
+
+  }
+
+}
+
 
 TString HNLPlotter::GetStringChannelRegion(int A, TString B){
 
@@ -1518,10 +1834,10 @@ TString HNLPlotter::GetStringChannelRegion(int A, TString B){
 bool HNLPlotter::ZeroDataCheckCut(double xlow, double xhigh){
 
   if(HistPath[i_cut].Contains("_Low_")){
-    if(histname[i_var]=="m_lljj_lljjWclosest"){
+    if(HistNames[i_var]=="m_lljj_lljjWclosest"){
       if(xlow>=300) return true;
     }
-    if(histname[i_var]=="m_llj"){
+    if(HistNames[i_var]=="m_llj"){
       if(xlow>=300) return true;
     }
   }
@@ -1593,11 +1909,14 @@ void HNLPlotter::LeptonChannel(TString ch){
   
 }
 void HNLPlotter::UseLogyAll(double v){
-
   UseLogy.clear();
   for(int i=0; i < HistPath.size() ; i++) UseLogy.push_back(v);
 }
 
+void HNLPlotter::ApplyMCNormSFAll(bool v){
+  ApplyMCNormSF.clear();
+  for(int i=0; i < HistPath.size()  ; i++)ApplyMCNormSF.push_back(v);
+}
 void HNLPlotter::DrawRatioAll(bool v){
 
   drawratio.clear();
@@ -1636,7 +1955,7 @@ vector<double> HNLPlotter::GetRebinZeroBackground(THStack *mc_stack, TH1D *mc_st
   for(int i=next_nonzero_bin+1; i<=original_nbins; i++){
 
     //==== HOTFIX ee mll has empty bins at Z-peak
-    if(histname[i_var]=="m_ll"){
+    if(HistNames[i_var]=="m_ll"){
       if(original_binval.at(i)<150) continue;
     }
 
