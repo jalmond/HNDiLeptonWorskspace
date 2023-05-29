@@ -93,6 +93,7 @@ if MergeMC:
 
     
     os.system("hadd " + OutFile + "  " + InputPathEra+"/*SkimTre*")
+    os.system("cp " + InputPathEra+"/*SkimTre* " + OutputPathEra+"/" )
 
 if MergeLargeMC:
 

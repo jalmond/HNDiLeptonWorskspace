@@ -1,4 +1,0 @@
-Input DYTypeI_DF_M100 /data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalLeptonOpt/2017//HNL_SignalLeptonOpt_DYTypeI_DF_M100_private.root
-Input DYTypeI_DF_M200 /data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalLeptonOpt/2017//HNL_SignalLeptonOpt_DYTypeI_DF_M200_private.root
-Analyser HNL_SignalLeptonOpt
-HistName   /IPOpt/FillEventCutflow/EE_IP9p5_7p4

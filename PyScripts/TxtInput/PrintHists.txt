@@ -1,3 +1,0 @@
-Input   /data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalLeptonOpt/2017/
-Analyser HNL_SignalLeptonOpt
-HistName   /IPOpt/FillEventCutflow/EE_IP9p5_7p4

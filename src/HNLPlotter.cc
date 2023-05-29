@@ -1,4 +1,5 @@
 #include "HNLPlotter.h"
+#include <stdlib.h>
 
 HNLPlotter::HNLPlotter(TString macroname){
   
@@ -17,6 +18,8 @@ HNLPlotter::HNLPlotter(TString macroname){
   filename_prefix=AnalyserName;
   filename_suffix=".root";
   infilepath="./";
+  def_infilepath="./";
+  def_histpath="";
   MakePaperPlot = false;  
   //// clear vecs
   RegionType.clear();
@@ -24,15 +27,18 @@ HNLPlotter::HNLPlotter(TString macroname){
   HistPath.clear();
   ApplyMCNormSF.clear();
   HistNames.clear();
+  LegendNames.clear();
   LxplusCutFlowResults.clear();
   LxplusHistResults.clear();
   CutFlowResults.clear();
   HistResults.clear();
 
   log_of_generation_mixing=0;
-
+  
+  VarBins=false;
   MergeZeroBins= false;
   CopyToWebsite=true;
+  comp_default_set=false;
 }
 
 
@@ -52,27 +58,59 @@ void HNLPlotter::DrawStackPlotsWithData(){
 }
 
 void HNLPlotter::DrawComparisonPlots(){
-  
+  if(!comp_default_set) return;
+  if(FullHistNames.size() ==0) return;
+  draw_comphist();
 }
 
-void HNLPlotter::AddHist(TString hn, TString htype, TString hunit, int rb, double Xmin, double Xmax, double Ymax){
+void HNLPlotter::SetupDefaultHist(TString sample, TString hn, TString histtag, TString legend, TString htype, TString hunit, vector<double> rb, double Xmin, double Xmax, double Ymax){
+  
+  if(comp_default_set) return;
+  comp_default_set=true;
+  def_infilepath = infilepath + "/"+filename_prefix + "_"+SkimName+"_"+sample+".root";
+  def_histpath=hn;
+  
+  x_title.push_back(GetTitleByType(htype));
+  units.push_back(hunit);
+  Rebins.push_back(rb);
+  Xmins.push_back(Xmin);
+  Xmaxs.push_back(Xmax);
+  Ymaxs.push_back(Ymax);
+
+  HistNames.push_back(histtag);
+  LegendNames.push_back(legend);
+
+}
+
+void HNLPlotter::SetupComparisonHist(TString sample, TString hist, TString histtag, TString legend){
+
+  FullHistNames.push_back(hist);
+  SamplePaths.push_back(infilepath + "/"+filename_prefix + "_"+SkimName+"_"+sample+".root");
+  HistNames.push_back(histtag);  LegendNames.push_back(legend);
+
+
+}
+void HNLPlotter::AddHist(TString hn, TString htype, TString hunit, vector<double> rb, double Xmin, double Xmax, double Ymax){
 
   HistNames.push_back(hn);
   x_title.push_back(GetTitleByType(htype));
   units.push_back(hunit);
-  if(rb > 0 ) Rebins.push_back(rb);
+  Rebins.push_back(rb);
   Xmins.push_back(Xmin);
   Xmaxs.push_back(Xmax);
   Ymaxs.push_back(Ymax);
 
   return;
 }
-void HNLPlotter::BasicSetup(double logy, bool ratio,  TString channel){
+void HNLPlotter::BasicSetup(SetupHelper logy, SetupHelper ratio,  TString channel){
   
   /// setups up default options
   
-  UseLogyAll(logy);
-  DrawRatioAll(true);
+  if(logy==LOGY) UseLogyAll(true);
+  else UseLogyAll(false);
+  if(ratio==DrawRatio) DrawRatioAll(true) ;
+  else DrawRatioAll(false);
+
   LeptonChannel(channel);
 }
 
@@ -108,8 +146,14 @@ void HNLPlotter::SetupPlotter(){
 
 TString HNLPlotter::GetTitleByType(TString htype ){
   
-  if(htype == "MET") return "#slash{E}_{T}^{miss} [GeV]";
-
+  if(htype == "MET")   return "#slash{E}_{T}^{miss} [GeV]";
+  if(htype == "METPhi") return "#phi(#slash{E}_{T}^{miss})";
+  if(htype == "LPT1")  return "p^{l1}_{T} [GeV]";
+  if(htype == "LPT2")  return "p^{l2}_{T} [GeV]";
+  if(htype == "MLL")   return "m_{ll} (GeV)";
+  if(htype == "NJ4") return "N^{AK4}_{j}";
+  if(htype == "NJ8") return "N^{AK8}_{j}";
+  if(htype == "NBJ") return "N^{AK4}_{bj}";
   return htype; 
   
 }
@@ -287,7 +331,10 @@ void HNLPlotter::make_cutflow(TString Hist_For_CutFlow){
 	else if( current_sample.Contains("chargeflip") ) ThisSyst = 0.1;
 	else{
 	  double mcnorm = 0.1;
-	  double lumi =  0.04;///analysisInputs.CalculatedSysts["Luminosity"];                                                                                                                                                           
+	  double lumi =  0.025;///analysisInputs.CalculatedSysts["Luminosity"];                                                                                       
+	  if(Era=="2017") lumi =  0.02;
+	  if(Era=="2018") lumi =  0.015;
+	  
 	  ThisSyst = sqrt( mcnorm*mcnorm + lumi*lumi );
 	}
 	
@@ -349,6 +396,108 @@ void HNLPlotter::make_cutflow(TString Hist_For_CutFlow){
     } // END loop over samples                                                                                                                                   
     
     MakeTexFile(map_hist_y,Hist_For_CutFlow);
+  }
+}
+
+TH1D* HNLPlotter::MakeHist(TString filepath, TString fullhistname){
+
+  TH1D* hist_temp;
+
+  //==== get root file                                                                                                                                       
+  if(gSystem->AccessPathName(filepath)){
+    if(DoDebug)     cout << "No file : " << filepath << endl;
+    return hist_temp;
+  }
+
+  TFile* file = new TFile(filepath);
+  if( !file ){
+    if(DoDebug)    cout << "No file : " << filepath << endl;
+    return hist_temp;
+  }
+
+  //==== get histogram                                                                                                                                       
+  hist_temp = (TH1D*)file->Get(fullhistname);
+  if(!hist_temp || hist_temp->GetEntries() == 0){
+    if(DoDebug){
+      cout << "No histogram : " << fullhistname << endl;
+    }
+    file->Close();
+    delete file;
+    return hist_temp;
+  }
+  
+  //==== set histogram name, including sample name                                                                                                           
+  hist_temp->SetName(fullhistname);
+
+  //==== rebin here                                                                                                                                         
+  if(Rebins.size() != 1)  exit (EXIT_FAILURE);
+;
+  vector<double> vrebin= Rebins[0];
+  if(vrebin.size() > 1){
+
+    if(DoDebug){
+      cout << "Using Variable binning" << endl;
+      for(auto rb : vrebin) cout << "--- " << rb << endl;
+    }
+
+    double TMParray[vrebin.size()];
+    std::copy(vrebin.begin(), vrebin.end(), TMParray);
+    hist_temp = (TH1D *)hist_temp->Rebin(vrebin.size()-1, "hnew1", TMParray);
+  }
+  else hist_temp->Rebin( vrebin[0] );
+
+
+  //==== set X-axis range                                                                                                                                    
+  SetXaxisRange(hist_temp);
+
+  //==== make overflows bins                                                                                                                                 
+  TH1D *hist_final = MakeOverflowBin(hist_temp);
+
+  //==== Remove Negative bins                                                                                                                                
+  TAxis *xaxis = hist_final->GetXaxis();
+  for(int ccc=1; ccc<=xaxis->GetNbins(); ccc++){
+    if(DoDebug) cout << fullhistname << "\t["<<xaxis->GetBinLowEdge(ccc) <<", "<<xaxis->GetBinUpEdge(ccc) << "] : " << hist_final->GetBinContent(ccc) << endl;
+    if(hist_final->GetBinContent(ccc)<0){
+      hist_final->SetBinContent(ccc, 0.);
+      hist_final->SetBinError(ccc, 0.);
+    }
+  }  
+  return hist_final;
+}
+
+void HNLPlotter::draw_comphist(){
+
+  if(DoDebug) {
+    cout << "Comparison Plotter: " << endl ; 
+    cout << "def_infilepath =  " << def_infilepath << endl ;
+    cout << "def_histpath = " << def_histpath << endl;
+  }
+
+  TH1D *hist_default = MakeHist(def_infilepath, def_histpath );
+  hist_default->SetLineColor(kRed);
+  hist_default->SetLineWidth(3);
+  
+  if(DoDebug)  cout << hist_default->Integral() << endl;
+
+  for(i_var = 0; i_var < FullHistNames.size(); i_var++){
+    
+    thiscut_plotpath = plotpath+"/";
+    mkdir(thiscut_plotpath);
+
+    TFile *outputfile = new TFile(thiscut_plotpath+"/hists.root", "RECREATE");
+
+    TH1D *hist_comp = MakeHist(SamplePaths[i_var], FullHistNames[i_var] );
+    hist_comp->SetLineColor(kSpring-2);
+    hist_comp->SetLineWidth(3);
+
+    if(DoDebug)  cout << hist_comp->Integral() << endl;
+    
+    TLegend *lg= new TLegend(0.55, 0.60, 0.93, 0.90);
+    lg->SetTextSize(0.03);
+    draw_comp_canvas(hist_default, hist_comp, lg, outputfile);
+    outputfile->Close();
+    system("rm "+thiscut_plotpath+"/hists.root");
+
   }
 }
 
@@ -526,8 +675,19 @@ void HNLPlotter::draw_hist(){
 
         //==== rebin here
 	
-	
-	hist_temp->Rebin( n_rebin() );
+	vector<double> vrebin= GetRebinVariableBins();
+	if(vrebin.size() > 1){
+
+	  if(DoDebug){
+	    cout << "Using Variable binning" << endl;
+	    for(auto rb : vrebin) cout << "--- " << rb << endl;
+	  }
+
+	  double TMParray[vrebin.size()];
+	  std::copy(vrebin.begin(), vrebin.end(), TMParray);
+	  hist_temp = (TH1D *)hist_temp->Rebin(vrebin.size()-1, "hnew1", TMParray);
+	}
+	else hist_temp->Rebin( n_rebin() );
         
       
         //==== set X-axis range
@@ -802,15 +962,39 @@ void HNLPlotter::SetXAxis(TString filepath){
 
 }
 
+vector<double> HNLPlotter::GetRebinVariableBins(){
+
+  TString cut = HistPath[i_cut];
+  TString var = HistNames[i_var];
+
+  map< TString, vector<double> >::iterator it = temp_vrebins.find( var );
+  if( it != temp_vrebins.end() ){
+    vector<double> TORETURN = it->second;
+    return TORETURN;
+  }
+  else return {1.};
+}
+
 void HNLPlotter::MakeRebins(){
 
   temp_rebins.clear();
+  temp_vrebins.clear();
   cout << "Rebins.size() = " << Rebins.size() << endl;
-  if(Rebins.size() > 0){
-    for(unsigned int i =0; i < Rebins.size(); i++) temp_rebins[HistNames[i]] = Rebins[i];
-    return;
+  //  if(Rebins.size() > 0){
+  //  for(unsigned int i =0; i < Rebins.size(); i++) temp_rebins[HistNames[i]] = Rebins[i];
+  //  return;
+  // }
+  
+  if(Rebins.size() > 0){ 
+    for(unsigned int i =0; i < Rebins.size(); i++)  {
+      temp_vrebins[HistNames[i]] = Rebins[i];       
+      if (Rebins[i].size()<1) temp_rebins[HistNames[i]] = 1;
+      else  if (Rebins[i].size()== 1) temp_rebins[HistNames[i]] = Rebins[i].at(0);
+      else temp_rebins[HistNames[i]] = -1;
+    }
   }
   
+
   string elline;
   ifstream in(path_rebins+HistPath[i_cut]);
   while(getline(in,elline)){
@@ -1012,6 +1196,176 @@ void HNLPlotter::draw_legend(TLegend* lg, bool DrawData){
   lg->Draw();
 }
 
+
+void HNLPlotter::draw_comp_canvas(TH1D *hist_def, TH1D *hist_comp, TLegend *legend ,TFile *outputf){
+
+  if(!hist_def) return;  
+  if(!hist_comp) return;  
+  
+
+  //==== y=0 line                                                                                                                                            
+  double x_0[2], y_0[2];
+  x_0[0] = -5000;  y_0[0] = 0;
+  x_0[1] = 5000;  y_0[1] = 0;
+  TGraph *g0 = new TGraph(2, x_0, y_0);
+  //==== y=1 line                                                                                                                                            
+  double x_1[2], y_1[2];
+  x_1[0] = 5000;  y_1[0] = 1;
+  x_1[1] = -5000;  y_1[1] = 1;
+  TGraph *g1 = new TGraph(2, x_1, y_1);
+
+  //==== If we draw data, prepare top/bottom pads                                                                                                            
+  TCanvas* c1 = new TCanvas(FullHistNames[i_var], "", 800, 800);
+  c1->Draw();
+  c1->cd();
+  
+  TPad *c1_up;
+  TPad *c1_down;
+  c1_up = new TPad("c1", "", 0, 0.25, 1, 1);
+  c1_down = new TPad("c1_down", "", 0, 0, 1, 0.25);
+  
+  canvas_margin(c1, c1_up, c1_down);
+  
+  c1_up->Draw();
+  c1_down->Draw();
+  c1_up->cd();
+
+
+  //==== empty histogram for axis                                                                                                                            
+  TH1D *hist_empty = (TH1D*)hist_def->Clone();
+  hist_empty->SetName("DUMMY_FOR_AXIS");
+
+  //=== get dX                                                                                                                                               
+  double dx = (hist_empty->GetXaxis()->GetXmax() - hist_empty->GetXaxis()->GetXmin())/hist_empty->GetXaxis()->GetNbins();
+  TString YTitle;
+  if(Rebins[0].size() > 1) YTitle = "Events / bin";
+  else  YTitle = DoubleToString(dx);
+
+  hist_empty->GetYaxis()->SetTitle(YTitle);
+  hist_empty->SetLineWidth(0);
+  hist_empty->SetLineColor(0);
+  hist_empty->SetMarkerSize(0);
+  hist_empty->SetMarkerColor(0);
+  double Ymin = default_y_min;
+  double YmaxScale = 1.2;
+
+  hist_empty->Draw("histsame");
+  //==== hide X Label for top plot                                                                                                                           
+  hist_empty->GetXaxis()->SetLabelSize(0);
+
+  //==== bkg                                                                                                                                                 
+  if(!hist_def){
+    cout << "[No Background]" << endl;
+    return;
+  }
+
+
+  //////-----
+  hist_def->Draw("histsame");
+  hist_comp->Draw("histsame");
+
+  //==== ymax                                                                                                                                                
+  double AutoYmax = max( GetMaximum(hist_def), GetMaximum(hist_comp) );
+  hist_empty->GetYaxis()->SetRangeUser( Ymin, YmaxScale*AutoYmax );
+
+  //==== legend                                                                                                                                              
+  c1_up->cd();
+  legend->AddEntry(hist_def ,  LegendNames[0] + " [1]", "l");
+  legend->AddEntry(hist_comp , LegendNames[i_var+1]+ " [2]", "l");
+  legend->SetFillStyle(0);
+  legend->SetBorderSize(0);
+  legend->Draw();
+
+  hist_empty->Draw("axissame");
+
+  //==== Ratio          
+  //==== MC-DATA                                                                                                                                           
+  c1_down->cd();
+
+  TString name_suffix = hist_def->GetName();
+
+  TH1D *ratio_point = (TH1D *)hist_def->Clone();
+  ratio_point->SetName(name_suffix+"_central");
+
+  TH1D *tmp_ratio_point = (TH1D *)hist_def->Clone();
+  tmp_ratio_point->Divide(hist_comp);
+  TGraphAsymmErrors *gr_ratio_point = new TGraphAsymmErrors(tmp_ratio_point);
+  gr_ratio_point->SetName("gr_"+name_suffix+"_central");
+  gr_ratio_point->SetLineWidth(2.0);
+  gr_ratio_point->SetMarkerSize(0.);
+  gr_ratio_point->SetLineColor(kBlack);
+
+  TH1D *ratio_staterr = (TH1D *)hist_def->Clone();
+  ratio_staterr->SetName(name_suffix+"_staterr");
+  TH1D *ratio_allerr = (TH1D *)hist_def->Clone();
+  ratio_allerr->SetName(name_suffix+"_allerr");
+
+
+  ratio_allerr->SetMaximum(2.);
+  ratio_allerr->SetMinimum(0.);
+  ratio_allerr->GetXaxis()->SetTitle(x_title[0]);
+  ratio_allerr->GetYaxis()->SetTitle("Ratio [1]/[2]");
+  ratio_allerr->SetFillColor(kOrange);
+  ratio_allerr->SetMarkerSize(0);
+  ratio_allerr->SetMarkerStyle(0);
+  ratio_allerr->SetLineColor(kWhite);
+  ratio_allerr->Draw("E2same");
+  hist_axis(hist_empty, ratio_allerr);
+
+  ratio_staterr->SetFillColor(kCyan);
+  ratio_staterr->SetMarkerSize(0);
+  ratio_staterr->SetMarkerStyle(0);
+  ratio_staterr->SetLineColor(kWhite);
+  ratio_staterr->Draw("E2same");
+
+  ratio_point->Draw("p9histsame");
+  gr_ratio_point->Draw("p0same");
+
+  TLegend *lg_ratio = new TLegend(0.7, 0.8, 0.9, 0.9);
+  //lg_ratio->SetFillStyle(0);                                                                                                                             
+  //lg_ratio->SetBorderSize(0);                                                                                                                            
+  lg_ratio->SetNColumns(2);
+  lg_ratio->AddEntry(ratio_staterr, "Stat.", "f");
+  lg_ratio->AddEntry(ratio_allerr, "Stat.+Syst.", "f");
+  //lg_ratio->AddEntry(ratio_point, "Obs./Pred.", "p");                                                                                                    
+  //lg_ratio->Draw();
+
+  ratio_allerr->Draw("axissame");
+
+  //==== y=1 line                                                                                                                                          
+  g1->Draw("same");             
+
+  //==== write lumi on the top                                                                                                                               
+  c1->cd();
+
+  TLatex latex_CMSPriliminary, latex_Lumi;
+  latex_CMSPriliminary.SetNDC();
+  latex_Lumi.SetNDC();
+  latex_CMSPriliminary.SetTextSize(0.035);
+  latex_CMSPriliminary.DrawLatex(0.15, 0.96, "#font[62]{CMS} #font[42]{#it{#scale[0.8]{Preliminary}}}");
+  latex_Lumi.SetTextSize(0.035);
+  if(Era=="2016preVFP")latex_Lumi.DrawLatex(0.7, 0.96, "19.5 fb^{-1} (13 TeV)");
+  if(Era=="2016postVFP")latex_Lumi.DrawLatex(0.7, 0.96, "16.8 fb^{-1} (13 TeV)");
+  if(Era=="2016") latex_Lumi.DrawLatex(0.7, 0.96, "36.3 fb^{-1} (13 TeV)");
+  if(Era=="2017") latex_Lumi.DrawLatex(0.7, 0.96, "41.5 fb^{-1} (13 TeV)");
+  if(Era=="2018") latex_Lumi.DrawLatex(0.7, 0.96, "59.9 fb^{-1} (13 TeV)");
+  if(Era=="Run2") latex_Lumi.DrawLatex(0.7, 0.96, "137.9 fb^{-1} (13 TeV)");
+
+  mkdir(thiscut_plotpath);
+  c1->SaveAs(thiscut_plotpath+"/"+HistNames[0]+"_vs_"+HistNames[i_var+1]+".pdf");
+  c1->SaveAs(thiscut_plotpath+"/"+HistNames[0]+"_vs_"+HistNames[i_var+1]+".png");
+  outputf->cd();
+  c1->Write();
+
+  TString FixName = HistNames[0]+"_vs_"+ HistNames[i_var+1];
+
+  if(CopyToWebsite)SaveAndCopyLXPLUS(c1,thiscut_plotpath+"/"+HistNames[0]+"_vs_"+HistNames[i_var+1],"",AnalyserName,MacroName,Era);
+
+  delete legend;
+  delete c1;  
+
+
+}
 void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_allerror, TH1D *hist_data, vector<TH1D *> hist_signal, TLegend *legend, bool DrawData, TFile *outputf){
 
   if(!hist_data) return;
@@ -1088,7 +1442,8 @@ void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_all
   double dx = (hist_empty->GetXaxis()->GetXmax() - hist_empty->GetXaxis()->GetXmin())/hist_empty->GetXaxis()->GetNbins();
   TString YTitle = DoubleToString(dx);
   if(IsMergeZeroBackground) YTitle = "Events / bin";
-
+  //  if(Rebins[i_cut].size() > 1) YTitle = "Events / bin";
+  
   hist_empty->GetYaxis()->SetTitle(YTitle);
   hist_empty->SetLineWidth(0);
   hist_empty->SetLineColor(0);
@@ -1275,8 +1630,8 @@ void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_all
       }
     }
 
-    ratio_allerr->SetMaximum(1.5);
-    ratio_allerr->SetMinimum(0.5);
+    ratio_allerr->SetMaximum(2.);
+    ratio_allerr->SetMinimum(0.);
     ratio_allerr->GetXaxis()->SetTitle(x_title[i_var]);
     ratio_allerr->GetYaxis()->SetTitle("#frac{Obs.}{Pred.}");
     ratio_allerr->SetFillColor(kOrange);
@@ -1320,8 +1675,8 @@ void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_all
     latex_CMSPriliminary.SetTextSize(0.035);
     latex_CMSPriliminary.DrawLatex(0.15, 0.96, "#font[62]{CMS} #font[42]{#it{#scale[0.8]{Preliminary}}}");
     latex_Lumi.SetTextSize(0.035);
-    if(Era=="2016a")latex_Lumi.DrawLatex(0.7, 0.96, "19.5 fb^{-1} (13 TeV)");
-    if(Era=="2016a")latex_Lumi.DrawLatex(0.7, 0.96, "16.8 fb^{-1} (13 TeV)");
+    if(Era=="2016preVFP")latex_Lumi.DrawLatex(0.7, 0.96, "19.5 fb^{-1} (13 TeV)");
+    if(Era=="2016postVFP")latex_Lumi.DrawLatex(0.7, 0.96, "16.8 fb^{-1} (13 TeV)");
     if(Era=="2016") latex_Lumi.DrawLatex(0.7, 0.96, "36.3 fb^{-1} (13 TeV)");
     if(Era=="2017") latex_Lumi.DrawLatex(0.7, 0.96, "41.5 fb^{-1} (13 TeV)");
     if(Era=="2018") latex_Lumi.DrawLatex(0.7, 0.96, "59.9 fb^{-1} (13 TeV)");
@@ -1342,8 +1697,8 @@ void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_all
     latex_CMSPriliminary.DrawLatex(0.20, 0.89, "#font[62]{CMS}");
     latex_Lumi.SetTextSize(0.035);
     latex_Lumi.SetTextFont(42);
-    if(Era=="2016a")latex_Lumi.DrawLatex(0.72, 0.96, "19.5 fb^{-1} (13 TeV)");
-    if(Era=="2016a")latex_Lumi.DrawLatex(0.72, 0.96, "16.8 fb^{-1} (13 TeV)");
+    if(Era=="2016preVFP")latex_Lumi.DrawLatex(0.72, 0.96, "19.5 fb^{-1} (13 TeV)");
+    if(Era=="2016postVFP")latex_Lumi.DrawLatex(0.72, 0.96, "16.8 fb^{-1} (13 TeV)");
     if(Era=="2016") latex_Lumi.DrawLatex(0.72, 0.96, "36.3 fb^{-1} (13 TeV)");
     if(Era=="2017") latex_Lumi.DrawLatex(0.72, 0.96, "41.5 fb^{-1} (13 TeV)");
     if(Era=="2018") latex_Lumi.DrawLatex(0.72, 0.96, "59.9 fb^{-1} (13 TeV)");
@@ -1362,7 +1717,7 @@ void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_all
 
   TString FixName = HistPath[i_cut];
   FixName = FixName.ReplaceAll("/","_");
-  LxplusHistResults.push_back("https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/"+AnalyserName+"/"+ Era +"/" + MacroName +FixName + "/"+HistNames[i_var]+".pdf");
+  LxplusHistResults.push_back("https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/"+AnalyserName+"/" + MacroName +"/"+ Era +"/" +FixName + "/"+HistNames[i_var]+".pdf");
 
 
   if(CopyToWebsite)SaveAndCopyLXPLUS(c1,thiscut_plotpath+"/"+HistNames[i_var],HistPath[i_cut],AnalyserName,MacroName,Era);
@@ -1405,6 +1760,10 @@ double HNLPlotter::y_max(){
 
 void HNLPlotter::SetXaxisRange(TH1D* hist){
   
+  if(FullHistNames.size() > 0) {
+    hist->GetXaxis()->SetRangeUser(Xmins[0], Xmaxs[0]);
+    return;
+  }
   TString cut = HistPath[i_cut];
   TString var = HistNames[i_var];
   
@@ -1561,9 +1920,6 @@ TString HNLPlotter::DoubleToString(double dx){
   if(units[i_var]=="int"){
     return "Events";
   }
-  else if(HistNames[i_var].Contains("secondLepton_Pt")){
-    return "Events / bin";
-  }
   else{
 
     int dx_int = int(dx);
@@ -1651,7 +2007,11 @@ double HNLPlotter::GetHistError(TH1D * ht, TString hn){
   return 0;
 
 }
-
+TString HNLPlotter::FixLatex(TString origSt){
+  TString fixSt=origSt;
+  if(fixSt.Contains("P_T")) fixSt.ReplaceAll("P_T","$\\mathrm{P}_{T}$");
+  return fixSt;
+}
 void HNLPlotter::MakeTexFile(map< TString, TH1D * > hs, TString Hist_For_CutFlow){
 
   if(DoDebug) cout << "Running MakeTexFile : size = " << hs.size() << endl; 
@@ -1672,7 +2032,7 @@ void HNLPlotter::MakeTexFile(map< TString, TH1D * > hs, TString Hist_For_CutFlow
   ofile.setf(ios::fixed,ios::floatfield); 
   ofile << "\\begin{table}[!tbh]" << endl;
   ofile << "  \\caption{" << endl;
-  ofile << "    Yields" << endl;
+  ofile << "    Yields in Region " << FixLatex(RegionType.at(i_cut)) << endl;
   ofile << "  }" << endl;
   ofile << "  \\begin{center}" << endl;
   ofile << "    \\begin{tabular}{c|c}" << endl;
@@ -1690,6 +2050,7 @@ void HNLPlotter::MakeTexFile(map< TString, TH1D * > hs, TString Hist_For_CutFlow
     if(name == "Z + #gamma") name = "Z $+ \\gamma$";
     if(name == "W + #gamma") name = "W $+ \\gamma$";
     if(name == "top + #gamma") name = "top $+ \\gamma$";
+    if(name == "ttbar") name = "$\\mathrm{t}  \\bar{t}$";
     if(name.Contains("data")) continue;
     if(name.Contains("HN")){
       HasSignal = true;
@@ -1769,7 +2130,7 @@ void HNLPlotter::MakeTexFile(map< TString, TH1D * > hs, TString Hist_For_CutFlow
   
   TString FixName = HistPath[i_cut];
   FixName = FixName.ReplaceAll("/","_");
-  LxplusCutFlowResults.push_back("https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/"+AnalyserName+"/"+ Era +"/" + MacroName +FixName + "/Yields.pdf");
+  LxplusCutFlowResults.push_back("https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/"+AnalyserName+"/"+ MacroName + "/"+ Era +"/" + FixName + "/Yields.pdf");
 
   if(CopyToWebsite) CopyLXPLUSCutFlow(texfilepath+"/Yields.pdf",HistPath[i_cut],AnalyserName,MacroName,Era);
 
@@ -1852,18 +2213,20 @@ void HNLPlotter::SetupSampleInfo(){
   map_sample_string_to_list.clear();
   map_sample_string_to_legendinfo.clear();
   map_sample_string_to_list["Prompt"] = {"Prompt"};
-  map_sample_string_to_list["DY"] = {"DYJets_10to50", "DYJets"};
+  map_sample_string_to_list["DY"] = {"DYJets"};
   map_sample_string_to_list["WJets"] = {"WJets"};
   map_sample_string_to_list["VV_excl"] = {
     //"WZTo3LNu_mllmin01",
     "WZTo3LNu_powheg",
     "ZZTo4L_powheg", "ggZZto2e2mu", "ggZZto2e2nu", "ggZZto2e2tau", "ggZZto2mu2nu", "ggZZto2mu2tau", "ggZZto4e", "ggZZto4mu", "ggZZto4tau", "ggHtoZZ",
   };
-  map_sample_string_to_list["VV_incl"] = {"WZ", "ZZ", "WW"};
+  map_sample_string_to_list["VV_incl"] = {"WZ_pythia", "ZZ_pythia", "WW_pythia"};
   map_sample_string_to_list["WZ_excl"] = {"WZTo3LNu_powheg"};
   map_sample_string_to_list["ZZ_excl"] = {"ZZTo4L_powheg", "ggZZto2e2mu", "ggZZto2e2nu", "ggZZto2e2tau", "ggZZto2mu2nu", "ggZZto2mu2tau", "ggZZto4e", "ggZZto4mu", "ggZZto4tau"};
   map_sample_string_to_list["VVV"] = {"WWW", "WWZ", "WZZ", "ZZZ"};
-  map_sample_string_to_list["ttbar"] = {"TT_powheg"};
+  
+
+  map_sample_string_to_list["ttbar"] = {"TTLL_powheg","TTLJ_powheg","SingleTop_tW_top_NoFullyHad","SingleTop_tW_antitop_NoFullyHad"};
   map_sample_string_to_list["ttbar_ll"] = {"TTLL_powheg"};
   map_sample_string_to_list["ttV"] = {"ttW", "ttZ", "ttH_nonbb"}; //FIXME ttH into ttV
   map_sample_string_to_list["ttH"] = {"ttH_nonbb"};
@@ -1883,7 +2246,7 @@ void HNLPlotter::SetupSampleInfo(){
   map_sample_string_to_legendinfo["ZZ_excl"] = make_pair("ZZ", kRed-7);
   map_sample_string_to_legendinfo["VVV"] = make_pair("triboson", kSpring+10);
   map_sample_string_to_legendinfo["ttbar"] = make_pair("ttbar", kRed);
-  map_sample_string_to_legendinfo["ttbar_ll"] = make_pair("ttbar", kRed);
+  map_sample_string_to_legendinfo["ttbar_ll"] = make_pair("t #bar{t}", kRed);
   map_sample_string_to_legendinfo["ttV"] = make_pair("ttV", kOrange);
   map_sample_string_to_legendinfo["ttH"] = make_pair("ttH", kOrange);
   map_sample_string_to_legendinfo["top"] = make_pair("top", kRed);

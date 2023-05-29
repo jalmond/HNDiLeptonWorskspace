@@ -42,19 +42,4 @@ for x in sswwsamples:
     os.system("hadd  " + path_2016 +"/"+x  + " "  + sk_path2 +"/"+x + " "  +sk_path + "/"+x)
 
 
-sig_arr_tamsadir  = [f for f in listdir(sk_path+"/SIGMerged/") if isfile(join(sk_path+"/SIGMerged/",f))]
-
-sigsamples = []
-for filename in sig_arr_tamsadir:
-    sigsamples.append(filename)
-
-
-os.system("mkdir -p " + os.getenv("FILE_MERGED_PATH")+"/"+Analyser +"/2016/"+FlagDir+"/SIGMerged/")
-
-for x in sigsamples:
-    if os.path.exists(path_2016 +"/SIGMerged/"+x  ):
-        os.system("rm " + path_2016 +"/SIGMerged/"+x  )
-    os.system("hadd  " + path_2016 +"/SIGMerged/"+x  + " "  + sk_path2 +"/SIGMerged/"+x + " "  +sk_path + "/SIGMerged/"+x)
-
-
 

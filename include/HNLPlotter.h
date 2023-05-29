@@ -25,6 +25,13 @@ public:
   HNLPlotter(TString macroname);
   ~HNLPlotter();
 
+  enum SetupHelper{
+    NoLOGY=100,
+    LOGY=101,
+    NoDrawRatio=102,
+    DrawRatio=103,
+  };
+  
   enum signal_class{
     no_class = -1,
     SR1 = 10,
@@ -43,6 +50,7 @@ public:
   void SetRebins(TString filepath);
   void SetYAxis(TString filepath);
   void SetXAxis(TString filepath);
+  vector<double> GetRebinVariableBins();
   void MakeRebins();
   void MakeYAxis();
   void MakeXAxis();
@@ -55,6 +63,7 @@ public:
   void DrawStackPlotsWithData();
   void DrawComparisonPlots();
   void draw_hist();
+  void draw_comphist();
   void make_cutflow(TString Hist_For_CutFlow="NEvents");
   TString find_MCsector();
   void clear_legend_info();
@@ -62,8 +71,15 @@ public:
   void fill_legend(TLegend *lg, TH1D *hist);
   void draw_legend(TLegend *lg, bool DrawData);
   void draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_allerror, TH1D *hist_data, vector<TH1D *> hist_signal, TLegend *legend, bool DrawData, TFile *outputf);
-  void AddHist(TString hn, TString htype, TString hunit,  int rb, double Xmin, double Xmax, double Ymax=1000000.);
+  void draw_comp_canvas(TH1D *hist_def, TH1D *hist_comp, TLegend *legend ,TFile *outputf);
+
+
+  void AddHist(TString hn, TString htype, TString hunit,  vector<double> rb, double Xmin, double Xmax, double Ymax=1000000.);
+  void SetupDefaultHist(TString sample, TString hn, TString histtag, TString legendname, TString htype, TString hunit,  vector<double> rb, double Xmin, double Xmax, double Ymax=1000000.);
+  void SetupComparisonHist(TString sample, TString hist, TString histtag,TString legendname );
+  TH1D* MakeHist(TString filepath, TString fullhistname);
   void Summary();
+  TString FixLatex(TString origSt);
 
   int n_rebin();
   double y_max();
@@ -89,14 +105,16 @@ public:
   inline void SetMacroName(TString macname) { MacroName=macname; }
   inline void SetEra(TString eraname) { Era=eraname; }
 
-  void BasicSetup(double logy, bool ratio, TString channel);
+  void BasicSetup(SetupHelper logy, SetupHelper ratio, TString channel);
   
   //==== variables
   bool DoDebug;
+  bool comp_default_set;
   unsigned int i_cut, i_var, i_file;
-  TString infilepath, filename_prefix, filename_suffix, data_class, plotpath, thiscut_plotpath;
-  vector<TString> HistPath, bkglist, samples_to_use, HistNames, x_title, units, PrimaryDataset;
-  vector<int> Rebins,Xmins,Xmaxs,Ymaxs;
+  TString infilepath, filename_prefix, filename_suffix, data_class, plotpath, thiscut_plotpath, def_infilepath, def_histpath;
+  vector<TString> HistPath, bkglist, samples_to_use, HistNames, x_title, units, PrimaryDataset, FullHistNames,SamplePaths, LegendNames;
+  vector<int> Xmins,Xmaxs,Ymaxs;
+  vector<vector<double> > Rebins;
   vector<bool> drawdata, ApplyMCNormSF, drawratio;
   vector<TString> CutFlowResults, HistResults;
   vector<TString> LxplusCutFlowResults, LxplusHistResults;
@@ -137,6 +155,7 @@ public:
   void LeptonChannel(TString ch);
 
   map< TString, int > temp_rebins;
+  map< TString, vector<double> > temp_vrebins;
   map< TString, double > temp_y_maxs, temp_x_mins, temp_x_maxs;
 
   double default_y_max = 1000, default_y_min = 0.;
@@ -152,6 +171,7 @@ public:
   TString Era;
   bool MakePaperPlot;
   bool MergeZeroBins;
+  bool VarBins;
   bool CopyToWebsite;
 };
 #endif

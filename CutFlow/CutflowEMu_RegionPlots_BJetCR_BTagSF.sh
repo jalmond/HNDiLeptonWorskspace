@@ -1,8 +1,0 @@
-cd /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow/
-latex /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_EMu_RegionPlots_BJetCR_BTagSF.tex
-dvipdf /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_EMu_RegionPlots_BJetCR_BTagSF.dvi
-mv /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/CutFlow//Cutflow_EMu_RegionPlots_BJetCR_BTagSF.pdf  /data6/Users/jalmond/2020/HL_SKFlatAnalyzer_ULv3/SKFlatAnalyzer/HNDiLeptonWorskspace/Output/Plots//Run2UltraLegacy_v3/HNL_Validation/2018//RegionPlots_BJetCR_BTagSF/
-rm Cutflow_EMu_RegionPlots_BJetCR_BTagSF.aux
-rm Cutflow_EMu_RegionPlots_BJetCR_BTagSF.tex
-rm Cutflow_EMu_RegionPlots_BJetCR_BTagSF.dvi
-cd -
