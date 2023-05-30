@@ -1,2 +1,0 @@
-Channel = MuMu
-/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_UL_LONG/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017//SIGMerged/HNL_SignalLeptonOpt_Type1_SS_M100.root
