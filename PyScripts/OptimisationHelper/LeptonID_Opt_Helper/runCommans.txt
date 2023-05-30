@@ -1,0 +1,2 @@
+python CompareSignifanceIDCutBDTMuon.py  -e 2017 -f MuID_NP__EC__
+python CompareSignifanceIDCutBDTMuon.py  -e 2017 -f MuID_NP__BB__

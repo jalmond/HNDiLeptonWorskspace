@@ -1,0 +1,21 @@
+Channel = MuMu
+/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_UL_LONG/SKFlatAnalyzer/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP__FullEta__/SIGMerged/HNL_SignalLeptonOpt_Type1_SS_M100.root
+LimitInputBDT/HNLOpt_ULHNTightV2/100/LimitBins/MuonSR
+Bin 1 sig = 0.0 bkg = 0.0 s/sqrt(B+1) = 0.0  Punzi = 0.0 Za = 0.0
+Bin 2 sig = 0.0 bkg = 0.0 s/sqrt(B+1) = 0.0  Punzi = 0.0 Za = 0.0
+Bin 3 sig = 0.0 bkg = 0.0 s/sqrt(B+1) = 0.0  Punzi = 0.0 Za = 0.0
+Bin 4 sig = 0.0 bkg = 0.0 s/sqrt(B+1) = 0.0  Punzi = 0.0 Za = 0.0
+Bin 5 sig = 0.0 bkg = 0.0 s/sqrt(B+1) = 0.0  Punzi = 0.0 Za = 0.0
+Bin 6 sig = 0.0 bkg = 0.0 s/sqrt(B+1) = 0.0  Punzi = 0.0 Za = 0.0
+Bin 7 sig = 0.0 bkg = 0.0 s/sqrt(B+1) = 0.0  Punzi = 0.0 Za = 0.0
+Bin 8 sig = 0.679071485996 bkg = 1.02956432951 s/sqrt(B+1) = 0.476665900051  Punzi = 0.640244817744 Za = 0.610662438264
+Bin 9 sig = 1.35754144192 bkg = 4.83984215839 s/sqrt(B+1) = 0.56176223729  Punzi = 0.515018608416 Za = 0.591153539241
+Bin 10 sig = 411.001182765 bkg = 4161.02132346 s/sqrt(B+1) = 6.37075525621  Punzi = 0.328808323995 Za = 6.27072535047
+Bin 11 sig = 533.091212675 bkg = 467.995497845 s/sqrt(B+1) = 24.6159832061  Punzi = 3.75269570904 Za = 21.3596735372
+Bin 12 sig = 775.908424795 bkg = 289.020259164 s/sqrt(B+1) = 45.5613201425  Punzi = 8.78151351679 Za = 35.0124464819
+Bin 13 sig = 951.137205541 bkg = 95.4879489531 s/sqrt(B+1) = 96.829264474  Punzi = 31.4246858957 Za = 55.7642303869
+Bin 14 sig = 456.71774745 bkg = 20.8932566299 s/sqrt(B+1) = 97.6096384494  Punzi = 58.8733756678 Za = 45.5610331189
+Bin 15 sig = 390.339711517 bkg = 7.09657792057 s/sqrt(B+1) = 137.180375372  Punzi = 114.46417449 Za = 49.1835146161
+Bin 16 sig = 529.916288108 bkg = 13.3805225299 s/sqrt(B+1) = 139.739741415  Punzi = 97.5754583372 Za = 54.4495489022
+Bin 17 sig = 169.073937416 bkg = 0.921885043121 s/sqrt(B+1) = 121.958749647  Punzi = 169.211602546 Za = 37.8896484888
+Bin 18 sig = 21.4528432488 bkg = 0.0148640148109 s/sqrt(B+1) = 17.5161731639  Punzi = 29.6784839326 Za = 11.0971863491

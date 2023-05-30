@@ -1,8 +1,8 @@
 import os
 
 
-Eras = ["2016preVFP","2016postVFP","2018"]
-Flags = ["MuID_NP__BB__","MuID_NP__EC__"]
+Eras = ["2017"]
+Flags = ["MuID_NP__FullEta__"]
 
 for Era in Eras:
     for Flag in Flags:

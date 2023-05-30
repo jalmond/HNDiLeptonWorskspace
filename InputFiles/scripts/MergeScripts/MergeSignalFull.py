@@ -40,8 +40,8 @@ for era in eras:
 
     OutPathEra=os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"+era+FlagDir
 
-    MassList = ["100","250","500","900","1000","750","600","5000","3000","2500","1100","1300","2000","150","200","95","90"]
-
+    MassList = ["100","250","400", "500","900","1000","750","600","5000","3000","2500","1100","1300","2000","150","200","95","90"]
+    MassList = ["400"]
 
     if os.getenv("FILE_MERGED_PATH") == "NULL":
         print("Env not set.....")
