@@ -1,4 +1,5 @@
 .DS_Store
+PyScripts/OptimisationHelper/LeptonID_Opt_Helper/results
 */*.pyc
 */*/*.pyc
 Output/Plots
