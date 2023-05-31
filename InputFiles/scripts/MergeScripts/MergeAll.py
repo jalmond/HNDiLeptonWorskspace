@@ -21,11 +21,12 @@ parser.add_argument('--Fake',action='store_true')
 parser.add_argument('--Sig',action='store_true')
 parser.add_argument('--CF',action='store_true')
 parser.add_argument('--Conv',action='store_true')
-parser.add_argument('--MC',action='store_true')
+parser.add_argument('--Prompt',action='store_true')
 parser.add_argument('--LMC',action='store_true')
 parser.add_argument('--Run2Merge',action='store_true')
 parser.add_argument('--EraMerge',action='store_true')
 parser.add_argument('--Bkg',action='store_true')
+parser.add_argument('--CopyMC',action='store_true')
 parser.add_argument('--Full',action='store_true')
 
 args = parser.parse_args()
@@ -38,10 +39,11 @@ Analyser=args.Analyzer
 MergeFake=args.Fake
 MergeCF=args.CF
 MergeConv=args.Conv
-MergeMC=args.MC
+MergePrompt=args.Prompt
 MergeLargeMC=args.LMC
 MergeBkg=args.Bkg
 MergeSignal=args.Sig
+CopyMC=args.CopyMC
 
 MergeData=args.Data
 Merge16=args.EraMerge
@@ -51,7 +53,7 @@ if args.Full:
     MergeFake=True
     MergeCF=True
     MergeConv=True
-    MergeMC=True
+    MergePrompt=True
     MergeBkg=True
     MergeData=True
 
@@ -85,7 +87,7 @@ if MergeFake:
         os.system("hadd " + OutFile + "  " + InputPathEra+"RunFake__/DATA/*")
 
 
-if MergeMC:
+if MergePrompt:
 
     OutFile=OutputPathEra + "/"+Analyser+"_"+SkimName+"_Prompt.root"
     if os.path.exists(OutFile):
@@ -93,30 +95,9 @@ if MergeMC:
 
     
     os.system("hadd " + OutFile + "  " + InputPathEra+"/*SkimTre*")
-    os.system("cp " + InputPathEra+"/*SkimTre* " + OutputPathEra+"/" )
+    if CopyMC:
+        os.system("cp " + InputPathEra+"/*SkimTre* " + OutputPathEra+"/" )
 
-if MergeLargeMC:
-
-    OutFile=OutputPathEra + "/"+Analyser+"_"+SkimName#+"_MC.root"
-    if os.path.exists(OutFile+"_ZMC.root"):
-        os.system("rm " + OutFile+"_ZMC.root")
-        os.system("rm " + OutFile+"_TMC.root")
-        os.system("rm " + OutFile+"_tMC.root")
-        os.system("rm " + OutFile+"_SMC.root")
-        os.system("rm " + OutFile+"_GMC.root")
-        os.system("rm " + OutFile+"_DMC.root")
-        os.system("rm " + OutFile+"_WMC.root")
-        os.system("rm " + OutFile+"_W2MC.root")
-
-
-    os.system("hadd " + OutFile + "_ZMC.root  " + InputPathEra+"/*HNMultiLepBDT_Z* &> log/"+args.Era+"_"+Analyser+"Zlog &")
-    os.system("hadd " + OutFile + "_TMC.root  " + InputPathEra+"/*HNMultiLepBDT_T* &> log/"+args.Era+"_"+Analyser+"Tlog &")
-    os.system("hadd " + OutFile + "_tMC.root  " + InputPathEra+"/*HNMultiLepBDT_t* &> log/"+args.Era+"_"+Analyser+"tlog &")
-    os.system("hadd " + OutFile + "_SMC.root  " + InputPathEra+"/*HNMultiLepBDT_S* &> log/"+args.Era+"_"+Analyser+"Slog &")
-    os.system("hadd " + OutFile + "_GMC.root  " + InputPathEra+"/*HNMultiLepBDT_G* &> log/"+args.Era+"_"+Analyser+"Glog &")
-    os.system("hadd " + OutFile + "_DMC.root  " + InputPathEra+"/*HNMultiLepBDT_D* &> log/"+args.Era+"_"+Analyser+"Dlog &")
-    os.system("hadd " + OutFile + "_WMC.root  " + InputPathEra+"/*HNMultiLepBDT_Wp* " + InputPathEra+"/*HNMultiLepBDT_WW* " + InputPathEra+"/*HNMultiLepBDT_WZ*    &> log/"+args.Era+"_"+Analyser+"Wlog &")
-    os.system("hadd " + OutFile + "_W2MC.root  " + InputPathEra+"/*HNMultiLepBDT_WJ* ")
 
 
 if MergeCF:
@@ -152,6 +133,7 @@ if MergeBkg:
     os.system("hadd " +OutFile+  "   " + OutputPathEra + "/"+Analyser+"_"+SkimName+"*")
     
 if MergeSignal:
+    os.system("python MergeScipts/RenameSig.py -a " + Analyser + " -f " + FlagDir + " -e " + era)
     os.system("python MergeScripts/MergeSignal.py -a " + Analyser + " -f " + FlagDir + " -e " + era)
     os.system("python MergeScripts/MergeSignalFull.py -a " + Analyser + " -f " + FlagDir + " -e " + era)
 

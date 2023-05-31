@@ -1,25 +1,35 @@
 import os
 
+import argparse
 
-Eras = ["2017"]
-Flags = ["MuID_NP__FullEta__"]
+parser = argparse.ArgumentParser(description='SKFlat Command')
+parser.add_argument('-e', dest='Era', default="2017")
+parser.add_argument('-f', dest='Flag', default="")
+parser.add_argument('-a', dest='Analyzer', default="")
 
-for Era in Eras:
-    for Flag in Flags:
-        _path = "/data6/Users/jalmond/SKFlatOutput//Run2UltraLegacy_v3/HNL_SignalLeptonOpt/"+Era+"/"+Flag
+args = parser.parse_args()
 
-        from os import listdir
-        from os.path import isfile,isdir, join
+Analyser=args.Analyzer
+FlagDir=args.Flag
+era = args.Era
+
+_path = "/data6/Users/jalmond/SKFlatOutput//Run2UltraLegacy_v3/"++"/"+Era+"/"+Flag
+
+print ("@@@@@@@@@@@@@@@@@ RUNNING RenameSig.py @@@@@@@@@@@@@@)")
+print ("PATH:" +_path)
+
+from os import listdir
+from os.path import isfile,isdir, join
+
+filelist  = [f for f in listdir(_path) if isfile(join(_path,f))]
+
+for x in filelist:
+    if not "Skim" in x:
+    continue
+    if "Type" in x:
+        pathfix = x
+        pathfix = pathfix.replace("SkimTree_HNMultiLepBDT_","")
+        print pathfix
+        os.system("mv " + _path+"/"+x + " " + _path+"/"+pathfix)
         
-        filelist  = [f for f in listdir(_path) if isfile(join(_path,f))]
-
-        for x in filelist:
-            if not "Skim" in x:
-                continue
-            if "Type" in x:
-                pathfix = x
-                pathfix = pathfix.replace("SkimTree_HNMultiLepBDT_","")
-                print pathfix
-                os.system("mv " + _path+"/"+x + " " + _path+"/"+pathfix)
-
         
