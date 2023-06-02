@@ -513,9 +513,11 @@ class HNLArxiv():
                     err_bkg= err_bkg + (1.-float(word[2]))*(1.-float(word[2]))
 
         err_bkg_final = math.sqrt(err_bkg)
-        err_bkg_final = err_bkg_final * float(GetEXO_17_028_Bkg(channel,SR,mass, SIG))
+        err_bkg_final = err_bkg_final * float(self.GetEXO_17_028_Bkg(channel,SR,mass, SIG))
 
         return err_bkg_final
+
+
 
 
 
@@ -632,47 +634,87 @@ class HNLArxiv():
         return 1.
 
 
-    def GetSignificnaceEXO_17_028(self,mass,dmass, method,scX):
-
-        print("Running GetSignificnaceEXO_17_028 for mass " + mass)
+    def GetSignificnaceEXO_17_028(self,_Channel,_Mass, scX):
+        
+        _DMass = float(_Mass)
+        
+        print("Running GetSignificnaceEXO_17_028 for mass " + _Mass)
         couplingSF = 1
         
         #### SR1 in 2016 was AK4 SR2 was AK8 .....                                                                                                                                                                                                                                                     
         SignalRegions = ["Bin1", "Bin2"]
         
         ##### check 3 types of significance                                                                                                                                                                                                                                                            
-        Signifiance = 0.
+        SignifianceAz = 0.
         SignifianceSB = 0.
         SignifianceP = 0.
         
-        print ("GetSignificnaceEXO_17_028: Mass [" + mass+"]")
-        for SR in SignalRegions:
+        print ("GetSignificnaceEXO_17_028: Mass [" + _Mass+"]")
 
-            Bin = SR
+        for SignalRegion in SignalRegions:
+
+            Bin = SignalRegion
             Bin = Bin.replace('Bin','SR')
             
-            nBkg    = float(self.GetEXO_17_028_Bkg(channel, SR , mass, "" ))
-            nBkgErr = GetEXO_17_028_BkgErr(channel, SR , mass, "" ) + 0.2
-            nSig    = float(self.GetEXO_17_028_Eff(channel, Bin, mass,"DY")* self.GetXSecUnityCoupling(dmass,"DY") + self.GetEXO_17_028_Eff(channel, Bin, mass,"VBF")*self.GetXSecUnityCoupling(dmass,"VBF"))
+            nBkg    = float(self.GetEXO_17_028_Bkg(_Channel, SignalRegion , _Mass, "" ))
+            nBkgErr = self.GetEXO_17_028_BkgErr(_Channel, SignalRegion , _Mass, "" ) + 0.2 
+            nSig    = float(self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"DY")* self.GetXSecUnityCoupling(_DMass,"DY") + self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"VBF")*self.GetXSecUnityCoupling(_DMass,"VBF"))
 
-            nSig    = nSig*0.1
             
-            print (SR + " DY Efficiency =" + str(self.GetEXO_17_028_Eff(channel, Bin, mass,"DY")) + " XSEC" + str(self.GetXSecUnityCoupling(dmass,"DY")) + " VBF Eff = " + str(self.GetEXO_17_028_Eff(channel, Bin, mass,"VBF")) + " Xsec=" + str(self.GetXSecUnityCoupling(dmass,"VBF")))
+            print (SignalRegion + " DY Efficiency = " + str(self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"DY")) + " Xsec= " + str(self.GetXSecUnityCoupling(_DMass,"DY")) + " VBF Eff = " + str(self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"VBF")) + " Xsec= " + str(self.GetXSecUnityCoupling(_DMass,"VBF")))
             
             ####### convert efficiency to number                                                                                                                                                                                                                                                       
             nSig =nSig*36500 * couplingSF
 
             if nBkg> 0 :
-                Signifiance   = Signifiance     +  self.CalculdateSignificance("Azimoth",float(nSig),nBkg, scX)
+                SignifianceAz = SignifianceAz   +  self.CalculdateSignificance("Azimoth",float(nSig),nBkg, scX)
                 SignifianceSB = SignifianceSB   +  self.CalculdateSignificance("SB",float(nSig),nBkg,scX)
                 SignifianceP  = SignifianceP    +  self.CalculdateSignificance("Punzi",float(nSig),nBkg,scX)
 
             print("_"*60)
-            print  (SR + " NSig = " + str(nSig ) + " NBkg="  + str(nBkg) + " +/- " + str(nBkgErr))
+            print  (SignalRegion + " NSig = " + str(nSig ) + " NBkg="  + str(nBkg) + " +/- " + str(nBkgErr))
             
-            print ("Muon " + str(mass) + " Za = " + str(Signifiance))
-            print ("Muon " + str(mass) + " s/sqrt(B) = " + str(SignifianceSB))
-            print ("Muon " + str(mass) + " Punzi = " + str(SignifianceP))
+            print ("Muon " + str(_Mass) + " Za = " + str(SignifianceAz))
+            print ("Muon " + str(_Mass) + " s/sqrt(B) = " + str(SignifianceSB))
+            print ("Muon " + str(_Mass) + " Punzi = " + str(SignifianceP))
             
-        return [Signifiance, SignifianceSB,SignifianceP]
+        return [SignifianceAz, SignifianceSB,SignifianceP]
+
+
+
+
+    def GetMassList(self,Channel, isString):
+        
+        massesDY=[]
+        massesVBF=[]
+        massesSSWW=[]
+
+        if self.IsEXO17028:
+            
+            massesDY = ["100", "125",  "200",  "250",  "300",  "400",  "500",  "600",  "700",  "800",   "900",  "1000",  "1100",  "1200",  "1300",  "1400",  "1500", "1700"]
+            masses_vbf =  ["500",  "600",  "700",  "800",  "900",  "1000",  "1100",  "1200",  "1300",  "1400",        "1500", "1700"]
+            
+            if self.IsSNURun2:
+                    
+                massesDY = ["100", "125",  "200",  "250",  "300",  "400",  "500",  "600",  "700",  "800",   "900",  "1000",  "1100",  "1200",  "1300",  "1400",  "1500", "1700" , "2000","2500","3000"]
+                masses_vbf =  ["500",  "600",  "700",  "800",  "900",  "1000",  "1100",  "1200",  "1300",  "1400",        "1500", "1700" , "2000","2500","3000"]
+                massesSSWW = ["500",  "600",  "700",  "800",  "900",  "1000",  "1100",  "1200",  "1300",  "1400",        "1500", "1700" , "2000","2500","3000","5000","7500","10000","15000","20000"]
+
+            
+        MassList=massesDY
+        if Channel == "TChannel":
+            MassList=massesVBF
+        if Channel == "SSWW":
+            MassList=massesSSWW
+
+
+                
+        Masses_S = []
+        if isString:
+            for m in MassList:
+                Masses_S.append(float(m))
+            else:
+                Masses_S =MassList
+
+        return MassList
 

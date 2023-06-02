@@ -89,14 +89,14 @@ def GetSignificance(out,h_sig, h_bkg,FOM,scaleSig, EXO17):
         Print(out, "Bin " + PrintSame(x+1,5)  + " sig = " + PrintSame(SigBin,10) + " bkg = " + PrintSame(Bkg,10) + " s/sqrt(B+1) = " + PrintSame(CalculdateSignificance("SB",SigBin,Bkg,scaleSig),10) + "  Punzi = " + PrintSame(CalculdateSignificance("Punzi",SigBin,Bkg,scaleSig),10)  + " Za = " + PrintSame(CalculdateSignificance("Azimoth",SigBin,Bkg,scaleSig),10))
 
     print ("Total Sig = " + str(TotalSig) + " total bkg = " + str(TotalBkg) + " Combined bin Significance : " + str(TotalBkg) 
-           + " s/sqrt(B+1) = " + str(CalculdateSignificance("SB",TotalSig,TotalBkg,scaleSig)) + "/" + str(EXO17[1]) 
-           + " Punzi = "       + str(CalculdateSignificance("Punzi",TotalSig,TotalBkg,scaleSig))  + "/" + str(EXO17[2]) 
-           + " Za = "          + str(CalculdateSignificance("Azimoth",TotalSig,TotalBkg,scaleSig)) + "/" + str(EXO17[0]) )
+           + " s/sqrt(B+1) = " + str(CalculdateSignificance("SB",TotalSig,TotalBkg,scaleSig)) 
+           + " Punzi = "       + str(CalculdateSignificance("Punzi",TotalSig,TotalBkg,scaleSig))
+           + " Za = "          + str(CalculdateSignificance("Azimoth",TotalSig,TotalBkg,scaleSig)) )
     
     print ("Summed signifance of individual bins:")
-    print "Signif Za = " + str(SignifAz)
-    print "Signif SB = " + str(SignifSB)
-    print "Signif Punzi = " + str(SignifP)
+    print "Signif Za = " + str(SignifAz) + "/" + str(EXO17[0])
+    print "Signif SB = " + str(SignifSB) + "/" + str(EXO17[1])
+    print "Signif Punzi = " + str(SignifP) + "/" + str(EXO17[2])
 
     return Signif
 
@@ -585,4 +585,86 @@ def GetKFactor(mN, Era='2016preVFP', lepch=0):
 
   return this_avg_kfactor
 
+
+
+def GetColorByInt(x):
+
+    import ROOT
+    vCol = []
+    vCol.append(ROOT.kRed)
+    vCol.append(800)
+    vCol.append(870)
+    vCol.append(ROOT.kSpring-1)
+    vCol.append(ROOT.kGray)
+    vCol.append(ROOT.kViolet)
+    vCol.append(ROOT.kYellow+4)
+    vCol.append(ROOT.kCyan)
+    vCol.append(ROOT.kBlue-2)
+    vCol.append(ROOT.kGreen-2)
+    vCol.append(ROOT.kGreen+2)
+    vCol.append(ROOT.kOrange-2)
+
+    if(x > len(vCol)):
+        return ROOT.kBlack
+    return vCol[x]
+
+
+
+def GetColor(bkg):
+
+    if bkg == "CF":
+        return 74
+
+    if bkg == "SSPrompt":
+        return 8
+
+    if bkg == "VV":
+        return ROOT.kSpring-1
+
+    if bkg == "WZ":
+        return ROOT.kSpring-1
+
+    if bkg == "ZZ":
+        return ROOT.kBlue-1
+
+    if "VVV" in bkg:
+        return ROOT.kSpring+10
+
+    if "XG" in bkg:
+        return ROOT.kSpring-7
+
+    if "ZG" in bkg:
+        return ROOT.kSpring-7
+
+    if "WG" in bkg:
+        return ROOT.kGreen-7
+
+    if "WJet"in bkg:
+        return ROOT.kGreen
+
+    if "Top" in bkg:
+        return ROOT.kRed
+
+    if "DY" in bkg:
+        return ROOT.kYellow
+
+    if "wwpp" in bkg:
+        return ROOT.kGray
+
+    if "fake" in bkg:
+        return 870
+
+    if "NonPrompt" in bkg:
+        return 870
+
+    if bkg == "total_background":
+        return ROOT.kGreen+1
+
+    if bkg == "TTLL":
+        return ROOT.kRed
+
+    if bkg == "TW":
+        return ROOT.kGray
+
+    print ("Failed to  find " + bkg)
 
