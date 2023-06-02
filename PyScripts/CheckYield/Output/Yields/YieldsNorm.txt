@@ -1,0 +1,654 @@
+======================================================================================================================================================
+Region = SR1
+######################################################################################################################################################
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M200:        [ 576.129360888 368.463477486 0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M200:        [ 71.8794269338 24.9543809096 0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M200:        [ 64.7134317324 30.368740815 0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M200:        [ 55.3305484211 24.9812760601 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M200:        [ 76.0363518703 45.1862488369 42.323481719] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M200:        [ 27.1943823203 30.0836641118 34.4363427602] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M200:        [ 459.139965252 198.952966624 306.074644584] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M200:        [ 78.282669478 19.6130156577 38.7114030391] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M200_private:        [ 190.17039844 83.4848907333 109.891294288] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M200_private:        [ 140.356904562 83.9917258909 125.514344633] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M200_private:        [ 131.892853577 63.3280994074 84.1323988963] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M200_private:        [ 120.063448369 69.4310681568 104.714347759] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+######################################################################################################################################################
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M500:        [ 29.0120039307 16.3268523108 0.0       ] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M500:        [ 15.9398585105 8.52348105367 0.0       ] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M500:        [ 42.9421922833 24.6954777861 0.0       ] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M500:        [ 12.1961765336 8.32779987085 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M500:        [ 30.7066905786 12.9225214688 19.0229812011] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M500:        [ 29.664512481 14.1947667277 19.7840970456] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M500:        [ 56.3145126418 32.7775271371 39.0238416711] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M500:        [ 16.6191637127 7.83269438838 11.5598999705] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M500_private:        [ 69.7972058637 37.1607900348 48.6845939954] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M500_private:        [ 73.1401508955 42.5844954861 54.063168128] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M500_private:        [ 56.2817973667 33.5943315835 40.9052290506] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M500_private:        [ 61.4204383019 36.8588476017 47.8868562163] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M500:        [ 10.6456132174 5.59097959385 0.0       ] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M500:        [ 8.37756279213 5.10773354319 0.0       ] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M500:        [ 3.19926181346 1.47447322757 0.0       ] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M500:        [ 10.246972991 9.35830588068 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M500:        [ 8.93247653501 0.706151758557 2.71543349926] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M500:        [ 34.9032125133 24.0466731796 29.910009307] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M500:        [ 12.1985644321 5.79371842715 8.70057681653] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M500:        [ 10.819781647 4.37849549477 5.042056363] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M500_private:        [ 11.3605762328 5.9958964372 7.421318529] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M500_private:        [ 12.2816677697 6.14296330398 8.4373040993] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M500_private:        [ 9.42801176034 4.95178148774 6.31151641512] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M500_private:        [ 10.2394013027 5.45097103963 7.58930042896] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M500:        [ 0.594629406105 0.084978337476 0.0       ] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M500:        [ -0.0464302808454 0.132239617048 0.0       ] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M500:        [ 0.521182419378 0.338508696327 0.0       ] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M500:        [ 1.2249436859 0.992288970836 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M500:        [ 0.0        0.0        1.41331224634] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M500:        [ 0.0        0.0        5.45698005024] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M500:        [ 0.0        0.0        0.718809172992] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M500:        [ 0.0        0.0        0.983965988644] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M500:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M500:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M500:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M500:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M500_private:        [ 0.0        0.0        2.51050575884] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M500_private:        [ 0.0        0.0        2.65590758006] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M500_private:        [ 0.0        0.0        0.781808196672] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M500_private:        [ 0.0        0.0        1.90315168048] (Normised to 100fb-1)  
+######################################################################################################################################################
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M1000:       [ 24.1735807202 13.7985646611 0.0       ] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M1000:       [ 24.0188986339 13.4075493376 0.0       ] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M1000:       [ 1.46134182231 0.661427196449 0.0       ] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M1000:       [ 7.99098442989 4.86256440623 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M1000:       [ 24.5820821862 13.3817562951 18.003506672] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M1000:       [ 17.1281134254 9.89952643105 12.4473787238] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M1000:       [ 1.70496688696 1.02605340248 1.2404950965] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M1000:       [ 1.51190237263 1.13096591969 1.15536168805] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M1000_private:       [ 5.78473184549 3.25345955421 3.98862594803] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M1000_private:       [ 5.56649093756 3.16201473295 4.06862683272] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M1000_private:       [ 4.30119334456 2.56953372732 3.04775861418] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M1000_private:       [ 4.58493341675 2.81004895002 3.52174114827] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M1000:       [ 4.60594163475 1.83073671205 0.0       ] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M1000:       [ 1.46779187474 0.492603186898 0.0       ] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M1000:       [ 17.1113244941 9.01261835248 0.0       ] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M1000:       [ 1.85273955999 0.645296055697 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M1000:       [ 6.64175330727 2.58907567916 4.285530634] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M1000:       [ 12.2567487869 6.91036003501 9.1276800678] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M1000:       [ 1.57808993872 0.441987433434 0.693229852889] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M1000:       [ 9.80967714618 5.94519590235 6.38978313745] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M1000_private:       [ 4.69485292525 2.49480186197 3.53297935004] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M1000_private:       [ 5.13916088983 2.53990841696 3.82312762406] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M1000_private:       [ 3.57419942257 2.01872028131 2.80013702683] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M1000_private:       [ 4.26495086367 2.22207065686 3.01648650824] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M1000:       [ 3.86867699877 1.59866171059 0.0       ] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M1000:       [ 5.10271516572 3.33846525068 0.0       ] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M1000:       [ 0.187734828089 0.394746421395 0.0       ] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M1000:       [ 0.736601401657 0.311148589682 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M1000:       [ 0.0        0.0        7.79073517464] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M1000:       [ 0.0        0.0        5.12068983962] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M1000:       [ 0.0        0.0        0.453073012291] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M1000:       [ 0.0        0.0        1.63152605792] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M1000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M1000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M1000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M1000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M1000_private:       [ 0.0        0.0        1.2908650307] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M1000_private:       [ 0.0        0.0        2.19390055343] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M1000_private:       [ 0.0        0.0        0.580903669198] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M1000_private:       [ 0.0        0.0        1.63152605792] (Normised to 100fb-1)  
+######################################################################################################################################################
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M2000:       [ 0.0267252491007 0.012828037044 0.0       ] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M2000:       [ 0.0341249464449 0.0146655645176 0.0       ] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M2000:       [ 0.0132167344432 0.00638689116324 0.0       ] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M2000:       [ 0.0170375764337 0.00832085087023 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M2000:       [ 0.0991877955577 0.0609002282157 0.0756403510627] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M2000:       [ 0.117954072515 0.0601574683369 0.0710281429898] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M2000:       [ 0.140388388267 0.0617976606212 0.104014887637] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M2000:       [ 0.00281311087413 0.00283127790539 0.00301460980686] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M2000_private:       [ 0.047877793886 0.0203353760841 0.032114877768] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M2000_private:       [ 0.0500466823058 0.0246703310887 0.0359659819392] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M2000_private:       [ 0.0320871508115 0.0144510014511 0.0222908717387] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M2000_private:       [ 0.041962762133 0.019017728309 0.0294100884627] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M2000:       [ 0.293525477177 0.105799981313 0.0       ] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M2000:       [ 0.587788935518 0.302047925328 0.0       ] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M2000:       [ 0.647785696468 0.238776717803 0.0       ] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M2000:       [ 0.909551292403 0.422563055436 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M2000:       [ 0.124417280903 -0.000150035315319 0.108957733648] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M2000:       [ 0.953197869215 0.460252354268 0.734907212634] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M2000:       [ 0.0683623233028 0.0286707087674 0.018356873965] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M2000:       [ 0.94216164215 0.420843467652 0.52916252744] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M2000_private:       [ 0.245316422419 0.113128264124 0.15198396718] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M2000_private:       [ 0.235568043404 0.119955741518 0.180953322957] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M2000_private:       [ 0.130042483365 0.0617052005303 0.11403024952] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M2000_private:       [ 0.173392008857 0.0924370095156 0.148189762415] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M2000:       [ 2.48203321969 1.5229124369 0.0       ] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M2000:       [ 1.36597182852 1.82242912432 0.0       ] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M2000:       [ 0.0232018071443 0.00177014380219 0.0       ] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M2000:       [ 0.438543350082 0.343598199991 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M2000:       [ 0.0        0.0        3.18073893021] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M2000:       [ 0.0        0.0        1.42529327381] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M2000:       [ 0.0        0.0        0.115192752141] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M2000:       [ 0.0        0.0        0.484527848174] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M2000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M2000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M2000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M2000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M2000_private:       [ 0.0        0.0        1.19096770624] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M2000_private:       [ 0.0        0.0        1.04738318091] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M2000_private:       [ 0.0        0.0        0.19231228135] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M2000_private:       [ 0.0        0.0        0.624191799714] (Normised to 100fb-1)  
+======================================================================================================================================================
+Region = SR2
+######################################################################################################################################################
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M200:        [ 83.5022452425 44.7701968131 0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M200:        [ 72.8807470261 17.6035558305 0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M200:        [ 94.2867017183 58.7737778688 0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M200:        [ 87.2679542144 56.0037635071 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M200:        [ 45.7945862999 16.852660013 47.1917567317] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M200:        [ 86.0337981293 48.9067343429 84.5772300995] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M200:        [ 119.546875142 62.5431106543 66.4967361733] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M200:        [ 115.688042399 62.3174058779 94.8052770534] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M200_private:        [ 79.4170087119 29.2681349197 57.9447149143] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M200_private:        [ 81.0595111592 39.4921133972 38.1505463199] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M200_private:        [ 83.457942021 53.0611914776 56.6138069189] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M200_private:        [ 97.173773015 48.38315695 70.092630998] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+######################################################################################################################################################
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M500:        [ 9.43298274117 5.03893934961 0.0       ] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M500:        [ 8.37659360514 4.43512504031 0.0       ] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M500:        [ 8.26537047792 5.08033876148 0.0       ] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M500:        [ 8.04298190758 6.21404264701 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M500:        [ 9.8589849353 1.9068070153 5.41925352051] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M500:        [ 5.96816207746 9.25694454344 6.93496824162] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M500:        [ 10.0324777644 8.24272294916 7.62056530585] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M500:        [ 10.107492755 4.33849009227 8.7297577414] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M500_private:        [ 8.13200607451 4.72447592536 5.15292783005] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M500_private:        [ 8.63410977697 4.80103483112 6.55548638779] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M500_private:        [ 9.86499443117 6.19615331829 7.27251911982] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M500_private:        [ 8.89090957662 5.50146607865 7.44746886499] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M500:        [ 7.0842359736 2.94655715554 0.0       ] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M500:        [ 5.50130240972 3.28909216398 0.0       ] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M500:        [ 6.70554970455 3.19289544682 0.0       ] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M500:        [ 7.0980155273 3.78800474186 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M500:        [ 8.62650103775 5.11035733459 5.40072772056] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M500:        [ 6.72864167553 5.01760930667 2.1476343447] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M500:        [ 5.75110736584 3.12993451127 5.15174377519] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M500:        [ 8.74101847271 4.23391448147 5.26233833858] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M500_private:        [ 6.9013282101 4.56011015319 5.085459146] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M500_private:        [ 6.35470213031 4.58325075259 4.87232731243] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M500_private:        [ 6.30452629586 4.24421962839 4.81450540016] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M500_private:        [ 6.67474872927 4.51491098445 5.32460477892] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M500:        [ 643.972050456 358.084997839 0.0       ] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M500:        [ 627.882119688 396.986649577 0.0       ] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M500:        [ 638.588938326 390.019792434 0.0       ] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M500:        [ 662.631491234 396.074083922 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M500:        [ 0.0        0.0        896.114520915] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M500:        [ 0.0        0.0        966.238117227] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M500:        [ 0.0        0.0        943.633160902] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M500:        [ 0.0        0.0        978.643267527] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M500:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M500:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M500:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M500:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M500_private:        [ 0.0        0.0        907.124532096] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M500_private:        [ 0.0        0.0        935.266283799] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M500_private:        [ 0.0        0.0        950.414302402] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M500_private:        [ 0.0        0.0        965.709109012] (Normised to 100fb-1)  
+######################################################################################################################################################
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M1000:       [ 0.436915097602 0.252249229248 0.0       ] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M1000:       [ 0.551165251873 0.332824942356 0.0       ] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M1000:       [ 0.61516034715 0.416075043706 0.0       ] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M1000:       [ 0.552814740257 0.337126745995 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M1000:       [ 0.305337383847 0.256688572485 0.261037721281] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M1000:       [ 0.445233572913 0.365124022974 0.363687813173] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M1000:       [ 0.636911183248 0.418546770564 0.527265299562] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M1000:       [ 0.508894433895 0.356620605073 0.261661641582] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M1000_private:       [ 0.481475061074 0.257004315945 0.334927593396] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M1000_private:       [ 0.511331012531 0.287457356121 0.334103910597] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M1000_private:       [ 0.578251542795 0.406477666907 0.457165882916] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M1000_private:       [ 0.568874000314 0.406713559182 0.438958335778] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M1000:       [ 0.867616816054 0.435584737656 0.0       ] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M1000:       [ 0.767432594751 0.422654500946 0.0       ] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M1000:       [ 1.07570955815 0.512647852724 0.0       ] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M1000:       [ 1.27184678591 0.63408912956 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M1000:       [ 0.7499862614 -0.107988966133 0.833133421647] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M1000:       [ 0.612379743173 0.70276556582 0.654367947755] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M1000:       [ 0.801748434924 0.43394973119 0.697881795678] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M1000:       [ 0.876032289839 0.213384429049 0.852626743246] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M1000_private:       [ 0.837277908677 0.498818542159 0.637169518548] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M1000_private:       [ 0.990297627814 0.501964573164 0.659598505586] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M1000_private:       [ 1.08080278517 0.564060373193 0.810711977305] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M1000_private:       [ 1.09199045424 0.54981243386 0.732013359607] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M1000:       [ 499.869221992 275.754237267 0.0       ] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M1000:       [ 510.71969514 291.76125665 0.0       ] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M1000:       [ 508.932749249 302.301869751 0.0       ] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M1000:       [ 520.614065213 301.976368297 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M1000:       [ 0.0        0.0        721.291654738] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M1000:       [ 0.0        0.0        744.097483642] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M1000:       [ 0.0        0.0        756.002885257] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M1000:       [ 0.0        0.0        758.394269324] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M1000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M1000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M1000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M1000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M1000_private:       [ 0.0        0.0        709.063598006] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M1000_private:       [ 0.0        0.0        743.944474589] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M1000_private:       [ 0.0        0.0        744.581034664] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M1000_private:       [ 0.0        0.0        758.394269324] (Normised to 100fb-1)  
+######################################################################################################################################################
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M2000:       [ 0.00881130872921 0.00277022340775 0.0       ] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M2000:       [ 0.0115283229352 0.0039430722756 0.0       ] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M2000:       [ 0.0159378478088 0.00825312482599 0.0       ] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M2000:       [ 0.0127375385849 0.00674610332435 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M2000:       [ 0.00594996998964 0.00618020857339 0.00673684972813] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M2000:       [ 0.0087057702771 0.00500815968161 0.00599356954364] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M2000:       [ 0.0137798225483 0.00795725635907 0.00909042292622] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M2000:       [ 0.0126148538758 0.00624666652617 0.00865441239816] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M2000_private:       [ 0.00948325192042 0.00431792375436 0.00681136048576] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M2000_private:       [ 0.0109245039185 0.00561862722661 0.00727142094194] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M2000_private:       [ 0.0138346385373 0.00804158449404 0.0110127983912] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M2000_private:       [ 0.0129345343119 0.00735588175878 0.0102872641357] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M2000:       [ 0.0571147194157 0.0412537351398 0.0       ] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M2000:       [ 0.107822853881 0.0449229168651 0.0       ] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M2000:       [ 0.065249265546 0.0369247059365 0.0       ] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M2000:       [ 0.0671100148046 0.0394652094236 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M2000:       [ 0.0523455620154 0.0170861129264 0.030592514942] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M2000:       [ 0.108289539159 0.00956384868154 0.0489112949592] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M2000:       [ 0.0620740322406 0.0563178283803 0.0364648511019] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M2000:       [ 0.0968169718738 0.043916974429 0.0790755949605] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M2000_private:       [ 0.0490012388541 0.0329714328111 0.0497801282343] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M2000_private:       [ 0.0534755874016 0.0352492886738 0.0337858240726] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M2000_private:       [ 0.0675285333262 0.0339366268371 0.0589508288379] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M2000_private:       [ 0.0599744807645 0.040024586103 0.0653239165238] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M2000:       [ 260.538917925 133.567257658 0.0       ] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M2000:       [ 261.752777919 140.660375396 0.0       ] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M2000:       [ 266.726980496 151.698657984 0.0       ] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M2000:       [ 272.34267951 152.315121675 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M2000:       [ 0.0        0.0        354.821298792] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M2000:       [ 0.0        0.0        368.366236055] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M2000:       [ 0.0        0.0        367.479436899] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M2000:       [ 0.0        0.0        382.823534378] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M2000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M2000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M2000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M2000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M2000_private:       [ 0.0        0.0        356.328476862] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M2000_private:       [ 0.0        0.0        370.526724723] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M2000_private:       [ 0.0        0.0        373.076656338] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M2000_private:       [ 0.0        0.0        382.578981634] (Normised to 100fb-1)  
+======================================================================================================================================================
+Region = SR3
+######################################################################################################################################################
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M200:        [ 9362.00470814 4478.31255682 0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M200:        [ 9871.44374401 4653.43624724 0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M200:        [ 9692.80906366 4681.49891987 0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M200:        [ 9729.37451096 4690.28477682 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M200:        [ 9839.20593975 4261.51398691 6356.05569975] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M200:        [ 9625.57927022 4745.25414066 6260.21381541] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M200:        [ 9352.95769512 4678.89755964 6429.45564586] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M200:        [ 9871.74099013 4667.14489845 6708.5026286] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M200_private:        [ 9669.15831874 4462.84913439 6686.52655964] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M200_private:        [ 9493.42817412 4612.96871336 6666.28327912] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M200_private:        [ 9479.5243589 4809.09493654 6811.08933316] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M200_private:        [ 9772.35915742 4921.67462743 7107.42456372] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M200:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+200          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+200          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M200_private:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+######################################################################################################################################################
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M500:        [ 208.422828816 114.3444537 0.0       ] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M500:        [ 205.828737385 120.378171906 0.0       ] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M500:        [ 244.082309195 142.592082852 0.0       ] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M500:        [ 232.044763318 143.368629826 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M500:        [ 211.147418185 109.154216728 142.043220542] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M500:        [ 203.382541101 107.402751626 156.454261556] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M500:        [ 239.120485223 139.438939643 180.165086789] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M500:        [ 230.954006531 134.440288981 174.579812311] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M500_private:        [ 209.608011398 110.273054217 143.301086753] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M500_private:        [ 204.725689076 118.742253366 150.187024651] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M500_private:        [ 242.988147293 143.892994752 174.63911792] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M500_private:        [ 230.07921462 137.672220839 175.733376796] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M500:        [ 49.1246439328 21.9943877677 0.0       ] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M500:        [ 52.8838600281 21.934408933 0.0       ] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M500:        [ 55.5722386574 28.2551102177 0.0       ] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M500:        [ 54.6232287009 30.0707506427 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M500:        [ 42.556322654 17.2056042977 36.6476918122] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M500:        [ 47.0035374045 16.0827416265 23.2138559496] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M500:        [ 54.3989503366 25.2049687079 34.0745993239] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M500:        [ 56.4417290263 24.3685937909 32.5888247991] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M500_private:        [ 45.2714552812 24.1015335471 30.8638032966] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M500_private:        [ 45.6706198632 26.2958031771 32.7307847455] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M500_private:        [ 52.5867377811 30.3337275968 36.2540677083] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M500_private:        [ 50.1798744077 29.777981785 35.5022458282] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M500:        [ 72.7095604434 37.9236792066 0.0       ] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M500:        [ 76.0101463664 33.7389051975 0.0       ] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M500:        [ 74.5383998906 39.9343971331 0.0       ] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M500:        [ 71.9754532392 37.7502323371 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M500:        [ 0.0        0.0        83.6306378044] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M500:        [ 0.0        0.0        102.430780868] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M500:        [ 0.0        0.0        96.385113912] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M500:        [ 0.0        0.0        104.569764044] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M500:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M500:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M500:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M500:        [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+500          2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M500_private:        [ 0.0        0.0        88.7766723319] (Normised to 100fb-1)  
+500          2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M500_private:        [ 0.0        0.0        90.8483986971] (Normised to 100fb-1)  
+500          2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M500_private:        [ 0.0        0.0        102.147744648] (Normised to 100fb-1)  
+500          2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M500_private:        [ 0.0        0.0        106.447313522] (Normised to 100fb-1)  
+######################################################################################################################################################
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M1000:       [ 3.30173528173 1.87426961035 0.0       ] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M1000:       [ 3.52761958881 2.19793885569 0.0       ] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M1000:       [ 4.80478615802 2.49540503283 0.0       ] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M1000:       [ 4.14195541727 2.72257538466 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M1000:       [ 3.27218087597 1.74474356993 2.37908762413] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M1000:       [ 3.39150396275 1.91684731748 2.41056999741] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M1000:       [ 3.96631325109 2.72059686904 3.10995553096] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M1000:       [ 4.40851496568 2.79289343244 3.52474244194] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M1000_private:       [ 3.25779227937 1.81826982432 2.41463893267] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M1000_private:       [ 3.26406459761 1.97061795991 2.51254611995] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M1000_private:       [ 4.5246677349 2.81117764939 3.48993054597] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M1000_private:       [ 4.27399401852 2.63887062889 3.22467547957] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M1000:       [ 4.03001669987 1.31373809098 0.0       ] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M1000:       [ 3.91663168574 1.91106372811 0.0       ] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M1000:       [ 5.60585006271 2.74672203274 0.0       ] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M1000:       [ 5.54468688673 2.39315928249 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M1000:       [ 2.24268092291 2.13161704167 2.04602335021] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M1000:       [ 3.17706569113 2.30401683983 3.03927948131] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M1000:       [ 6.46256222484 2.55618674596 3.74063026347] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M1000:       [ 5.09770148433 2.17761260355 3.55542947018] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M1000_private:       [ 3.32927763171 1.84463806676 2.45337196385] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M1000_private:       [ 3.5276593419 1.86367875634 2.83714669005] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M1000_private:       [ 5.09209241302 2.86297414495 4.00907884574] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M1000_private:       [ 4.59462284917 2.60576510376 3.75581561214] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M1000:       [ 40.3907246192 24.85765803 0.0       ] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M1000:       [ 39.2901280692 25.0191306251 0.0       ] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M1000:       [ 46.9950850035 26.4648403371 0.0       ] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M1000:       [ 35.222428162 25.9378275546 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M1000:       [ 0.0        0.0        45.2196487402] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M1000:       [ 0.0        0.0        45.5192720585] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M1000:       [ 0.0        0.0        62.2169947563] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M1000:       [ 0.0        0.0        58.3189921924] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M1000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M1000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M1000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M1000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+1000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M1000_private:       [ 0.0        0.0        54.1477026799] (Normised to 100fb-1)  
+1000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M1000_private:       [ 0.0        0.0        53.8370986722] (Normised to 100fb-1)  
+1000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M1000_private:       [ 0.0        0.0        55.9756237002] (Normised to 100fb-1)  
+1000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M1000_private:       [ 0.0        0.0        58.3189921924] (Normised to 100fb-1)  
+######################################################################################################################################################
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M2000:       [ 0.0264738572077 0.00945531384831 0.0       ] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M2000:       [ 0.0255930837364 0.0145924966601 0.0       ] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M2000:       [ 0.0456122414698 0.0238172762242 0.0       ] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_SF_ll_M2000:       [ 0.0387964951001 0.0177541755149 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M2000:       [ 0.0256310016021 0.00845525117957 0.0118435084795] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M2000:       [ 0.0252569874845 0.0124237060881 0.0250544333027] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M2000:       [ 0.0509099009835 0.026375815377 0.028101515848] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_ll_M2000:       [ 0.0416788306547 0.0283895807571 0.0295431392179] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M2000_private:       [ 0.028401705987 0.0137644892211 0.01870466564] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M2000_private:       [ 0.0283871170201 0.0148277784529 0.0198389418479] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M2000_private:       [ 0.047712097633 0.0255794400534 0.0331260161234] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_DYTypeI_DF_M2000_private:       [ 0.043900784753 0.0240119374584 0.0307831632503] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M2000:       [ 0.0967342307153 0.0672083294122 0.0       ] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M2000:       [ 0.148154229628 0.077588583503 0.0       ] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M2000:       [ 0.213782370448 0.093514549325 0.0       ] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_SF_ll_M2000:       [ 0.183245922639 0.0929345682703 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M2000:       [ 0.126717281628 0.0903523951059 0.0951624771587] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M2000:       [ 0.15599452601 0.07503039377 0.100499576865] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M2000:       [ 0.193681026498 0.131805637723 0.156348801542] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_ll_M2000:       [ 0.245657700013 0.126165405457 0.164407440183] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M2000_private:       [ 0.118857979071 0.0576789212484 0.0832966745878] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M2000_private:       [ 0.0999855214305 0.0687797716436 0.0860024968816] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M2000_private:       [ 0.162730066555 0.106384259276 0.148626208638] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_VBFTypeI_DF_M2000_private:       [ 0.166064465883 0.0930280971119 0.143783752676] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M2000:       [ 12.7028981004 6.63974909703 0.0       ] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M2000:       [ 14.9160930418 8.9999115022 0.0       ] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M2000:       [ 14.5584577975 11.1397983573 0.0       ] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_SF_ll_M2000:       [ 15.3032410189 10.1236869602 0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M2000:       [ 0.0        0.0        19.5079297334] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M2000:       [ 0.0        0.0        22.4096119643] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M2000:       [ 0.0        0.0        21.7431609794] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_ll_M2000:       [ 0.0        0.0        23.0128973344] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M2000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M2000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M2000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_SWWTypeI_DF_ll_M2000:       [ 0.0        0.0        0.0       ] (Normised to 100fb-1)  
+******************************************************************************************************************************************************
+2000         2016preVFP      [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M2000_private:       [ 0.0        0.0        20.1513839433] (Normised to 100fb-1)  
+2000         2016postVFP     [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M2000_private:       [ 0.0        0.0        22.012560021] (Normised to 100fb-1)  
+2000         2017            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M2000_private:       [ 0.0        0.0        23.4732049453] (Normised to 100fb-1)  
+2000         2018            [MM/EE/EMu]  HNL_SignalStudies_SSWWTypeI_DF_M2000_private:       [ 0.0        0.0        21.374166432] (Normised to 100fb-1)  

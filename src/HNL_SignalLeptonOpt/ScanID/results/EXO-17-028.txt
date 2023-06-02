@@ -1,0 +1,13 @@
+Channel = MuMu
+Running GetSignificnaceEXO_17_028 for mass 100
+GetSignificnaceEXO_17_028: Mass [100]
+Bin1 DY Efficiency =0.0258 XSEC7.77 VBF Eff = 0 Xsec=0.0965
+____________________________________________________________
+Bin1 NSig = 731.7009 NBkg=18.574 +/- 6.07555954509
+Bin2 DY Efficiency =0 XSEC7.77 VBF Eff = 0 Xsec=0.0965
+____________________________________________________________
+Bin2 NSig = 0.0 NBkg=0.985 +/- 0.695141894306
+Muon 100 Za = 63.9268887996
+Muon 100 s/sqrt(B) = 165.384116377
+Muon 100 Punzi = 103.870034168
+
