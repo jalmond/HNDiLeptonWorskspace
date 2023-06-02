@@ -1,8 +1,117 @@
 import os,ROOT
 import math
 from array import array
+from math import log10, floor
 
 import ctypes
+
+def round_to_1(x):
+    return round(x, -int(floor(log10(abs(x)))))
+
+def Print(out, line):
+    print line
+    out.write(line+"\n")
+
+
+
+def CalculdateSignificance(method,Nsig, Nbkg,scaleSig):
+
+    Nsig = Nsig*scaleSig
+    ###### set Neg bins to 0                                                                                                                                                
+    if Nsig < 0:
+        Nsig = 0
+    if Nbkg < 0.5:
+        Nbkg=0.5
+
+    Signi=0.
+    if method == "SB":
+        Signi=Nsig/ math.sqrt(Nbkg +1)
+
+    if method == "Punzi":
+        Signi= Nsig / ( 1 + math.sqrt(float(Nbkg*0.1)*float(Nbkg*0.1)+float(Nbkg)))
+
+    if method == "Azimoth":
+        Signi=  math.sqrt(2* ((Nsig+Nbkg)*math.log(1+(Nsig/Nbkg)) -Nsig ) )
+
+    return Signi /scaleSig
+
+def PrintSame(st, num):
+    
+    st=round(st,2)
+    lenST = len(str(st))
+    if num < lenST:
+        num = lenST
+
+    outString=str(st) +  " "*(num-lenST)
+    return outString
+
+def GetSignificance(out,h_sig, h_bkg,FOM,scaleSig, EXO17):
+
+    SigBins = []
+    BkgBins = []
+
+    print ("Nb bins = " + str(h_bkg.GetNbinsX()))
+    print ("Ns bins = " + str(h_sig.GetNbinsX()))
+
+    for xbin in range(1,h_sig.GetNbinsX()+1):
+        SigBins.append(h_sig.GetBinContent(xbin))
+
+    for xbin in range(1,h_bkg.GetNbinsX()+1):
+        BkgBins.append(h_bkg.GetBinContent(xbin))
+
+    Signif = 0.
+    SignifAz = 0.
+    SignifSB = 0.
+    SignifP = 0.
+    TotalSig= 0.
+    TotalBkg= 0.
+
+    print ("N bins = " + str(len(BkgBins)))
+    for x in range(0, len(BkgBins)):
+        Bkg=BkgBins[x]
+        if Bkg <0:
+            Bkg = 0.5
+        SigBin = SigBins[x]
+        if SigBin < 0:
+            SigBin = 0
+
+        Signif   = Signif   + CalculdateSignificance(FOM,SigBin,Bkg,scaleSig)
+        SignifAz = SignifAz + CalculdateSignificance("Azimoth",SigBin,Bkg,scaleSig)
+        SignifSB = SignifSB + CalculdateSignificance("SB",SigBin,Bkg,scaleSig)
+        SignifP  = SignifP  + CalculdateSignificance("Punzi",SigBin,Bkg,scaleSig)
+
+        TotalSig = TotalSig+ SigBin
+        TotalBkg = TotalBkg+ Bkg
+
+        #Bin 8 sig = 1.61131945942 bkg = 1.55979642321 s/sqrt(B+1) = 1.00711470691  Punzi = 0.713408611654 Za = 1.13020065719
+
+
+        Print(out, "Bin " + PrintSame(x+1,5)  + " sig = " + PrintSame(SigBin,10) + " bkg = " + PrintSame(Bkg,10) + " s/sqrt(B+1) = " + PrintSame(CalculdateSignificance("SB",SigBin,Bkg,scaleSig),10) + "  Punzi = " + PrintSame(CalculdateSignificance("Punzi",SigBin,Bkg,scaleSig),10)  + " Za = " + PrintSame(CalculdateSignificance("Azimoth",SigBin,Bkg,scaleSig),10))
+
+    print ("Total Sig = " + str(TotalSig) + " total bkg = " + str(TotalBkg) + " Combined bin Significance : " + str(TotalBkg) 
+           + " s/sqrt(B+1) = " + str(CalculdateSignificance("SB",TotalSig,TotalBkg,scaleSig)) + "/" + str(EXO17[1]) 
+           + " Punzi = "       + str(CalculdateSignificance("Punzi",TotalSig,TotalBkg,scaleSig))  + "/" + str(EXO17[2]) 
+           + " Za = "          + str(CalculdateSignificance("Azimoth",TotalSig,TotalBkg,scaleSig)) + "/" + str(EXO17[0]) )
+    
+    print ("Summed signifance of individual bins:")
+    print "Signif Za = " + str(SignifAz)
+    print "Signif SB = " + str(SignifSB)
+    print "Signif Punzi = " + str(SignifP)
+
+    return Signif
+
+
+def GetAllObjs(d, basepath="/"):
+    
+    for key in d.GetListOfKeys():
+        kname = key.GetName()
+        if key.IsFolder():
+            for i in GetAllObjs(d.Get(kname), basepath+kname+"/"):
+              yield i
+        else:
+            yield basepath+kname, d.Get(kname)
+
+
 
 def AddHistograms(h_original, h_toAdd, option=''):
   if option=="L":

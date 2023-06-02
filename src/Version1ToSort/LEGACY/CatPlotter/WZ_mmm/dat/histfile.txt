@@ -1,6 +1,0 @@
-h_ll_mass 1 75. 120.
-h_met 2 0. 200.
-nbjets 1 0. 5.
-njets 1 0. 5.
-reco_mjj 2 0. 400.
-END

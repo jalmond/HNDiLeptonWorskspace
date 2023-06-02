@@ -1,1 +1,0 @@
-source run/run_GetSignalOverB_combinedSR.sh

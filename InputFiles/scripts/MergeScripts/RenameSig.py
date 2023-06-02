@@ -11,9 +11,9 @@ args = parser.parse_args()
 
 Analyser=args.Analyzer
 FlagDir=args.Flag
-era = args.Era
+Era = args.Era
 
-_path = "/data6/Users/jalmond/SKFlatOutput//Run2UltraLegacy_v3/"++"/"+Era+"/"+Flag
+_path = "/data6/Users/jalmond/SKFlatOutput//Run2UltraLegacy_v3/"+Analyser+"/"+Era+"/"+FlagDir
 
 print ("@@@@@@@@@@@@@@@@@ RUNNING RenameSig.py @@@@@@@@@@@@@@)")
 print ("PATH:" +_path)
@@ -25,7 +25,7 @@ filelist  = [f for f in listdir(_path) if isfile(join(_path,f))]
 
 for x in filelist:
     if not "Skim" in x:
-    continue
+        continue
     if "Type" in x:
         pathfix = x
         pathfix = pathfix.replace("SkimTree_HNMultiLepBDT_","")
