@@ -48,6 +48,7 @@ class HNLArxiv():
         return
             
     def GetXSecUnityCoupling(self,_Mass,_Process ):
+
         if self.DoDebug:
             print("HNLArxiv:GetXSecUnityCoupling : Mass={0},Signal Process={1}".format(_Mass,_Process))
 
@@ -61,13 +62,17 @@ class HNLArxiv():
 
         if self.IsSNURun2:
             Xsec=self.GetXSec(_Mass,_Process)
-        print("Xsec = " + str(Xsec))
+
         return Xsec
 
 
+
+    ################ XSEC #####################################
+
     def GetXSec(self,_Masss,_Process):
 
-        print("Accessing xsec used in {0} for mass {1} and proccess {2}".format(self.CADI, _Masss,_Process))
+        if self.DoDebug:
+            print("Accessing xsec used in {0} for mass {1} and proccess {2}".format(self.CADI, _Masss,_Process))
 
         float_mass = float(_Masss)
 
@@ -213,11 +218,33 @@ class HNLArxiv():
         return 0.
 
 
-
+    ################ Limits #####################################                                                                                                                                                   
+    def GetLimits(self):
+        observed = []
+        _2sigma_low = []
+        _1sigma_low = []
+        _expected = []
+        _1sigma_high = []
+        _2sigma_high = []
+        if self.IsPeking:
+            observed =[0.0632,0.0125,0.0070,0.0061,0.0060,0.0066,0.0067,0.0075,0.0086,0.0098,0.0117,0.0136,0.0189,0.0539,0.1081,0.1908,0.4021,0.7433,1.1322]
+            _2sigma_low=[0.0487,0.0100,0.0060,0.0048,0.0048,0.0050,0.0053,0.0057,0.0071,0.0081,0.0092,0.0111,0.0154,0.0438,0.0877,0.1552,0.3264,0.6055,0.9196]
+            _1sigma_low=[0.0668,0.0141,0.0076,0.0072,0.0068,0.0075,0.0071,0.0086,0.0102,0.0113,0.0132,0.0152,0.0213,0.0609,0.1220,0.2158,0.4540,0.8421,1.2790]
+            _expected=[0.0981,0.0200,0.0112,0.0103,0.0103,0.0107,0.0112,0.0122,0.0142,0.0161,0.0190,0.0229,0.0317,0.0903,0.1812,0.3203,0.6738,1.2500,1.8984]
+            _1sigma_high=[0.1459,0.0306,0.0173,0.0152,0.0152,0.0166,0.0166,0.0188,0.0218,0.0251,0.0297,0.0343,0.0477,0.1368,0.2757,0.4863,1.0257,1.9027,2.8822]
+            _2sigma_high=[0.2096,0.0443,0.0255,0.0224,0.0224,0.0239,0.0243,0.0274,0.0321,0.0367,0.0433,0.0501,0.0702,0.2014,0.4058,0.7168,1.5094,2.8000,4.2485]
+            
+            Masses=self.GetMassList("SSWW")
+            
+            for M in range(0,len(Masses)):
+                print ("Mass {0} : exp limit = {1}  obs limit = {2}".format(Masses[M], _expected[M], observed[M]))
+            
+    ################ Signal Efficiency #####################################                                                                                                                                                   
 
     def GetEXO_17_028_Eff(self,_Channel,_SignalRegion,_Mass, _Process):
-
-        print("HNLArxiv:GetEXO_17_028_Eff : Channel={0},SignalRegion={1}, Mass={2},Process={3} ".format(_Channel,_SignalRegion,_Mass, _Process))
+        
+        if self.DoDebug:
+            print("HNLArxiv:GetEXO_17_028_Eff : Channel={0},SignalRegion={1}, Mass={2},Process={3} ".format(_Channel,_SignalRegion,_Mass, _Process))
         
         effs=[]
         if _Process == "DY":
@@ -472,7 +499,8 @@ class HNLArxiv():
 
         for x in effs:
             if str(x[0]) == str(_Mass):
-                print ("Efficiency={0}".format(float(x[1])/float(100.)))
+                if self.DoDebug:
+                    print ("Efficiency={0}".format(float(x[1])/float(100.)))
                 return float(x[1])/float(100.)
 
         return 0
@@ -628,13 +656,18 @@ class HNLArxiv():
 
 
 
+    def GetSignalSignificance(self,_Channel,_Mass, scX):
+        if self.IsEXO17028:
+            return self.GetSignificanceEXO_17_028(_Channel,_Mass, scX)
+        if self.IsPeking:
+            return self.GetSignificancePeking(_Channel,_Mass, scX)
 
-    def GetSignificnacePeking(self,mass, method,scX):
+    def GetSignificancePeking(self,mass, method,scX):
 
         return 1.
 
 
-    def GetSignificnaceEXO_17_028(self,_Channel,_Mass, scX):
+    def GetSignificanceEXO_17_028(self,_Channel,_Mass, scX):
         
         _DMass = float(_Mass)
         
@@ -659,7 +692,7 @@ class HNLArxiv():
             nBkg    = float(self.GetEXO_17_028_Bkg(_Channel, SignalRegion , _Mass, "" ))
             nBkgErr = self.GetEXO_17_028_BkgErr(_Channel, SignalRegion , _Mass, "" ) + 0.2 
             nSig    = float(self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"DY")* self.GetXSecUnityCoupling(_DMass,"DY") + self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"VBF")*self.GetXSecUnityCoupling(_DMass,"VBF"))
-
+            nSig = nSig*0.1
             
             print (SignalRegion + " DY Efficiency = " + str(self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"DY")) + " Xsec= " + str(self.GetXSecUnityCoupling(_DMass,"DY")) + " VBF Eff = " + str(self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"VBF")) + " Xsec= " + str(self.GetXSecUnityCoupling(_DMass,"VBF")))
             
@@ -674,47 +707,41 @@ class HNLArxiv():
             print("_"*60)
             print  (SignalRegion + " NSig = " + str(nSig ) + " NBkg="  + str(nBkg) + " +/- " + str(nBkgErr))
             
-            print ("Muon " + str(_Mass) + " Za = " + str(SignifianceAz))
-            print ("Muon " + str(_Mass) + " s/sqrt(B) = " + str(SignifianceSB))
-            print ("Muon " + str(_Mass) + " Punzi = " + str(SignifianceP))
+            print ("Muon " + str(_Mass) + " Azimoth   = " + str(round(SignifianceAz,3)))
+            print ("Muon " + str(_Mass) + " s/sqrt(B) = " + str(round(SignifianceSB,3)))
+            print ("Muon " + str(_Mass) + " Punzi     = " + str(round(SignifianceP,3)))
             
-        return [SignifianceAz, SignifianceSB,SignifianceP]
+        return [["Azimoth",SignifianceAz], ["SB",SignifianceSB],["Punzi",SignifianceP]]
 
 
 
 
-    def GetMassList(self,Channel, isString):
+    def GetMassList(self,Process):
         
-        massesDY=[]
-        massesVBF=[]
-        massesSSWW=[]
+        neutrino_massDY=[]
+        neutrino_massVBF=[]
+        neutrino_massSSWW=[]
 
         if self.IsEXO17028:
             
-            massesDY = ["100", "125",  "200",  "250",  "300",  "400",  "500",  "600",  "700",  "800",   "900",  "1000",  "1100",  "1200",  "1300",  "1400",  "1500", "1700"]
-            masses_vbf =  ["500",  "600",  "700",  "800",  "900",  "1000",  "1100",  "1200",  "1300",  "1400",        "1500", "1700"]
+            neutrino_massDY = [85,90, 100, 125, 150, 200, 250, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400,1500, 1700]
+            neutrino_masses_vbf =  [500,  600,  700,  800,  900,  1000,  1100,  1200,  1300,  1400,        1500, 1700]
             
-            if self.IsSNURun2:
+        if self.IsSNURun2:
                     
-                massesDY = ["100", "125",  "200",  "250",  "300",  "400",  "500",  "600",  "700",  "800",   "900",  "1000",  "1100",  "1200",  "1300",  "1400",  "1500", "1700" , "2000","2500","3000"]
-                masses_vbf =  ["500",  "600",  "700",  "800",  "900",  "1000",  "1100",  "1200",  "1300",  "1400",        "1500", "1700" , "2000","2500","3000"]
-                massesSSWW = ["500",  "600",  "700",  "800",  "900",  "1000",  "1100",  "1200",  "1300",  "1400",        "1500", "1700" , "2000","2500","3000","5000","7500","10000","15000","20000"]
+            neutrino_massDY = [85,90,100, 125,  200,  250,  300,  400,  500,  600,  700,  800,   900,  1000,  1100,  1200,  1300,  1400,  1500, 1700 , 2000,2500,3000]
+            neutrino_massVBF =  [500,  600,  700,  800,  900,  1000,  1100,  1200,  1300,  1400, 1500, 1700 , 2000,2500,3000]
+            neutrino_massSSWW = [500,  600,  700,  800,  900,  1000,  1100,  1200,  1300,  1400, 1500, 1700 , 2000,2500,3000,5000,7500,10000,15000,20000]
 
+        if self.IsPeking:
+            neutrino_massSSWW=[50,150,300,450,600,750,900,1000,1250,1500,1750,2000,2500,5000,7500,10000,15000,20000,25000]
             
-        MassList=massesDY
-        if Channel == "TChannel":
-            MassList=massesVBF
-        if Channel == "SSWW":
-            MassList=massesSSWW
-
-
+            
+        MassList=neutrino_massDY
+        if Process == "TChannel" or Process == "VBF":
+            MassList=neutrino_massVBF
+        if Process == "SSWW":
+            MassList=neutrino_massSSWW
                 
-        Masses_S = []
-        if isString:
-            for m in MassList:
-                Masses_S.append(float(m))
-            else:
-                Masses_S =MassList
-
         return MassList
 

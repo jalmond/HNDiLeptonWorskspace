@@ -4,60 +4,8 @@ import argparse, datetime
 from array import array
 
 from mylib import *
+from HNLArxiv import HNLArxiv
 
-
-def GetMassScale(_mass):
-    
-    if(float(_mass) == 100):
-        return 0.001
-    if(float(_mass) == 400):
-        return 0.1
-    return 1
-
-def GetSignificnaceEXO_17_028(mass,dmass, method,scX):
-
-    print("Running GetSignificnaceEXO_17_028 for mass " + mass)
-    couplingSF = 1
-        
-    SignalRegions = ["Bin1", "Bin2"]
-    
-    ##### check 3 types of significance
-    Signifiance = 0.
-    SignifianceSB = 0.
-    SignifianceP = 0.
-    
-    print ("GetSignificnaceEXO_17_028: Mass [" + mass+"]")
-    for SR in SignalRegions:
-        
-        Bin = SR
-        Bin = Bin.replace('Bin','SR')
-        
-        nBkg    = float(GetEXO_17_028_Bkg(channel, SR , mass, "" ))
-        nBkgErr = GetEXO_17_028_BkgErr(channel, SR , mass, "" ) + 0.2
-        nSig    = float(GetEXO_17_028_Eff(channel, Bin, mass,"DY")*GetXSecUnityCoupling(dmass,"DY") + GetEXO_17_028_Eff(channel, Bin, mass,"VBF")*GetXSecUnityCoupling(dmass,"VBF"))
-        nSig    = nSig*0.1
-        
-        print (SR + " DY Efficiency =" + str(GetEXO_17_028_Eff(channel, Bin, mass,"DY")) + " XSEC" + str(GetXSecUnityCoupling(dmass,"DY")) + " VBF Eff = " + str(GetEXO_17_028_Eff(channel, Bin, mass,"VBF")) + " Xsec=" + str(GetXSecUnityCoupling(dmass,"VBF")))
-            
-            
-
-        nSig =nSig*36500 * couplingSF 
-
-        if nBkg> 0 :
-
-            Signifiance   = Signifiance     +  CalculdateSignificance("Azimoth",float(nSig),nBkg, scX)
-            SignifianceSB = SignifianceSB   +  CalculdateSignificance("SB",float(nSig),nBkg,scX)
-            SignifianceP  = SignifianceP    +  CalculdateSignificance("Punzi",float(nSig),nBkg,scX)
-
-        print("_"*60)
-        print  (SR + " NSig = " + str(nSig ) + " NBkg="  + str(nBkg) + " +/- " + str(nBkgErr))
-
-    print ("Muon " + str(mass) + " Za = " + str(Signifiance))
-    print ("Muon " + str(mass) + " s/sqrt(B) = " + str(SignifianceSB))
-    print ("Muon " + str(mass) + " Punzi = " + str(SignifianceP))
-    
-    return [Signifiance, SignifianceSB,SignifianceP]
-    
 pwd = os.getcwd()
 
 ROOT.gErrorIgnoreLevel = ROOT.kFatal
@@ -71,7 +19,7 @@ PLOT_PATH = os.environ['PLOT_PATH']
 from GeneralSetup import check_lxplus_connection,GetFromConfig
 check_lxplus_connection()
 
-from  HNType1_config import *
+#from  HNType1_config import *
 
 Analyser = "HNL_SignalLeptonOpt"
 masses  = ["100"]#,"400","1000"]
@@ -98,9 +46,11 @@ outlog = open("results/"+Analyser  + "/"+Era+"/"+Flag+".txt","w")
 sample_dict = {}
 sample_dict2 = {}
 
+Arxiv17028 = HNLArxiv("17028", "EXO-17-028")
+
 for channel in channels:
 
-    Print (outlog, "Channel = " + channel)
+    Print (outlog, "Channel = " + channel,True)
 
     outdir = PLOT_PATH+'/Significance/'
     os.system("mkdir -p " + PLOT_PATH+'/Significance/')
@@ -114,12 +64,12 @@ for channel in channels:
 
     for mass in masses:
 
-        scaleSig= GetMassScale(mass)
+        scaleSig= Arxiv17028.GetSigScaleFactorForLimitCalc(mass)
         
-        EXO17028Sig = GetSignificnaceEXO_17_028(mass,float(mass),"",scaleSig)
+        EXO17028Sig = Arxiv17028.GetSignalSignificance(channel, mass,scaleSig)
         
         SigInPath=InputDir + "SIGMerged/HNL_SignalLeptonOpt_Type1_SS_M"+mass+".root"
-        Print (outlog, SigInPath)
+        Print (outlog, SigInPath,True)
         
         f_Sig = ROOT.TFile(SigInPath)
         
@@ -134,8 +84,11 @@ for channel in channels:
             DirName = "LimitInputBDT"
             HistName="/HNLOpt_ULHNTightV2/"+mass+"/LimitBins/MuonSR"
 
-
+        print (DirName)
         for k, o in GetAllObjs(f_Bkg.Get(DirName)):
+            if "LF" in k:
+                continue
+
             if "HNLOpt" in  k:
                 if mass in BDTMasses:
                     if mass in k:
@@ -145,7 +98,7 @@ for channel in channels:
                     HistNames.append(k)
                     print mass + " " + k
 
-        Print (outlog, DirName+HistName)
+        Print (outlog, DirName+HistName,True)
         
         hsigV2 = f_Sig.Get(DirName+HistName)
         hbkgV2 = f_Bkg.Get(DirName+HistName)
@@ -166,7 +119,7 @@ for channel in channels:
                 continue
             hsig = f_Sig.Get(DirName+x)
             hbkg = f_Bkg.Get(DirName+x)
-            Print (outlog, "GetSignificance " + DirName+x +" ==========================")
+            Print (outlog, "GetSignificance " + DirName+x +" ==========================",True)
             _sig= GetSignificance(outlog,hsig,hbkg,FOM,scaleSig,EXO17028Sig)/val_HNV2
 
             _hist = x
@@ -191,16 +144,28 @@ for channel in channels:
     f_Bkg.Close()
 
 
+print("@"*150)
+print("@"*150)
+print("Print out in order:")
+print("@"*150)
+print("@"*150)
+
+
 sorted_x = sorted(sample_dict.items(), key=lambda kv: kv[1])
 
+
+maxLength=50
 for x in range(0, len(sorted_x)):
-    Print (outlog, sorted_x[x][0] + " " + str(sorted_x[x][1]))
+    if len(sorted_x[x][0]) > maxLength:
+        maxLength=len(sorted_x[x][0])+10
+
+    Print (outlog, sorted_x[x][0] + " " + str(sorted_x[x][1]),False)
     for key, value in sample_dict2.items():
         if sorted_x[x][0] in key:
             keyM=key
             keyM = keyM.replace(sorted_x[x][0]+"_","")
-            Print (outlog, "mN = " + keyM + ' : ' + str(value))
+            Print (outlog, "mN = " + keyM + ' : ' + str(value),False)
 
 
 for x in range(0, len(sorted_x)):
-    Print (outlog, sorted_x[x][0] + " " + str(sorted_x[x][1]))
+    Print (outlog, sorted_x[x][0] + " "*(maxLength-len(sorted_x[x][0])) + str(sorted_x[x][1]),True)

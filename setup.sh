@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export VERSION="UltraLegacyV1"
+export SKFlatV="Run2UltraLegacy_v3"
 export FLATVERSION=${SKFlatV}
 export HNDILEPTONWORKSPACE_DIR=$PWD
 export PLOT_PATH=$PWD/Output/Plots/

@@ -50,7 +50,7 @@ Arxiv17028 = HNLArxiv("17028", "EXO-17-028")
 
 for channel in channels:
 
-    Print (outlog, "Channel = " + channel)
+    Print (outlog, "Channel = " + channel,True)
 
     outdir = PLOT_PATH+'/Significance/'
     os.system("mkdir -p " + PLOT_PATH+'/Significance/')
@@ -66,10 +66,10 @@ for channel in channels:
 
         scaleSig= Arxiv17028.GetSigScaleFactorForLimitCalc(mass)
         
-        EXO17028Sig = Arxiv17028.GetSignificnaceEXO_17_028(channel, mass,scaleSig)
+        EXO17028Sig = Arxiv17028.GetSignalSignificance(channel, mass,scaleSig)
         
         SigInPath=InputDir + "SIGMerged/HNL_SignalLeptonOpt_Type1_SS_M"+mass+".root"
-        Print (outlog, SigInPath)
+        Print (outlog, SigInPath,True)
         
         f_Sig = ROOT.TFile(SigInPath)
         
@@ -84,8 +84,11 @@ for channel in channels:
             DirName = "LimitInputBDT"
             HistName="/HNLOpt_ULHNTightV2/"+mass+"/LimitBins/MuonSR"
 
-
+        print (DirName)
         for k, o in GetAllObjs(f_Bkg.Get(DirName)):
+            if "LF" in k:
+                continue
+
             if "HNLOpt" in  k:
                 if mass in BDTMasses:
                     if mass in k:
@@ -95,7 +98,7 @@ for channel in channels:
                     HistNames.append(k)
                     print mass + " " + k
 
-        Print (outlog, DirName+HistName)
+        Print (outlog, DirName+HistName,True)
         
         hsigV2 = f_Sig.Get(DirName+HistName)
         hbkgV2 = f_Bkg.Get(DirName+HistName)
@@ -116,7 +119,7 @@ for channel in channels:
                 continue
             hsig = f_Sig.Get(DirName+x)
             hbkg = f_Bkg.Get(DirName+x)
-            Print (outlog, "GetSignificance " + DirName+x +" ==========================")
+            Print (outlog, "GetSignificance " + DirName+x +" ==========================",True)
             _sig= GetSignificance(outlog,hsig,hbkg,FOM,scaleSig,EXO17028Sig)/val_HNV2
 
             _hist = x
@@ -141,16 +144,28 @@ for channel in channels:
     f_Bkg.Close()
 
 
+print("@"*150)
+print("@"*150)
+print("Print out in order:")
+print("@"*150)
+print("@"*150)
+
+
 sorted_x = sorted(sample_dict.items(), key=lambda kv: kv[1])
 
+
+maxLength=50
 for x in range(0, len(sorted_x)):
-    Print (outlog, sorted_x[x][0] + " " + str(sorted_x[x][1]))
+    if len(sorted_x[x][0]) > maxLength:
+        maxLength=len(sorted_x[x][0])+10
+
+    Print (outlog, sorted_x[x][0] + " " + str(sorted_x[x][1]),False)
     for key, value in sample_dict2.items():
         if sorted_x[x][0] in key:
             keyM=key
             keyM = keyM.replace(sorted_x[x][0]+"_","")
-            Print (outlog, "mN = " + keyM + ' : ' + str(value))
+            Print (outlog, "mN = " + keyM + ' : ' + str(value),False)
 
 
 for x in range(0, len(sorted_x)):
-    Print (outlog, sorted_x[x][0] + " " + str(sorted_x[x][1]))
+    Print (outlog, sorted_x[x][0] + " "*(maxLength-len(sorted_x[x][0])) + str(sorted_x[x][1]),True)

@@ -9,6 +9,7 @@ from HNLArxiv import HNLArxiv
 #HNL.GetXSecUnityCoupling(100,"VBF")
 #HNL.GetXSecUnityCoupling(100,"SSWW")
 
-HNL = HNLArxiv("testClass","SNURun2")
+HNL = HNLArxiv("testClass","EXO-21-003")
 HNL.Debug()
-HNL.GetXSecUnityCoupling(100,"DY")
+#HNL.GetXSecUnityCoupling(100,"DY")
+HNL.GetLimits()

@@ -8,8 +8,9 @@ import ctypes
 def round_to_1(x):
     return round(x, -int(floor(log10(abs(x)))))
 
-def Print(out, line):
-    print line
+def Print(out, line,PrintScreen):
+    if PrintScreen:
+        print line
     out.write(line+"\n")
 
 
@@ -45,7 +46,7 @@ def PrintSame(st, num):
     outString=str(st) +  " "*(num-lenST)
     return outString
 
-def GetSignificance(out,h_sig, h_bkg,FOM,scaleSig, EXO17):
+def GetSignificance(out,h_sig, h_bkg,FOM,scaleSig, PastSignifiance):
 
     SigBins = []
     BkgBins = []
@@ -86,20 +87,42 @@ def GetSignificance(out,h_sig, h_bkg,FOM,scaleSig, EXO17):
         #Bin 8 sig = 1.61131945942 bkg = 1.55979642321 s/sqrt(B+1) = 1.00711470691  Punzi = 0.713408611654 Za = 1.13020065719
 
 
-        Print(out, "Bin " + PrintSame(x+1,5)  + " sig = " + PrintSame(SigBin,10) + " bkg = " + PrintSame(Bkg,10) + " s/sqrt(B+1) = " + PrintSame(CalculdateSignificance("SB",SigBin,Bkg,scaleSig),10) + "  Punzi = " + PrintSame(CalculdateSignificance("Punzi",SigBin,Bkg,scaleSig),10)  + " Za = " + PrintSame(CalculdateSignificance("Azimoth",SigBin,Bkg,scaleSig),10))
+        Print(out, "Bin " + PrintSame(x+1,5)  + " sig = " + PrintSame(SigBin,10) + " bkg = " + PrintSame(Bkg,10) + " s/sqrt(B+1) = " + PrintSame(CalculdateSignificance("SB",SigBin,Bkg,scaleSig),10) + "  Punzi = " + PrintSame(CalculdateSignificance("Punzi",SigBin,Bkg,scaleSig),10)  + " Za = " + PrintSame(CalculdateSignificance("Azimoth",SigBin,Bkg,scaleSig),10),True)
 
-    print ("Total Sig = " + str(TotalSig) + " total bkg = " + str(TotalBkg) + " Combined bin Significance : " + str(TotalBkg) 
+    print("_"*150)
+    print ("Total Signal Yield = " + str(TotalSig) + " total bkg = " + str(TotalBkg) + " Combined bin Significance : "
            + " s/sqrt(B+1) = " + str(CalculdateSignificance("SB",TotalSig,TotalBkg,scaleSig)) 
            + " Punzi = "       + str(CalculdateSignificance("Punzi",TotalSig,TotalBkg,scaleSig))
-           + " Za = "          + str(CalculdateSignificance("Azimoth",TotalSig,TotalBkg,scaleSig)) )
+           + " Azimoth = "          + str(CalculdateSignificance("Azimoth",TotalSig,TotalBkg,scaleSig)) )
     
-    print ("Summed signifance of individual bins:")
-    print "Signif Za = " + str(SignifAz) + "/" + str(EXO17[0])
-    print "Signif SB = " + str(SignifSB) + "/" + str(EXO17[1])
-    print "Signif Punzi = " + str(SignifP) + "/" + str(EXO17[2])
+    print("_"*150)
+    print ("Summed signifance of individual bins: Current / EXO17-0-28 (Ratio)")
+    
+    print ("Signif {0}  = {1} : {2} ({3}) ".format("Azimoth  ",
+                                                   str(round(SignifAz,3)),
+                                                   GetSigByType(PastSignifiance,"Azimoth"),
+                                                   str(round( (float(SignifAz)/float(GetSigByType(PastSignifiance,"Azimoth"))) ,3))))
+    
+    print ("Signif {0}  = {1} : {2} ({3}) ".format("S/sqrt(B)",
+                                                   str(round(SignifSB,3)),
+                                                   GetSigByType(PastSignifiance,"SB"),
+                                                   str(round( (float(SignifSB)/float(GetSigByType(PastSignifiance,"SB"))) ,3))))
+
+    print ("Signif {0}  = {1} : {2} ({3}) ".format("Punzi    ",
+                                                   str(round(SignifP,3)),
+                                                   GetSigByType(PastSignifiance,"Punzi"),
+                                                   str(round( (float(SignifP)/float(GetSigByType(PastSignifiance,"Punzi"))) ,3))))
+
+    print("_"*150)
 
     return Signif
 
+def GetSigByType(signifs, Tag):
+    for x in signifs:
+        if x[0] == Tag:
+            return round(x[1],3)
+        
+    exit()
 
 def GetAllObjs(d, basepath="/"):
     
