@@ -23,7 +23,7 @@ parser.add_argument('--Sig',action='store_true')
 parser.add_argument('--CF',action='store_true')
 parser.add_argument('--Conv',action='store_true')
 parser.add_argument('--Prompt',action='store_true')
-parser.add_argument('--LMC',action='store_true')
+parser.add_argument('--MC',action='store_true')
 parser.add_argument('--Run2Merge',action='store_true')
 parser.add_argument('--EraMerge',action='store_true')
 parser.add_argument('--Bkg',action='store_true')
@@ -42,7 +42,7 @@ MergeFakeMC=args.FakeMC
 MergeCF=args.CF
 MergeConv=args.Conv
 MergePrompt=args.Prompt
-MergeLargeMC=args.LMC
+MergeMC=args.MC
 MergeBkg=args.Bkg
 MergeSignal=args.Sig
 CopyMC=args.CopyMC
@@ -116,6 +116,19 @@ if MergePrompt:
 
     else:
         os.system("hadd " + OutFile + "  " + InputPathEra+"RunPrompt__/*SkimTre*")
+        if CopyMC:
+            os.system("cp " + InputPathEra+"RunPrompt__/*SkimTre* " + OutputPathEra+"/" )
+
+
+if MergeMC:
+
+    OutFile=OutputPathEra + "/"+Analyser+"_"+SkimName+"_MC.root"
+    if os.path.exists(OutFile):
+        os.system("rm " + OutFile)
+
+
+    os.system("hadd " + OutFile + "  " + InputPathEra+"/*SkimTre*")
+    if CopyMC:
         os.system("cp " + InputPathEra+"RunPrompt__/*SkimTre* " + OutputPathEra+"/" )
 
 
@@ -149,10 +162,10 @@ if MergeBkg:
     if os.path.exists(OutFile):
         os.system("rm " + OutFile)
         
-        if os.path.exists(OutputPathEra + "/"+Analyser+"_"+SkimName +"_CF.root"):
-            os.system("hadd " +OutFile+  "   " + OutputPathEra + "/"+Analyser+"_"+SkimName+"*Prompt* "  + OutputPathEra + "/"+Analyser+"_"+SkimName+"*CF* " + OutputPathEra + "/"+Analyser+"_"+SkimName+"*Conv* ")
-        else:
-            os.system("hadd " +OutFile+  "   " + OutputPathEra + "/"+Analyser+"_"+SkimName+"*Prompt* "  + OutputPathEra + "/"+Analyser+"_"+SkimName+"*Conv* ")
+    if os.path.exists(OutputPathEra + "/"+Analyser+"_"+SkimName +"_CF.root"):
+        os.system("hadd " +OutFile+  "   " + OutputPathEra + "/"+Analyser+"_"+SkimName+"*Prompt* "  + OutputPathEra + "/"+Analyser+"_"+SkimName+"*CF* " + OutputPathEra + "/"+Analyser+"_"+SkimName+"*Conv* ")
+    else:
+        os.system("hadd " +OutFile+  "   " + OutputPathEra + "/"+Analyser+"_"+SkimName+"*Prompt* "  + OutputPathEra + "/"+Analyser+"_"+SkimName+"*Conv* ")
 
 if MergeSignal:
     os.system("python MergeScripts/RenameSig.py -a " + Analyser + " -f " + FlagDir + " -e " + era)

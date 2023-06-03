@@ -46,6 +46,33 @@ def PrintSame(st, num):
     outString=str(st) +  " "*(num-lenST)
     return outString
 
+
+def GetSignificanceArray(out,h_sig, h_bkg,FOM,scaleSig, PastSignifiance):
+
+    SigBins = []
+    BkgBins = []
+
+    for xbin in range(1,h_sig.GetNbinsX()+1):
+        SigBins.append(h_sig.GetBinContent(xbin))
+
+    for xbin in range(1,h_bkg.GetNbinsX()+1):
+        BkgBins.append(h_bkg.GetBinContent(xbin))
+
+    SignifBins = []
+
+    for x in range(0, len(BkgBins)):
+        Bkg=BkgBins[x]
+        if Bkg <0:
+            Bkg = 0.5
+        SigBin = SigBins[x]
+        if SigBin < 0:
+            SigBin = 0
+
+        SignifBins.append(CalculdateSignificance(FOM,SigBin,Bkg,scaleSig))
+
+        
+    return SignifBins
+    
 def GetSignificance(out,h_sig, h_bkg,FOM,scaleSig, PastSignifiance):
 
     SigBins = []
@@ -83,9 +110,6 @@ def GetSignificance(out,h_sig, h_bkg,FOM,scaleSig, PastSignifiance):
 
         TotalSig = TotalSig+ SigBin
         TotalBkg = TotalBkg+ Bkg
-
-        #Bin 8 sig = 1.61131945942 bkg = 1.55979642321 s/sqrt(B+1) = 1.00711470691  Punzi = 0.713408611654 Za = 1.13020065719
-
 
         Print(out, "Bin " + PrintSame(x+1,5)  + " sig = " + PrintSame(SigBin,10) + " bkg = " + PrintSame(Bkg,10) + " s/sqrt(B+1) = " + PrintSame(CalculdateSignificance("SB",SigBin,Bkg,scaleSig),10) + "  Punzi = " + PrintSame(CalculdateSignificance("Punzi",SigBin,Bkg,scaleSig),10)  + " Za = " + PrintSame(CalculdateSignificance("Azimoth",SigBin,Bkg,scaleSig),10),True)
 

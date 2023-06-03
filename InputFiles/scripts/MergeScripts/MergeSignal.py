@@ -32,10 +32,14 @@ for era in eras:
         os.system("mkdir  "+ OutPathEra+"/SIG/")
     
 
-    print("cp " + os.getenv("INFILE_PATH") + "/"+Analyser+"/"+era+FlagDir+"/*Type* " +  OutPathEra+"/SIG/")
-    os.system("cp " + os.getenv("INFILE_PATH") + "/"+Analyser+"/"+era+FlagDir+"/*Type* " +  OutPathEra+"/SIG/")
-    
+    print("mkdir " + os.getenv("INFILE_PATH") + "/"+Analyser+"/"+era+FlagDir + "/SIG/")
+    os.system("mkdir  " + os.getenv("INFILE_PATH") + "/"+Analyser+"/"+era+FlagDir + "/SIG/")
+    os.system("mv " + os.getenv("INFILE_PATH") + "/"+Analyser+"/"+era+FlagDir+"/*Type* " +  os.getenv("INFILE_PATH") + "/"+Analyser+"/"+era+FlagDir + "/SIG/")
 
+
+    print("cp " + os.getenv("INFILE_PATH") + "/"+Analyser+"/"+era+FlagDir+"/SIG/*Type* " +  OutPathEra+"/SIG/")
+    os.system("cp " + os.getenv("INFILE_PATH") + "/"+Analyser+"/"+era+FlagDir+"/SIG/*Type* " +  OutPathEra+"/SIG/")
+    
     sk_path= OutPathEra+"/SIG/"
 
     from os import listdir

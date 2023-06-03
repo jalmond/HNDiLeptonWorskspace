@@ -33,7 +33,7 @@ parser.add_argument('--debug',action='store_true')
 args = parser.parse_args()
 DoDEBUG=args.debug
 channels = [args.Channel]
-FOM = "SB"
+FOM = "Azimoth"
 Flag=args.Flag
 Era=args.Era
 InputDir=os.getenv("FILE_MERGED_PATH")+"/"+Analyser+"/"+Era+"/"+Flag+"/"
@@ -169,3 +169,18 @@ for x in range(0, len(sorted_x)):
 
 for x in range(0, len(sorted_x)):
     Print (outlog, sorted_x[x][0] + " "*(maxLength-len(sorted_x[x][0])) + str(sorted_x[x][1]),True)
+
+from PlotterID import *
+
+hPlotter = IDPlotter(Era,Flag,args.Channel)
+#hPlotter.MakeAllIDHist(sorted_x)
+for key, value in sample_dict2.items():
+    if sorted_x[len(sorted_x)-1][0] in key:
+        Print (outlog, "Max mN = " + keyM + ' : ' + str(value),True)
+    if "HNTightV2" in key:
+        Print (outlog, "max mN = " + keyM + ' : ' + str(value),True)
+
+
+#hPlotter.MakeOptDHist()
+
+

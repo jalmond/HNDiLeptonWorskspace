@@ -52,7 +52,8 @@ for era in eras:
         massstring="F_M"+str(Mass)+"_"
         for x in filelist:
             if massstring in x:
-                MassListSurvived.append(Mass)
+                if not  Mass in  MassListSurvived:
+                    MassListSurvived.append(Mass)
         
     if os.getenv("FILE_MERGED_PATH") == "NULL":
         print("Env not set.....")
@@ -68,11 +69,7 @@ for era in eras:
             os.system("rm " + OutPathEra+"/SIGMerged/"+Analyser+"_Type1_SS_M"+str(Mass)+".root")
  
         
-        os.system ("hadd " + OutPathEra+"/SIGMerged/"+Analyser+"_Type1_SS_M"+str(Mass)+".root "     + OutPathEra+"/SIG/*F_M"+str(Mass)+"_*private*")
+        os.system("hadd " + OutPathEra+"/SIGMerged/"+Analyser+"_Type1_SS_M"+str(Mass)+".root "     + OutPathEra+"/SIG/*F_M"+str(Mass)+"_*private*")
         
 
-    if os.path.exists(OutPathEra+"/SIGMerged/"+Analyser+"_Type1_SS_M0.root"):
-        os.system("rm "  + OutPathEra+"/SIGMerged/"+Analyser+"_Type1_SS_M0.root")
-        
-    os.system ("hadd " + OutPathEra+"/SIGMerged/"+Analyser+"_Type1_SS_M0.root "     + OutPathEra+"/SIGMerged/"+Analyser+"*"+ str(Mass)+"*")
     
