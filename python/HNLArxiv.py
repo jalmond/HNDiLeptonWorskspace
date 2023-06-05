@@ -55,6 +55,8 @@ class HNLArxiv():
         Xsec=-999
         if self.IsEXO17028:
             # EXO-17-028 xsec are stored using V^2 = 0.01 so * 100: ALso samples are SS mumu/ee only
+            # XSEC ion AN is also for OS+SS so in this class XSEC  are already scaled by 0.5
+
             Xsec=100*self.GetXSec(_Mass,_Process)
 
         if self.IsPeking:
@@ -75,6 +77,7 @@ class HNLArxiv():
             print("Accessing xsec used in {0} for mass {1} and proccess {2}".format(self.CADI, _Masss,_Process))
 
         float_mass = float(_Masss)
+        # XSEC for EXO-17-028 are obtained from AN * 0.5 to get SS only
 
         if _Process == "DY" and self.IsEXO17028:
             if float_mass ==85:
@@ -120,49 +123,49 @@ class HNLArxiv():
             if float_mass ==1500:
                 return 6.05E-07
             if float_mass ==1700:
-                return 3.9E-07
+                return 2.9E-07
             if float_mass ==2000:
-                return 1.4E-07
+                return 1.025E-07
 
             print("Mass {0} not available ".format(float_mass))
             return -999
         if _Process == "VBF" and self.IsEXO17028:
             if float_mass ==100:
-                return 9.65E-04
+                return 0.5* 9.65E-04
             if float_mass ==150:
-                return 4.91E-04
+                return 0.5* 4.91E-04
             if float_mass ==200:
-                return 3.28E-04
+                return 0.5* 3.28E-04
             if float_mass ==300:
-                return 1.83E-04
+                return 0.5* 1.83E-04
             if float_mass ==400:
-                return 1.16E-04
+                return 0.5* 1.16E-04
             if float_mass ==500:
-                return 7.81E-05
+                return 0.5* 7.81E-05
             if float_mass ==600:
-                return 5.50E-05
+                return 0.5* 5.50E-05
             if float_mass ==700:
-                return 3.98E-05
+                return 0.5* 3.98E-05
             if float_mass ==800:
-                return 2.94E-05
+                return 0.5* 2.94E-05
             if float_mass ==900:
-                return 2.22E-05
+                return 0.5* 2.22E-05
             if float_mass ==1000:
-                return 1.69E-05
+                return 0.5* 1.69E-05
             if float_mass ==1100:
-                return 1.30E-05
+                return 0.5* 1.30E-05
             if float_mass ==1200:
-                return 1.02E-05
+                return 0.5* 1.02E-05
             if float_mass ==1300:
-                return 7.94E-06
+                return 0.5* 7.94E-06
             if float_mass ==1400:
-                return 6.27E-06
+                return 0.5* 6.27E-06
             if float_mass ==1500:
-                return 5.00E-06
+                return 0.5* 5.00E-06
             if float_mass ==1700:
-                return 3.21E-06
+                return 0.5* 3.21E-06
             if float_mass ==2000:
-                return 1.69E-06
+                return 0.5* 1.69E-06
             print("Mass {0} not available ".format(float_mass))
             return -999
 
@@ -219,7 +222,7 @@ class HNLArxiv():
 
 
     ################ Limits #####################################                                                                                                                                                   
-    def GetLimits(self):
+    def GetLimits(self, Type="obs"):
         observed = []
         _2sigma_low = []
         _1sigma_low = []
@@ -238,7 +241,27 @@ class HNLArxiv():
             
             for M in range(0,len(Masses)):
                 print ("Mass {0} : exp limit = {1}  obs limit = {2}".format(Masses[M], _expected[M], observed[M]))
-            
+
+            if Type == "obs":
+                return [Masses, observed]
+                
+            if Type == "exp":
+                return [Masses, _expected]
+
+            if Type == "2sigma":
+                return [Masses, _2sigma_high]
+            if Type == "1sigma":
+                return [Masses, _1sigma_high]
+            if Type == "-1sigma":
+                return [Masses, _1sigma_low]
+            if Type == "-2sigma":
+                return [Masses, _2sigma_low]
+
+                
+        if self.IsEXO17028:
+            print("Gte limits from /gv0/archive/Users/jskim/EXO-17-028/HN_dilepton_plotter/rootfiles/v8-0-7.38/Limit")
+
+                
     ################ Signal Efficiency #####################################                                                                                                                                                   
 
     def GetEXO_17_028_Eff(self,_Channel,_SignalRegion,_Mass, _Process):
@@ -260,7 +283,7 @@ class HNLArxiv():
                             ["300", 13.21],
                             ["400", 11.77],
                             ["500", 8.63],
-                            ["600", 7.45],
+                            ["600", 7.4],
                             ["700", 6.69],
                             ["800", 6.05],
                             ["900", 5.38],
@@ -270,7 +293,8 @@ class HNLArxiv():
                             ["1300", 3.20],
                             ["1400", 2.75],
                             ["1500", 2.5],
-                            ["1700", 1.85]]
+                            ["1700", 1.85],
+                            ["2000", 1.6]]
 
                 if _Channel == "ElEl":
                     effs = [["85", 0.11],
@@ -293,7 +317,8 @@ class HNLArxiv():
                             ["1300", 1.79],
                             ["1400", 1.47],
                             ["1500", 1.31],
-                            ["1700", 0.87]] 
+                            ["1700", 0.87], 
+                            ["2000", 0.6]] 
 
                 if _Channel == "MuEl":
                     effs = [["85", 0.21],
@@ -312,15 +337,19 @@ class HNLArxiv():
                             ["900", 3.82],
                             ["1000", 3.37],
                             ["1100", 2.80],
-                            ["1200", 2.45],
+                            ["1200", 2.4],
                             ["1300", 2.09],
                             ["1400", 1.81],
                             ["1500", 1.53],
-                            ["1700", 1.25]]
+                            ["1700", 1.25],
+                            ["2000", 0.9]]
 
             if _SignalRegion == "SR2":
                 if _Channel == "MuMu":
-                    effs = [["150", 0.28],
+                    effs = [["85", 0.001],
+                            ["90", 0.003],
+                            ["100", 0.08],
+                            ["150", 0.28],
                             ["200", 1.43],
                             ["250", 3],
                             ["300", 5.4],
@@ -342,7 +371,11 @@ class HNLArxiv():
                     
                 elif _Channel == "ElEl":
                     
-                    effs = [["150", 0.19],
+                    effs = [["85", 0.001],
+                            ["95", 0.003],
+                            ["100", 0.005],
+                            ["125", 0.04],
+                            ["150", 0.19],
                             ["200", 0.6],
                             ["250", 2.2],
                             ["300", 3.5],
@@ -358,15 +391,21 @@ class HNLArxiv():
                             ["1300", 20.5],
                             ["1400", 19.6],
                             ["1500", 19.5],
-                            ["1700", 14.45]]
+                            ["1700", 14.45],
+                            ["2000", 14.45]]
                     
                 elif _Channel == "MuEl":
                     
-                    effs = [
+                    effs = [                       
+                        ["85", 0.001],
+                        ["90", 0.003],
+                        ["100", 0.009],
+                        ["125", 0.003],
+                        ["250", 0.14],
                         ["200", 0.86],
                         ["250", 1.74],
                         ["300", 4.44],
-                        ["400", 11.79],
+                        ["400", 11.8],
                         ["500", 16.7],
                         ["600", 20.2],
                         ["700", 25.0],
@@ -378,7 +417,8 @@ class HNLArxiv():
                         ["1300", 27.12],
                         ["1400", 26.7],
                         ["1500", 21.6],
-                        ["1700", 17.0]]
+                        ["1700", 19.8],
+                        ["2000", 17.0]]
                     
         if _Process == "VBF":
                             
@@ -387,6 +427,13 @@ class HNLArxiv():
 
                 if _SignalRegion == "SR1":
                     effs = [
+                        ["85", 0],
+                        ["90", 0],
+                        ["100",0],
+                        ["125", 0],
+                        ["150", 0],
+                        ["200", 0],
+                        ["250", 0],
                         ["300", 5.2],
                         ["400", 5.14],
                         ["500", 4.08],
@@ -400,11 +447,19 @@ class HNLArxiv():
                         ["1300", 2.98],
                         ["1400", 2.68],
                         ["1500", 2.34],
-                        ["1700", 1.85]]
+                        ["1700", 1.85],
+                        ["2000", 1.85]]
                     
                 if _SignalRegion == "SR2":
 
                     effs = [
+                        ["85", 0],
+                        ["90", 0],
+                        ["100",0],
+                        ["125", 0],
+                        ["150", 0],
+                        ["200", 0],
+                        ["250", 0],
                         ["300", 0.73],
                         ["400", 2.72],
                         ["500", 6.78],
@@ -418,12 +473,20 @@ class HNLArxiv():
                         ["1300", 30.65],
                         ["1400", 29.37],
                         ["1500", 29.98],
-                        ["1700", 29.02]]
+                        ["1700", 29.02],
+                        ["2000", 29.02]]
             if _Channel == "ElEl":
                                 
                 if _SignalRegion == "SR1":
 
                     effs = [
+                        ["85", 0],
+                        ["90", 0],
+                        ["100",0],
+                        ["125", 0],
+                        ["150", 0],
+                        ["200", 0],
+                        ["250", 0],
                         ["300", 3.03],
                         ["400", 3.03],
                         ["500", 2.68],
@@ -437,25 +500,34 @@ class HNLArxiv():
                         ["1300", 1.56],
                         ["1400", 1.31],
                         ["1500", 1.2],
-                        ["1700", 0.87]]
+                        ["1700", 0.87],
+                        ["2000", 0.87]]
                     
                 if _SignalRegion == "SR2":
 
                     effs = [
-                        ["300", 0.81],
-                        ["400", 2.71],
-                        ["500", 5.17],
-                        ["600", 13.21],
-                        ["700", 17.59],
-                        ["800", 18.3],
-                        ["900", 18.5],
-                        ["1000", 17.57],
-                        ["1100", 19.56],
-                        ["1200", 19.88],
-                        ["1300", 20.75],
-                        ["1400", 20.82],
-                        ["1500", 18.04],
-                        ["1700", 16.98]]
+                        ["85", 0],
+                        ["90", 0],
+                        ["100",0],
+                        ["125", 0],
+                        ["150", 0],
+                        ["200", 0],
+                        ["250", 0],
+                        ["300", 0.6],
+                        ["400", 2.9],
+                        ["500", 6.1],
+                        ["600", 11.0],
+                        ["700", 13.1],
+                        ["800", 14.],
+                        ["900", 13.2],
+                        ["1000", 15.3],
+                        ["1100", 14.7],
+                        ["1200", 15.3],
+                        ["1300", 15.5],
+                        ["1400", 15.1],
+                        ["1500", 15.2],
+                        ["1700", 15.2],
+                        ["2000", 15.2]]
 
 
             if _Channel == "MuEl":
@@ -463,6 +535,13 @@ class HNLArxiv():
                 if _SignalRegion == "SR1":
 
                     effs = [
+                        ["85", 0],
+                        ["90", 0],
+                        ["100",0],
+                        ["125", 0],
+                        ["150", 0],
+                        ["200", 0],
+                        ["250", 0],
                         ["300", 3.4],
                         ["400", 2.99],
                         ["500", 3.01],
@@ -476,11 +555,19 @@ class HNLArxiv():
                         ["1300", 1.89],
                         ["1400", 1.70],
                         ["1500", 1.54],
-                        ["1700", 1.25]]
+                        ["1700", 1.25],
+                        ["2000", 1.25]]
 
                 if _SignalRegion == "SR2":
 
                     effs = [
+                        ["85", 0],
+                        ["90", 0],
+                        ["100",0],
+                        ["125", 0],
+                        ["150", 0],
+                        ["200", 0],
+                        ["250", 0],
                         ["300", 0.81],
                         ["400", 2.71],
                         ["500", 5.17],
@@ -494,8 +581,9 @@ class HNLArxiv():
                         ["1300", 20.75],
                         ["1400", 20.82],
                         ["1500", 18.04],
-                        ["1700", 16.98]]
-
+                        ["1700", 16.98],
+                        ["2000", 16.98]]
+                    
 
         for x in effs:
             if str(x[0]) == str(_Mass):
@@ -639,15 +727,15 @@ class HNLArxiv():
         ###### set Neg bins to 0                                                                                                                                                        
         if Nsig < 0:
             Nsig = 0
-        if Nbkg < 0.5:
-            Nbkg=0.5
+        if Nbkg < 0.2:
+            Nbkg=0.2
                 
         Signi=0.
         if method == "SB":
             Signi=Nsig/ math.sqrt(Nbkg +1)
 
         if method == "Punzi":
-            Signi= Nsig / ( 1 + math.sqrt(float(Nbkg*0.1)*float(Nbkg*0.1)+float(Nbkg)))
+            Signi= Nsig / ( 1 + math.sqrt(float(Nbkg)))
 
         if method == "Azimoth":
             Signi=  math.sqrt(2* ((Nsig+Nbkg)*math.log(1+(Nsig/Nbkg)) -Nsig ) )
@@ -656,23 +744,87 @@ class HNLArxiv():
 
 
 
-    def GetSignalSignificance(self,_Channel,_Mass, scX):
+    def GetSignalSignificance(self,_Channel,_Mass, scX,FinalScale):
         if self.IsEXO17028:
-            return self.GetSignificanceEXO_17_028(_Channel,_Mass, scX)
+            return self.GetSignificanceEXO_17_028(_Channel,_Mass, scX,FinalScale)
         if self.IsPeking:
-            return self.GetSignificancePeking(_Channel,_Mass, scX)
+            return self.GetSignificancePeking(_Channel,_Mass, scX,FinalScale*FinalScale)
 
     def GetSignificancePeking(self,mass, method,scX):
 
         return 1.
 
 
-    def GetSignificanceEXO_17_028(self,_Channel,_Mass, scX):
+    def GetSignalYields(self,_Channel,_Mass,FinalScale):
+
+        _DMass = float(_Mass)
+
+        print("Running GetSignificnaceEXO_17_028 for mass " + _Mass)
+
+        SignalRegions = ["Bin1", "Bin2"]
+
+        nSigs=[]
+        for SignalRegion in SignalRegions:
+
+            Bin = SignalRegion
+            Bin = Bin.replace('Bin','SR')
+
+            nSigs.append(36500*FinalScale*float(self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"DY")* self.GetXSecUnityCoupling(_DMass,"DY") +
+                                                self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"VBF")*self.GetXSecUnityCoupling(_DMass,"VBF")))
+            
+        return nSigs
+
+    def GetSignalRegionYields(self,_Channel,_Mass,FinalScale):
+
+        _DMass = float(_Mass)
+
+        print("Running GetSignificnaceEXO_17_028 for mass " + _Mass)
+
+        SignalRegions = ["Bin1", "Bin2"]
+
+        nSigsDY=[]
+        nSigsVBF=[]
+
+        for SignalRegion in SignalRegions:
+
+            Bin = SignalRegion
+            Bin = Bin.replace('Bin','SR')
+            
+            nSigsDY.append(36500*FinalScale*float(self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"DY")* self.GetXSecUnityCoupling(_DMass,"DY")))
+            nSigsVBF.append(36500*FinalScale*float(self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"VBF")*self.GetXSecUnityCoupling(_DMass,"VBF")))
+
+
+
+
+        return [nSigsDY, nSigsVBF]
+
+
+
+    def GetBkgYields(self,_Channel,_Mass):
+
+        _DMass = float(_Mass)
+
+        print("Running GetSignificnaceEXO_17_028 for mass " + _Mass)
+        SignalRegions = ["Bin1", "Bin2"]
+
+        nBkgs=[]
+
+        for SignalRegion in SignalRegions:
+
+            Bin = SignalRegion
+            Bin = Bin.replace('Bin','SR')
+
+            nBkgs.append(float(self.GetEXO_17_028_Bkg(_Channel, SignalRegion , _Mass, "" )))
+            
+        return nBkgs
+
+
+        
+    def GetSignificanceEXO_17_028(self,_Channel,_Mass, scX, FinalScale):
         
         _DMass = float(_Mass)
         
         print("Running GetSignificnaceEXO_17_028 for mass " + _Mass)
-        couplingSF = 1
         
         #### SR1 in 2016 was AK4 SR2 was AK8 .....                                                                                                                                                                                                                                                     
         SignalRegions = ["Bin1", "Bin2"]
@@ -692,12 +844,20 @@ class HNLArxiv():
             nBkg    = float(self.GetEXO_17_028_Bkg(_Channel, SignalRegion , _Mass, "" ))
             nBkgErr = self.GetEXO_17_028_BkgErr(_Channel, SignalRegion , _Mass, "" ) + 0.2 
             nSig    = float(self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"DY")* self.GetXSecUnityCoupling(_DMass,"DY") + self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"VBF")*self.GetXSecUnityCoupling(_DMass,"VBF"))
-            nSig = nSig*0.1
+            nSig = nSig*FinalScale
+            if self.DoDebug:
+                print("DY GetEXO_17_028_Eff = " + str(float(self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"DY"))))
+                print("DY GetXSecUnityCoupling = "+str(self.GetXSecUnityCoupling(_DMass,"DY")))
+                print("VBF GetEXO_17_028_Eff = " + str(float(self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"VBF"))))
+                print("VBF GetXSecUnityCoupling = "+str(self.GetXSecUnityCoupling(_DMass,"VBF")))
+                
             
             print (SignalRegion + " DY Efficiency = " + str(self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"DY")) + " Xsec= " + str(self.GetXSecUnityCoupling(_DMass,"DY")) + " VBF Eff = " + str(self.GetEXO_17_028_Eff(_Channel, Bin, _Mass,"VBF")) + " Xsec= " + str(self.GetXSecUnityCoupling(_DMass,"VBF")))
             
             ####### convert efficiency to number                                                                                                                                                                                                                                                       
-            nSig =nSig*36500 * couplingSF
+            nSig =nSig*36500 
+            if self.DoDebug:
+                print("NSig = nSig*36500 * couplingSF = " + str(nSig) )
 
             if nBkg> 0 :
                 SignifianceAz = SignifianceAz   +  self.CalculdateSignificance("Azimoth",float(nSig),nBkg, scX)

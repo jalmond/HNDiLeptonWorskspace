@@ -13,7 +13,13 @@ def Print(out, line,PrintScreen):
         print line
     out.write(line+"\n")
 
+def Validate(h1,h2):
 
+    if not h1 or not h2:
+        print (h1)
+        print (h2)
+        exit()
+    return 
 
 def CalculdateSignificance(method,Nsig, Nbkg,scaleSig):
 
@@ -21,15 +27,15 @@ def CalculdateSignificance(method,Nsig, Nbkg,scaleSig):
     ###### set Neg bins to 0                                                                                                                                                
     if Nsig < 0:
         Nsig = 0
-    if Nbkg < 0.5:
-        Nbkg=0.5
+    if  Nbkg < 0.2:
+        Nbkg=0.2
 
     Signi=0.
     if method == "SB":
         Signi=Nsig/ math.sqrt(Nbkg +1)
 
     if method == "Punzi":
-        Signi= Nsig / ( 1 + math.sqrt(float(Nbkg*0.1)*float(Nbkg*0.1)+float(Nbkg)))
+        Signi= Nsig / ( 1 + math.sqrt(float(Nbkg)))
 
     if method == "Azimoth":
         Signi=  math.sqrt(2* ((Nsig+Nbkg)*math.log(1+(Nsig/Nbkg)) -Nsig ) )
@@ -62,27 +68,58 @@ def GetSignificanceArray(out,h_sig, h_bkg,FOM,scaleSig, PastSignifiance):
 
     for x in range(0, len(BkgBins)):
         Bkg=BkgBins[x]
-        if Bkg <0:
-            Bkg = 0.5
         SigBin = SigBins[x]
-        if SigBin < 0:
-            SigBin = 0
 
         SignifBins.append(CalculdateSignificance(FOM,SigBin,Bkg,scaleSig))
 
         
     return SignifBins
+
+def PrintString(nonfomrattted_string, length):
     
-def GetSignificance(out,h_sig, h_bkg,FOM,scaleSig, PastSignifiance):
+    return nonfomrattted_string + " " * (length-len(nonfomrattted_string))
 
-    SigBins = []
+def PrintValue(val, rounded, length):
+    
+    return str(round(val, rounded)) + " " * (length-len(str(round(val, rounded))))
+
+
+def GetLumiScale(era):
+    
+    if era == 2016:
+        return 1
+    
+    if era == 2017:
+        return float(41.5/36.3)
+
+    if era == 2018:
+        return float(59.9/36.3)
+
+def GetSignificance(out,_Era,ID,h_sigDY,h_sigVBF,  h_sigSSWW, h_bkg,FOM,scaleSig, PastSignifiance,PastSig, PastBkg, _mass):
+
+    SigBins     = []
+    SigBinsDY   = []
+    SigBinsVBF  = []
+    SigBinsSSWW = []
     BkgBins = []
+    
+    for xbin in range(1,h_sigDY.GetNbinsX()+1):
+        signal_yield=h_sigDY.GetBinContent(xbin)
 
-    print ("Nb bins = " + str(h_bkg.GetNbinsX()))
-    print ("Ns bins = " + str(h_sig.GetNbinsX()))
-
-    for xbin in range(1,h_sig.GetNbinsX()+1):
-        SigBins.append(h_sig.GetBinContent(xbin))
+        if h_sigVBF:
+            SigBinsVBF.append(h_sigVBF.GetBinContent(xbin))
+            signal_yield=signal_yield+h_sigVBF.GetBinContent(xbin)
+        else:
+            SigBinsVBF.append(0.)
+        
+        if h_sigSSWW:
+            SigBinsSSWW.append(h_sigSSWW.GetBinContent(xbin))
+            signal_yield=signal_yield+h_sigSSWW.GetBinContent(xbin)
+        else:
+            SigBinsSSWW.append(0.)
+        
+        SigBinsDY.append(h_sigDY.GetBinContent(xbin))
+        SigBins.append(signal_yield)
 
     for xbin in range(1,h_bkg.GetNbinsX()+1):
         BkgBins.append(h_bkg.GetBinContent(xbin))
@@ -93,34 +130,139 @@ def GetSignificance(out,h_sig, h_bkg,FOM,scaleSig, PastSignifiance):
     SignifP = 0.
     TotalSig= 0.
     TotalBkg= 0.
+    SR1Sig=0
+    SR1Sig=0
+    SR2Sig=0
+    SR3Sig=0
+    SR1Bkg=0
+    SR2Bkg=0
+    SR3Bkg=0
+    SignifSR1=0
+    SignifSR2=0
+    SignifSR3=0
+    SR1SigDY=0
+    SR1SigVBF=0
+    SR1SigSSWW=0
 
-    print ("N bins = " + str(len(BkgBins)))
+    SR2SigDY=0
+    SR2SigVBF=0
+    SR2SigSSWW=0
+
+    SR3SigDY=0
+    SR3SigVBF=0
+    SR3SigSSWW=0
+
+    print("_"*150)
     for x in range(0, len(BkgBins)):
         Bkg=BkgBins[x]
-        if Bkg <0:
-            Bkg = 0.5
         SigBin = SigBins[x]
-        if SigBin < 0:
-            SigBin = 0
-
-        Signif   = Signif   + CalculdateSignificance(FOM,SigBin,Bkg,scaleSig)
-        SignifAz = SignifAz + CalculdateSignificance("Azimoth",SigBin,Bkg,scaleSig)
-        SignifSB = SignifSB + CalculdateSignificance("SB",SigBin,Bkg,scaleSig)
-        SignifP  = SignifP  + CalculdateSignificance("Punzi",SigBin,Bkg,scaleSig)
-
-        TotalSig = TotalSig+ SigBin
-        TotalBkg = TotalBkg+ Bkg
-
-        Print(out, "Bin " + PrintSame(x+1,5)  + " sig = " + PrintSame(SigBin,10) + " bkg = " + PrintSame(Bkg,10) + " s/sqrt(B+1) = " + PrintSame(CalculdateSignificance("SB",SigBin,Bkg,scaleSig),10) + "  Punzi = " + PrintSame(CalculdateSignificance("Punzi",SigBin,Bkg,scaleSig),10)  + " Za = " + PrintSame(CalculdateSignificance("Azimoth",SigBin,Bkg,scaleSig),10),True)
-
-    print("_"*150)
-    print ("Total Signal Yield = " + str(TotalSig) + " total bkg = " + str(TotalBkg) + " Combined bin Significance : "
-           + " s/sqrt(B+1) = " + str(CalculdateSignificance("SB",TotalSig,TotalBkg,scaleSig)) 
-           + " Punzi = "       + str(CalculdateSignificance("Punzi",TotalSig,TotalBkg,scaleSig))
-           + " Azimoth = "          + str(CalculdateSignificance("Azimoth",TotalSig,TotalBkg,scaleSig)) )
     
+        #### INDIVIDUAL SIGs
+        SigBinDY   = SigBinsDY[x]
+        SigBinVBF  = SigBinsVBF[x]
+        SigBinSSWW = SigBinsSSWW[x]
+
+
+        Signif   = Signif   + CalculdateSignificance(FOM,      SigBin,Bkg,scaleSig)
+        SignifAz = SignifAz + CalculdateSignificance("Azimoth",SigBin,Bkg,scaleSig)
+        SignifSB = SignifSB + CalculdateSignificance("SB",     SigBin,Bkg,scaleSig)
+        SignifP  = SignifP  + CalculdateSignificance("Punzi",  SigBin,Bkg,scaleSig)
+
+        TotalSig = TotalSig + SigBin
+        TotalBkg = TotalBkg + Bkg
+        Binlab= str(h_sigDY.GetXaxis().GetBinLabel(x+1))
+        if "SR1" in Binlab:
+            SR1SigDY  = SR1SigDY   + SigBinDY
+            SR1SigVBF = SR1SigVBF  + SigBinVBF
+            SR1SigSSWW= SR1SigSSWW + SigBinSSWW
+
+            SR1Sig=SR1Sig+SigBin
+            SR1Bkg=SR1Bkg+Bkg
+            SignifSR1=SignifSR1+CalculdateSignificance(FOM,SigBin,Bkg,scaleSig)
+        if "SR2" in Binlab:
+
+            SR2SigDY  = SR2SigDY   + SigBinDY
+            SR2SigVBF = SR2SigVBF  + SigBinVBF
+            SR2SigSSWW= SR2SigSSWW + SigBinSSWW
+
+            SR2Sig=SR2Sig+SigBin
+            SR2Bkg=SR2Bkg+Bkg
+            SignifSR2=SignifSR2+CalculdateSignificance(FOM,SigBin,Bkg,scaleSig)
+
+        if "SR3" in Binlab:
+            
+            SR3SigDY  = SR3SigDY   + SigBinDY
+            SR3SigVBF = SR3SigVBF  + SigBinVBF
+            SR3SigSSWW= SR3SigSSWW + SigBinSSWW
+
+
+            SR3Sig=SR3Sig+SigBin
+            SR3Bkg=SR3Bkg+Bkg
+            SignifSR3=SignifSR3+CalculdateSignificance(FOM,SigBin,Bkg,scaleSig)
+
+
+        Print(out, "Bin " + PrintString(Binlab,20) + " NSig = " + PrintValue(SigBin,3,10) + " NBkg = " + PrintValue(Bkg,3,10) 
+              + " s/sqrt(B+1) = " + PrintValue(CalculdateSignificance("SB",     SigBin,Bkg,scaleSig),3,10) 
+              + " Punzi = "       + PrintValue(CalculdateSignificance("Punzi",  SigBin,Bkg,scaleSig),3,10)  
+              + " Azimoth = "     + PrintValue(CalculdateSignificance("Azimoth",SigBin,Bkg,scaleSig),3,10),True)
+
     print("_"*150)
-    print ("Summed signifance of individual bins: Current / EXO17-0-28 (Ratio)")
+    print ("Total Signal Yield = " + str(round(TotalSig,3)) + " total bkg = " + PrintValue(TotalBkg,3,10) + " Combined bin Significance : "
+           + " s/sqrt(B+1) = "     + PrintValue(CalculdateSignificance("SB",TotalSig,TotalBkg,scaleSig),3,10) 
+           + " Punzi = "           + PrintValue(CalculdateSignificance("Punzi",TotalSig,TotalBkg,scaleSig),3,10)
+           + " Azimoth = "         + PrintValue(CalculdateSignificance("Azimoth",TotalSig,TotalBkg,scaleSig),3,10) 
+           + " (Assumming all bins merged into 1)")
+    
+
+    print ("@"*150)
+    print ("Summed FOM for bins in each SR ["+ID+"]:")
+    print ("Mass " + str(_mass) + 
+           " SR1 [AK8] NSig " +PrintValue(SR1Sig,3,10) + 
+           "[DY " + PrintValue(SR1SigDY,3,10) + " VBF " + PrintValue(SR1SigVBF,3,10)+ " SSWW " + PrintValue(SR1SigSSWW,3,10)+"]"
+           + " Nbkg = " + PrintValue(SR1Bkg,3,10) 
+           + " MergedFOM = " + PrintValue(CalculdateSignificance("Azimoth",SR1Sig,SR1Bkg,scaleSig),3,10) + " CombinedFOM "+ PrintValue(SignifSR1,3,10))
+
+    print ("Mass " + str(_mass) +
+           " SR2 [VBF] NSig " +PrintValue(SR2Sig,3,10) +
+           "[DY " + PrintValue(SR2SigDY,3,10) + " VBF " + PrintValue(SR2SigVBF,3,10)+ " SSWW " + PrintValue(SR2SigSSWW,3,10)+"]"
+           + " Nbkg = " + PrintValue(SR2Bkg,3,10)
+           + " MergedFOM = " + PrintValue(CalculdateSignificance("Azimoth",SR2Sig,SR2Bkg,scaleSig),3,10) + " CombinedFOM "+ PrintValue(SignifSR2,3,10))
+
+    print ("Mass " + str(_mass) +
+           " SR3 [AK4] NSig " +PrintValue(SR3Sig,3,10) +
+           "[DY " + PrintValue(SR3SigDY,3,10) + " VBF " + PrintValue(SR3SigVBF,3,10)+ " SSWW " + PrintValue(SR3SigSSWW,3,10)+"]"
+           + " Nbkg = " + PrintValue(SR3Bkg,3,10)
+           + " MergedFOM = " + PrintValue(CalculdateSignificance("Azimoth",SR3Sig,SR3Bkg,scaleSig),3,10) + " CombinedFOM "+ PrintValue(SignifSR3,3,10))
+    
+    print ("@"*150)
+
+    print ("Mass " + str(_mass) + " EXO 17-028 SR1 [AK4] Sig " 
+           + PrintValue(PastSig[0][0]+PastSig[1][0],3,10)  
+           + "[ DY " + PrintValue(PastSig[0][0],3,10)+ " VBF "+  PrintValue(PastSig[1][0],3,10)+ "]" 
+           + " Nbkg " + PrintValue(PastBkg[0],3,10) 
+           + " FOM "    + PrintValue(CalculdateSignificance("Azimoth",PastSig[0][0]+PastSig[1][0],PastBkg[0],scaleSig),3,10))
+
+    print ("Mass " + str(_mass) + " EXO 17-028 SR2 [AK8] Sig " 
+           + PrintValue(PastSig[0][1]+PastSig[1][1],3,10)  
+           + "[ DY " + PrintValue(PastSig[0][1],3,10)+" VBF "+ PrintValue(PastSig[1][1],3,10)+ "]" 
+           + " Nbkg " + PrintValue(PastBkg[1],3,10) 
+           + " FOM "  + PrintValue(CalculdateSignificance("Azimoth",PastSig[0][1]+PastSig[1][1],PastBkg[1],scaleSig),3,10))
+    LumiScale=GetLumiScale(int(_Era))
+    print ("Lumi Scaled: Mass " + str(_mass) + " EXO 17-028 SR1 [AK4] Sig "
+           + PrintValue(LumiScale*PastSig[0][0]+LumiScale*PastSig[1][0],3,10)
+           + "[ DY " + PrintValue(LumiScale*PastSig[0][0],3,10)+ " VBF "+  PrintValue(LumiScale*PastSig[1][0],3,10)+ "]"
+           + " Nbkg " + PrintValue(LumiScale*PastBkg[0],3,10)
+           + " FOM "    + PrintValue(CalculdateSignificance("Azimoth",LumiScale*PastSig[0][0]+LumiScale*PastSig[1][0],LumiScale*PastBkg[0],scaleSig),3,10))
+
+    print ("Lumi Scaled: Mass " + str(_mass) + " EXO 17-028 SR2 [AK8] Sig "
+           + PrintValue(LumiScale*PastSig[0][1]+LumiScale*PastSig[1][1],3,10)
+           + "[ DY " + PrintValue(LumiScale*PastSig[0][1],3,10)+" VBF "+ PrintValue(LumiScale*PastSig[1][1],3,10)+ "]"
+           + " Nbkg " + PrintValue(LumiScale*PastBkg[1],3,10)
+           + " FOM "  + PrintValue(CalculdateSignificance("Azimoth",LumiScale*PastSig[0][1]+LumiScale*PastSig[1][1],LumiScale*PastBkg[1],scaleSig),3,10))
+
+
+    print("_"*150)
+    print ("Summed signifance of individual bins: Current / EXO-17-0-28 (Ratio)")
     
     print ("Signif {0}  = {1} : {2} ({3}) ".format("Azimoth  ",
                                                    str(round(SignifAz,3)),

@@ -31,6 +31,15 @@ then
 
 else
 
+    echo "@@@@ Working on tamsa1"
+    export SKFlatRunlogDir="/data6/Users/$USER/SKFlatRunlog/"
+    export SKFlatOutputDir="/data6/Users/$USER/SKFlatOutput/"
+    export BDTRunlogDir="/data6/Users/$USER/BDTRunlog/"
+    export BDTOutputDir="/data6/Users/$USER/BDTOutput/"
+    export MVARunlogDir="/data6/Users/$USER/MVARunlog/"
+    export MVAOutputDir="/data6/Users/$USER/MVAOutput/"
+
+
 
     export PLOT_PATH=/Users/john/Dropbox/HNL_13TeV/DiLepton/plots/
     export WWW_PLOT_PATH=/tmp/www/html/HNL_13TeV/

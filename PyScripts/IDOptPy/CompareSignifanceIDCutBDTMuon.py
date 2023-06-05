@@ -69,7 +69,7 @@ from  HNType1_config import *
 
 
 Analyser = "HNL_SignalLeptonOpt"
-masses  = ["100", "250","500","2000"]
+masses  = ["100", "250"]
 dmasses = [100]
 
 
@@ -128,6 +128,7 @@ for channel in channels:
 
         DirName = "LimitInput"
         HistName="/HNLOpt_ULHNTightV2/FillEventCutflow/MuonSR"
+        print (InPath)
         if mass == "100":
             DirName = "LimitInputBDT"
             HistName="/HNLOpt_ULHNTightV2/100/FillEventCutflow/MuonSR"
