@@ -187,8 +187,13 @@ if MergeData:
 
 
 if Merge16:
+    print("%"*150)
+    print("python MergeScripts/Merge16 ")
     os.system("python MergeScripts/Merge16.py  -a " + Analyser + " -f " + FlagDir )
-    
+    print("%"*150)
+    print("python MergeScripts/Merge16Signal ")
+    os.system("python MergeScripts/Merge16Signal.py  -a " + Analyser + " -f " + FlagDir )
+
 
 if FullMerge:
     os.system("python MergeScripts/FullMerge.py  -a " + Analyser + " -f " + FlagDir )

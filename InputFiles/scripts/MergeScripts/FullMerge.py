@@ -43,19 +43,19 @@ for x in sswwsamples:
     os.system("hadd  " + path_Run2 +"/"+x  + " "  + sk_path2 +"/"+x + " "  +sk_path + "/"+x + " "  + sk_path3 +"/"+x)
 
 
-sig_arr_tamsadir  = [f for f in listdir(sk_path+"/SIGMerged/") if isfile(join(sk_path+"/SIGMerged/",f))]
+sig_arr_tamsadir  = [f for f in listdir(sk_path+"/SIG/") if isfile(join(sk_path+"/SIG/",f))]
 
 sigsamples = []
 for filename in sig_arr_tamsadir:
     sigsamples.append(filename)
 
 
-os.system("mkdir -p " + os.getenv("FILE_MERGED_PATH")+"/"+Analyser +"/YearCombined/"+FlagDir+"/SIGMerged/")
+os.system("mkdir -p " + os.getenv("FILE_MERGED_PATH")+"/"+Analyser +"/YearCombined/"+FlagDir+"/SIG/")
 
 for x in sigsamples:
-    if os.path.exists(path_Run2 +"/SIGMerged/"+x  ):
-        os.system("rm " + path_Run2 +"/SIGMerged/"+x  )
-    os.system("hadd  " + path_Run2 +"/SIGMerged/"+x  + " "  + sk_path2 +"/SIGMerged/"+x + " "  +sk_path + "/SIGMerged/"+x + " " + sk_path3 +"/SIGMerged/"+x)
+    if os.path.exists(path_Run2 +"/SIG/"+x  ):
+        os.system("rm " + path_Run2 +"/SIG/"+x  )
+    os.system("hadd  " + path_Run2 +"/SIG/"+x  + " "  + sk_path2 +"/SIG/"+x + " "  +sk_path + "/SIG/"+x + " " + sk_path3 +"/SIG/"+x)
 
 
 

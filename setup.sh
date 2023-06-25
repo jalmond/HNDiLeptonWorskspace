@@ -10,6 +10,17 @@ export INFILE_MERGED_PATH=$HNDILEPTONWORKSPACE_DIR/Output/OutputTool/MergedFiles
 export SCRIPT_DIR=$HNDILEPTONWORKSPACE_DIR/script/
 export HTML_DIR=$PWD/script/HTML
 
+
+echo "@@@@ Working on tamsa1"
+export SKFlatRunlogDir="/data6/Users/$USER/SKFlatRunlog/"
+export SKFlatOutputDir="/data6/Users/$USER/SKFlatOutput/"
+export BDTRunlogDir="/data6/Users/$USER/BDTRunlog/"
+export BDTOutputDir="/data6/Users/$USER/BDTOutput/"
+export MVARunlogDir="/data6/Users/$USER/MVARunlog/"
+export MVAOutputDir="/data6/Users/$USER/MVAOutput/"
+
+
+
 export FILE_MERGED_PATH=$HNDILEPTONWORKSPACE_DIR/InputFiles/MergedFiles/$FLATVERSION/
 if [[ ! -d $FILE_MERGED_PATH ]]; then mkdir $FILE_MERGED_PATH ; fi
 
@@ -29,18 +40,8 @@ then
     export LIMIT_PATH=$HNDILEPTONWORKSPACE_DIR/LimitCode/CMS-StatisticalTools/:$HNDILEPTONWORKSPACE_DIR/Limits/MakeShapeInput:"/data6/Users/jalmond/Limits/CMSSW_10_2_13/src/HiggsAnalysis/CombinedLimit/data/2016_HNDiLepton/batch/"
     
 
+
 else
-
-    echo "@@@@ Working on tamsa1"
-    export SKFlatRunlogDir="/data6/Users/$USER/SKFlatRunlog/"
-    export SKFlatOutputDir="/data6/Users/$USER/SKFlatOutput/"
-    export BDTRunlogDir="/data6/Users/$USER/BDTRunlog/"
-    export BDTOutputDir="/data6/Users/$USER/BDTOutput/"
-    export MVARunlogDir="/data6/Users/$USER/MVARunlog/"
-    export MVAOutputDir="/data6/Users/$USER/MVAOutput/"
-
-
-
     export PLOT_PATH=/Users/john/Dropbox/HNL_13TeV/DiLepton/plots/
     export WWW_PLOT_PATH=/tmp/www/html/HNL_13TeV/
     alias pl='rsync -auv --delete-excluded '$PLOT_PATH/$FLATVERSION' '$WWW_PLOT_PATH

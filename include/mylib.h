@@ -5,7 +5,6 @@
 #include  "canvas_margin.h"
 #include  "base_functions.h"
 
-
 TH1D* GetSignalHistBasics(TString current_sample, TString filepath, TString fullhistname){
    TH1D* hist_temp;
   TFile* file = new TFile(filepath);
@@ -2277,6 +2276,16 @@ TDirectory *MakeTemporaryDirectory(){
 
   return tempDir;
 
+}
+
+string DToString(double a, int prec=2){
+  
+  std::ostringstream streamObj2;
+  streamObj2 << std::fixed;
+  streamObj2 << std::setprecision(prec);
+  streamObj2 << a;
+  std::string strObj2 = streamObj2.str();
+  return strObj2;
 }
 
 void AddPhantomZero(double a, TString align, int digit_int, int digit_frac){

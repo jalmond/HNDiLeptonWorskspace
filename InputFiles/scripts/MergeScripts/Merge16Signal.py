@@ -36,25 +36,41 @@ for filename in arr_tamsadir:
 os.system("mkdir -p " + os.getenv("FILE_MERGED_PATH")+"/"+Analyser +"/2016/")
 os.system("mkdir -p " + os.getenv("FILE_MERGED_PATH")+"/"+Analyser +"/2016/"+FlagDir)
 
-for x in sswwsamples:
-    if os.path.exists(path_2016 +"/"+x  ):
-        os.system("rm " + path_2016 +"/"+x  )
-    os.system("hadd  " + path_2016 +"/"+x  + " "  + sk_path2 +"/"+x + " "  +sk_path + "/"+x)
+#for x in sswwsamples:
+#    if os.path.exists(path_2016 +"/"+x  ):
+#        os.system("rm " + path_2016 +"/"+x  )
+#    os.system("hadd  " + path_2016 +"/"+x  + " "  + sk_path2 +"/"+x + " "  +sk_path + "/"+x)
 
 
-sig_arr_tamsadir  = [f for f in listdir(sk_path+"/SIGMerged/") if isfile(join(sk_path+"/SIGMerged/",f))]
+
+sig_arr_tamsadir  = [f for f in listdir(sk_path+"/SIG/") if isfile(join(sk_path+"/SIG/",f))]
 
 sigsamples = []
 for filename in sig_arr_tamsadir:
     sigsamples.append(filename)
 
 
-os.system("mkdir -p " + os.getenv("FILE_MERGED_PATH")+"/"+Analyser +"/2016/"+FlagDir+"/SIGMerged/")
+os.system("mkdir -p " + os.getenv("FILE_MERGED_PATH")+"/"+Analyser +"/2016/"+FlagDir+"/SIG/")
 
 for x in sigsamples:
-    if os.path.exists(path_2016 +"/SIGMerged/"+x  ):
-        os.system("rm " + path_2016 +"/SIGMerged/"+x  )
-    os.system("hadd  " + path_2016 +"/SIGMerged/"+x  + " "  + sk_path2 +"/SIGMerged/"+x + " "  +sk_path + "/SIGMerged/"+x)
+    if os.path.exists(path_2016 +"/SIG/"+x  ):
+        os.system("rm " + path_2016 +"/SIG/"+x  )
+    os.system("hadd  " + path_2016 +"/SIG/"+x  + " "  + sk_path2 +"/SIG/"+x + " "  +sk_path + "/SIG/"+x)
+
+
+
+sigmerged_arr_tamsadir  = [f for f in listdir(sk_path+"/SIG/") if isfile(join(sk_path+"/SIG/",f))]
+
+sigmergedsamples = []
+for filename in sigmerged_arr_tamsadir:
+    sigmergedsamples.append(filename)
+
+os.system("mkdir -p " + os.getenv("FILE_MERGED_PATH")+"/"+Analyser +"/2016/"+FlagDir+"/SIG/")
+
+for x in sigmergedsamples:
+    if os.path.exists(path_2016 +"/SIG/"+x  ):
+        os.system("rm " + path_2016 +"/SIG/"+x  )
+    os.system("hadd  " + path_2016 +"/SIG/"+x  + " "  + sk_path2 +"/SIG/"+x + " "  +sk_path + "/SIG/"+x)
 
 
 

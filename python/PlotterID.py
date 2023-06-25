@@ -16,7 +16,7 @@ class IDPlotter:
         self.Channel=Channel
 
 
-    #def MakeOptDHist(self):
+    def MakeOptDHist(self, Masses):
         
 
     def MakeAllIDHist(self,sorted_x):

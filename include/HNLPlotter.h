@@ -17,6 +17,7 @@
 #include "AnalysisInputs.h"
 #include "mylib.h"
 
+
 using namespace std;
 
 class HNLPlotter{
@@ -78,6 +79,7 @@ public:
   void SetupDefaultHist(TString sample, TString hn, TString histtag, TString legendname, TString htype, TString hunit,  vector<double> rb, double Xmin, double Xmax, double Ymax=1000000.);
   void SetupComparisonHist(TString sample, TString hist, TString histtag,TString legendname );
   TH1D* MakeHist(TString filepath, TString fullhistname);
+  TH1D* ConstructHist(TString filepath, TString fullhistname);
   void Summary();
   TString FixLatex(TString origSt);
 
@@ -96,19 +98,50 @@ public:
   void make_plot_directory();
   TString legend_coupling_label(int mass);
 
+
+  TH1D* GetCutEfficiency(TH1D *hist_default);
+  TH1D* GetScanEfficiency(TH1D *hist_default);
+
   double GetHistValue(TH1D * ht, TString hn);
   double GetHistError(TH1D * ht, TString hn);
   void MakeTexFile(map< TString, TH1D * > hs, TString Hist_For_CutFlow);
 
+  inline void SetHistLabels() { SetLabels=true;}
   inline void SetSkim(TString skimname) { SkimName=skimname; }
   inline void SetAnalyser(TString anname) { AnalyserName=anname; }
   inline void SetMacroName(TString macname) { MacroName=macname; }
   inline void SetEra(TString eraname) { Era=eraname; }
 
+  inline Color_t GetColor(int nth_samples){
+    vector <Color_t > _colors;
+    _colors.push_back(kRed);
+    _colors.push_back(800);
+    _colors.push_back(870);
+    _colors.push_back(kSpring-1);
+    _colors.push_back(kGray);
+    _colors.push_back(kViolet);
+    _colors.push_back(kYellow+4);
+    _colors.push_back(kCyan);
+    _colors.push_back(kBlue-2);
+    _colors.push_back(kGreen-2);
+    _colors.push_back(kGreen+2);
+    _colors.push_back(kOrange-2);
+
+    if(nth_samples > int(_colors.size())) return _colors[0];
+    return _colors[nth_samples];
+
+  }
+
+
+  void draw_hist_canvas(TH1D* hdef , TString HistName);
+  void draw_hists_canvas(vector<TH1D*> hists , vector<TString> legNames,  TString HistName , TString dirname);
+  void draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> legNames,  TString HistName, TString dirname);
+
   void BasicSetup(SetupHelper logy, SetupHelper ratio, TString channel);
   
   //==== variables
   bool DoDebug;
+  bool SetLabels;
   bool comp_default_set;
   unsigned int i_cut, i_var, i_file;
   TString infilepath, filename_prefix, filename_suffix, data_class, plotpath, thiscut_plotpath, def_infilepath, def_histpath;

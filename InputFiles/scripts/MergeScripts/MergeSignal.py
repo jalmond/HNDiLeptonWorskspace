@@ -29,11 +29,11 @@ for era in eras:
         exit()
     
     if not os.path.exists(OutPathEra+"/SIG/"):
-        os.system("mkdir  "+ OutPathEra+"/SIG/")
+        os.system("mkdir -p "+ OutPathEra+"/SIG/")
     
 
-    print("mkdir " + os.getenv("INFILE_PATH") + "/"+Analyser+"/"+era+FlagDir + "/SIG/")
-    os.system("mkdir  " + os.getenv("INFILE_PATH") + "/"+Analyser+"/"+era+FlagDir + "/SIG/")
+    print("mkdir -p " + os.getenv("INFILE_PATH") + "/"+Analyser+"/"+era+FlagDir + "/SIG/")
+    os.system("mkdir -p " + os.getenv("INFILE_PATH") + "/"+Analyser+"/"+era+FlagDir + "/SIG/")
     os.system("mv " + os.getenv("INFILE_PATH") + "/"+Analyser+"/"+era+FlagDir+"/*Type* " +  os.getenv("INFILE_PATH") + "/"+Analyser+"/"+era+FlagDir + "/SIG/")
 
 

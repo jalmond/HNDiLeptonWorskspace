@@ -8,6 +8,7 @@ HNLPlotter::HNLPlotter(TString macroname){
 
   setTDRStyle();
 
+  SetLabels=false;
   gStyle->SetOptStat(0);
   DoDebug = false;
   gErrorIgnoreLevel = kError;
@@ -40,6 +41,7 @@ HNLPlotter::HNLPlotter(TString macroname){
   CopyToWebsite=true;
   comp_default_set=false;
 }
+
 
 
 void HNLPlotter::DrawStackPlots(){
@@ -397,6 +399,58 @@ void HNLPlotter::make_cutflow(TString Hist_For_CutFlow){
     
     MakeTexFile(map_hist_y,Hist_For_CutFlow);
   }
+}
+
+
+
+TH1D* HNLPlotter::ConstructHist(TString filepath, TString fullhistname){
+
+  TH1D* hist_temp;
+  
+  //==== get root file                                                                                                                     
+
+  if(DoDebug) cout << "ConstructHist " << endl;
+
+  if(gSystem->AccessPathName(filepath)){
+    if(DoDebug)     cout << "No file : " << filepath << endl;
+    return hist_temp;
+  }
+
+  TFile* file = new TFile(filepath);
+  if( !file ){
+    if(DoDebug)    cout << "No file : " << filepath << endl;
+    return hist_temp;
+  }
+  
+  //==== get histogram                                                                                                                                                                                                                                                                
+  hist_temp = (TH1D*)file->Get(fullhistname);
+  if(!hist_temp || hist_temp->GetEntries() == 0){
+    if(DoDebug){
+      cout << "No histogram : " << fullhistname << endl;
+    }
+    file->Close();
+    delete file;
+    return hist_temp;
+  }
+
+  //==== set histogram name, including sample name                                                                                                                                                                                                                                    
+  hist_temp->SetName(fullhistname);
+
+  //==== make overflows bins                                                                                                                                                                                                                                                          
+  TH1D *hist_final = MakeOverflowBin(hist_temp);
+
+  //==== Remove Negative bins                                                                                                                                                                                                                                                         
+  TAxis *xaxis = hist_final->GetXaxis();
+  for(int ccc=1; ccc<=xaxis->GetNbins(); ccc++){
+    if(DoDebug) cout << fullhistname << "\t["<<xaxis->GetBinLowEdge(ccc) <<", "<<xaxis->GetBinUpEdge(ccc) << "] : " << hist_final->GetBinContent(ccc) << endl;
+    if(hist_final->GetBinContent(ccc)<0){
+      hist_final->SetBinContent(ccc, 0.);
+      hist_final->SetBinError(ccc, 0.);
+    }
+  }
+
+  return hist_final;
+  
 }
 
 TH1D* HNLPlotter::MakeHist(TString filepath, TString fullhistname){
@@ -1854,12 +1908,25 @@ TH1D* HNLPlotter::MakeOverflowBin(TH1D* hist){
   int bin_last = hist->GetXaxis()->GetLast();
   int n_bin_inrange = bin_last-bin_first+1;
   
+  TString XTitle=hist->GetXaxis()->GetTitle();
+  TString YTitle=hist->GetYaxis()->GetTitle();
+
+  vector<TString> labels;
+  
+
   double x_first_lowedge = hist->GetXaxis()->GetBinLowEdge(bin_first);
   double x_last_upedge = hist->GetXaxis()->GetBinUpEdge(bin_last);
 
   double Allunderflows = hist->Integral(0, bin_first-1);
   double Allunderflows_error = hist->GetBinError(0);
   Allunderflows_error = Allunderflows_error*Allunderflows_error;
+
+  if(SetLabels){
+    for(unsigned int i=1; i<= n_bin_origin+1; i++){
+      labels.push_back(hist->GetXaxis()->GetBinLabel(i));
+    }
+  }
+  
   for(unsigned int i=1; i<=bin_first-1; i++){
     Allunderflows_error += (hist->GetBinError(i))*(hist->GetBinError(i));
   }
@@ -1903,9 +1970,15 @@ TH1D* HNLPlotter::MakeOverflowBin(TH1D* hist){
     
     hist_out->SetBinContent(i, this_content);
     hist_out->SetBinError(i, this_error);
-    
   }
   
+  if(SetLabels){
+    for(unsigned int i=1; i<= n_bin_origin+1; i++){
+      hist_out->GetXaxis()->SetBinLabel(i,labels[i-1]);
+    }
+  }
+
+
   return hist_out;
   
 }
@@ -2360,4 +2433,384 @@ vector<double> HNLPlotter::GetRebinZeroBackground(THStack *mc_stack, TH1D *mc_st
 
   return new_binval;
 
+}
+
+
+
+
+TH1D* HNLPlotter::GetCutEfficiency(TH1D *hist_default){
+
+  TH1D *hist_new = new  TH1D ( "1bin","", 1, -1, 1);
+
+  double Eff =  hist_default->GetBinContent(2)/ hist_default->GetBinContent(1);
+  
+  hist_new->SetBinContent(1, Eff);
+
+  return hist_new;
+}
+
+
+TH1D* HNLPlotter::GetScanEfficiency(TH1D *hist_default){
+
+  TH1D *hist_new = (TH1D*)hist_default->Clone();
+  
+  double HistIntegral = hist_default->Integral();
+  
+
+  TAxis *xaxis = hist_default->GetXaxis();
+  for(int ccc=1; ccc<=xaxis->GetNbins()+1; ccc++){
+    //cout <<  "Scan " << ccc <<  " - " << xaxis->GetNbins()  <<"  " << hist_default->Integral(ccc, xaxis->GetNbins()) << endl;
+    hist_new->SetBinContent(ccc, hist_default->Integral(ccc, xaxis->GetNbins()) / HistIntegral);
+    hist_new->SetBinError(ccc, 0);
+  }
+  //  hist_new->SetBinContent(, hist_default->Integral(ccc, xaxis->GetNbins()) / HistIntegral);
+  //hist_new->SetBinError(ccc, 0);
+
+  
+  return hist_new;
+}
+
+void HNLPlotter::draw_hists_canvas(vector<TH1D*> hists , vector<TString> legNames,  TString HistName,TString dirName){
+
+  if(!hists[0]) return;
+
+
+  cout    << "################### draw_hist_canvas [" << HistName << "]  ###################" << endl;
+
+
+  cout
+    << endl
+    << "################### Writing in Directory " << thiscut_plotpath << " ###################" << endl
+    << endl;
+
+
+  thiscut_plotpath = plotpath+"/"+ dirName;
+  mkdir(thiscut_plotpath);
+
+
+  TH1D* hist_default = hists[0];
+  hist_axis(hist_default);
+
+  TLegend *lg= new TLegend(0.55, 0.75, 0.93, 0.93);
+  lg->SetFillStyle(0);
+  lg->SetBorderSize(0);
+  lg->SetTextSize(0.03);
+
+
+  TCanvas* c1 = new TCanvas(HistName, "", 800, 800);
+  c1->Draw();
+  c1->cd();
+
+  canvas_margin(c1);
+
+  TH1D *hist_empty = (TH1D*)hist_default->Clone();
+  hist_empty->SetName("DUMMY_FOR_AXIS");
+
+  double dx = (hist_empty->GetXaxis()->GetXmax() - hist_empty->GetXaxis()->GetXmin())/hist_empty->GetXaxis()->GetNbins();
+
+  hist_empty->SetLineWidth(0);
+  hist_empty->SetLineColor(0);
+  hist_empty->SetMarkerSize(0);
+  hist_empty->SetMarkerColor(0);
+  double Ymin = default_y_min;
+  double YmaxScale = 1.4;
+
+  hist_empty->GetYaxis()->SetRangeUser(0., 1.4);
+  hist_axis(hist_empty);
+
+  hist_empty->Draw("histsame");
+
+  TGraphAsymmErrors *gr1 = new TGraphAsymmErrors(hist_default);
+  gr1->SetLineWidth(2.0);
+  gr1->SetMarkerSize(0.);
+  gr1->SetLineColor(kRed);
+  gr1->Draw("plsame");
+  lg->AddEntry(gr1, legNames[0], "pl");
+  
+  for(int ig =1; ig < hists.size(); ig++){
+    TGraphAsymmErrors *gr = new TGraphAsymmErrors(hists[ig]);
+    gr->SetLineWidth(2.0);
+    gr->SetMarkerSize(0.);
+    gr->SetLineColor(HNLPlotter::GetColor(ig));
+    gr->Draw("plsame");
+    lg->AddEntry(gr, legNames[ig], "pl");
+
+  }
+
+
+  TLatex latex_CMSPriliminary, latex_Lumi;
+  latex_CMSPriliminary.SetNDC();
+  latex_Lumi.SetNDC();
+  latex_CMSPriliminary.SetTextSize(0.035);
+  latex_CMSPriliminary.DrawLatex(0.15, 0.96, "#font[62]{CMS} #font[42]{#it{#scale[0.8]{Preliminary}}}");
+  latex_Lumi.SetTextSize(0.035);
+  if(Era=="2016preVFP")latex_Lumi.DrawLatex(0.7, 0.96, "19.5 fb^{-1} (13 TeV)");
+  if(Era=="2016postVFP")latex_Lumi.DrawLatex(0.7, 0.96, "16.8 fb^{-1} (13 TeV)");
+  if(Era=="2016") latex_Lumi.DrawLatex(0.7, 0.96, "36.3 fb^{-1} (13 TeV)");
+  if(Era=="2017") latex_Lumi.DrawLatex(0.7, 0.96, "41.5 fb^{-1} (13 TeV)");
+  if(Era=="2018") latex_Lumi.DrawLatex(0.7, 0.96, "59.9 fb^{-1} (13 TeV)");
+  if(Era=="Run2") latex_Lumi.DrawLatex(0.7, 0.96, "137.9 fb^{-1} (13 TeV)");
+
+  //  lg->SetNColumns(2);
+  lg->Draw();
+  mkdir(thiscut_plotpath);
+
+  c1->SaveAs(thiscut_plotpath+"/"+HistName+".png");
+  c1->SaveAs(thiscut_plotpath+"/"+HistName+".pdf");
+  SaveAndCopyLXPLUS(c1,thiscut_plotpath+"/"+HistName, dirName,AnalyserName,MacroName,Era);
+
+
+
+}
+
+
+void HNLPlotter::draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> legNames,  TString HistName, TString dirName){
+  
+  if(!hists[0]) return;
+  
+  
+  cout    << "################### draw_hist_canvas [" << HistName << "]  ###################" << endl;
+
+
+  cout
+    << endl
+    << "################### Writing in Directory " << thiscut_plotpath << " ###################" << endl
+    << endl;
+
+
+  thiscut_plotpath = plotpath+"/"+ dirName;
+  mkdir(thiscut_plotpath);
+
+
+  TH1D* hist_default = hists[0];
+  
+
+  TLegend *lg= new TLegend(0.55, 0.85, 0.93, 0.93);
+  lg->SetFillStyle(0);
+  lg->SetBorderSize(0);
+  lg->SetTextSize(0.03);
+
+
+  TCanvas* c1 = new TCanvas(HistName, "", 800, 800);
+  c1->Draw();
+  c1->cd();
+  
+  canvas_margin(c1);
+  
+  TH1D *hist_empty = new TH1D("Empty","EMPTY", 100, 0., 100.);
+
+  hist_empty->SetName("DUMMY_FOR_AXIS");
+
+  double dx = (hist_empty->GetXaxis()->GetXmax() - hist_empty->GetXaxis()->GetXmin())/hist_empty->GetXaxis()->GetNbins();
+
+  hist_empty->SetLineWidth(0);
+  hist_empty->SetLineColor(0);
+  hist_empty->SetMarkerSize(0);
+  hist_empty->SetMarkerColor(0);
+  double Ymin = default_y_min;
+  double YmaxScale = 1.4;
+
+  hist_empty->GetYaxis()->SetTitle("1- BkgEff");
+  hist_empty->GetXaxis()->SetTitle("SigEff");
+  hist_empty->GetXaxis()->SetRangeUser(0., 1.);
+  hist_empty->GetYaxis()->SetRangeUser(0., 1.40);
+
+  hist_axis(hist_empty);
+  hist_empty->Draw("histsame");
+  
+  
+  int Nbins = hists[0]->GetXaxis()->GetNbins()+1;
+  
+  double x[Nbins], y[Nbins], xlow[Nbins] ,xup[Nbins], ylow[Nbins], yup[Nbins];
+
+  double Eff90S(0),Eff90B(0),Eff95S(0),Eff95B(0), Score95(0),Score90(0), Eff98S(0),Eff98B(0), Score98(0);
+  TAxis *xaxis = hists[0]->GetXaxis();
+  for(int ccc=1; ccc<=xaxis->GetNbins()+1; ccc++){
+    x[ccc-1] = hists[0]->GetBinContent(ccc);
+    y[ccc-1] = 1-hists[1]->GetBinContent(ccc);
+    xlow[ccc-1] = 0;
+    xup[ccc-1] = 0;
+    ylow[ccc-1] = 0;
+    yup[ccc-1] = 0;
+    cout << ccc << " " << hists[0]->GetBinContent(ccc) << " " << hists[1]->GetBinContent(ccc) << endl;
+
+    if(hists[0]->GetBinContent(ccc) < 0.98 && Eff98S == 0) {
+
+      Eff98S = hists[0]->GetBinContent(ccc);
+      Eff98B = hists[1]->GetBinContent(ccc);
+      Score98 = hists[0]->GetBinCenter(ccc);
+    }
+
+    
+    if(hists[0]->GetBinContent(ccc) < 0.95 && Eff95S == 0) {
+
+      Eff95S = hists[0]->GetBinContent(ccc);
+      Eff95B = hists[1]->GetBinContent(ccc);
+      Score95 = hists[0]->GetBinCenter(ccc);
+    }
+    if(hists[0]->GetBinContent(ccc) < 0.9 && Eff90S ==0) {
+
+      Eff90S = hists[0]->GetBinContent(ccc);
+      Eff90B = hists[1]->GetBinContent(ccc);
+      Score90 = hists[0]->GetBinCenter(ccc);
+    }
+
+  }
+
+
+  TGraphAsymmErrors* gr1 = new TGraphAsymmErrors(Nbins, x, y, xlow, xup, ylow, yup);
+
+  gr1->SetLineWidth(2.0);
+  gr1->SetMarkerSize(0.);
+  gr1->SetLineColor(kRed);
+  gr1->Draw("plsame");
+  lg->AddEntry(gr1, legNames[0], "pl");
+
+  
+  double x2[1], y2[1], xlow2[1] ,xup2[1], ylow2[1], yup2[1];
+  cout << "hists[2]->GetBinContent(1) = " << hists[2]->GetBinContent(1) << endl;
+  cout << "hists[3]->GetBinContent(1) = " << hists[3]->GetBinContent(1) << endl;
+  x2[0]= hists[2]->GetBinContent(1);
+  y2[0]= 1- hists[3]->GetBinContent(1);
+  xlow2[0]= 0;
+  xup2[0]= 0;
+  ylow2[0]= 0;
+  yup2[0]= 0;
+  TGraphAsymmErrors* gr2 = new TGraphAsymmErrors(1, x2, y2, xlow2, xup2, ylow2, yup2);
+  
+  gr2->SetLineWidth(2.0);
+  gr2->SetMarkerSize(1.5);
+  gr2->SetMarkerStyle(34);
+  gr2->SetMarkerColor(kBlue);
+  gr2->Draw("psame");
+  lg->AddEntry(gr2, "POG [HNTightV2]", "p");
+
+  double x_1[2], y_1[2];
+  x_1[0] = 5000;  y_1[0] = 1;
+  x_1[1] = -5000;  y_1[1] = 1;
+  TGraph *gr3 = new TGraph(2, x_1, y_1);
+  gr3->Draw("same");
+  
+  TLatex latex_result;
+  latex_result.SetNDC();
+  latex_result.SetTextSize(0.02);
+  latex_result.DrawLatex(0.2, 0.85,HistName);
+  cout << "DoubleToString" << endl;
+  TString POGout = "HNTightV2 ["+ DToString(x2[0])+ ","+ DToString(1-y2[0],3)+"]";
+  latex_result.DrawLatex(0.2, 0.82,POGout);
+  TString st98 = "#epsilon_{prompt} 98% : #epsilon_{bkg} = " + DToString(Eff98B,3) + " score = " + DToString(Score98,3);
+  TString st95 = "#epsilon_{prompt} 95% : #epsilon_{bkg} = " + DToString(Eff95B,3) + " score = " + DToString(Score95,3);
+  TString st90 = "#epsilon_{prompt} 90% : #epsilon_{bkg} = " + DToString(Eff90B,3) + " score = " + DToString(Score90,3);
+
+  latex_result.DrawLatex(0.2, 0.8,st98);
+  latex_result.DrawLatex(0.2, 0.78,st95);
+  latex_result.DrawLatex(0.2, 0.76,st90);
+
+  TLatex latex_CMSPriliminary, latex_Lumi;
+  latex_CMSPriliminary.SetNDC();
+  latex_Lumi.SetNDC();
+  latex_CMSPriliminary.SetTextSize(0.035);
+  latex_CMSPriliminary.DrawLatex(0.15, 0.96, "#font[62]{CMS} #font[42]{#it{#scale[0.8]{Preliminary}}}");
+  latex_Lumi.SetTextSize(0.035);
+  if(Era=="2016preVFP")latex_Lumi.DrawLatex(0.7, 0.96, "19.5 fb^{-1} (13 TeV)");
+  if(Era=="2016postVFP")latex_Lumi.DrawLatex(0.7, 0.96, "16.8 fb^{-1} (13 TeV)");
+  if(Era=="2016") latex_Lumi.DrawLatex(0.7, 0.96, "36.3 fb^{-1} (13 TeV)");
+  if(Era=="2017") latex_Lumi.DrawLatex(0.7, 0.96, "41.5 fb^{-1} (13 TeV)");
+  if(Era=="2018") latex_Lumi.DrawLatex(0.7, 0.96, "59.9 fb^{-1} (13 TeV)");
+  if(Era=="Run2") latex_Lumi.DrawLatex(0.7, 0.96, "137.9 fb^{-1} (13 TeV)");
+
+  //  lg->SetNColumns(2);                                                                                                                                                                                                                             
+  lg->Draw();
+  mkdir(thiscut_plotpath);
+
+  c1->SaveAs(thiscut_plotpath+"/"+HistName+"_SEffvsBEff.png");
+  c1->SaveAs(thiscut_plotpath+"/"+HistName+"_SEffvsBEff.pdf");
+
+  SaveAndCopyLXPLUS(c1,thiscut_plotpath+"/"+HistName+"_SEffvsBEff", dirName,AnalyserName,MacroName,Era);
+
+
+
+}
+
+void HNLPlotter::draw_hist_canvas(TH1D *hist_default,  TString HistName){
+
+  
+  cout    << "################### draw_hist_canvas [" << HistName << "]  ###################" << endl;
+
+
+  cout
+    << endl
+    << "################### Writing in Directory " << thiscut_plotpath << " ###################" << endl
+    << endl;
+
+  
+  thiscut_plotpath = plotpath+"/"+ HistName;
+  mkdir(thiscut_plotpath);
+
+  
+
+  hist_axis(hist_default);
+
+  TLegend *lg= new TLegend(0.55, 0.60, 0.93, 0.90);
+  lg->SetFillStyle(0);                                                                                                                            
+  lg->SetBorderSize(0);                                                                                                                    
+  
+  lg->SetTextSize(0.03);
+
+
+  TCanvas* c1 = new TCanvas(HistName, "", 800, 800);
+  c1->Draw();
+  c1->cd();
+
+  canvas_margin(c1);
+  
+  TH1D *hist_empty = (TH1D*)hist_default->Clone();
+  hist_empty->SetName("DUMMY_FOR_AXIS");
+  
+  double dx = (hist_empty->GetXaxis()->GetXmax() - hist_empty->GetXaxis()->GetXmin())/hist_empty->GetXaxis()->GetNbins();
+  
+  hist_empty->SetLineWidth(0);
+  hist_empty->SetLineColor(0);
+  hist_empty->SetMarkerSize(0);
+  hist_empty->SetMarkerColor(0);
+  double Ymin = default_y_min;
+  double YmaxScale = 1.2;
+
+  
+  hist_empty->Draw("histsame");
+  //hist_default->Draw("hist");
+						
+  
+  TGraphAsymmErrors *gr_ratio_point = new TGraphAsymmErrors(hist_default);
+  gr_ratio_point->SetLineWidth(2.0);
+  gr_ratio_point->SetMarkerSize(0.);
+  gr_ratio_point->SetLineColor(kRed);
+  gr_ratio_point->Draw("p0same");
+  
+  TLatex latex_CMSPriliminary, latex_Lumi;
+  latex_CMSPriliminary.SetNDC();
+  latex_Lumi.SetNDC();
+  latex_CMSPriliminary.SetTextSize(0.035);
+  latex_CMSPriliminary.DrawLatex(0.15, 0.96, "#font[62]{CMS} #font[42]{#it{#scale[0.8]{Preliminary}}}");
+  latex_Lumi.SetTextSize(0.035);
+  if(Era=="2016preVFP")latex_Lumi.DrawLatex(0.7, 0.96, "19.5 fb^{-1} (13 TeV)");
+  if(Era=="2016postVFP")latex_Lumi.DrawLatex(0.7, 0.96, "16.8 fb^{-1} (13 TeV)");
+  if(Era=="2016") latex_Lumi.DrawLatex(0.7, 0.96, "36.3 fb^{-1} (13 TeV)");
+  if(Era=="2017") latex_Lumi.DrawLatex(0.7, 0.96, "41.5 fb^{-1} (13 TeV)");
+  if(Era=="2018") latex_Lumi.DrawLatex(0.7, 0.96, "59.9 fb^{-1} (13 TeV)");
+  if(Era=="Run2") latex_Lumi.DrawLatex(0.7, 0.96, "137.9 fb^{-1} (13 TeV)");
+
+
+  lg->SetNColumns(2);
+  lg->AddEntry(gr_ratio_point, HistName, "pl");
+  lg->Draw();
+  mkdir(thiscut_plotpath);
+
+  c1->SaveAs(thiscut_plotpath+"/"+HistName+".png");
+  c1->SaveAs(thiscut_plotpath+"/"+HistName+".pdf");
+
+  SaveAndCopyLXPLUS(c1,thiscut_plotpath+"/"+HistName, HistName,AnalyserName,MacroName,Era);
+
+
+  
 }

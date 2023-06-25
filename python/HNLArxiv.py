@@ -129,6 +129,7 @@ class HNLArxiv():
 
             print("Mass {0} not available ".format(float_mass))
             return -999
+
         if _Process == "VBF" and self.IsEXO17028:
             if float_mass ==100:
                 return 0.5* 9.65E-04
@@ -475,6 +476,7 @@ class HNLArxiv():
                         ["1500", 29.98],
                         ["1700", 29.02],
                         ["2000", 29.02]]
+
             if _Channel == "ElEl":
                                 
                 if _SignalRegion == "SR1":
@@ -727,8 +729,8 @@ class HNLArxiv():
         ###### set Neg bins to 0                                                                                                                                                        
         if Nsig < 0:
             Nsig = 0
-        if Nbkg < 0.2:
-            Nbkg=0.2
+        if Nbkg < 0.1:
+            Nbkg=0.1
                 
         Signi=0.
         if method == "SB":

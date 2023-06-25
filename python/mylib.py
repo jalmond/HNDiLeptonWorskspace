@@ -27,8 +27,8 @@ def CalculdateSignificance(method,Nsig, Nbkg,scaleSig):
     ###### set Neg bins to 0                                                                                                                                                
     if Nsig < 0:
         Nsig = 0
-    if  Nbkg < 0.2:
-        Nbkg=0.2
+    if  Nbkg < 0.1:
+        Nbkg=0.1
 
     Signi=0.
     if method == "SB":
@@ -86,6 +86,10 @@ def PrintValue(val, rounded, length):
 
 def GetLumiScale(era):
     
+    if era == "YearCombined":
+        return float((41.5+36.3+59.9)/36.3)
+
+    era = int(era)
     if era == 2016:
         return 1
     
@@ -95,8 +99,9 @@ def GetLumiScale(era):
     if era == 2018:
         return float(59.9/36.3)
 
-def GetSignificance(out,_Era,ID,h_sigDY,h_sigVBF,  h_sigSSWW, h_bkg,FOM,scaleSig, PastSignifiance,PastSig, PastBkg, _mass):
-
+def GetSignificance(out,SignalMode,_Era,ID,h_sigDY,h_sigVBF,  h_sigSSWW, h_bkg,FOM,scaleSig, PastSignifiance,PastSig, PastBkg, _mass):
+    
+    print (ID)
     SigBins     = []
     SigBinsDY   = []
     SigBinsVBF  = []
@@ -106,13 +111,13 @@ def GetSignificance(out,_Era,ID,h_sigDY,h_sigVBF,  h_sigSSWW, h_bkg,FOM,scaleSig
     for xbin in range(1,h_sigDY.GetNbinsX()+1):
         signal_yield=h_sigDY.GetBinContent(xbin)
 
-        if h_sigVBF:
+        if h_sigVBF and "VBF" in SignalMode:
             SigBinsVBF.append(h_sigVBF.GetBinContent(xbin))
             signal_yield=signal_yield+h_sigVBF.GetBinContent(xbin)
         else:
             SigBinsVBF.append(0.)
         
-        if h_sigSSWW:
+        if h_sigSSWW and "SSWW" in SignalMode:
             SigBinsSSWW.append(h_sigSSWW.GetBinContent(xbin))
             signal_yield=signal_yield+h_sigSSWW.GetBinContent(xbin)
         else:
@@ -122,7 +127,11 @@ def GetSignificance(out,_Era,ID,h_sigDY,h_sigVBF,  h_sigSSWW, h_bkg,FOM,scaleSig
         SigBins.append(signal_yield)
 
     for xbin in range(1,h_bkg.GetNbinsX()+1):
-        BkgBins.append(h_bkg.GetBinContent(xbin))
+        if h_bkg.GetBinContent(xbin) > 0:
+            BkgBins.append(h_bkg.GetBinContent(xbin))
+        else:
+            BkgBins.append(0.2)
+
 
     Signif = 0.
     SignifAz = 0.
@@ -153,6 +162,10 @@ def GetSignificance(out,_Era,ID,h_sigDY,h_sigVBF,  h_sigSSWW, h_bkg,FOM,scaleSig
     SR3SigSSWW=0
 
     print("_"*150)
+    print (len(BkgBins))
+    print (len(SigBinsDY))
+    print (len(SigBinsVBF))
+    print (len(SigBinsSSWW))
     for x in range(0, len(BkgBins)):
         Bkg=BkgBins[x]
         SigBin = SigBins[x]
@@ -247,7 +260,7 @@ def GetSignificance(out,_Era,ID,h_sigDY,h_sigVBF,  h_sigSSWW, h_bkg,FOM,scaleSig
            + "[ DY " + PrintValue(PastSig[0][1],3,10)+" VBF "+ PrintValue(PastSig[1][1],3,10)+ "]" 
            + " Nbkg " + PrintValue(PastBkg[1],3,10) 
            + " FOM "  + PrintValue(CalculdateSignificance("Azimoth",PastSig[0][1]+PastSig[1][1],PastBkg[1],scaleSig),3,10))
-    LumiScale=GetLumiScale(int(_Era))
+    LumiScale=GetLumiScale(_Era)
     print ("Lumi Scaled: Mass " + str(_mass) + " EXO 17-028 SR1 [AK4] Sig "
            + PrintValue(LumiScale*PastSig[0][0]+LumiScale*PastSig[1][0],3,10)
            + "[ DY " + PrintValue(LumiScale*PastSig[0][0],3,10)+ " VBF "+  PrintValue(LumiScale*PastSig[1][0],3,10)+ "]"
