@@ -8,7 +8,7 @@
 void IDMVAPlotter(){
 
   //  vector<TString> eras =  {"2016preVFP", "2016postVFP", "2017","2018"};
-  vector<TString> eras =  {"2017"};
+  vector<TString> eras =  {"2018"};
   vector<TString> EtaBins = {"BB","EC"};//,"Ptgt50", "Ptlt15","Ptlt20","Ptlt50"};
   //vector<TString> MVAStrings = {"MVA__El_ED_CF_v2" };//,"MVA__El_CF_v2", "MVA__El_CF_v2p1","MVA__El_CF_v2p2", "MVA__El_ED_CF_v2p1","MVA__El_ED_CF_v2p2"};
   

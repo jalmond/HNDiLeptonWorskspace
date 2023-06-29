@@ -1,0 +1,5 @@
+Channel = MuMu
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2016/Muon_POG__/SIG/HNL_SignalLeptonOpt_DYTypeI_DF_M100_private.root
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2016/Muon_POG__/SIG/HNL_SignalLeptonOpt_VBFTypeI_DF_M100_private.root
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2016/Muon_POG__/SIG/HNL_SignalLeptonOpt_SSWWTypeI_SF_M100_private.root
+LimitInputBDT/MuMu/HNLOpt_UL_MuOpt_HNLUL_MVAHFBB0p75_MVAHFEC0p72_SIP8_/100/LimitBins/MuonSR

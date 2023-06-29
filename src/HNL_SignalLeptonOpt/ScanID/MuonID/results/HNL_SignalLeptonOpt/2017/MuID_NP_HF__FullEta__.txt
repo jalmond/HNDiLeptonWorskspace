@@ -1,0 +1,45 @@
+Channel = MuMu
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP_HF__FullEta__/SIG/HNL_SignalLeptonOpt_DYTypeI_DF_M100_private.root
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP_HF__FullEta__/SIG/HNL_SignalLeptonOpt_VBFTypeI_DF_M100_private.root
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP_HF__FullEta__/SIG/HNL_SignalLeptonOpt_SSWWTypeI_SF_M100_private.root
+LimitInputBDT/HNLOpt_ULHNTightV2/100/LimitBins/MuonSR
+Bin SR1_MNbin1           NSig = 0.0        NBkg = 2.218      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin2           NSig = 0.0        NBkg = 0.519      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin3           NSig = 0.0        NBkg = 0.0        s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin4           NSig = 0.0        NBkg = 0.0        s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin5           NSig = 0.0        NBkg = 0.0        s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin6           NSig = 5.583      NBkg = 3.778      s/sqrt(B+1) = 2.554      Punzi = 1.896      Azimoth = 2.871     
+Bin SR2_HTLTbin1         NSig = 0.679      NBkg = 0.522      s/sqrt(B+1) = 0.551      Punzi = 0.394      Azimoth = 0.94      
+Bin SR2_HTLTbin2         NSig = 2.062      NBkg = 2.116      s/sqrt(B+1) = 1.168      Punzi = 0.84       Azimoth = 1.417     
+Bin SR3_BDTbin1          NSig = 876.056    NBkg = 2056.612   s/sqrt(B+1) = 19.313     Punzi = 18.901     Azimoth = 19.316    
+Bin SR3_BDTbin2          NSig = 1066.67    NBkg = 227.216    s/sqrt(B+1) = 70.609     Punzi = 66.361     Azimoth = 70.709    
+Bin SR3_BDTbin3          NSig = 837.037    NBkg = 32.2       s/sqrt(B+1) = 145.271    Punzi = 125.409    Azimoth = 146.877   
+Bin SR3_BDTbin4          NSig = 772.28     NBkg = 8.332      s/sqrt(B+1) = 252.804    Punzi = 198.706    Azimoth = 263.564   
+Bin SR3_BDTbin5          NSig = 491.656    NBkg = 7.688      s/sqrt(B+1) = 166.801    Punzi = 130.318    Azimoth = 175.477   
+Bin SR3_BDTbin6          NSig = 167.702    NBkg = 0.363      s/sqrt(B+1) = 143.644    Punzi = 104.65     Azimoth = 260.216   
+Bin SR3_BDTbin7          NSig = 20.084     NBkg = 0.007      s/sqrt(B+1) = 18.334     Punzi = 13.878     Azimoth = 44.187    
+Bin SR3_BDTbin8          NSig = 1.369      NBkg = 0.0        s/sqrt(B+1) = 1.25       Punzi = 0.946      Azimoth = 3.057     
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP_HF__FullEta__/SIG/HNL_SignalLeptonOpt_DYTypeI_DF_M400_private.root
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP_HF__FullEta__/SIG/HNL_SignalLeptonOpt_VBFTypeI_DF_M400_private.root
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP_HF__FullEta__/SIG/HNL_SignalLeptonOpt_SSWWTypeI_SF_M400_private.root
+LimitInputBDT/HNLOpt_ULHNTightV2/400/LimitBins/MuonSR
+Bin SR1_MNbin1           NSig = 0.697      NBkg = 2.218      s/sqrt(B+1) = 0.389      Punzi = 0.28       Azimoth = 0.466     
+Bin SR1_MNbin2           NSig = 1.327      NBkg = 0.519      s/sqrt(B+1) = 1.077      Punzi = 0.771      Azimoth = 1.771     
+Bin SR1_MNbin3           NSig = 0.011      NBkg = 0.006      s/sqrt(B+1) = 0.01       Punzi = 0.008      Azimoth = 0.026     
+Bin SR1_MNbin4           NSig = 0.734      NBkg = 0.054      s/sqrt(B+1) = 0.67       Punzi = 0.507      Azimoth = 1.553     
+Bin SR1_MNbin5           NSig = 3.763      NBkg = 0.133      s/sqrt(B+1) = 3.435      Punzi = 2.6        Azimoth = 6.835     
+Bin SR1_MNbin6           NSig = 12.196     NBkg = 3.585      s/sqrt(B+1) = 5.696      Punzi = 4.215      Azimoth = 6.12      
+Bin SR2_HTLTbin1         NSig = 0.099      NBkg = 0.522      s/sqrt(B+1) = 0.08       Punzi = 0.057      Azimoth = 0.136     
+Bin SR2_HTLTbin2         NSig = 0.099      NBkg = 2.116      s/sqrt(B+1) = 0.056      Punzi = 0.04       Azimoth = 0.068     
+Bin SR3_BDTbin1          NSig = 4.18       NBkg = 2249.54    s/sqrt(B+1) = 0.088      Punzi = 0.086      Azimoth = 0.088     
+Bin SR3_BDTbin2          NSig = 2.549      NBkg = 69.533     s/sqrt(B+1) = 0.304      Punzi = 0.273      Azimoth = 0.305     
+Bin SR3_BDTbin3          NSig = 4.846      NBkg = 9.909      s/sqrt(B+1) = 1.467      Punzi = 1.168      Azimoth = 1.527     
+Bin SR3_BDTbin4          NSig = 7.617      NBkg = 2.903      s/sqrt(B+1) = 3.855      Punzi = 2.817      Azimoth = 4.293     
+Bin SR3_BDTbin5          NSig = 8.171      NBkg = 0.434      s/sqrt(B+1) = 6.824      Punzi = 4.927      Azimoth = 10.078    
+Bin SR3_BDTbin6          NSig = 4.516      NBkg = 0.097      s/sqrt(B+1) = 4.122      Punzi = 3.12       Azimoth = 7.974     
+Bin SR3_BDTbin7          NSig = 0.88       NBkg = 0.001      s/sqrt(B+1) = 0.804      Punzi = 0.608      Azimoth = 1.845     
+Bin SR3_BDTbin8          NSig = 0.036      NBkg = 0.0        s/sqrt(B+1) = 0.033      Punzi = 0.025      Azimoth = 0.08      
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP_HF__FullEta__/SIG/HNL_SignalLeptonOpt_DYTypeI_DF_M1000_private.root
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP_HF__FullEta__/SIG/HNL_SignalLeptonOpt_VBFTypeI_DF_M1000_private.root
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP_HF__FullEta__/SIG/HNL_SignalLeptonOpt_SSWWTypeI_SF_M1000_private.root
+LimitInput/HNLOpt_ULHNTightV2/LimitBins/MuonSR

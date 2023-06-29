@@ -35,7 +35,7 @@ void SaveAndCopyLXPLUS(TCanvas* c, TString outpath, TString histname, TString an
 
   TString HTMLLink = "HNL/"+analyser+"/";
 
- 
+
   cout << "ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php "+lxpath+"'" << endl;
   
   system("ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php "+lxpath+"'");

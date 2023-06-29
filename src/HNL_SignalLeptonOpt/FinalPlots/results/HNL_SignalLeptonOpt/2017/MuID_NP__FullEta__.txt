@@ -1,0 +1,126 @@
+Channel = MuMu
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP__FullEta__/SIG/HNL_SignalLeptonOpt_DYTypeI_DF_M100_private.root
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP__FullEta__/SIG/HNL_SignalLeptonOpt_VBFTypeI_DF_M100_private.root
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP__FullEta__/SIG/HNL_SignalLeptonOpt_SSWWTypeI_SF_M100_private.root
+LimitInputBDT/HNLOpt_ULHNTightV2/100/LimitBins/MuonSR
+Bin SR1_MNbin1           NSig = 0.0        NBkg = 0.0        s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin2           NSig = 0.0        NBkg = 0.013      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin3           NSig = 0.0        NBkg = 0.146      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin4           NSig = 0.0        NBkg = 0.18       s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin5           NSig = 0.0        NBkg = 0.096      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin6           NSig = 0.0        NBkg = 0.167      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin7           NSig = 0.0        NBkg = 0.041      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR2_HTLTbin1         NSig = 0.679      NBkg = 0.515      s/sqrt(B+1) = 0.552      Punzi = 0.395      Azimoth = 0.946     
+Bin SR2_HTLTbin2         NSig = 1.358      NBkg = 2.419      s/sqrt(B+1) = 0.734      Punzi = 0.531      Azimoth = 0.873     
+Bin SR3_BDTbin1          NSig = 411.001    NBkg = 2328.967   s/sqrt(B+1) = 8.515      Punzi = 8.344      Azimoth = 8.516     
+Bin SR3_BDTbin2          NSig = 533.091    NBkg = 268.664    s/sqrt(B+1) = 32.463     Punzi = 30.653     Azimoth = 32.513    
+Bin SR3_BDTbin3          NSig = 775.908    NBkg = 164.147    s/sqrt(B+1) = 60.377     Punzi = 56.176     Azimoth = 60.513    
+Bin SR3_BDTbin4          NSig = 951.137    NBkg = 56.68      s/sqrt(B+1) = 125.236    Punzi = 111.523    Azimoth = 125.985   
+Bin SR3_BDTbin5          NSig = 456.718    NBkg = 11.045     s/sqrt(B+1) = 131.596    Punzi = 105.638    Azimoth = 136.493   
+Bin SR3_BDTbin6          NSig = 390.34     NBkg = 3.745      s/sqrt(B+1) = 179.202    Punzi = 132.991    Azimoth = 198.356   
+Bin SR3_BDTbin7          NSig = 529.916    NBkg = 8.642      s/sqrt(B+1) = 170.661    Punzi = 134.509    Azimoth = 178.468   
+Bin SR3_BDTbin8          NSig = 169.074    NBkg = 0.462      s/sqrt(B+1) = 139.816    Punzi = 100.643    Azimoth = 235.433   
+Bin SR3_BDTbin9          NSig = 21.453     NBkg = 0.007      s/sqrt(B+1) = 19.584     Punzi = 14.824     Azimoth = 47.149    
+GetSignificance for ID [V^{2}_{lN} = 0.1)]==LimitInputBDT/HNLOpt_ULHNL_Peking/100/LimitBins/MuonSR
+Bin SR1_MNbin1           NSig = 0.0        NBkg = 0.0        s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin2           NSig = 0.0        NBkg = 0.191      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin3           NSig = 0.0        NBkg = 0.39       s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin4           NSig = 0.0        NBkg = 0.526      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin5           NSig = 0.0        NBkg = 0.239      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin6           NSig = 0.0        NBkg = 0.278      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin7           NSig = 0.0        NBkg = 0.081      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR2_HTLTbin1         NSig = 0.679      NBkg = 1.964      s/sqrt(B+1) = 0.394      Punzi = 0.283      Azimoth = 0.484     
+Bin SR2_HTLTbin2         NSig = 1.358      NBkg = 5.648      s/sqrt(B+1) = 0.527      Punzi = 0.402      Azimoth = 0.571     
+Bin SR3_BDTbin1          NSig = 750.272    NBkg = 9239.621   s/sqrt(B+1) = 7.805      Punzi = 7.725      Azimoth = 7.805     
+Bin SR3_BDTbin2          NSig = 919.572    NBkg = 1072.163   s/sqrt(B+1) = 28.071     Punzi = 27.251     Azimoth = 28.08     
+Bin SR3_BDTbin3          NSig = 1294.55    NBkg = 577.135    s/sqrt(B+1) = 53.84      Punzi = 51.733     Azimoth = 53.866    
+Bin SR3_BDTbin4          NSig = 1602.036   NBkg = 267.918    s/sqrt(B+1) = 97.693     Punzi = 92.24      Azimoth = 97.778    
+Bin SR3_BDTbin5          NSig = 759.751    NBkg = 35.088     s/sqrt(B+1) = 126.471    Punzi = 109.736    Azimoth = 127.802   
+Bin SR3_BDTbin6          NSig = 649.589    NBkg = 20.881     s/sqrt(B+1) = 138.868    Punzi = 116.631    Azimoth = 141.427   
+Bin SR3_BDTbin7          NSig = 885.473    NBkg = 31.859     s/sqrt(B+1) = 154.471    Punzi = 133.266    Azimoth = 156.158   
+Bin SR3_BDTbin8          NSig = 272.912    NBkg = 3.186      s/sqrt(B+1) = 133.382    Punzi = 97.991     Azimoth = 150.778   
+Bin SR3_BDTbin9          NSig = 36.732     NBkg = 0.135      s/sqrt(B+1) = 33.531     Punzi = 25.381     Azimoth = 79.795    
+GetSignificance for ID [V^{2}_{lN} = 0.1)]==LimitInputBDT/HNLOpt_UL_MuOpt_HNLUL_MVAHFBB0p3_MVAHFEC0p3_DXYv1/100/LimitBins/MuonSR
+Bin SR1_MNbin1           NSig = 0.0        NBkg = 0.0        s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin2           NSig = 0.0        NBkg = 0.046      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin3           NSig = 0.0        NBkg = 0.249      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin4           NSig = 0.0        NBkg = 0.238      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin5           NSig = 0.0        NBkg = 0.084      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin6           NSig = 0.0        NBkg = 0.191      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin7           NSig = 0.0        NBkg = 0.048      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR2_HTLTbin1         NSig = 1.344      NBkg = 0.792      s/sqrt(B+1) = 1.004      Punzi = 0.711      Azimoth = 1.51      
+Bin SR2_HTLTbin2         NSig = 2.715      NBkg = 3.191      s/sqrt(B+1) = 1.326      Punzi = 0.974      Azimoth = 1.52      
+Bin SR3_BDTbin1          NSig = 848.13     NBkg = 3929.744   s/sqrt(B+1) = 13.528     Punzi = 13.317     Azimoth = 13.529    
+Bin SR3_BDTbin2          NSig = 984.24     NBkg = 450.633    s/sqrt(B+1) = 46.314     Punzi = 44.279     Azimoth = 46.348    
+Bin SR3_BDTbin3          NSig = 1444.663   NBkg = 225.086    s/sqrt(B+1) = 96.079     Punzi = 90.275     Azimoth = 96.19     
+Bin SR3_BDTbin4          NSig = 1769.101   NBkg = 112.789    s/sqrt(B+1) = 165.845    Punzi = 152.243    Azimoth = 166.146   
+Bin SR3_BDTbin5          NSig = 875.629    NBkg = 21.307     s/sqrt(B+1) = 185.395    Punzi = 155.918    Azimoth = 188.418   
+Bin SR3_BDTbin6          NSig = 737.64     NBkg = 13.35      s/sqrt(B+1) = 194.721    Punzi = 158.502    Azimoth = 200.065   
+Bin SR3_BDTbin7          NSig = 1030.876   NBkg = 14.358     s/sqrt(B+1) = 263.051    Punzi = 215.251    Azimoth = 268.895   
+Bin SR3_BDTbin8          NSig = 308.389    NBkg = 0.944      s/sqrt(B+1) = 221.182    Punzi = 156.415    Azimoth = 302.121   
+Bin SR3_BDTbin9          NSig = 41.982     NBkg = 0.021      s/sqrt(B+1) = 38.324     Punzi = 29.009     Azimoth = 90.847    
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP__FullEta__/SIG/HNL_SignalLeptonOpt_DYTypeI_DF_M1000_private.root
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP__FullEta__/SIG/HNL_SignalLeptonOpt_VBFTypeI_DF_M1000_private.root
+/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3//HNL_SignalLeptonOpt/2017/MuID_NP__FullEta__/SIG/HNL_SignalLeptonOpt_SSWWTypeI_SF_M1000_private.root
+LimitInput/HNLOpt_ULHNTightV2/LimitBins/MuonSR
+Bin SR1_MNbin1           NSig = 0.0        NBkg = 0.0        s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin2           NSig = 0.0        NBkg = 0.013      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin3           NSig = 0.002      NBkg = 0.146      s/sqrt(B+1) = 0.001      Punzi = 0.001      Azimoth = 0.004     
+Bin SR1_MNbin4           NSig = 0.005      NBkg = 0.18       s/sqrt(B+1) = 0.005      Punzi = 0.004      Azimoth = 0.012     
+Bin SR1_MNbin5           NSig = 0.008      NBkg = 0.096      s/sqrt(B+1) = 0.007      Punzi = 0.006      Azimoth = 0.018     
+Bin SR1_MNbin6           NSig = 0.263      NBkg = 0.167      s/sqrt(B+1) = 0.24       Punzi = 0.182      Azimoth = 0.501     
+Bin SR1_MNbin7           NSig = 0.733      NBkg = 0.041      s/sqrt(B+1) = 0.669      Punzi = 0.506      Azimoth = 1.186     
+Bin SR2_HTLTbin1         NSig = 1.482      NBkg = 0.515      s/sqrt(B+1) = 1.204      Punzi = 0.863      Azimoth = 1.565     
+Bin SR2_HTLTbin2         NSig = 0.147      NBkg = 2.419      s/sqrt(B+1) = 0.079      Punzi = 0.057      Azimoth = 0.093     
+Bin SR3_bin1             NSig = 0.365      NBkg = 0.548      s/sqrt(B+1) = 0.293      Punzi = 0.21       Azimoth = 0.45      
+Bin SR3_bin2             NSig = 0.551      NBkg = 0.557      s/sqrt(B+1) = 0.441      Punzi = 0.315      Azimoth = 0.649     
+Bin SR3_bin3             NSig = 0.739      NBkg = 2.531      s/sqrt(B+1) = 0.393      Punzi = 0.285      Azimoth = 0.444     
+Bin SR3_bin4             NSig = 0.145      NBkg = 4.656      s/sqrt(B+1) = 0.061      Punzi = 0.046      Azimoth = 0.067     
+Bin SR3_bin5             NSig = 0.011      NBkg = 1.677      s/sqrt(B+1) = 0.007      Punzi = 0.005      Azimoth = 0.008     
+Bin SR3_bin6             NSig = 0.03       NBkg = 6.787      s/sqrt(B+1) = 0.011      Punzi = 0.008      Azimoth = 0.012     
+Bin SR3_bin7             NSig = 0.209      NBkg = 149.728    s/sqrt(B+1) = 0.017      Punzi = 0.016      Azimoth = 0.017     
+Bin SR3_bin8             NSig = 0.01       NBkg = 290.863    s/sqrt(B+1) = 0.001      Punzi = 0.001      Azimoth = 0.001     
+GetSignificance for ID [V^{2}_{lN} = 0.1)]==LimitInput/HNLOpt_ULHNL_Peking/LimitBins/MuonSR
+Bin SR1_MNbin1           NSig = 0.0        NBkg = 0.0        s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin2           NSig = -0.0       NBkg = 0.191      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin3           NSig = 0.002      NBkg = 0.39       s/sqrt(B+1) = 0.002      Punzi = 0.001      Azimoth = 0.003     
+Bin SR1_MNbin4           NSig = 0.007      NBkg = 0.526      s/sqrt(B+1) = 0.006      Punzi = 0.004      Azimoth = 0.01      
+Bin SR1_MNbin5           NSig = 0.009      NBkg = 0.239      s/sqrt(B+1) = 0.008      Punzi = 0.006      Azimoth = 0.018     
+Bin SR1_MNbin6           NSig = 0.299      NBkg = 0.278      s/sqrt(B+1) = 0.264      Punzi = 0.195      Azimoth = 0.494     
+Bin SR1_MNbin7           NSig = 0.819      NBkg = 0.081      s/sqrt(B+1) = 0.748      Punzi = 0.566      Azimoth = 1.297     
+Bin SR2_HTLTbin1         NSig = 1.592      NBkg = 1.964      s/sqrt(B+1) = 0.924      Punzi = 0.663      Azimoth = 1.019     
+Bin SR2_HTLTbin2         NSig = 0.175      NBkg = 5.648      s/sqrt(B+1) = 0.068      Punzi = 0.052      Azimoth = 0.073     
+Bin SR3_bin1             NSig = 0.389      NBkg = 0.59       s/sqrt(B+1) = 0.309      Punzi = 0.22       Azimoth = 0.463     
+Bin SR3_bin2             NSig = 0.588      NBkg = 0.838      s/sqrt(B+1) = 0.434      Punzi = 0.307      Azimoth = 0.583     
+Bin SR3_bin3             NSig = 0.818      NBkg = 3.794      s/sqrt(B+1) = 0.374      Punzi = 0.278      Azimoth = 0.406     
+Bin SR3_bin4             NSig = 0.168      NBkg = 7.075      s/sqrt(B+1) = 0.059      Punzi = 0.046      Azimoth = 0.063     
+Bin SR3_bin5             NSig = 0.013      NBkg = 3.65       s/sqrt(B+1) = 0.006      Punzi = 0.004      Azimoth = 0.007     
+Bin SR3_bin6             NSig = 0.034      NBkg = 16.85      s/sqrt(B+1) = 0.008      Punzi = 0.007      Azimoth = 0.008     
+Bin SR3_bin7             NSig = 0.27       NBkg = 494.318    s/sqrt(B+1) = 0.012      Punzi = 0.012      Azimoth = 0.012     
+Bin SR3_bin8             NSig = 0.015      NBkg = 1254.075   s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+GetSignificance for ID [V^{2}_{lN} = 0.1)]==LimitInput/HNLOpt_UL_MuOpt_HNLUL_MVAHFBB0p3_MVAHFEC0p3_DXYv1/LimitBins/MuonSR
+Bin SR1_MNbin1           NSig = 0.0        NBkg = 0.0        s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.0       
+Bin SR1_MNbin2           NSig = 0.0        NBkg = 0.046      s/sqrt(B+1) = 0.0        Punzi = 0.0        Azimoth = 0.001     
+Bin SR1_MNbin3           NSig = 0.002      NBkg = 0.249      s/sqrt(B+1) = 0.002      Punzi = 0.001      Azimoth = 0.004     
+Bin SR1_MNbin4           NSig = 0.007      NBkg = 0.238      s/sqrt(B+1) = 0.007      Punzi = 0.005      Azimoth = 0.015     
+Bin SR1_MNbin5           NSig = 0.009      NBkg = 0.084      s/sqrt(B+1) = 0.008      Punzi = 0.006      Azimoth = 0.02      
+Bin SR1_MNbin6           NSig = 0.312      NBkg = 0.191      s/sqrt(B+1) = 0.285      Punzi = 0.216      Azimoth = 0.582     
+Bin SR1_MNbin7           NSig = 0.845      NBkg = 0.048      s/sqrt(B+1) = 0.771      Punzi = 0.584      Azimoth = 1.329     
+Bin SR2_HTLTbin1         NSig = 1.635      NBkg = 0.792      s/sqrt(B+1) = 1.221      Punzi = 0.865      Azimoth = 1.471     
+Bin SR2_HTLTbin2         NSig = 0.181      NBkg = 3.191      s/sqrt(B+1) = 0.088      Punzi = 0.065      Azimoth = 0.1       
+Bin SR3_bin1             NSig = 0.404      NBkg = 0.535      s/sqrt(B+1) = 0.326      Punzi = 0.233      Azimoth = 0.499     
+Bin SR3_bin2             NSig = 0.605      NBkg = 0.79       s/sqrt(B+1) = 0.452      Punzi = 0.32       Azimoth = 0.613     
+Bin SR3_bin3             NSig = 0.848      NBkg = 3.098      s/sqrt(B+1) = 0.419      Punzi = 0.307      Azimoth = 0.462     
+Bin SR3_bin4             NSig = 0.174      NBkg = 6.109      s/sqrt(B+1) = 0.065      Punzi = 0.05       Azimoth = 0.07      
+Bin SR3_bin5             NSig = 0.013      NBkg = 2.619      s/sqrt(B+1) = 0.007      Punzi = 0.005      Azimoth = 0.008     
+Bin SR3_bin6             NSig = 0.036      NBkg = 10.076     s/sqrt(B+1) = 0.011      Punzi = 0.009      Azimoth = 0.011     
+Bin SR3_bin7             NSig = 0.283      NBkg = 239.847    s/sqrt(B+1) = 0.018      Punzi = 0.017      Azimoth = 0.018     
+Bin SR3_bin8             NSig = 0.013      NBkg = 525.702    s/sqrt(B+1) = 0.001      Punzi = 0.001      Azimoth = 0.001     
+/HNLOpt_ULHNL_Peking/LimitBins/MuonSR 1.71008540924
+mN = 100 : 0.82374923747
+mN = 1000 : 0.886336171766
+/HNLOpt_UL_MuOpt_HNLUL_MVAHFBB0p3_MVAHFEC0p3_DXYv1/LimitBins/MuonSR 2.37693339904
+mN = 1000 : 1.03521799805
+mN = 100 : 1.34171540099
+/HNLOpt_ULHNL_Peking/LimitBins/MuonSR                                        1.71008540924
+/HNLOpt_UL_MuOpt_HNLUL_MVAHFBB0p3_MVAHFEC0p3_DXYv1/LimitBins/MuonSR          2.37693339904

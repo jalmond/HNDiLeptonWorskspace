@@ -80,6 +80,11 @@ public:
   void SetupComparisonHist(TString sample, TString hist, TString histtag,TString legendname );
   TH1D* MakeHist(TString filepath, TString fullhistname);
   TH1D* ConstructHist(TString filepath, TString fullhistname);
+  TH2D* Construct2DHist(TString filepath, TString fullhistname);
+
+  TString Scan2DHists(TH2D* h1, TH2D* h2);
+
+
   void Summary();
   TString FixLatex(TString origSt);
 
@@ -101,7 +106,8 @@ public:
 
   TH1D* GetCutEfficiency(TH1D *hist_default);
   TH1D* GetScanEfficiency(TH1D *hist_default);
-
+  TH1D* GetScanEfficiency2D(TH1D *hist_default, TH1D *hist_comp);
+  
   double GetHistValue(TH1D * ht, TString hn);
   double GetHistError(TH1D * ht, TString hn);
   void MakeTexFile(map< TString, TH1D * > hs, TString Hist_For_CutFlow);
@@ -135,8 +141,15 @@ public:
 
   void draw_hist_canvas(TH1D* hdef , TString HistName);
   void draw_hists_canvas(vector<TH1D*> hists , vector<TString> legNames,  TString HistName , TString dirname);
-  void draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> legNames,  TString HistName, TString dirname);
+  double draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> IDs, vector<TString> legNames,  TString HistName, TString dirname);
+  
+  void MakeAUCHist(map<TString,double> AUCMap,TString HistName, TString dirname, TString label);
 
+  inline void SvsB_Promptpath(TString s) { svsb_prompt_path=s; }
+  inline void SvsB_Comppath(TString s) { svsb_comp_path=s; }
+  inline void SvsB_PromptHistPrefix(TString s) { svsb_prompt_hist=s; }
+  inline void SvsB_CompHistPrefix(TString s) { svsb_comp_hist=s; }
+  
   void BasicSetup(SetupHelper logy, SetupHelper ratio, TString channel);
   
   //==== variables
@@ -202,6 +215,11 @@ public:
   TString MacroName;
   TString AnalyserName;
   TString Era;
+  TString svsb_prompt_hist;
+  TString svsb_comp_hist;
+  TString svsb_prompt_path;
+  TString svsb_comp_path;
+
   bool MakePaperPlot;
   bool MergeZeroBins;
   bool VarBins;

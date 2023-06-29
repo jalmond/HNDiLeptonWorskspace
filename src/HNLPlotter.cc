@@ -449,9 +449,51 @@ TH1D* HNLPlotter::ConstructHist(TString filepath, TString fullhistname){
     }
   }
 
+  
+  file->Close();
   return hist_final;
   
 }
+
+TH2D* HNLPlotter::Construct2DHist(TString filepath, TString fullhistname){
+
+  TH2D* hist_temp;
+
+  //==== get root file                                                                                                                                                                                                                                                                                                     
+
+  if(DoDebug) cout << "ConstructHist " << endl;
+
+  if(gSystem->AccessPathName(filepath)){
+    if(DoDebug)     cout << "No file : " << filepath << endl;
+    return hist_temp;
+  }
+
+  TFile* file = new TFile(filepath);
+  if( !file ){
+    if(DoDebug)    cout << "No file : " << filepath << endl;
+    return hist_temp;
+  }
+
+  //==== get histogram                                                                                                                                                                                                                                                                                                     
+  hist_temp = (TH2D*)file->Get(fullhistname);
+  if(!hist_temp || hist_temp->GetEntries() == 0){
+    if(DoDebug){
+      cout << "No histogram : " << fullhistname << endl;
+    }
+    file->Close();
+    delete file;
+    return hist_temp;
+  }
+
+  //==== set histogram name, including sample name                                                                                                                                                                                                                                                                         
+  hist_temp->SetName(fullhistname);
+
+  //==== make overflows bins                                                                                                                                                                                                                                                                                               
+  file->Close();
+  return hist_temp;
+
+}
+
 
 TH1D* HNLPlotter::MakeHist(TString filepath, TString fullhistname){
 
@@ -516,6 +558,9 @@ TH1D* HNLPlotter::MakeHist(TString filepath, TString fullhistname){
       hist_final->SetBinError(ccc, 0.);
     }
   }  
+
+  file->Close();
+
   return hist_final;
 }
 
@@ -2436,7 +2481,38 @@ vector<double> HNLPlotter::GetRebinZeroBackground(THStack *mc_stack, TH1D *mc_st
 }
 
 
+TString HNLPlotter::Scan2DHists(TH2D* h1, TH2D* h2){
+  
+  //// scan h1 which is prompt  Fake vs CF
 
+  double PromptIntegral = h1->Integral();
+  double FakeIntegral   = h2->Integral();
+  cout << "_________________________________________________________________________________________________________________________________________________________" << endl;
+  double k_sob=0;
+  TString IDOpt="";
+  for(int ccc=1; ccc<=h1->GetXaxis()->GetNbins()+1; ccc++) {
+
+    for(int ddd=1; ddd<=h1->GetYaxis()->GetNbins()+1; ddd++) {
+
+      
+      double sig = h1->Integral(ccc, h1->GetXaxis()->GetNbins()+1, ddd, h1->GetYaxis()->GetNbins()+1)/ PromptIntegral;
+      double bkg = h2->Integral(ccc, h2->GetXaxis()->GetNbins()+1, ddd, h2->GetYaxis()->GetNbins()+1) / FakeIntegral ;
+      double bkgN = h2->Integral(ccc, h2->GetXaxis()->GetNbins()+1, ddd, h2->GetYaxis()->GetNbins()+1)  ;
+      double sob = sig / sqrt(sig*200 + bkgN+1);
+      if(sob > k_sob){
+	if(sig > 0.7){
+	  k_sob=sob;
+	  IDOpt="Fake_"+to_string(h1->GetXaxis()->GetBinLowEdge(ccc)) + "_CF_"+to_string(h1->GetYaxis()->GetBinLowEdge(ddd)) ;
+	}
+      }
+      cout << "Fake MVA > "  << h1->GetXaxis()->GetBinLowEdge(ccc) << " CF MVA > " << h1->GetYaxis()->GetBinLowEdge(ddd) <<  "  Sig Eff = " << sig  <<  "  Fake Eff=" <<  bkg  <<  " sob = " << sob << endl;
+      
+    }
+  }
+  cout << "Opt bin = " << IDOpt << endl;
+
+  return IDOpt;
+}
 
 TH1D* HNLPlotter::GetCutEfficiency(TH1D *hist_default){
 
@@ -2458,10 +2534,18 @@ TH1D* HNLPlotter::GetScanEfficiency(TH1D *hist_default){
   
 
   TAxis *xaxis = hist_default->GetXaxis();
-  for(int ccc=1; ccc<=xaxis->GetNbins()+1; ccc++){
-    //cout <<  "Scan " << ccc <<  " - " << xaxis->GetNbins()  <<"  " << hist_default->Integral(ccc, xaxis->GetNbins()) << endl;
-    hist_new->SetBinContent(ccc, hist_default->Integral(ccc, xaxis->GetNbins()) / HistIntegral);
-    hist_new->SetBinError(ccc, 0);
+  for(int ccc=1; ccc<=xaxis->GetNbins(); ccc++){
+
+    //cout <<  "Scan " << ccc <<  " - " << xaxis->GetNbins()+1  <<"  " << hist_default->Integral(ccc, xaxis->GetNbins()+1) << " " << HistIntegral << endl;
+    if(ccc==1){
+      hist_new->SetBinContent(ccc, hist_default->Integral(ccc, xaxis->GetNbins()+1) / HistIntegral);
+      hist_new->SetBinError(ccc, 0);
+    }
+    else{
+      hist_new->SetBinContent(ccc, hist_default->Integral(ccc+1, xaxis->GetNbins()+1) / HistIntegral);
+      hist_new->SetBinError(ccc, 0);
+
+    }
   }
   //  hist_new->SetBinContent(, hist_default->Integral(ccc, xaxis->GetNbins()) / HistIntegral);
   //hist_new->SetBinError(ccc, 0);
@@ -2469,6 +2553,36 @@ TH1D* HNLPlotter::GetScanEfficiency(TH1D *hist_default){
   
   return hist_new;
 }
+
+
+TH1D* HNLPlotter::GetScanEfficiency2D(TH1D *hist_default, TH1D *hist_comp){
+
+  TH1D *hist_new = (TH1D*)hist_default->Clone();
+
+  double HistIntegral = hist_comp->Integral();
+
+
+  TAxis *xaxis = hist_default->GetXaxis();
+  for(int ccc=1; ccc<=xaxis->GetNbins(); ccc++){
+
+    //cout <<  "Scan " << ccc <<  " - " << xaxis->GetNbins()+1  <<"  " << hist_default->Integral(ccc, xaxis->GetNbins()+1) << " " << HistIntegral << endl;                                                                                  
+    if(ccc==1){
+      hist_new->SetBinContent(ccc, hist_default->Integral(ccc, xaxis->GetNbins()+1) / HistIntegral);
+      hist_new->SetBinError(ccc, 0);
+    }
+    else{
+      hist_new->SetBinContent(ccc, hist_default->Integral(ccc+1, xaxis->GetNbins()+1) / HistIntegral);
+      hist_new->SetBinError(ccc, 0);
+
+    }
+  }
+  //  hist_new->SetBinContent(, hist_default->Integral(ccc, xaxis->GetNbins()) / HistIntegral);                                                                                                                                             
+  //hist_new->SetBinError(ccc, 0);                                                                                                                                                                                                          
+
+
+  return hist_new;
+}
+
 
 void HNLPlotter::draw_hists_canvas(vector<TH1D*> hists , vector<TString> legNames,  TString HistName,TString dirName){
 
@@ -2491,11 +2605,15 @@ void HNLPlotter::draw_hists_canvas(vector<TH1D*> hists , vector<TString> legName
   TH1D* hist_default = hists[0];
   hist_axis(hist_default);
 
-  TLegend *lg= new TLegend(0.55, 0.75, 0.93, 0.93);
+  TLegend *lg= new TLegend(0.65, 0.75, 0.9, 0.85);
   lg->SetFillStyle(0);
   lg->SetBorderSize(0);
-  lg->SetTextSize(0.03);
+  lg->SetTextSize(0.025);
 
+  TLegend *lg2= new TLegend(0.4, 0.75, 0.65, 0.85);
+  lg2->SetFillStyle(0);
+  lg2->SetBorderSize(0);
+  lg2->SetTextSize(0.025);
 
   TCanvas* c1 = new TCanvas(HistName, "", 800, 800);
   c1->Draw();
@@ -2530,12 +2648,26 @@ void HNLPlotter::draw_hists_canvas(vector<TH1D*> hists , vector<TString> legName
   for(int ig =1; ig < hists.size(); ig++){
     TGraphAsymmErrors *gr = new TGraphAsymmErrors(hists[ig]);
     gr->SetLineWidth(2.0);
-    gr->SetMarkerSize(0.);
-    gr->SetLineColor(HNLPlotter::GetColor(ig));
-    gr->Draw("plsame");
-    lg->AddEntry(gr, legNames[ig], "pl");
+    if(ig >= hists.size() /2)    gr->SetLineStyle(2.0);
 
+    gr->SetMarkerSize(0.);
+    if(ig < hists.size() /2) gr->SetLineColor(HNLPlotter::GetColor(ig));
+    else gr->SetLineColor(HNLPlotter::GetColor(ig- (hists.size() /2)));
+    gr->Draw("plsame");
+    if(ig >= hists.size() /2)    lg2->AddEntry(gr, legNames[ig], "pl");
+    else     lg->AddEntry(gr, legNames[ig], "pl");
   }
+  double x_1[2], y_1[2];
+  x_1[0] = 5000;  y_1[0] = 1;
+  x_1[1] = -5000;  y_1[1] = 1;
+  TGraph *gr3 = new TGraph(2, x_1, y_1);
+  gr3->Draw("same");
+
+
+  TLatex latex_result;
+  latex_result.SetNDC();
+  latex_result.SetTextSize(0.02);
+  latex_result.DrawLatex(0.2, 0.9,HistName);
 
 
   TLatex latex_CMSPriliminary, latex_Lumi;
@@ -2553,6 +2685,7 @@ void HNLPlotter::draw_hists_canvas(vector<TH1D*> hists , vector<TString> legName
 
   //  lg->SetNColumns(2);
   lg->Draw();
+  lg2->Draw();
   mkdir(thiscut_plotpath);
 
   c1->SaveAs(thiscut_plotpath+"/"+HistName+".png");
@@ -2564,9 +2697,9 @@ void HNLPlotter::draw_hists_canvas(vector<TH1D*> hists , vector<TString> legName
 }
 
 
-void HNLPlotter::draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> legNames,  TString HistName, TString dirName){
+double  HNLPlotter::draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> IDs, vector<TString> legNames,  TString HistName, TString dirName){
   
-  if(!hists[0]) return;
+  if(!hists[0]) return -1;
   
   
   cout    << "################### draw_hist_canvas [" << HistName << "]  ###################" << endl;
@@ -2585,7 +2718,9 @@ void HNLPlotter::draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> legNames
   TH1D* hist_default = hists[0];
   
 
-  TLegend *lg= new TLegend(0.55, 0.85, 0.93, 0.93);
+  TLegend *lg;
+  if(legNames.size() < 3 ) lg = new TLegend(0.55, 0.85, 0.93, 0.93);
+  else lg = new TLegend(0.55, 0.80, 0.93, 0.93);
   lg->SetFillStyle(0);
   lg->SetBorderSize(0);
   lg->SetTextSize(0.03);
@@ -2610,8 +2745,8 @@ void HNLPlotter::draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> legNames
   double Ymin = default_y_min;
   double YmaxScale = 1.4;
 
-  hist_empty->GetYaxis()->SetTitle("1- BkgEff");
-  hist_empty->GetXaxis()->SetTitle("SigEff");
+  hist_empty->GetYaxis()->SetTitle("1- #epsilon_{Bkg}");
+  hist_empty->GetXaxis()->SetTitle("#epsilon_{prompt}");
   hist_empty->GetXaxis()->SetRangeUser(0., 1.);
   hist_empty->GetYaxis()->SetRangeUser(0., 1.40);
 
@@ -2623,7 +2758,7 @@ void HNLPlotter::draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> legNames
   
   double x[Nbins], y[Nbins], xlow[Nbins] ,xup[Nbins], ylow[Nbins], yup[Nbins];
 
-  double Eff90S(0),Eff90B(0),Eff95S(0),Eff95B(0), Score95(0),Score90(0), Eff98S(0),Eff98B(0), Score98(0);
+  double Eff90S(0),Eff90B(0),Eff95S(0),Eff95B(0), Score95(0),Score90(0), Eff98S(0),Eff98B(0), Score98(0),Eff80S(0),Eff80B(0), Score80(0);
   TAxis *xaxis = hists[0]->GetXaxis();
   for(int ccc=1; ccc<=xaxis->GetNbins()+1; ccc++){
     x[ccc-1] = hists[0]->GetBinContent(ccc);
@@ -2632,9 +2767,10 @@ void HNLPlotter::draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> legNames
     xup[ccc-1] = 0;
     ylow[ccc-1] = 0;
     yup[ccc-1] = 0;
-    cout << ccc << " " << hists[0]->GetBinContent(ccc) << " " << hists[1]->GetBinContent(ccc) << endl;
 
-    if(hists[0]->GetBinContent(ccc) < 0.98 && Eff98S == 0) {
+    if(DoDebug) cout << ccc << " " << hists[0]->GetBinContent(ccc) << " " << hists[1]->GetBinContent(ccc) << endl;
+
+    if(hists[0]->GetBinContent(ccc) < 0.98 * hists[0]->GetBinContent(1) && Eff98S == 0) {
 
       Eff98S = hists[0]->GetBinContent(ccc);
       Eff98B = hists[1]->GetBinContent(ccc);
@@ -2642,17 +2778,24 @@ void HNLPlotter::draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> legNames
     }
 
     
-    if(hists[0]->GetBinContent(ccc) < 0.95 && Eff95S == 0) {
+    if(hists[0]->GetBinContent(ccc) < 0.95* hists[0]->GetBinContent(1) && Eff95S == 0) {
 
       Eff95S = hists[0]->GetBinContent(ccc);
       Eff95B = hists[1]->GetBinContent(ccc);
       Score95 = hists[0]->GetBinCenter(ccc);
     }
-    if(hists[0]->GetBinContent(ccc) < 0.9 && Eff90S ==0) {
+    if(hists[0]->GetBinContent(ccc) < 0.9* hists[0]->GetBinContent(1) && Eff90S ==0) {
 
       Eff90S = hists[0]->GetBinContent(ccc);
       Eff90B = hists[1]->GetBinContent(ccc);
       Score90 = hists[0]->GetBinCenter(ccc);
+    }
+
+    if(hists[0]->GetBinContent(ccc) < 0.8* hists[0]->GetBinContent(1) && Eff80S ==0) {
+
+      Eff80S = hists[0]->GetBinContent(ccc);
+      Eff80B = hists[1]->GetBinContent(ccc);
+      Score80 = hists[0]->GetBinCenter(ccc);
     }
 
   }
@@ -2666,24 +2809,66 @@ void HNLPlotter::draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> legNames
   gr1->Draw("plsame");
   lg->AddEntry(gr1, legNames[0], "pl");
 
+  /// Get AUC
+  bool PlotAUC(true);
+  double AUC_cum=0;
+  TH1D* hAUC = new TH1D ("","", gr1->GetN(), 0, 1.);
+  if(PlotAUC){
+
+    auto nPoints = gr1->GetN(); // number of points in your TGraph
+    Double_t ax[nPoints],ay[nPoints];
+
+    for(int i=0; i < nPoints; ++i)        gr1->GetPoint(i, ax[i], ay[i]);
+    for(int i=0; i < nPoints-1; ++i){
+      double integral = (ax[i]  - ax[i+1]) * (ay[i] + ay[i+1])/2;
+      AUC_cum=AUC_cum+integral;
+    }
+  }
+  cout << "AUC integral = " << AUC_cum << endl;
   
-  double x2[1], y2[1], xlow2[1] ,xup2[1], ylow2[1], yup2[1];
-  cout << "hists[2]->GetBinContent(1) = " << hists[2]->GetBinContent(1) << endl;
-  cout << "hists[3]->GetBinContent(1) = " << hists[3]->GetBinContent(1) << endl;
-  x2[0]= hists[2]->GetBinContent(1);
-  y2[0]= 1- hists[3]->GetBinContent(1);
-  xlow2[0]= 0;
-  xup2[0]= 0;
-  ylow2[0]= 0;
-  yup2[0]= 0;
-  TGraphAsymmErrors* gr2 = new TGraphAsymmErrors(1, x2, y2, xlow2, xup2, ylow2, yup2);
+  TString  AUC;
+  if(PlotAUC) AUC = DToString(AUC_cum,4);
   
-  gr2->SetLineWidth(2.0);
-  gr2->SetMarkerSize(1.5);
-  gr2->SetMarkerStyle(34);
-  gr2->SetMarkerColor(kBlue);
-  gr2->Draw("psame");
-  lg->AddEntry(gr2, "POG [HNTightV2]", "p");
+  int ileg(1);
+  double HNTight_P(0);
+  double HNTight_C(0);
+  
+  double HNTight_UL_P(0);
+  double HNTight_UL_C(0);
+
+  for(auto ID : IDs){
+
+    TH1D *hist_prompt = GetCutEfficiency(ConstructHist(svsb_prompt_path,  svsb_prompt_hist +ID));
+    TH1D *hist_comp = GetCutEfficiency(ConstructHist(svsb_comp_path,    svsb_comp_hist  + ID ));
+
+    double x2[1], y2[1], xlow2[1] ,xup2[1], ylow2[1], yup2[1];
+    if (ID == "HNTightV2") {
+      HNTight_P = hist_prompt->GetBinContent(1);
+      HNTight_C = 1- hist_comp->GetBinContent(1);
+    }
+    if (ID.Contains("HNL_ULID")){
+      HNTight_UL_P = hist_prompt->GetBinContent(1);
+      HNTight_UL_C = 1- hist_comp->GetBinContent(1);
+    }
+
+    cout << "hist_prompt->GetBinContent(1) = " << hist_prompt->GetBinContent(1) << endl;
+    cout << "hist_comp->GetBinContent(1) = " <<hist_comp->GetBinContent(1) << endl;
+    x2[0]= hist_prompt->GetBinContent(1);
+    y2[0]= 1- hist_comp->GetBinContent(1);
+    xlow2[0]= 0;
+    xup2[0]= 0;
+    ylow2[0]= 0;
+    yup2[0]= 0;
+    TGraphAsymmErrors* gr2 = new TGraphAsymmErrors(1, x2, y2, xlow2, xup2, ylow2, yup2);
+    
+    gr2->SetLineWidth(2.0);
+    gr2->SetMarkerSize(1.5);
+    gr2->SetMarkerStyle(34);
+    gr2->SetMarkerColor(GetColor(ileg));
+    gr2->Draw("psame");
+    lg->AddEntry(gr2, legNames[ileg], "p");
+    ileg++;
+  }
 
   double x_1[2], y_1[2];
   x_1[0] = 5000;  y_1[0] = 1;
@@ -2694,17 +2879,25 @@ void HNLPlotter::draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> legNames
   TLatex latex_result;
   latex_result.SetNDC();
   latex_result.SetTextSize(0.02);
-  latex_result.DrawLatex(0.2, 0.85,HistName);
+  latex_result.DrawLatex(0.2, 0.9,HistName);
+  if(PlotAUC)latex_result.DrawLatex(0.75, 0.75,"AUC = " +AUC);
+
+
   cout << "DoubleToString" << endl;
-  TString POGout = "HNTightV2 ["+ DToString(x2[0])+ ","+ DToString(1-y2[0],3)+"]";
+  TString POGout = "HNTightV2 ["+ DToString(HNTight_P)+ ","+ DToString(1-HNTight_C,3)+"]";
   latex_result.DrawLatex(0.2, 0.82,POGout);
+  TString ULout = "HNL_ULID ["+ DToString(HNTight_UL_P)+ ","+ DToString(1-HNTight_UL_C,3)+"]";
+  if(HNTight_UL_P > 0)latex_result.DrawLatex(0.2, 0.84,ULout);
+
   TString st98 = "#epsilon_{prompt} 98% : #epsilon_{bkg} = " + DToString(Eff98B,3) + " score = " + DToString(Score98,3);
   TString st95 = "#epsilon_{prompt} 95% : #epsilon_{bkg} = " + DToString(Eff95B,3) + " score = " + DToString(Score95,3);
   TString st90 = "#epsilon_{prompt} 90% : #epsilon_{bkg} = " + DToString(Eff90B,3) + " score = " + DToString(Score90,3);
+  TString st80 = "#epsilon_{prompt} 80% : #epsilon_{bkg} = " + DToString(Eff80B,3) + " score = " + DToString(Score80,3);
 
   latex_result.DrawLatex(0.2, 0.8,st98);
   latex_result.DrawLatex(0.2, 0.78,st95);
   latex_result.DrawLatex(0.2, 0.76,st90);
+  latex_result.DrawLatex(0.2, 0.74,st80);
 
   TLatex latex_CMSPriliminary, latex_Lumi;
   latex_CMSPriliminary.SetNDC();
@@ -2727,8 +2920,102 @@ void HNLPlotter::draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> legNames
   c1->SaveAs(thiscut_plotpath+"/"+HistName+"_SEffvsBEff.pdf");
 
   SaveAndCopyLXPLUS(c1,thiscut_plotpath+"/"+HistName+"_SEffvsBEff", dirName,AnalyserName,MacroName,Era);
+  
+  return AUC_cum;
 
 
+}
+
+
+void HNLPlotter::MakeAUCHist(map<TString,double> AUCMap,TString HistName,TString dirName, TString Label){
+  
+  thiscut_plotpath = plotpath+"/"+ dirName;
+  mkdir(thiscut_plotpath);
+
+  if(DoDebug) cout << "plotpath = " << plotpath << "  " << dirName << " --> " << thiscut_plotpath << endl;
+
+
+
+  TH1D* h = new TH1D("","", AUCMap.size(), 0, AUCMap.size());
+  
+  int n(0);
+  double minAUC(1);
+  double maxAUC(0);
+  TString string_maxAUC;
+  for(auto imap : AUCMap) {
+    n++;
+    h->GetXaxis()->SetBinLabel(n, imap.first);
+    h->SetBinContent(n, imap.second);
+    h->GetYaxis()->SetTitle("AUC");
+    if(imap.second < minAUC) minAUC = imap.second;
+    if(imap.second > maxAUC){
+      maxAUC = imap.second;
+      string_maxAUC =imap.first;
+    }
+  }
+  
+
+  TCanvas* c1 = new TCanvas(HistName, "", 800, 800);
+  c1->Draw();
+  c1->cd();
+  //  c1->SetLogy();
+  canvas_margin(c1);
+
+  TH1D *hist_empty = (TH1D*)h->Clone();
+  hist_empty->SetName("DUMMY_FOR_AXIS");
+  
+  double dx = (hist_empty->GetXaxis()->GetXmax() - hist_empty->GetXaxis()->GetXmin())/hist_empty->GetXaxis()->GetNbins();
+
+  hist_empty->SetLineWidth(0);
+  hist_empty->SetLineColor(0);
+  hist_empty->SetMarkerSize(0);
+  hist_empty->SetMarkerColor(0);
+  double Ymin = default_y_min;
+  double YmaxScale = 1.2;
+  
+
+  if(minAUC > 0.95)hist_empty->GetYaxis()->SetRangeUser(minAUC-0.005,1);
+  else   if(minAUC > 0.9)hist_empty->GetYaxis()->SetRangeUser(minAUC-0.02,1);
+  else  hist_empty->GetYaxis()->SetRangeUser(minAUC-0.1,1);
+  hist_axis(hist_empty);
+  hist_empty->GetXaxis()->SetLabelSize(0.02);
+
+  hist_empty->Draw("histsame");
+  //  gStyle->SetPaintTextFormat(“4.3f”);
+  h->Draw("textsame");
+  
+  TGraphAsymmErrors *gr_ratio_point = new TGraphAsymmErrors(h);
+  gr_ratio_point->SetLineWidth(2.0);
+  gr_ratio_point->SetMarkerSize(0.);
+  gr_ratio_point->SetLineColor(kRed);
+  gr_ratio_point->Draw("p0same");
+
+  TLatex latex_CMSPriliminary, latex_Lumi;
+  latex_CMSPriliminary.SetNDC();
+  latex_Lumi.SetNDC();
+  latex_CMSPriliminary.SetTextSize(0.035);
+  latex_CMSPriliminary.DrawLatex(0.15, 0.96, "#font[62]{CMS} #font[42]{#it{#scale[0.8]{Preliminary}}}");
+  latex_Lumi.SetTextSize(0.035);
+  if(Era=="2016preVFP")latex_Lumi.DrawLatex(0.7, 0.96, "19.5 fb^{-1} (13 TeV)");
+  if(Era=="2016postVFP")latex_Lumi.DrawLatex(0.7, 0.96, "16.8 fb^{-1} (13 TeV)");
+  if(Era=="2016") latex_Lumi.DrawLatex(0.7, 0.96, "36.3 fb^{-1} (13 TeV)");
+  if(Era=="2017") latex_Lumi.DrawLatex(0.7, 0.96, "41.5 fb^{-1} (13 TeV)");
+  if(Era=="2018") latex_Lumi.DrawLatex(0.7, 0.96, "59.9 fb^{-1} (13 TeV)");
+  if(Era=="Run2") latex_Lumi.DrawLatex(0.7, 0.96, "137.9 fb^{-1} (13 TeV)");
+
+
+  TLatex latex_result;
+  latex_result.SetNDC();
+  latex_result.SetTextSize(0.02);
+  latex_result.DrawLatex(0.2, 0.9,Label);
+
+  TString  AUClabel = "Max AUC : " + string_maxAUC+ " [" +TString(DToString(maxAUC,4)) +"]";
+  latex_result.DrawLatex(0.2, 0.15,AUClabel);
+
+  c1->SaveAs(thiscut_plotpath+"/"+HistName+".png");
+  c1->SaveAs(thiscut_plotpath+"/"+HistName+".pdf");
+
+  SaveAndCopyLXPLUS(c1,thiscut_plotpath+"/"+HistName, dirName,AnalyserName,MacroName,Era);
 
 }
 

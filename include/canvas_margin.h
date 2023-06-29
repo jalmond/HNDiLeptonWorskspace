@@ -35,10 +35,10 @@ void hist_axis(TH1D *hist){
 
   hist->GetYaxis()->SetLabelSize(0.04);
   hist->GetYaxis()->SetTitleSize(0.04);
-  hist->GetYaxis()->SetTitleOffset(1.10);
+  hist->GetYaxis()->SetTitleOffset(1.20);
 
   hist->GetXaxis()->SetLabelSize(0.04);
-  hist->GetXaxis()->SetTitleSize(0.05);
+  hist->GetXaxis()->SetTitleSize(0.04);
 
 }
 

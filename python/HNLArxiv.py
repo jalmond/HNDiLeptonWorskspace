@@ -745,16 +745,168 @@ class HNLArxiv():
         return Signi /scaleSig
 
 
+    def PekingBkg(Year):
 
+        if Year == 2016:
+            return 1.52
+
+        if Year == 2017:
+            return 3.4
+
+        if Year == 2018:
+            return 1.94
+            
+
+    def Get_PekingXsec(Year, Mass):
+        
+        Scale=0.9
+        if Year == 2016:
+            if Mass == 500:
+                return Scale*17.66
+            if Mass == 600:
+                return Scale*16.26
+            if Mass == 750:
+                return Scale*15.05
+            if Mass == 900:
+                return Scale*13.48
+            if Mass == 1000:
+                return Scale*12.36
+            if Mass == 1250:
+                return Scale*10.12
+            if Mass == 1500:
+                return Scale*8.598
+            if Mass == 1750:
+                return Scale*7.3
+            if Mass == 2000:
+                return Scale*6.264
+            if Mass == 2500:
+                return Scale*4.602
+            if Mass == 5000:
+                return Scale*1.536
+            if Mass == 7500:
+                return Scale*0.7521
+            if Mass == 10000:
+                return Scale*0.3977
+            if Mass == 15000:
+                return Scale*0.202
+            if Mass == 20000:
+                return Scale*0.1089
+        else:
+            if Mass == 500:
+                return Scale*18.2
+            if Mass == 600:
+                return Scale*16.91
+            if Mass == 750:
+                return Scale*15.47
+            if Mass == 900:
+                return Scale*13.86
+            if Mass == 1000:
+                return Scale*12.84
+            if Mass == 1250:
+                return Scale*10.67
+            if Mass == 1500:
+                return Scale*8.918
+            if Mass == 1750:
+                return Scale*7.612
+            if Mass == 2000:
+                return Scale*6.425
+            if Mass == 2500:
+                return Scale*4.811
+            if Mass == 5000:
+                return Scale*1.598
+            if Mass == 7500:
+                return Scale*0.773
+            if Mass == 10000:
+                return Scale*0.448
+            if Mass == 15000:
+                return Scale*0.205
+            if Mass == 20000:
+                return Scale*0.1165
+
+                
+    def Get_PekingEff(Year, Mass):
+       
+        Scale =1
+        if Year == 2017:
+            Scale =1.15
+        if Year == 2018:
+            Scale =1.1
+ 
+
+        if Mass ==  500:
+            return Scale*0.28
+        if Mass ==  600:
+            return Scale*0.31
+        if Mass ==  750:
+            return Scale*0.326
+        if Mass == 900:
+            return Scale*0.335
+        if Mass == 1000:
+            return Scale*0.34
+        if Mass == 1250:
+            return Scale*0.345
+        if Mass ==  1500:
+            return Scale*0.35
+
+        if Mass == 1750:
+            return Scale*0.352
+
+        if Mass == 2000:
+            return Scale*0.353
+                
+        if Mass == 2500:
+            return Scale*0.355
+        if Mass ==  5000:
+            return Scale*0.361 
+
+        else  return Scale*0.361
+
+
+        
     def GetSignalSignificance(self,_Channel,_Mass, scX,FinalScale):
         if self.IsEXO17028:
             return self.GetSignificanceEXO_17_028(_Channel,_Mass, scX,FinalScale)
         if self.IsPeking:
-            return self.GetSignificancePeking(_Channel,_Mass, scX,FinalScale*FinalScale)
+            return self.GetSignificancePeking(_Mass, scX,FinalScale*FinalScale)
 
-    def GetSignificancePeking(self,mass, method,scX):
+    def GetSignificancePeking(self,_Mass,scX,Year):
+        
+        _DMass = float(_Mass)
 
-        return 1.
+        print("Running GetSignificnace PEKING for mass " + _Mass)
+        
+
+        SignifianceAz = 0.
+        SignifianceSB = 0.
+        SignifianceP = 0.
+
+        print ("GetSignificnacePEKING: Mass [" + _Mass+"]")
+
+        
+        nBkg    = float(self.PekingBkg(Year))
+        nBkgErr = nBkg * 0.3
+        nSig    = float(self.Get_PekingEff(Year,Mass) * self.Get_PekingXsec(Year,Mass))
+        
+
+        if self.DoDebug:
+            print("SSWW GetEXO_21_003_Eff = " + str(float(self.Get_PekingEff(Year,Mass))))
+            print("SSWW GetXSecUnityCoupling = "+str(self.Get_PekingXsec(Year,Mass)))
+            
+
+            if nBkg> 0 :
+                SignifianceAz = SignifianceAz   +  self.CalculdateSignificance("Azimoth",float(nSig),nBkg, scX)
+                SignifianceSB = SignifianceSB   +  self.CalculdateSignificance("SB",float(nSig),nBkg,scX)
+                SignifianceP  = SignifianceP    +  self.CalculdateSignificance("Punzi",float(nSig),nBkg,scX)
+
+            print("_"*60)
+            print  (SignalRegion + " NSig = " + str(nSig ) + " NBkg="  + str(nBkg) + " +/- " + str(nBkgErr))
+
+            print ("Muon " + str(_Mass) + " Azimoth   = " + str(round(SignifianceAz,3)))
+            print ("Muon " + str(_Mass) + " s/sqrt(B) = " + str(round(SignifianceSB,3)))
+            print ("Muon " + str(_Mass) + " Punzi     = " + str(round(SignifianceP,3)))
+
+        return [["Azimoth",SignifianceAz], ["SB",SignifianceSB],["Punzi",SignifianceP]]
+
 
 
     def GetSignalYields(self,_Channel,_Mass,FinalScale):
