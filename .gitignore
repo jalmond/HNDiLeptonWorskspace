@@ -1,4 +1,6 @@
 .DS_Store
+
+src/HNL_SignalLeptonOpt/ScanID/*/results/
 PyScripts/OptimisationHelper/LeptonID_Opt_Helper/results
 src/HNL_SignalLeptonOpt/ScanID/results
 */*.pyc
