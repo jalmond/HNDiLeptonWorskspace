@@ -260,7 +260,7 @@ class HNLArxiv():
 
                 
         if self.IsEXO17028:
-            print("Gte limits from /gv0/archive/Users/jskim/EXO-17-028/HN_dilepton_plotter/rootfiles/v8-0-7.38/Limit")
+            print("Get limits from /gv0/archive/Users/jskim/EXO-17-028/HN_dilepton_plotter/rootfiles/v8-0-7.38/Limit")
 
                 
     ################ Signal Efficiency #####################################                                                                                                                                                   
@@ -745,7 +745,7 @@ class HNLArxiv():
         return Signi /scaleSig
 
 
-    def PekingBkg(Year):
+    def Extract_Bkg_PekingEXO_21_003(Year):
 
         if Year == 2016:
             return 1.52
@@ -757,8 +757,16 @@ class HNLArxiv():
             return 1.94
             
 
-    def Get_PekingXsec(Year, Mass):
+    def Extract_Xsec_PekingEXO_21_003(Year, Mass):
         
+        ##### scale of 0.9 is hack to get matching sig yield in hepdata 
+        ##### https://www.hepdata.net/record/ins2098224
+        ####
+        ####  e.g Additional Table 3 2016 mN=750 SR eff = 0.326; 
+        ####  xsec in AN for 2016 mN=750 is 15.05 fb-1, lumi is 35.9 fb 
+        ####  Nevents is 15.05*35.9*0.326 = 176.1 events
+        ####  Additional table 1 has SR bin values 141.06 + 13.615+ ~1 = 156 events  156/176 = 0.89
+ 
         Scale=0.9
         if Year == 2016:
             if Mass == 500:
@@ -824,8 +832,10 @@ class HNLArxiv():
                 return Scale*0.1165
 
                 
-    def Get_PekingEff(Year, Mass):
+    def Extract_SigEff_PekingEXO_21_003(Year, Mass):
        
+
+        ######## This is taken as rough by matching Efficiency in AN with values for 3 mass points in hepdata
         Scale =1
         if Year == 2017:
             Scale =1.15
