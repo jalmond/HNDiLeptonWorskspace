@@ -62,8 +62,10 @@ public:
   //==== functions for drawing
   void DrawStackPlots();
   void DrawStackPlotsWithData();
+  void DrawStackCutFlowWithData();
   void DrawComparisonPlots();
   void draw_hist();
+  void draw_cutflow();
   void draw_comphist();
   void make_cutflow(TString Hist_For_CutFlow="NEvents");
   TString find_MCsector();
@@ -76,10 +78,11 @@ public:
 
 
   void AddHist(TString hn, TString htype, TString hunit,  vector<double> rb, double Xmin, double Xmax, double Ymax=1000000.);
+  void AddCutFlow(TString hn);
   void SetupDefaultHist(TString sample, TString hn, TString histtag, TString legendname, TString htype, TString hunit,  vector<double> rb, double Xmin, double Xmax, double Ymax=1000000.);
   void SetupComparisonHist(TString sample, TString hist, TString histtag,TString legendname );
   TH1D* MakeHist(TString filepath, TString fullhistname);
-  TH1D* ConstructHist(TString filepath, TString fullhistname);
+  TH1D* ConstructHist(TString filepath, TString fullhistname, bool DEBUGout=false);
   TH2D* Construct2DHist(TString filepath, TString fullhistname);
 
   TString Scan2DHists(TH2D* h1, TH2D* h2);
@@ -96,8 +99,8 @@ public:
   TH1D* MakeOverflowBin(TH1D* hist);
   TString DoubleToString(double dx);
 
-  void SetupPlotter();
-  void SetupPlotter(TString era, TString skim, TString Analyzer);
+  void SetupPlotter(TString FlagDir="");
+  void SetupPlotter(TString era, TString skim, TString Analyzer,TString FlagDir="");
 
   void mkdir(TString path);
   void make_plot_directory();
@@ -117,6 +120,8 @@ public:
   inline void SetAnalyser(TString anname) { AnalyserName=anname; }
   inline void SetMacroName(TString macname) { MacroName=macname; }
   inline void SetEra(TString eraname) { Era=eraname; }
+
+  Double_t fitf(Double_t *x,Double_t *par) ;
 
   inline Color_t GetColor(int nth_samples){
     vector <Color_t > _colors;
@@ -139,10 +144,32 @@ public:
   }
 
 
+  inline vector<TString> Eras(){
+    return {"2016a","2016b","2017","2018"};
+  }
+
   void draw_hist_canvas(TH1D* hdef , TString HistName);
   void draw_hists_canvas(vector<TH1D*> hists , vector<TString> legNames,  TString HistName , TString dirname);
+  void draw_hists_canvas_pt(vector<TH1D*> hists , vector<TString> legNames,  TString HistName , TString dirname);
   double draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> IDs, vector<TString> legNames,  TString HistName, TString dirname);
   
+  void  SaveHist(TH1D* hist, TString legname, TString HistName, TString dirName);
+  void  SaveHists(vector<TH1D*> hists, vector<TString> legNames, TString HistName, TString dirName, vector<TString> scales, bool drawError=false);
+  TString  SaveProfile(double cut,vector<TProfile*>hists, vector<TString> legname, TString HistName, TString dirName, vector<TString> scales);
+  void  SaveHistsWithRatio(vector<TH1D*> hists, vector<TString> legNames, TString HistName, TString dirName, vector<TString> scales);
+  void  Draw_MVA_WP(vector<TH2D*>hists, vector<TString> histsname,  double WP,TString HistName, TString dirName);
+
+  void  Draw_Graph(vector<TGraph*> gr , vector<TString> legNames,  TString HistName,TString dirName,vector<TString> tlat);
+
+
+  double GetCutFromEff(TH2D* h, int xbin, double WP);
+  void  DrawEfficiency( vector<TH1D*> hists, vector<TString> legNames, TString HistName, TString dirName);
+
+  void   ScaleSample(TString samplename, double scale_value);
+  double GetScale(TString samplename);
+
+
+
   void MakeAUCHist(map<TString,double> AUCMap,TString HistName, TString dirname, TString label);
 
   inline void SvsB_Promptpath(TString s) { svsb_prompt_path=s; }
@@ -157,8 +184,9 @@ public:
   bool SetLabels;
   bool comp_default_set;
   unsigned int i_cut, i_var, i_file;
-  TString infilepath, filename_prefix, filename_suffix, data_class, plotpath, thiscut_plotpath, def_infilepath, def_histpath;
-  vector<TString> HistPath, bkglist, samples_to_use, HistNames, x_title, units, PrimaryDataset, FullHistNames,SamplePaths, LegendNames;
+  TString infilepath, filename_prefix, filename_suffix, data_class, plotpath, thiscut_plotpath, def_infilepath, def_histpath,syncpath;
+  vector<TString> HistPath, bkglist, samples_to_use, HistNames, x_title, units, PrimaryDataset, FullHistNames,SamplePaths, LegendNames,CutFlowHistNames;
+  vector<double> bkgScale;
   vector<int> Xmins,Xmaxs,Ymaxs;
   vector<vector<double> > Rebins;
   vector<bool> drawdata, ApplyMCNormSF, drawratio;
@@ -182,6 +210,7 @@ public:
   //map<TString, double> MCNormSF, MCNormSF_uncert, CalculatedSysts;
   vector< pair<TString, TString> > CutVarSkips;
   map< TString, vector<TString> > map_sample_string_to_list;
+  map< TString, double > map_sample_string_to_scale;
   map< TString, pair<TString, Color_t> > map_sample_string_to_legendinfo;
   vector<int> signal_survive_mass;
   vector<int> MCsector_first_index;
@@ -211,6 +240,10 @@ public:
   bool ZeroDataCheckCut(double xlow, double xhigh);
   vector<double> GetRebinZeroBackground(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_allerror, TH1D *hist_data, vector<TH1D *> &hist_signal);
 
+  double RatioRange;
+  bool RunScan;
+  bool DrawRatioLegend;
+  bool DrawSmallLegend;
   TString SkimName;
   TString MacroName;
   TString AnalyserName;
@@ -224,5 +257,30 @@ public:
   bool MergeZeroBins;
   bool VarBins;
   bool CopyToWebsite;
+
+  double XaxisMin;
+  double XaxisMax;
+
+  double LatexTextLabel_Size;
+  double LatexTextLabel_X;
+  double LatexTextLabel_Y;
+  
+  double LatexTextCMS_Size;
+  double LatexTextCMS_X;
+  double LatexTextCMS_Y;
+  TString LatexTextCMS;
+  TString LatexTextCMSSimulation;
+  double Legend_X1,Legend_X2,Legend_Y1, Legend_Y2,Legend_Size;
+  
+  double Canvas_X;
+  double Canvas_Y;
+
+  double Hist_YAxis_MaxScale;
+  bool SetLogY;
+
+  int RebinX;
+  double Normalise;
+  TString XAxisTitle;
+  TString YAxisTitle;
 };
 #endif

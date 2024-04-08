@@ -624,6 +624,16 @@ void SetXaxisRange(TH1D* hist){
   hist->GetXaxis()->SetRangeUser(this_x_min, this_x_max);
 }
 
+
+double GetMinimumBinValue(TH1D* hist){
+
+  double minValue = 100000000;
+  for(unsigned int i=1; i<=hist->GetNbinsX()+1; i++){
+    if(hist->GetBinContent(i) < minValue) minValue = hist->GetBinContent(i);
+  }
+  return minValue;
+}
+
 TH1D* MakeOverflowBin(TH1D* hist, TString ref=""){
 
  
@@ -1718,6 +1728,28 @@ void PrintHists(TFile* file){
   
   return;
 }
+
+
+bool CheckHist(TH1* h ){
+  bool hist_exist = true;
+  if(!h){
+    cout << "No histogram with name " << h->GetName() << endl;
+    hist_exist= false;
+  }
+  return hist_exist;
+}
+
+
+bool CheckHist(TH2* h ){
+  bool hist_exist = true;
+  if(!h){
+    cout << "No histogram with name " << h->GetName() << endl;
+    hist_exist= false;
+  }
+  return hist_exist;
+}
+
+
 bool CheckHist(TFile* file, TString name ){
   
   TString name_fix = name;

@@ -21,12 +21,16 @@
 #include "std_functions.h"
 #include "list_functions.h"
 
-void SaveAndCopyLXPLUS(TCanvas* c, TString outpath, TString histname, TString analyser, TString tag, TString era){
+void SaveAndCopyLXPLUSScan(TCanvas* c, TString outpath, TString newoutpath, TString histname, TString analyser, TString tag, TString era){
 
   TString save_pdf= outpath+".pdf";
   TString save_png= outpath+".png";
   
-  TString lxpath = "/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/"+analyser+"/";
+  TString outpdf= newoutpath+".pdf";
+  TString outpng= newoutpath+".png";
+  cout << "outpdf = " << outpdf << endl;
+  
+  TString lxpath = "/eos/home-j/jalmond/www/"+analyser+"/";
   system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
   lxpath+= tag+"/";  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
   lxpath+= era+"/";  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
@@ -36,9 +40,36 @@ void SaveAndCopyLXPLUS(TCanvas* c, TString outpath, TString histname, TString an
   TString HTMLLink = "HNL/"+analyser+"/";
 
 
-  cout << "ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php "+lxpath+"'" << endl;
+  cout << "ssh jalmond@lxplus.cern.ch 'cp  /eos/home-j/jalmond/www/index.php "+lxpath+"'" << endl;
+
+  system("ssh jalmond@lxplus.cern.ch 'cp  /eos/home-j/jalmond/www/index.php "+lxpath+"'");
+
+  cout << "scp " +save_pdf+" jalmond@lxplus.cern.ch:"+lxpath+"/" << endl;
+  system("scp " +save_pdf+" jalmond@lxplus.cern.ch:"+lxpath+"/"+outpdf);
+  system("scp " +save_png + " jalmond@lxplus.cern.ch:"+lxpath+"/"+outpng);
+  cout << "https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/"+HTMLLink+"/" << endl;
+
+}
+
+
+void SaveAndCopyLXPLUS(TCanvas* c, TString outpath, TString histname, TString analyser, TString tag, TString era){
+
+  TString save_pdf= outpath+".pdf";
+  TString save_png= outpath+".png";
   
-  system("ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php "+lxpath+"'");
+  TString lxpath = "/eos/home-j/jalmond/www/WebPlots/"+analyser+"/";
+  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
+  lxpath+= tag+"/";  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
+  lxpath+= era+"/";  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
+  TString tag2=histname.ReplaceAll("/","_");
+  lxpath+= tag2+"/"; system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
+
+  TString HTMLLink = "HNL/"+analyser+"/";
+
+
+  cout << "ssh jalmond@lxplus.cern.ch 'cp  /eos/home-j/jalmond/www/index.php "+lxpath+"'" << endl;
+  
+  system("ssh jalmond@lxplus.cern.ch 'cp  /eos/home-j/jalmond/www/index.php "+lxpath+"'");
   
   cout << "scp " +save_pdf+" jalmond@lxplus.cern.ch:"+lxpath+"/" << endl;
   system("scp " +save_pdf+" jalmond@lxplus.cern.ch:"+lxpath+"/");                    
@@ -51,9 +82,9 @@ void CopyLXPLUSCutFlow(TString outpath, TString histname, TString analyser, TStr
 
   TString save_pdf= outpath;
 
-  tag=tag+histname.ReplaceAll("/","_");
+  //tag=tag+histname.ReplaceAll("/","_");
 
-  TString lxpath = "/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/"+analyser+"/";
+  TString lxpath = "/eos/home-j/jalmond/www/"+analyser+"/";
   system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
   lxpath+= tag+"/";  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
   lxpath+= era+"/";  system("ssh jalmond@lxplus.cern.ch 'mkdir -p "+lxpath+"'");
@@ -398,6 +429,21 @@ double Stod(string word){
   double lol = atof(word.c_str());
   return lol;
 }
+
+TString DToS(double d){
+
+  std::string str = std::to_string (d);
+  str.erase ( str.find_last_not_of('0') + 1, std::string::npos );
+  str.erase ( str.find_last_not_of('.') + 1, std::string::npos );
+
+  TString ts_str = TString(str);
+  ts_str = ts_str.ReplaceAll(".","p");
+  ts_str = ts_str.ReplaceAll("-","neg");
+
+  return ts_str;
+
+}
+
 
 vector<double> GetMassType1Doubles(vector<TString> ignore_masses, TString channel){
 
