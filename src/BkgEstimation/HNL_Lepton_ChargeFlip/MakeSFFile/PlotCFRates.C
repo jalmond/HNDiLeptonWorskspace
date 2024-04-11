@@ -24,10 +24,8 @@ void PlotCFRates(){
       //Plotter.SetLogY=true;
       //      Plotter.Hist_YAxis_MaxScale=100;
 
-      TString path="HNL_CF_Electron_"+era+"_Rates.root";
+      TString path= TString(std::getenv("FILE_MERGED_PATH")) + "/HNL_Lepton_ChargeFlip/"+Era+"/Rates/HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_Rates.root";
     
-      TH1D *hist_CF1             = Plotter.ConstructHist(path,"CFRate_Pt_"+EtaBin+"_POGTight");
-      TH1D *hist_CF2             = Plotter.ConstructHist(path,"CFRate_Pt_"+EtaBin+"_TopHN");
       TH1D *hist_CF3             = Plotter.ConstructHist(path,"CFRate_Pt_"+EtaBin+"_HNL_ULID_"+year);
       hist_CF1->GetYaxis()->SetTitle("Rate");
       hist_CF1->GetXaxis()->SetTitle("p_{T} GeV");

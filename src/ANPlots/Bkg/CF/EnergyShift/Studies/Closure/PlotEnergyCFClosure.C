@@ -7,41 +7,60 @@
 void SaveHistogram(HNLPlotter Plotter, vector<TH1D*>hists, vector<TString> legname, TString HistName, TString dirName, vector<TString> scales, bool drawError);
 void EnergyCFShiftProccessor(HNLPlotter Plotter,TString ID, TString Era, TString HistTag, TString LabelForOutPut);
 
-void PlotEnergyCFShiftApplication(){
+void PlotEnergyCFClosure(){
 
   HNLPlotter Plotter("EnergyShift");
   Plotter.DoDebug=false;
   Plotter.CopyToWebsite = false;
   Plotter.XaxisMin = -0.2;  Plotter.XaxisMax = 0.1;
-
-
-  for(auto era : Plotter.Eras()) {
-    TString year = (era.Contains("16")) ? "2016" : era;
-
-    TString ID = "HNL_ULID_"+year;
-    TString Era era;
-    TString HistString = etabin;
-    TString LabelForOutPut =  "HNL_ChargeFlip_Application_EnergyShift";
   
-    Plotter.SetupPlotter(Era,"","HNL_Lepton_ChargeFlip");
+  
+  for(auto era : Plotter.Eras("2017")) {
+    TString year = (era.Contains("16")) ? "2016" : era;
+    
+    for(auto etabin :  {"EC"}){
+      EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin, "HNL_ChargeFlip_EnergyShift_Closure");
+      vector <TString> HistStrings = {"_Pt_EC_Bin1","_Pt_EC_Bin2","_Pt_EC_Bin3","_Pt_EC_Bin4","_Pt_EC_Bin5","_Pt_EC_Bin6"};
+      for(auto HistString : HistStrings )     EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_EnergyShift_Closure");
+    }
+    for(auto etabin :  {"BB"}){
+      EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin, "HNL_ChargeFlip_EnergyShift_Closure");
+      vector <TString> HistStrings = {"_Pt_BB_Bin1","_Pt_BB_Bin2","_Pt_BB_Bin3","_Pt_BB_Bin4"};
+      for(auto HistString : HistStrings )     EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_EnergyShift_Closure");
+    }
 
-    TString path="/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_Lepton_ChargeFlip/"+Era+"/Shift/HNL_Lepton_ChargeFlip_SkimTreeBDT_Shift.root";
-    
-    Plotter.RebinX    = 1;
-    Plotter.Normalise = 1;
-    
+  }
+}
+
+void EnergyCFShiftProccessor(HNLPlotter Plotter,TString ID, TString Era, TString HistString, TString LabelForOutPut){
+  
+  Plotter.SetupPlotter(Era,"","HNL_Lepton_ChargeFlip");
+  
+  TString path= TString(std::getenv("FILE_MERGED_PATH")) + "/HNL_Lepton_ChargeFlip/"+Era+"/Shift/HNL_Lepton_ChargeFlip_SkimTreeBDT_Shift.root";
+
+  vector<TString> ShiftVals = {"GetShiftCFEl"};
+  
+  Plotter.RebinX    = 1;
+  Plotter.Normalise = 1;
+   				   
+  double minChi2 = 9999;
+  TString string_minShiftVal = "";
+  for(auto ShiftVal : ShiftVals){
+    cout << "Set up shift  " << ShiftVal << endl;
     TH1D *hist_CF             = Plotter.ConstructHist(path,ID+"/EnergyShift/"+HistString+"_CF");
-
-    TH1D *hist_PromptScaled_Pt1   = Plotter.ConstructHist(path,ID+"/EnergyShift/"+HistString+"_PromptShifted_"+ShiftVal);
+    TH1D *hist_PromptScaled   = Plotter.ConstructHist(path,ID+"/EnergyShift/"+HistString+"_PromptShifted_"+ShiftVal);
+    TH1D *hist_Prompt         = Plotter.ConstructHist(path,ID+"/EnergyShift/"+HistString+"_PromptShifted_1");
     
     //hist_CF->Rebin(5);
     //hist_PromptScaled->Rebin(5);
 
     hist_CF->Scale(1./hist_CF->Integral());
     hist_PromptScaled->Scale(1./hist_PromptScaled->Integral());
+    hist_Prompt->Scale(1./hist_Prompt->Integral());
 
     hist_CF->GetXaxis()->SetRangeUser(-0.2,0.1);
     hist_PromptScaled->GetXaxis()->SetRangeUser(-0.2,0.1);
+    hist_Prompt->GetXaxis()->SetRangeUser(-0.2,0.1);
     
     //hist_CF->Chi2Test(hist_PromptScaled,"p WW");
     
@@ -58,7 +77,7 @@ void PlotEnergyCFShiftApplication(){
     cout << "Chi2Label = " << Chi2Label << endl;
 
     TString MeanLabel = "Mean CF = " + TString(to_string(hist_CF->GetMean())) + " Mean Prompt*X =  " + TString(to_string(hist_PromptScaled->GetMean()));
-    SaveHistogram( Plotter,{hist_CF,hist_PromptScaled}, {"El_{CF} "+HistString, "El_{Prompt} "+HistString}, ID+"_CF_EnergyShift_"+ShiftVal+"_"+HistString, LabelForOutPut, {Chi2Label}, "");
+    SaveHistogram( Plotter,{hist_CF,hist_PromptScaled,hist_Prompt}, {"El_{CF} " , "El_{Prompt}*Shift ", "El_{Prompt}"}, ID+"_CF_EnergyShift_"+ShiftVal+"_"+HistString, LabelForOutPut, {Chi2Label}, "");
   }
   cout << "string_minShiftVal = " << string_minShiftVal << " minChi2 = " << minChi2 << endl;
 

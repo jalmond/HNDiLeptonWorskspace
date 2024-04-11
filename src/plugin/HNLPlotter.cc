@@ -525,6 +525,72 @@ TH1D* HNLPlotter::ConstructHist(TString filepath, TString fullhistname, bool DEB
   
 }
 
+
+
+
+
+TH1D* HNLPlotter::ConstructHist(TString filepath, TString fullhistname, vector<double> vrebinTMP,  bool DEBUGout){
+
+  TH1D* hist_temp;
+
+  //==== get root file                                                                                                                                                                                                                                                                                                        
+  DoDebug=false;
+  if(DoDebug) cout << "ConstructHist " << endl;
+
+  if(gSystem->AccessPathName(filepath)){
+    if(DoDebug)     cout << "No file : " << filepath << endl;
+    return hist_temp;
+  }
+
+  TFile* file = new TFile(filepath);
+  if( !file ){
+    if(DoDebug)    cout << "No file : " << filepath << endl;
+    return hist_temp;
+  }
+
+  //==== get histogram                                                                                                                                                                                                                                                                                                        
+  hist_temp = (TH1D*)file->Get(fullhistname);
+  if(!hist_temp || hist_temp->GetEntries() == 0){
+    if(DoDebug){
+      cout << "No histogram : " << fullhistname << endl;
+    }
+    file->Close();
+    delete file;
+    return hist_temp;
+  }
+
+  //==== set histogram name, including sample name                                                                                                                                                                                                                                                                            
+  hist_temp->SetName(fullhistname);
+
+  if(XaxisMin != -999) hist_temp->GetXaxis()->SetRangeUser(XaxisMin, XaxisMax);
+
+  if(vrebinTMP.size()==1) hist_temp->Rebin(vrebinTMP[0]);
+  else{
+    double TMParray[vrebinTMP.size()];
+    std::copy(vrebinTMP.begin(), vrebinTMP.end(), TMParray);
+    hist_temp = (TH1D *)hist_temp->Rebin(vrebinTMP.size()-1, "hnew1", TMParray);
+
+  }
+  if(Normalise > 0) hist_temp->Scale(Normalise / hist_temp->Integral());
+  //==== make overflows bins                                                                                                                                                                                                                                                                                                  
+  TH1D *hist_final = MakeOverflowBin(hist_temp);
+
+  //==== Remove Negative bins                                                                                                                                                                                                                                                                                                 
+  TAxis *xaxis = hist_final->GetXaxis();
+  for(int ccc=1; ccc<=xaxis->GetNbins(); ccc++){
+    if(DoDebug&&DEBUGout) cout << fullhistname << "\t["<<xaxis->GetBinLowEdge(ccc) <<", "<<xaxis->GetBinUpEdge(ccc) << "] : " << hist_final->GetBinContent(ccc) << endl;
+    if(hist_final->GetBinContent(ccc)<0){
+      hist_final->SetBinContent(ccc, 0.);
+      hist_final->SetBinError(ccc, 0.);
+    }
+  }
+
+
+  file->Close();
+  return hist_final;
+
+}
+
 TH2D* HNLPlotter::Construct2DHist(TString filepath, TString fullhistname){
 
   TH2D* hist_temp;
@@ -2362,6 +2428,7 @@ void HNLPlotter::SetXaxisRangeBoth(THStack* mc_stack, TH1D* hist){
 
 TH1D* HNLPlotter::MakeOverflowBin(TH1D* hist){
 
+
   //==== 0    1                                    n_bin_origin
   //====      |---------------------------------------|
   //====             bin_first      bin_last
@@ -2388,6 +2455,7 @@ TH1D* HNLPlotter::MakeOverflowBin(TH1D* hist){
   double x_first_lowedge = hist->GetXaxis()->GetBinLowEdge(bin_first);
   double x_last_upedge = hist->GetXaxis()->GetBinUpEdge(bin_last);
 
+  
   double Allunderflows = hist->Integral(0, bin_first-1);
   double Allunderflows_error = hist->GetBinError(0);
   Allunderflows_error = Allunderflows_error*Allunderflows_error;

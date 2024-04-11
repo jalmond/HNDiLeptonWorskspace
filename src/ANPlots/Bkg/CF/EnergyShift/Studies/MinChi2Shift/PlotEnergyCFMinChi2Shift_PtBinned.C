@@ -19,17 +19,19 @@ void PlotEnergyCFMinChi2Shift_PtBinned(){
   for(auto era : Plotter.Eras()) {
     TString year = (era.Contains("16")) ? "2016" : era;
     for(auto etabin :  {"EC"}){
-      vector <TString> HistStrings = {"_PtBin1" ,"_PtBin2", "_PtBin3"};
+      vector <TString> HistStrings = {"_Pt3Bin1" ,"_Pt3Bin2", "_Pt3Bin3", "_Pt3Bin4"};
       for(auto HistString : HistStrings ) {
 	//TString MinChi2String = EnergyCFShiftChi2(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_PtBinned_EnergyShift");
-	//Results.push_back( "MinChi2String = " + MinChi2String + " EtaBin = " + etabin +" era = "+era + " " + HistString);
+	TString MinChi2String = EnergyCFShiftChi2(Plotter, "HNTightV2", era,etabin+HistString, "HNL_ChargeFlip_PtBinned_EnergyShift");
+	Results.push_back( "MinChi2String = " + MinChi2String + " EtaBin = " + etabin +" era = "+era + " " + HistString);
       }
     }
     for(auto etabin :  {"BB"}){
       vector <TString> HistStrings = {"_PtBin1" ,"_PtBin2"};
       for(auto HistString : HistStrings ) {
-        TString MinChi2String = EnergyCFShiftChi2(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_PtBinned_EnergyShift");
-        Results.push_back( "MinChi2String = " + MinChi2String + " EtaBin = " + etabin +" era = "+era + " " + HistString);
+        //TString MinChi2String = EnergyCFShiftChi2(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_PtBinned_EnergyShift");
+        //TString MinChi2String = EnergyCFShiftChi2(Plotter, "HNTightV2", era,etabin+HistString, "HNL_ChargeFlip_PtBinned_EnergyShift");
+        //Results.push_back( "MinChi2String = " + MinChi2String + " EtaBin = " + etabin +" era = "+era + " " + HistString);
       }
     }
 
@@ -42,10 +44,11 @@ TString EnergyCFShiftChi2(HNLPlotter Plotter,TString ID, TString Era, TString Hi
 
   Plotter.SetupPlotter(Era,"","HNL_Lepton_ChargeFlip");
 
-  TString path="/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_Lepton_ChargeFlip/"+Era+"/Shift/HNL_Lepton_ChargeFlip_SkimTreeBDT_Shift.root";
+  TString path= TString(std::getenv("FILE_MERGED_PATH")) + "/HNL_Lepton_ChargeFlip/"+Era+"/Shift/HNL_Lepton_ChargeFlip_SkimTreeBDT_Shift.root";
+
   cout << "Era = " << Era  << " HistString = " << HistString << " path = " << path <<  endl;
   vector<TString> ShiftVals = {};
-  for (unsigned int ishift = 0 ; ishift < 125; ishift++){
+  for (unsigned int ishift = 0 ; ishift < 175; ishift++){
     double shiftEl = 1.05 - double(ishift)*0.001;
     TString shift_string = DToS(shiftEl);
     ShiftVals.push_back(shift_string);
@@ -77,7 +80,9 @@ TString EnergyCFShiftChi2(HNLPlotter Plotter,TString ID, TString Era, TString Hi
     hist_PromptScaled->GetXaxis()->SetRangeUser(-0.2,0.1);
     
     double chi2 = hist_CF->Chi2Test(hist_PromptScaled,"CHI2 NORM");
-    
+ 
+
+   
     TString Chi2Label = "Chi2 = " + TString(to_string(chi2));
     Arraychi2.push_back(chi2);
     if(chi2 > MaxChi2) MaxChi2=chi2;
