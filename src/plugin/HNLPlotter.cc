@@ -190,7 +190,9 @@ void HNLPlotter::SetupPlotter(TString FlagDir=""){
   TString ENV_PLOT_PATH = getenv("PLOT_PATH"); 
   TString FLATVERSION = getenv("FLATVERSION"); 
   TString input_path = ENV_MERGEDFILE_PATH +"/"+AnalyserName+"/"; 
+
   TString output = ENV_PLOT_PATH + "/"+AnalyserName+"/"; 
+  cout << "SetupPlotter [output] = " << output << endl;
   MakeDir(ENV_PLOT_PATH + FLATVERSION); 
   MakeDir(output);  output+="/"+MacroName+"/"; 
   MakeDir(output);  output+=Era+"/";                                                                                                          

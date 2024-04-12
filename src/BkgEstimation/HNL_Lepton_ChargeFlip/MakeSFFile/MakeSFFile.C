@@ -19,10 +19,8 @@ void MakeSFFile(){
 void MakeSFFileConfig(TString era, TString HistDir){
 
   TString path= TString(std::getenv("FILE_MERGED_PATH")) + "/HNL_Lepton_ChargeFlip/"+era+"/Rates/HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_Rates.root";
-  TString pathNoShift= TString(std::getenv("FILE_MERGED_PATH")) + "/HNL_Lepton_ChargeFlip/"+era+"/RateNoShift/HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_Rates.root";
 
   TFile * fmc   = new TFile(path);
-  TFile * fmc2   = new TFile(pathNoShift);
 
   /// Set Plotting style
   setTDRStyle();
@@ -39,40 +37,27 @@ void MakeSFFileConfig(TString era, TString HistDir){
 
   std::vector<TString> IDs={"HNL_ULID_"+year};
 			    
-  vector<TString> HistBins  = {"CFrate_2DInvPt","CFrate_2DInvPtv2","CFrate_2DPt","CFrate_2DPtv2"};
+  vector<TString> HistBins  = {"CFRate_InvPtEta", "CFRate_InvPtEta2", "CFRate_InvPtEta3","CFRate_PtEta","CFRate_PtEta2","CFRate_PtEta3"};
+  vector<TString> MethodBins  = {"CS","NoS","PBS"};
 
   for(unsigned int i=0; i < IDs.size(); i++){
     for(auto HistBin : HistBins){
+      for( auto Method : MethodBins){
+
+	TString denom = IDs[i] +"/"+HistBin+"/"+Method+"/Denom";
+	TString num   = IDs[i] +"/"+HistBin+"/"+Method+"/Num";
       
-      TString denom = IDs[i] +"/"+HistBin+"/Denom";
-      TString num   = IDs[i] +"/"+HistBin+"/Num";
-      
-      TH2D* h_mc_num   = (TH2D*)fmc->Get(num.Data());
-      TH2D* h_mc_denom = (TH2D*)fmc->Get(denom.Data());
-            
-      TString name = IDs[i] ;
-      
-      TH2D* mc_eff_rate = (TH2D*)h_mc_num->Clone((HistBin+"_"+name).Data());
-      mc_eff_rate->Divide(mc_eff_rate,h_mc_denom,1.,1.,"cl=0.683 b(1,1) mode");
-      mc_eff_rate->Write();
-      
+	TH2D* h_mc_num   = (TH2D*)fmc->Get(num.Data());
+	TH2D* h_mc_denom = (TH2D*)fmc->Get(denom.Data());
+	
+	TString name = IDs[i] ;
+	
+	TH2D* mc_eff_rate = (TH2D*)h_mc_num->Clone((HistBin+"_"+Method+"_"+name).Data());
+	mc_eff_rate->Divide(mc_eff_rate,h_mc_denom,1.,1.,"cl=0.683 b(1,1) mode");
+	mc_eff_rate->Write();
+	
+      }
     }
-    for(auto HistBin : HistBins){
-
-      TString denom = IDs[i] +"/"+HistBin+"/Denom";
-      TString num   = IDs[i] +"/"+HistBin+"/Num";
-
-      TH2D* h_mc_num   = (TH2D*)fmc2->Get(num.Data());
-      TH2D* h_mc_denom = (TH2D*)fmc2->Get(denom.Data());
-
-      TString name = IDs[i] ;
-
-      TH2D* mc_eff_rate = (TH2D*)h_mc_num->Clone((HistBin+"_NoShift_"+name).Data());
-      mc_eff_rate->Divide(mc_eff_rate,h_mc_denom,1.,1.,"cl=0.683 b(1,1) mode");
-      mc_eff_rate->Write();
-
-    }
-
   }
 
 
