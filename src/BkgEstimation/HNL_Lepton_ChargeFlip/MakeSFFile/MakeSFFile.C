@@ -9,11 +9,11 @@ void MakeSFFileConfig(TString year, TString hist);
 
 void MakeSFFile(){
   
-  //MakeSFFileConfig("2016a","Rates");
-  //MakeSFFileConfig("2016b","Rates");
+  MakeSFFileConfig("2016a","Rates");
+  MakeSFFileConfig("2016b","Rates");
   MakeSFFileConfig("2017","Rates");
-  // MakeSFFileConfig("2018","Rates");
-
+  MakeSFFileConfig("2018","Rates");
+  
 }
 
 void MakeSFFileConfig(TString era, TString HistDir){
@@ -35,7 +35,7 @@ void MakeSFFileConfig(TString era, TString HistDir){
   if(era.Contains("16")) year = "2016";
   
 
-  std::vector<TString> IDs={"HNL_ULID_"+year};
+  std::vector<TString> IDs={"HNL_ULID_"+year, "HNL_ULID_LooseCF_"+year , "HNL_ULID_LooseNP_"+year ,"POGTight","HNTightV2"};
 			    
   vector<TString> HistBins  = {"CFRate_InvPtEta", "CFRate_InvPtEta2", "CFRate_InvPtEta3","CFRate_PtEta","CFRate_PtEta2","CFRate_PtEta3"};
   vector<TString> MethodBins  = {"CS","NoS","PBS"};

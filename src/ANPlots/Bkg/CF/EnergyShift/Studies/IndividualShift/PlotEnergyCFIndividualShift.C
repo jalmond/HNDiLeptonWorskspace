@@ -16,8 +16,7 @@ void PlotEnergyCFIndividualShift(){
   Plotter.DoDebug=false;
   Plotter.CopyToWebsite = false;
 
-
-  for(auto era : Plotter.Eras("2017")) {
+  for(auto era : Plotter.Eras()) {
     TString year = (era.Contains("16")) ? "2016" : era;
 
     for(auto etabin :  {"BB","EC"}){
@@ -26,8 +25,10 @@ void PlotEnergyCFIndividualShift(){
       vector<double> vrebin = {};
       for(int i =0; i < 31; i++) vrebin.push_back(-0.2+(double(i)*0.01));
 
-      EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin, "HNL_ChargeFlip_EnergyShift_FullXAxisRange"+TString(etabin),{1});
-      EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin, "HNL_ChargeFlip_EnergyShift_Rebinned_"+TString(etabin), vrebin);
+      //EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin, "HNL_ChargeFlip_EnergyShift_FullXAxisRange"+TString(etabin),{1});
+      EnergyCFShiftProccessor(Plotter, "HNTightV2", era,etabin, "HNL_ChargeFlip_EnergyShift_Rebinned_"+TString(etabin), vrebin);
+      EnergyCFShiftProccessor(Plotter, "POGTight", era,etabin, "HNL_ChargeFlip_EnergyShift_Rebinned_"+TString(etabin), vrebin);
+      //EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin, "HNL_ChargeFlip_EnergyShift_Rebinned_"+TString(etabin), vrebin);
      
     }
   }

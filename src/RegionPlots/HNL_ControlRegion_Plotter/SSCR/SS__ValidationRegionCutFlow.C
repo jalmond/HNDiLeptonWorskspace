@@ -25,8 +25,7 @@ void SS__ValidationRegionCutFlow(){
       Plotter.ScaleSample("ttbar_ll",0.95);
 
 
-      //      Plotter.HistPath= { "ChannelCutFlow/"+channel+"/HNTightV2/"+channel};
-
+      
       vector<TString> Dirs = {  "ChannelCutFlow/"+channel+"/HNTightV2/"+channel,      
                                 "ChannelCutFlow/"+channel+"/HNL_ULID_HNL_ULID_FO_BDTFlavour_PtParton_AJ40/"+channel,      
                                 "ChannelCutFlow/"+channel+"/HNL_ULID_HNL_ULID_FO_BDTFlavour_Pt_AJ40/"+channel,      

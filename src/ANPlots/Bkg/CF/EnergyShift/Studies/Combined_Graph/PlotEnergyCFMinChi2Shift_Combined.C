@@ -5,49 +5,60 @@
 #include "HNLPlotter.cc"                                                                       
 
 
-void Draw_Graph(HNLPlotter plotter, TString Era,vector<TGraph*> vgr , vector<TString> legNames,  TString HistName,TString dirName, vector<TString> tlat);
+void Draw_Graph(HNLPlotter plotter, TString Era,vector<double> gr_x, vector<double> gr_y, vector<TString> legNames,  TString HistName,TString dirName, vector<TString> tlat);
 
-TString EnergyCFShiftChi2(HNLPlotter Plotter,TString ID, TString Era, TString HistTag, TString LabelForOutPut);
+double EnergyCFShiftChi2(HNLPlotter Plotter,TString ID, TString Era, TString HistTag, TString LabelForOutPut);
 
-void PlotEnergyCFMinChi2ShiftVarRange_PtBinned(){
+void PlotEnergyCFMinChi2Shift_Combined(){
 
-  HNLPlotter Plotter("EnergyShiftMinChi2_Rangem01p01");
+  HNLPlotter Plotter("PlotEnergyCFMinChi2Shift_Combined");
   Plotter.DoDebug=false;
   Plotter.CopyToWebsite = false;
 
-  vector<TString> Results;
-  for(auto era : Plotter.Eras()) {
+
+  cout << "plotter.plotpath = " << Plotter.plotpath << endl;
+  for(auto era : Plotter.Eras("2017")) {
+    Plotter.SetupPlotter(era,"","HNL_Lepton_ChargeFlip");
     TString year = (era.Contains("16")) ? "2016" : era;
+
     for(auto etabin :  {"EC"}){
-      vector <TString> HistStrings = {"_Pt2Bin1" ,"_Pt2Bin2", "_Pt2Bin3", "_Pt2Bin4"};
+      vector<TString> Results;
+      vector<double> ResultsD;
+      vector <TString> HistStrings = {"_Pt_EC_Bin1","_Pt_EC_Bin2","_Pt_EC_Bin3","_Pt_EC_Bin4","_Pt_EC_Bin5","_Pt_EC_Bin6"};
       for(auto HistString : HistStrings ) {
-	TString MinChi2String = EnergyCFShiftChi2(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_PtBinned_EnergyShift");
-	Results.push_back( "MinChi2String = " + MinChi2String + " EtaBin = " + etabin +" era = "+era + " " + HistString);
+	double MinChi2_d = EnergyCFShiftChi2(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "EnergyShift_Combined");                                                                                    
+	ResultsD.push_back(MinChi2_d);
+	Results.push_back( "MinChi2String = " + TString(to_string(MinChi2_d)) + " EtaBin = " + etabin +" era = "+era + " " + HistString);
       }
+      Draw_Graph(Plotter,era,  {20, 50,62.5,87.5, 150,350}, ResultsD,  {"Energy Shift EC"}, "HNL_ULID_"+year+"_CF_EnergyShift_Chi2_MERGED_"+era, "Chi2_EnergyShift", {"EC "+era});                                                                     
     }
+    return;
     for(auto etabin :  {"BB"}){
-      vector <TString> HistStrings = {"_PtBin1" ,"_PtBin2"};
+
+      vector<TString> Results;
+      vector <TString> HistStrings = {"_Pt_BB_Bin1","_Pt_BB_Bin2","_Pt_BB_Bin3","_Pt_BB_Bin4"};
       for(auto HistString : HistStrings ) {
-        //TString MinChi2String = EnergyCFShiftChi2(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_PtBinned_EnergyShift");
-        //Results.push_back( "MinChi2String = " + MinChi2String + " EtaBin = " + etabin +" era = "+era + " " + HistString);
+	double MinChi2_d = EnergyCFShiftChi2(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "EnergyShift_Combined");
+        Results.push_back( "MinChi2String = " + TString(to_string(MinChi2_d)) + " EtaBin = " + etabin +" era = "+era + " " + HistString);
       }
     }
 
   }
-  for(auto i : Results ) cout << i << endl;
+  //  for(auto i : Results ) cout << i << endl;
 }
 
-TString EnergyCFShiftChi2(HNLPlotter Plotter,TString ID, TString Era, TString HistString, TString LabelForOutPut){
+double EnergyCFShiftChi2(HNLPlotter Plotter,TString ID, TString Era, TString HistString, TString LabelForOutPut){
   
-
-  Plotter.SetupPlotter(Era,"","HNL_Lepton_ChargeFlip");
 
   TString path= TString(std::getenv("FILE_MERGED_PATH")) + "/HNL_Lepton_ChargeFlip/"+Era+"/Shift/HNL_Lepton_ChargeFlip_SkimTreeBDT_Shift.root";
 
   cout << "Era = " << Era  << " HistString = " << HistString << " path = " << path <<  endl;
   vector<TString> ShiftVals = {};
-  for (unsigned int ishift = 0 ; ishift < 175; ishift++){
+  vector<double> ShiftValsD = {};
+
+  for (unsigned int ishift = 0 ; ishift < 100; ishift++){
     double shiftEl = 1.05 - double(ishift)*0.001;
+    ShiftValsD.push_back(shiftEl);
     TString shift_string = DToS(shiftEl);
     ShiftVals.push_back(shift_string);
   }
@@ -62,13 +73,13 @@ TString EnergyCFShiftChi2(HNLPlotter Plotter,TString ID, TString Era, TString Hi
   TH1D *hist_CF             = Plotter.ConstructHist(path,ID+"/EnergyShift/"+HistString+"_CF");
 
   hist_CF->Scale(1./hist_CF->Integral());
-  hist_CF->GetXaxis()->SetRangeUser(-0.1,0.1);
+  hist_CF->GetXaxis()->SetRangeUser(-0.2,0.1);
 
   vector <double> Arraychi2,ArraykolS;
   double MaxChi2=0;
 
 
-  for(auto ShiftVal : ShiftVals) cout << "ShiftVal = " << ShiftVal << endl;
+  //  for(auto ShiftVal : ShiftVals) cout << "ShiftVal = " << ShiftVal << endl;
   for(auto ShiftVal : ShiftVals){
     
     TH1D *hist_PromptScaled   = Plotter.ConstructHist(path,ID+"/EnergyShift/"+HistString+"_PromptShifted_"+ShiftVal);
@@ -78,13 +89,14 @@ TString EnergyCFShiftChi2(HNLPlotter Plotter,TString ID, TString Era, TString Hi
     hist_PromptScaled->GetXaxis()->SetRangeUser(-0.2,0.1);
     
     double chi2 = hist_CF->Chi2Test(hist_PromptScaled,"CHI2 NORM");
-    
+  
     TString Chi2Label = "Chi2 = " + TString(to_string(chi2));
     Arraychi2.push_back(chi2);
     if(chi2 > MaxChi2) MaxChi2=chi2;
   }
 
   double minChi2 = 999999;
+  double minChi2StD = -9999;
   TString minChi2St="";
   int ng = Arraychi2.size();
   double x_1[ng], y_1[ng];
@@ -93,6 +105,7 @@ TString EnergyCFShiftChi2(HNLPlotter Plotter,TString ID, TString Era, TString Hi
     if(Arraychi2[i]  < minChi2){
       minChi2 = Arraychi2[i];
       minChi2St = ShiftVals[i];
+      minChi2StD = ShiftValsD[i];
       if(minChi2St.Contains("1p")) minChi2St = "1";
     }
     double xi = 1.05 - double(i) * 0.001;
@@ -134,18 +147,28 @@ TString EnergyCFShiftChi2(HNLPlotter Plotter,TString ID, TString Era, TString Hi
   Plotter.LatexTextLabel_X=0.8;
   Plotter.LatexTextLabel_Y=0.9;
   
-  Draw_Graph(Plotter,Era,vgr, labels, ID + "_CF_EnergyShift_Chi2_MERGED_"+HistString, "Chi2_EnergyShift", {"HistString : " +HistString});
+  //  Draw_Graph(Plotter,Era,vgr, labels, ID + "_CF_EnergyShift_Chi2_MERGED_"+HistString, "Chi2_EnergyShift", {"HistString : " +HistString});
 
-
-
-  return minChi2St;
+  return minChi2StD;
 
 }
 
 
-void Draw_Graph(HNLPlotter plotter, TString Era, vector<TGraph*> vgr , vector<TString> legNames,  TString HistName,TString dirName, vector<TString> tlat){
+void Draw_Graph(HNLPlotter plotter, TString Era,vector<double> gr_x, vector<double> gr_y, vector<TString> legNames,  TString HistName,TString dirName, vector<TString> tlat){
 
-  plotter.thiscut_plotpath = plotter.plotpath+"/"+ dirName;
+  int ng = gr_x.size();
+  double x_1[ng], y_1[ng];
+
+  for(unsigned int i = 0 ; i < ng ; i++) {
+    x_1[i] = gr_x[i];
+    y_1[i] = gr_y[i];
+  }
+
+  TGraph *gr1 = new TGraph(ng, x_1,y_1);
+  
+  plotter.thiscut_plotpath = plotter.plotpath+"/"+ dirName;  plotter.mkdir(plotter.thiscut_plotpath);
+
+  cout << "plotter.thiscut_plotpath = " << plotter.thiscut_plotpath << endl;
   plotter.mkdir(plotter.thiscut_plotpath);
 
   TLegend *lg= new TLegend(plotter.Legend_X1,plotter.Legend_Y1,plotter.Legend_X2,plotter.Legend_Y2);
@@ -161,45 +184,33 @@ void Draw_Graph(HNLPlotter plotter, TString Era, vector<TGraph*> vgr , vector<TS
 
   canvas_margin(c1);
 
-  TGraph* gr1 = vgr[0];
   TH1D *hist_empty = (TH1D*)gr1->GetHistogram();
   hist_empty->SetName("DUMMY_FOR_AXIS");
-  hist_empty->SetLineWidth(0);
-  hist_empty->SetLineColor(0);
-  hist_empty->SetMarkerSize(0);
-  hist_empty->SetMarkerColor(0);
+  hist_empty->SetLineWidth(0.3);
+  hist_empty->SetLineColor(kRed);
+  hist_empty->SetMarkerSize(2);
+  hist_empty->SetMarkerColor(kRed);
   double dx = (hist_empty->GetXaxis()->GetXmax() - hist_empty->GetXaxis()->GetXmin())/hist_empty->GetXaxis()->GetNbins();
   double Ymax = hist_empty->GetMaximum();
 
-  hist_empty->GetYaxis()->SetTitle(plotter.YAxisTitle);
-  hist_empty->GetXaxis()->SetTitle(plotter.XAxisTitle);
-  hist_empty->GetYaxis()->SetRangeUser(plotter.default_y_min+0.01, Ymax*plotter.Hist_YAxis_MaxScale);
+  hist_empty->GetYaxis()->SetTitle("E_{Shift} GeV");
+  hist_empty->GetXaxis()->SetTitle("p_{T} GeV");
+
+  hist_empty->GetYaxis()->SetRangeUser(0.8,1.2);
   hist_axis(hist_empty);
 
   hist_empty->Draw("histsame");
 
   gr1->SetLineWidth(4.0);
-  gr1->SetMarkerSize(0.);
+  gr1->SetMarkerSize(0.2);
   gr1->SetLineColor(kRed);
-  gr1->Draw("plsame");
+  gr1->Draw("pEsame");
 
   lg->AddEntry(gr1, legNames[0], "pl");
 
-  for(unsigned int ig=1; ig < vgr.size(); ig++){
-    cout << "Adding Graph " << ig << " " << vgr[ig] <<endl;
-    TGraph *gr = vgr[ig];
-    gr->SetLineWidth(4.0);
-    gr->SetMarkerSize(0.);
-    gr->SetLineColor(plotter.GetColor(ig));
-    gr->Draw("plsame");
-    lg->AddEntry(gr, legNames[ig], "pl");
-    TH1F* h = gr->GetHistogram();
-    if(h->GetMaximum() > Ymax) Ymax=h->GetMaximum();
-
-  }
-  cout << "Graphs added" << endl;
-  hist_empty->GetYaxis()->SetRangeUser(plotter.default_y_min, Ymax*plotter.Hist_YAxis_MaxScale);
-
+  hist_empty->GetYaxis()->SetRangeUser(0.5, 1.1);//plotter.default_y_min, Ymax*plotter.Hist_YAxis_MaxScale);
+  hist_empty->GetYaxis()->SetTitle("");
+  hist_empty->GetXaxis()->SetTitle("p_{T} [GeV]");
   TLatex latex_result;
   latex_result.SetNDC();
   latex_result.SetTextSize(plotter.LatexTextLabel_Size);

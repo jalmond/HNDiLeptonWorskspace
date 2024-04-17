@@ -17,7 +17,7 @@ void PlotEnergyCFIndividualShift_PtBinned(){
   Plotter.CopyToWebsite = false;
 
 
-  for(auto era : Plotter.Eras("2017")) {
+  for(auto era : Plotter.Eras()) {
     TString year = (era.Contains("16")) ? "2016" : era;
 
     for(auto etabin :  {"BB"}){
@@ -26,9 +26,11 @@ void PlotEnergyCFIndividualShift_PtBinned(){
       vector<double> vrebin = {};
       for(int i =0; i < 31; i++) vrebin.push_back(-0.2+(double(i)*0.01));
       
-      vector <TString> HistStrings = {"_Pt_BB_Bin1","_Pt_BB_Bin2","_Pt_BB_Bin3","_Pt_BB_Bin4","_Pt_BB_Bin5"};
-      for(auto HistString : HistStrings ) EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_PtBinned_EnergyShift_"+TString(etabin)+"_"+TString(HistString),{1});
-      for(auto HistString : HistStrings ) EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_PtBinned_rebinned_EnergyShift_"+TString(etabin)+"_"+TString(HistString),vrebin);
+      vector <TString> HistStrings = {"_Pt_BB_Bin1","_Pt_BB_Bin2","_Pt_BB_Bin3","_Pt_BB_Bin4"};
+      //for(auto HistString : HistStrings ) EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_PtBinned_EnergyShift_"+TString(etabin)+"_"+TString(HistString),{1});
+      //for(auto HistString : HistStrings ) EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_PtBinned_rebinned_EnergyShift_"+TString(etabin)+"_"+TString(HistString),vrebin);
+      for(auto HistString : HistStrings ) EnergyCFShiftProccessor(Plotter, "HNTightV2", era,etabin+HistString, "HNL_ChargeFlip_HNTightV2_PtBinned_rebinned_EnergyShift_"+TString(etabin)+"_"+TString(HistString),vrebin);
+      for(auto HistString : HistStrings ) EnergyCFShiftProccessor(Plotter, "POGTight", era,etabin+HistString, "HNL_ChargeFlip_POG_PtBinned_rebinned_EnergyShift_"+TString(etabin)+"_"+TString(HistString),vrebin);
 
     }
     for(auto etabin :  {"EC"}){
@@ -37,9 +39,11 @@ void PlotEnergyCFIndividualShift_PtBinned(){
       vector<double> vrebin = {};
       for(int i =0; i < 31; i++) vrebin.push_back(-0.2+(double(i)*0.01));
       
-      vector <TString> HistStrings = {"_Pt_EC_Bin1","_Pt_EC_Bin2","_Pt_EC_Bin3","_Pt_EC_Bin4","_Pt_EC_Bin5","_Pt_EC_Bin6","_Pt_EC_Bin7"};
-      for(auto HistString : HistStrings ) EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_PtBinned_EnergyShift_"+TString(etabin)+"_"+TString(HistString),{1});
-      for(auto HistString : HistStrings ) EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_PtBinned_rebinned_EnergyShift_"+TString(etabin)+"_"+TString(HistString),vrebin);
+      vector <TString> HistStrings = {"_Pt_EC_Bin1","_Pt_EC_Bin2","_Pt_EC_Bin3","_Pt_EC_Bin4","_Pt_EC_Bin5","_Pt_EC_Bin6"};
+      //for(auto HistString : HistStrings ) EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_PtBinned_EnergyShift_"+TString(etabin)+"_"+TString(HistString),{1});
+      //for(auto HistString : HistStrings ) EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_PtBinned_rebinned_EnergyShift_"+TString(etabin)+"_"+TString(HistString),vrebin);
+      for(auto HistString : HistStrings ) EnergyCFShiftProccessor(Plotter, "HNTightV2", era,etabin+HistString, "HNL_ChargeFlip_HNTightV2_PtBinned_rebinned_EnergyShift_"+TString(etabin)+"_"+TString(HistString),vrebin);
+      for(auto HistString : HistStrings ) EnergyCFShiftProccessor(Plotter, "POGTight", era,etabin+HistString, "HNL_ChargeFlip_POG_PtBinned_rebinned_EnergyShift_"+TString(etabin)+"_"+TString(HistString),vrebin);
     }
     
   }

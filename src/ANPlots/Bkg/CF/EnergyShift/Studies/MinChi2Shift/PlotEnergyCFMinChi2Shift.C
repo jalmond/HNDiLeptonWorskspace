@@ -14,15 +14,17 @@ void PlotEnergyCFMinChi2Shift(){
   HNLPlotter Plotter("EnergyShiftMinChi2");
   Plotter.DoDebug=false;
   Plotter.CopyToWebsite = false;
-
+  
   vector<TString> Results;
   for(auto era : Plotter.Eras()) {
     TString year = (era.Contains("16")) ? "2016" : era;
-    for(auto etabin :  {"EC"}){
-      //EnergyCFShiftChi2(Plotter, "HNTightV2", era,etabin, "HNL_ChargeFlip_EnergyShift");
-      //EnergyCFShiftChi2(Plotter, "POGTight", era,etabin, "HNL_ChargeFlip_EnergyShift");
-      TString MinChi2String = EnergyCFShiftChi2(Plotter, "HNL_ULID_"+year, era,etabin, "HNL_ChargeFlip_EnergyShift");
-      Results.push_back( "MinChi2String = " + MinChi2String + " EtaBin = " + etabin +" era = "+era);
+    for(auto etabin :  {"BB","EC"}){
+      TString MinChi2String_HNV2 =EnergyCFShiftChi2(Plotter, "HNTightV2", era,etabin, "HNL_ChargeFlip_EnergyShift");
+      TString MinChi2String_POG =EnergyCFShiftChi2(Plotter, "POGTight", era,etabin, "HNL_ChargeFlip_EnergyShift");
+      TString MinChi2String_MVA = EnergyCFShiftChi2(Plotter, "HNL_ULID_"+year, era,etabin, "HNL_ChargeFlip_EnergyShift");
+      Results.push_back( "MinChi2String_HNV2 = " + MinChi2String_HNV2 + " EtaBin = " + etabin +" era = "+era);
+      Results.push_back( "MinChi2String_POG = " + MinChi2String_POG + " EtaBin = " + etabin +" era = "+era);
+      Results.push_back( "MinChi2String_MVA = " + MinChi2String_MVA + " EtaBin = " + etabin +" era = "+era);
     }
   }
   for(auto i : Results ) cout << i << endl;
@@ -33,10 +35,11 @@ TString EnergyCFShiftChi2(HNLPlotter Plotter,TString ID, TString Era, TString Hi
 
   Plotter.SetupPlotter(Era,"","HNL_Lepton_ChargeFlip");
 
-  TString path="/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_Lepton_ChargeFlip/"+Era+"/Shift/HNL_Lepton_ChargeFlip_SkimTreeBDT_Shift.root";
+  TString path= TString(std::getenv("FILE_MERGED_PATH")) + "/HNL_Lepton_ChargeFlip/"+Era+"/Shift/HNL_Lepton_ChargeFlip_SkimTreeBDT_Shift.root";
+
   cout << "Era = " << Era  << " HistString = " << HistString << " path = " << path <<  endl;
   vector<TString> ShiftVals = {};
-  for (unsigned int ishift = 0 ; ishift < 100; ishift++){
+  for (unsigned int ishift = 0 ; ishift < 125; ishift++){
     double shiftEl = 1.05 - double(ishift)*0.001;
     TString shift_string = DToS(shiftEl);
     ShiftVals.push_back(shift_string);
