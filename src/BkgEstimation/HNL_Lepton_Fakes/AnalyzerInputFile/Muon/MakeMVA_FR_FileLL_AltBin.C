@@ -5,18 +5,11 @@ void MakeFRFile(TString year,TString dataset="MuMu", TString PtType="Pt");
 TString DoubleToString(double d);
 
 
-void MakeMVA_FR_FileLL(){
+void MakeMVA_FR_FileLL_AltBin(){
 
-  MakeFRFile("2016preVFP","MuMu","Pt");
   MakeFRFile("2016preVFP","MuMu","PtParton");
-
-  MakeFRFile("2016postVFP","MuMu","Pt");
   MakeFRFile("2016postVFP","MuMu","PtParton");
-  
-  MakeFRFile("2017","MuMu","Pt");
   MakeFRFile("2017","MuMu","PtParton");
-  
-  MakeFRFile("2018","MuMu","Pt");
   MakeFRFile("2018","MuMu","PtParton");
 
 
@@ -40,7 +33,7 @@ void MakeFRFile(TString year, TString dataset="MuMu",TString PtType="Pt" ){
   if( era.Contains("2016post")) era = "2016b";
   TString Year=year;
   if( era.Contains("2016"))  Year= "2016";
-  TString outfile = "FR_Mu_"+era+"_HNL_ULID_"+PtType+"_v5.root";
+  TString outfile = "FR_Mu_"+era+"_HNL_ULID_"+PtType+"_v6.root";
 
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   fout->cd();
@@ -136,9 +129,7 @@ void MakeFRFile(TString year, TString dataset="MuMu",TString PtType="Pt" ){
   for(unsigned int i=0; i < IDs.size(); i++){
     
     TString ID = IDs[i];
-    if(PtType=="PtParton")    ID=ID.ReplaceAll("pt_eta","ptparton_eta");
-    if(PtType=="PtCorr")      ID=ID.ReplaceAll("pt_eta","ptcorr_eta");
-    if(PtType=="MotherPt")    ID=ID.ReplaceAll("pt_eta","MJpt_eta");
+    if(PtType=="PtParton")    ID=ID.ReplaceAll("pt_eta","ptparton_etaBinning2");
 
     TString denom = PtType+"/Fake_"+PtType+"_LooseMuMu_" +ID;
     TString num   = PtType+"/Fake_"+PtType+"_TightMuMu_" +ID;
@@ -161,7 +152,7 @@ void MakeFRFile(TString year, TString dataset="MuMu",TString PtType="Pt" ){
     CheckHist(h_pt_denom);
     CheckHist(h_pt_num);
     TString name = IDs[i] ;
-    vector<TString> AJs = {"AJ25", "AJ30","AJ40"};
+    vector<TString> AJs = {"AJ25", "AJ30","AJ40","AJ60"};
     for (auto ij : AJs){
       //HNL_ULID_2016_HNL_ULID_FO_v1_2016MuMu_AJ25_ptparton_eta_FR_cent
       
@@ -194,9 +185,7 @@ void MakeFRFile(TString year, TString dataset="MuMu",TString PtType="Pt" ){
       if(IDs[i] == "HNL_ULID_FO_v9_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v9_b_"+ij;
       if(IDs[i] == "HNL_ULID_FO_v9_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v9_c_"+ij;
     
-      if(PtType=="PtParton")    name=name.ReplaceAll("pt_eta","ptparton_eta");
-      if(PtType=="PtCorr")      name=name.ReplaceAll("pt_eta","ptcorr_eta");
-      if(PtType=="MotherPt")    name=name.ReplaceAll("pt_eta","mjpt_eta");
+      if(PtType=="PtParton")    name=name.ReplaceAll("pt_eta","ptparton_etaBinning2");
     }
 
     TH2D* eff_rate = (TH2D*)h_pt_num->Clone(("HNL_ULID_"+Year+"_"+name+"_FR_cent").Data());

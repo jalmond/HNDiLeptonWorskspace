@@ -2,26 +2,33 @@
 #include "Macros.h"
 #include "mylib.h"
 #include "canvas_margin.h"
-//#include "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_UL_LONG/SKFlatAnalyzer/HNDiLeptonWorskspace/src/HNLPlotter.cc"
-#include "HNLPlotter.cc"                                                                       
+//#include "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_UL_LONG/SKFlatAnalyzer/HNDiLeptonWorskspace/src/HNLScanPlotter.cc"
+#include "HNLScanPlotter.cc"                                                                       
 
-void SS__ValidationRegionCutFlow_FakeScanBB(){
+void RunFunction(TString DateFileTag,vector<TString> eras,vector<TString> channels, TString PlotterTag, TString Flag);
 
-  vector<TString> eras =  {"2016preVFP", "2016postVFP","2017","2018"};
-  eras =  {"2018"};
-  vector<TString> channels = {"EE"};
+
+void ValidationRegionCutFlow_FakeScan(){
+
+  RunFunction("April19",{"2016preVFP", "2016postVFP","2017","2018","Run2"}, {"EE","MuMu"}, "HNL_ControlRegion_Summary_FakeScan_BB","ScanFakes_BB");
+
+  
+}
+void RunFunction(TString DateFileTag,vector<TString> eras,vector<TString> channels, TString PlotterTag, TString Flag){
+
 
   for (auto year : eras){
     for (auto channel : channels){
       
-      HNLPlotter Plotter("HNL_ControlRegion_FakeScan_BB");
+      HNLScanPlotter Plotter(PlotterTag+"_"+channel);
       //// change def
       Plotter.DoDebug=true;
       Plotter.MergeZeroBins = false;
       Plotter.CopyToWebsite = false;
+      Plotter.DateFileTag = DateFileTag;
       Plotter.RunScan=true;
       //// Setup plotter
-      Plotter.SetupPlotter(year,"SkimTree_HNMultiLepBDT", "HNL_ControlRegion","/ScanFakes_BB");
+      Plotter.SetupPlotter(year,"SkimTree_HNMultiLepBDT", "HNL_ControlRegion","/"+Flag);
       if(channel == "MuMu")Plotter.samples_to_use = {"Prompt","NonPrompt","Conv"};
       else Plotter.samples_to_use = {"Prompt","NonPrompt","Conv","chargeflip"};
       Plotter.ScaleSample("ttbar_ll",0.95);
@@ -75,7 +82,7 @@ void SS__ValidationRegionCutFlow_FakeScanBB(){
       for(auto i : Dirs) RTypes.push_back("");
       Plotter.RegionType = RTypes;
       Plotter.HistPath= Dirs;
-      Plotter.BasicSetup(HNLPlotter::LOGY, HNLPlotter::DrawRatio, channel); //// If same setup for all hists in HistPath then use InitialSetup else need to set vector individually
+      Plotter.BasicSetup(HNLScanPlotter::LOGY, HNLScanPlotter::DrawRatio, channel); //// If same setup for all hists in HistPath then use InitialSetup else need to set vector individually
       Plotter.AddCutFlow("SS_SelectedControlRegions" );    
       ////// Make list and run plotting
       Plotter.DrawScanCutFlowWithData(DefaultHistName);

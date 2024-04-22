@@ -280,6 +280,8 @@ public:
   double Canvas_X;
   double Canvas_Y;
 
+  TString DateFileTag;
+
   double Hist_YAxis_MaxScale;
   bool SetLogY;
 

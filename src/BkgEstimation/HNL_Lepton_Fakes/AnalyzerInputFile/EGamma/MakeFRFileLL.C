@@ -9,27 +9,24 @@ void MakeFRFileLL(){
 
   MakeFRFile("2016preVFP","EE","Pt");
   MakeFRFile("2016preVFP","EE","PtParton");
-  MakeFRFile("2016preVFP","EE","PtCorr");
-
 
   MakeFRFile("2016postVFP","EE","Pt");
   MakeFRFile("2016postVFP","EE","PtParton");
-  MakeFRFile("2016postVFP","EE","PtCorr");
 
   MakeFRFile("2017","EE","Pt");
   MakeFRFile("2017","EE","PtParton");
-  MakeFRFile("2017","EE","PtCorr");
 
   MakeFRFile("2018","EE","Pt");
   MakeFRFile("2018","EE","PtParton");
-  MakeFRFile("2018","EE","PtCorr");
+
 
 }
 
 void MakeFRFile(TString year, TString dataset="EE",TString PtType="Pt" ){
 
-  TString path= "/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3/HNL_Lepton_FakeRate/"+year+"/RunRatesEE__/HNL_Lepton_FakeRate_Data_FakeElectron.root";
-  TString mcpath= "/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3/HNL_Lepton_FakeRate/"+year+"/RunRatesEE__/HNL_Lepton_FakeRate_MC.root";
+
+  TString path= TString(std::getenv("FILE_MERGED_PATH")) + "HNL_Lepton_FakeRate/"+year+"/RunRatesEE__/HNL_Lepton_FakeRate_Data_FakeElectron.root";
+  TString mcpath= TString(std::getenv("FILE_MERGED_PATH")) + "HNL_Lepton_FakeRate/"+year+"/RunRatesEE__/HNL_Lepton_FakeRate_MC.root";
 
     
   TFile * fdata = new TFile(path);
@@ -43,7 +40,7 @@ void MakeFRFile(TString year, TString dataset="EE",TString PtType="Pt" ){
   if( era.Contains("2016post")) era = "2016b";
   TString Year=year;
   if( era.Contains("2016"))  Year= "2016";
-  TString outfile = "FR_EGamma_"+era+"_HNL_ULID_"+PtType+"_v4.root";
+  TString outfile = "FR_EGamma_"+era+"_HNL_ULID_"+PtType+"_v5.root";
 
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   fout->cd();

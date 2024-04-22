@@ -2,30 +2,53 @@
 #include "Macros.h"
 #include "mylib.h"
 #include "canvas_margin.h"
-//#include "/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_UL_LONG/SKFlatAnalyzer/HNDiLeptonWorskspace/src/HNLPlotter.cc"
 #include "HNLScanPlotter.cc"
 
-void RunFunction(vector<TString> eras,vector<TString> channels, TString PlotterTag, TString Flag);
+void RunFunction(TString DateFileTag,vector<TString> eras,vector<TString> channels, TString PlotterTag, TString Flag, TString Region);
 
 void SSControlRegion(){
-  RunFunction({"2016preVFP", "2016postVFP", "2017","2018"}, "EE", "HNL_ControlRegion_CRPlotsBB","ScanFakes_EC");
-  RunFunction({"2016preVFP", "2016postVFP", "2017","2018"}, "EE", "HNL_ControlRegion_CRPlotsEC","ScanFakes_EC");
+
+  TString  DateTag = "April20";
+  vector<TString> Channels = {"EE"};
+  vector<TString> Eras = {"Run2","2016preVFP", "2016postVFP","2017","2018"};
+
+  if(0){
+    // TEST CODE
+    RunFunction(DateTag,{"2018"}, Channels, "HNL_ControlRegion_SSCRPlots_Inclusive","ScanFakes_Inclusive","HNL_HighMassNP_TwoLepton_CR");
+    return ;
+  }
+
+  vector<TString> Regions = {"HNL_SSPresel_TwoLepton", "HNL_HighMassSR3_TwoLepton_CR","HNL_HighMassSR3_2J_TwoLepton_CR","HNL_HighMassSR1_TwoLepton_CR","HNL_HighMassCR2_TwoLepton_CR","HNL_HighMassBJet_TwoLepton_CR","HNL_HighMassNP_TwoLepton_CR"};
+  Regions = {"HNL_HighMassBJet_TwoLepton_CR"};
+  for (auto ir : Regions){
+    RunFunction(DateTag,Eras, Channels, "HNL_ControlRegion_SSCRPlots_Inclusive","ScanFakes_Inclusive",ir); 
+    RunFunction(DateTag,Eras, Channels, "HNL_ControlRegion_SSCRPlots_Barrel","ScanFakes_BB",ir); 
+    RunFunction(DateTag,Eras, Channels, "HNL_ControlRegion_SSCRPlots_Endcap","ScanFakes_EC",ir);                                                      
+  }
   
+  if(0){
+    TString Region = "HNL_HighMass1Jet_TwoLepton_CR";
+    RunFunction(DateTag,Eras, {"EE"}, "HNL_ControlRegion_SSCRPlots_Inclusive","ScanFakes_Inclusive",Region); 
+    RunFunction(DateTag,Eras, {"EE"}, "HNL_ControlRegion_SSCRPlots_Barrel","ScanFakes_BB",Region); 
+    RunFunction(DateTag,Eras, {"EE"}, "HNL_ControlRegion_SSCRPlots_Endcap","ScanFakes_EC",Region); 
+  }
+
 }
 
 
-void RunFunction(vector<TString> eras,vector<TString> channels, TString PlotterTag, TString Flag){
+void RunFunction(TString DateFileTag,vector<TString> eras,vector<TString> channels, TString PlotterTag, TString Flag,TString Region){
   
  
   for (auto year : eras){
     for (auto channel : channels){
       
-      HNLScanPlotter Plotter(PlotterTag);
+      HNLScanPlotter Plotter(PlotterTag+"_"+channel);
       //// change def
       Plotter.DoDebug=true;
       Plotter.MergeZeroBins = false;
       Plotter.CopyToWebsite = false;
       Plotter.RunScan = true;
+      Plotter.DateFileTag = DateFileTag;
 
       //// Setup plotter
       Plotter.SetupPlotter(year,"SkimTree_HNMultiLepBDT", "HNL_ControlRegion","/"+Flag);
@@ -37,6 +60,7 @@ void RunFunction(vector<TString> eras,vector<TString> channels, TString PlotterT
       TString DefaultHistName = "HNL_ULID_HNL_ULID_FO_v0_Standard_PtParton_AJ30/"+channel;
       vector<TString> AJetPt = {"AJ30","AJ40"};
       TString Year = (year.Contains("2016")) ? "2016" : year;
+      if(channel == "EE") AJetPt.push_back("AJ25");
       vector<TString> FakeIDs = {  "HNL_ULID_FO_v1_a",
                                    "HNL_ULID_FO_v1_b",
                                    "HNL_ULID_FO_v1_c",
@@ -80,32 +104,25 @@ void RunFunction(vector<TString> eras,vector<TString> channels, TString PlotterT
 
       vector<TString> HPaths,RegionTypes,vDefaultHistName;
       for(auto id : Dirs){ 
-	HPaths.push_back( "HNL_SSPresel_TwoLepton/"+id);
-	vDefaultHistName.push_back( "HNL_SSPresel_TwoLepton/"+DefaultHistName);
-      }
-      for(auto id : Dirs) {
-	HPaths.push_back( "HNL_HighMassNP_TwoLepton_CR/"+id);    
-	vDefaultHistName.push_back( "HNL_HighMassNP_TwoLepton_CR/"+DefaultHistName);
-      }
-      for(auto id : Dirs){
-	HPaths.push_back( "HNL_HighMassBJet_TwoLepton_CR/"+id);    
-	vDefaultHistName.push_back( "HNL_HighMassBJet_TwoLepton_CR/"+DefaultHistName);
+	HPaths.push_back( Region+"/"+id);
+	vDefaultHistName.push_back( Region+"/"+DefaultHistName);
       }
       for(auto id : Dirs) RegionTypes.push_back( id.ReplaceAll("HNL_ULID_HNL_ULID_","").ReplaceAll("/MuMu","").ReplaceAll("/EE",""));                   
-      for(auto id : Dirs) RegionTypes.push_back( id.ReplaceAll("HNL_ULID_HNL_ULID_","").ReplaceAll("/MuMu","").ReplaceAll("/EE",""));                   
-      for(auto id : Dirs) RegionTypes.push_back( id.ReplaceAll("HNL_ULID_HNL_ULID_","").ReplaceAll("/MuMu","").ReplaceAll("/EE",""));                   
-
+      for(auto ipath : HPaths) cout << "Add " << ipath << endl;
+      
       Plotter.HistPath= HPaths;
       Plotter.RegionType = RegionTypes;
       Plotter.DefaultHists= vDefaultHistName;
       
       
-      Plotter.BasicSetup(HNLPlotter::NoLOGY, HNLPlotter::DrawRatio, channel); //// If same setup for all hists in HistPath then use InitialSetup else need to set vector individually
+      Plotter.BasicSetup(HNLScanPlotter::NoLOGY, HNLScanPlotter::DrawRatio, channel); //// If same setup for all hists in HistPath then use InitialSetup else need to set vector individually
       
       ///// HISTs Setup
       //Plotter.AddHist("DeltaR/dR_ll" ,"dR_LL"  , "", {2.}, 0, 5);
-      //Plotter.AddHist("NObj/N_AK4J"  ,"NJ4"  , "",    {1.}, 0, 10);
-      Plotter.AddHist("Leptons/Lep_2_pt" ,"LPT2" , "GeV", {10,12,15,20,30.,40., 60., 200}, 10, 200);
+      Plotter.AddHist("NObj/N_AK4J"  ,"NJ4"  , "",    {1.}, 0, 10);
+      //Plotter.AddHist("Leptons/Lep_2_pt" ,"LPT2" , "int", {10,15,20,30.,40., 60.,100, 200}, 10, 200);                                                                                                                  
+      //if(channel == "EE")Plotter.AddHist("Leptons/Lep_2_pt" ,"LPT2" , "int", {10,15,20,30.,40., 60.,100, 200}, 10, 200);
+      //else Plotter.AddHist("Leptons/Lep_2_pt" ,"LPT2" , "int", {10.,15.,20.,30.,40., 60.,100., 200.}, 0, 200);
       ////// Make list and run plotting
       Plotter.DrawStackPlotsWithData();
       //Plotter.make_cutflow("N_AK4Jets");
