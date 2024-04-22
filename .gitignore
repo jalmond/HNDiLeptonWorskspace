@@ -2,9 +2,6 @@
 src/HNL_SignalLeptonOpt/ScanID/**
 PyScripts/OptimisationHelper/LeptonID_Opt_Helper/results
 src/HNL_SignalLeptonOpt/ScanID/results
-**.d
-**.so
-**.pcm
 **/*.pyc
 **.pdf
 **.png
