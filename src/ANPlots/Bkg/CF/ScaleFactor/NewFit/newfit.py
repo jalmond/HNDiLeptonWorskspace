@@ -92,7 +92,7 @@ def RunFit(channel, era, ID, HistName):
 
 
 
-Channels = ["BE"]
+Channels = ["BB","EB"]
 #"BB","EE"]
 Eras = ["2018"]#"2016a","2016b"]#,"2017","2018"]
 for Channel in Channels:

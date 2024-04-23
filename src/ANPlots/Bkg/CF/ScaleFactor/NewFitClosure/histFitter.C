@@ -1,9 +1,8 @@
 #include "RooDataHist.h"
 #include "RooWorkspace.h"
 #include "RooRealVar.h"
-//#include "RooAbsBinningsPdf.h"
+#include "RooAbsPdf.h"
 #include "RooPlot.h"
-#include "RooBinning.h"
 #include "RooFitResult.h"
 #include "TH1.h"
 #include "TSystem.h"
@@ -191,50 +190,28 @@ void tnpFitter::fits(bool mcTruth,string title) {
 
   RooPlot *pPass = _work->var("x")->frame(60,120);
   RooPlot *pFail = _work->var("x")->frame(60,120);
+  //RooPlot *pPass = _work->var("x")->frame(50,150);
+  //RooPlot *pFail = _work->var("x")->frame(50,150);
 
   pPass->SetTitle("OS fit");
   pFail->SetTitle("SS fit");
   
-  RooBinning b(60,120);
-  b.addUniform(1, 60, 70);
-  b.addUniform(1, 70, 80);
-  b.addUniform(1, 80, 85);
-  b.addUniform(1, 85, 90);
-  b.addUniform(1, 90, 95);
-  b.addUniform(1, 95, 100);
-  b.addUniform(1, 100, 110);
-  b.addUniform(1, 110, 120);
-
-
+  _work->data("hPass") ->plotOn( pPass );
+  _work->pdf("pdfPass")->plotOn( pPass, LineColor(kRed) );
+  _work->pdf("pdfPass")->plotOn( pPass, Components("bkgPass"),LineColor(kBlue),LineStyle(kDashed));
+  _work->data("hPass") ->plotOn( pPass );
+  
   _work->data("hFail") ->plotOn( pFail );
   _work->pdf("pdfFail")->plotOn( pFail, LineColor(kRed) );
-  _work->pdf("pdfFail")->plotOn( pFail, Components("sigFail"),LineColor(kBlue));
+  _work->pdf("pdfFail")->plotOn( pFail, Components("bkgFail"),LineColor(kBlue),LineStyle(kDashed));
   _work->data("hFail") ->plotOn( pFail );
-  
-  
-  //TH1* hist = pFail.createHistogram("hist" x, Binning(60, 120, 30));
 
-  TH1* hh = _work->pdf("sigFail")->createHistogram("x,y",20,20);//100,100) ;
-  TH1* hh2 = _work->pdf("pdfFail")->createHistogram("x,y",20,20);//100,100) ;                                                                                                                                       
-  TH1* hh3 = _work->pdf("bkgFail")->createHistogram("x,y",20,20);//100,100) ;                                                                                                                                      
-  cout << "INT " << hh->Integral() << "   --- " << hh2->Integral() <<  "  + " << hh3->Integral()<< endl;
-  _work->data("hPass") ->plotOn( pPass );
-  _work->pdf("pdfPass")->plotOn( pPass,LineColor(kRed), Normalization(1.0, RooAbsReal::RelativeExpected));
-  _work->pdf("pdfFail")->plotOn( pPass, Normalization(1.0, RooAbsReal::RelativeExpected),Components("sigFail"));
-  _work->data("hPass") ->plotOn( pPass );
-  
-  //  auto hist = _work->data("pdfPass")->createHistogram();
-  
-  //  TH1* uwhisto = pdfPass.createHistogram("uwhisto", _work->var("x"), Binning(10) );
-
-  cout << "PRINT  " << endl;
-  resFail->Print() ;
-  TCanvas c("c","c",1100,650);
-  c.Divide(1,1);
+  TCanvas c("c","c",1100,450);
+  c.Divide(3,1);
   TPad *padText = (TPad*)c.GetPad(1);
   textParForCanvas( resPass,resFail, padText );
-  c.cd(1); pPass->Draw();
-  //  hh->Draw("histsame");
+  c.cd(2); pPass->Draw();
+  c.cd(3); pFail->Draw();
 
   _fOut->cd();
   c.Write(TString::Format("%s_Canv",_histname_base.c_str()),TObject::kOverwrite);
