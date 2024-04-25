@@ -6,13 +6,16 @@ from ROOT import tnpFitter
 import time
 import os
 
-def RunFit(DateTag,channel, era, ID, HistName):
+def RunFit(DateTag,channel, era, ID, HistName,fileName):
 
   filepath= os.getenv("FILE_MERGED_PATH") + "/HNL_Lepton_ChargeFlip/"+DateTag+"/"+era+"/ScaleFactor/HNL_Lepton_ChargeFlip_SkimTreeBDT_ScaleFactor.root"
   filepathMC= os.getenv("FILE_MERGED_PATH") + "/HNL_Lepton_ChargeFlip/"+DateTag+"/"+era+"/ScaleFactor/HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_DYJetsToEE_MiNNLO.root"
   print (filepath)
-  fileName = "FitResultsClosure"
+
   os.system("mkdir -p "+fileName)
+  fileName = fileName + "/"+DateTag
+  os.system("mkdir -p "+fileName)
+
   fileTruth  = rt.TFile(filepathMC,'read')
 
   funcs = [
@@ -65,7 +68,7 @@ def RunFit(DateTag,channel, era, ID, HistName):
   infile.Close()
   
   fitter.useMinos()
-  rootfile = rt.TFile("newfit_"+fileName+"_"+era+"_"+ID+"_"+channel+"_"+HistName+".root",'update')
+  rootfile = rt.TFile(fileName+"/newfit_"+era+"_"+ID+"_"+channel+"_"+HistName+".root",'update')
 
   fitter.setOutputFile( rootfile )
   
@@ -86,56 +89,64 @@ def RunFit(DateTag,channel, era, ID, HistName):
   for i in this_workspace:
     workspace.push_back(i)
   fitter.setWorkspace( workspace )
-  
+
+  FileName=ID+"/ScaleFactor/"+channel+"_ZMass_OS_CFweighted_unshifted"
+
+  FileNameOS = ID+"/ScaleFactor/"+channel+"_"+HistName
+
   title = "mytitle_"+channel+"_"+ID+"_"+HistName + "_"+era
-  fitter.fits(False,title)
+  fitter.fits(False,title, filepath, FileName,FileNameOS)
   rootfile.Close()
 
 
 
-Channels = ["BB","EE"]
+Channels = ["BE"]
 
 Eras = ["2016a","2016b","2017","2018"]
 for Channel in Channels:
   for era in Eras:
-    #RunFit(Channel, era, "POGTight", "ZMass_OS_CFSFweighted")
-    #RunFit(Channel, era, "HNTightV2","ZMass_OS_CFSFweighted")
+
     year = era
     if "2016" in era:
       year = "2016"
     HNLID = "HNL_ULID_"+year
-    HNLID2 = "HNL_ULID_LooseCF_"+year
-    HNLID3 = "HNL_ULID_LooseNP_"+year
 
-    Hists = ["ZMass_OS_CF_PTB_weighted",
-             "ZMass_OS_CF_CS_1p3SF_NoS_weighted",
-             "ZMass_OS_CF_CS_1p3SF_weighted",
-             "ZMass_OS_CF_CS_1p3_NoS_weighted",
-             "ZMass_OS_CF_CS_1p3_weighted",
-             "ZMass_OS_CF_CS_3p0SF_NoS_weighted",
-             "ZMass_OS_CF_CS_3p0SF_weighted",
-             "ZMass_OS_CF_CS_3p0_NoS_weighted",
-             "ZMass_OS_CF_CS_3p0_weighted",
-             "ZMass_OS_CF_CS_4p0SF_NoS_weighted",
-             "ZMass_OS_CF_CS_4p0SF_weighted",
-             "ZMass_OS_CF_CS_4p0_NoS_weighted",
-             "ZMass_OS_CF_CS_4p0_weighted",
-             "ZMass_OS_CF_PTBSF_NoS_weighted",
-             "ZMass_OS_CF_PTBSF_weighted",
-             "ZMass_OS_CF_PTB_NoS_weighted",
-             "ZMass_OS_CF_PTB_weighted",
-             "ZMass_OS_CF_PTBmSigSF_NoS_weighted",
-             "ZMass_OS_CF_PTBmSigSF_weighted",
-             "ZMass_OS_CF_PTBmSig_NoS_weighted",
-             "ZMass_OS_CF_PTBmSig_weighted",
-             "ZMass_OS_CF_PTBpSigSF_NoS_weighted",
-             "ZMass_OS_CF_PTBpSigSF_weighted",
-             "ZMass_OS_CF_PTBpSig_NoS_weighted",
-             "ZMass_OS_CF_PTBpSig_weighted",
-             "ZMass_OS_CFweighted_unshifted",
-             "ZMass_OS_CFweighted_unshiftedSF"]
+    HistsPTB = ["ZMass_OS_CF_PTB_weighted",
+                "ZMass_OS_CF_PTB_m1_weighted",
+                "ZMass_OS_CF_PTB_m2_weighted",
+                "ZMass_OS_CF_PTB_m3_weighted",
+                "ZMass_OS_CF_PTB_m4_weighted",
+                "ZMass_OS_CF_PTB_m5_weighted",
+                "ZMass_OS_CF_PTB_m6_weighted",
+                "ZMass_OS_CF_PTB_m7_weighted",
+                "ZMass_OS_CF_PTBSF_weighted",
+                "ZMass_OS_CF_PTB_m1SF_weighted",
+                "ZMass_OS_CF_PTB_m2SF_weighted",
+                "ZMass_OS_CF_PTB_m3SF_weighted",
+                "ZMass_OS_CF_PTB_m4SF_weighted",
+                "ZMass_OS_CF_PTB_m5SF_weighted",
+                "ZMass_OS_CF_PTB_m6SF_weighted",
+                "ZMass_OS_CF_PTB_m7SF_weighted"]
+                
 
-    Hists = ["ZMass_OS_CF_PTB_weighted", "ZMass_OS_CFweighted_unshifted"]
 
-    for Histx in Hists:
-      RunFit("April23",Channel, era, HNLID,Histx)
+    HistsCS = [  "ZMass_OS_CF_CS_0p8_weighted",
+                              "ZMass_OS_CF_CS_1_weighted",
+                              "ZMass_OS_CF_CS_1p2_weighted",
+                              "ZMass_OS_CF_CS_1p4_weighted",
+                              "ZMass_OS_CF_CS_1p6_weighted",
+                              "ZMass_OS_CF_CS_0p8SF_weighted",
+                              "ZMass_OS_CF_CS_1SF_weighted",
+                              "ZMass_OS_CF_CS_1p2SF_weighted",
+                              "ZMass_OS_CF_CS_1p4SF_weighted",
+                              "ZMass_OS_CF_CS_1p6SF_weighted"]
+    
+
+    for Histx in HistsPTB:
+      RunFit("April24",Channel, era, HNLID,Histx,"FitResults_Shift_PTB_"+Channel)
+
+
+    for Histx in HistsCS:
+      RunFit("April24",Channel, era, HNLID,Histx,"FitResults_Shift_CS_"+Channel)                                                                                                                                                                                                         
+
+

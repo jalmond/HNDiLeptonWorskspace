@@ -5,20 +5,20 @@
 #include "HNLPlotter.cc"                                                                       
 
 
-void MakeSFFileConfig(TString year, TString hist);
+void MakeSFFileConfig(TString year, TString hist, TString DateTag);
 
 void MakeSFFile(){
   
-  MakeSFFileConfig("2016a","Rates");
-  MakeSFFileConfig("2016b","Rates");
-  MakeSFFileConfig("2017","Rates");
-  MakeSFFileConfig("2018","Rates");
+  MakeSFFileConfig("2016a","Rates","April25");
+  MakeSFFileConfig("2016b","Rates","April25");
+  MakeSFFileConfig("2017","Rates","April25");
+  MakeSFFileConfig("2018","Rates","April25");
   
 }
 
-void MakeSFFileConfig(TString era, TString HistDir){
+void MakeSFFileConfig(TString era, TString HistDir, TString DateTag){
 
-  TString path= TString(std::getenv("FILE_MERGED_PATH")) + "/HNL_Lepton_ChargeFlip/"+era+"/Rates/HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_Rates.root";
+  TString path= TString(std::getenv("FILE_MERGED_PATH")) + "/HNL_Lepton_ChargeFlip/"+DateTag+"/"+era+"/Rates/HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_Rates.root";
 
   TFile * fmc   = new TFile(path);
 
@@ -26,7 +26,7 @@ void MakeSFFileConfig(TString era, TString HistDir){
   setTDRStyle();
   gStyle->SetPalette(1);
     
-  TString outfile = "HNL_CF_Electron_"+era+"_"+HistDir+".root";
+  TString outfile = "HNL_CF_Version3_Electron_"+era+"_"+HistDir+".root";
 
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   fout->cd();
@@ -38,7 +38,7 @@ void MakeSFFileConfig(TString era, TString HistDir){
   std::vector<TString> IDs={"HNL_ULID_"+year, "HNL_ULID_LooseCF_"+year , "HNL_ULID_LooseNP_"+year ,"POGTight","HNTightV2"};
 			    
   vector<TString> HistBins  = {"CFRate_InvPtEta", "CFRate_InvPtEta2", "CFRate_InvPtEta3","CFRate_PtEta","CFRate_PtEta2","CFRate_PtEta3"};
-  vector<TString> MethodBins  = {"CS","NoS","PBS"};
+  vector<TString> MethodBins  = {"CS","CS2","CS3","NoS","PBS","PBSDataCorr"};
 
   for(unsigned int i=0; i < IDs.size(); i++){
     for(auto HistBin : HistBins){

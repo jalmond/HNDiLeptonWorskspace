@@ -73,5 +73,5 @@ for Era in Eras:
         for ID in IDs:
             for Region in Regions:
                 print("_"*50)
-                print("python PrintNTUPBinned.py -e "+Era+" -f "+Flag + " -r "+Region+" -i " + ID + "  -c MuMu -d "+ TagDir  )
-                os.system("python PrintNTUPBinned.py -e "+Era+" -f "+Flag + " -r "+Region+"   -i " + ID + "  -c MuMu -d " + TagDir )
+                print("python PrintNTUPBinned.py -e "+Era+" -f "+Flag + " -r "+Region+" -i " + ID + "  -c MuMu -d YieldSummary/"+ TagDir  )
+                os.system("python PrintNTUPBinned.py -e "+Era+" -f "+Flag + " -r "+Region+"   -i " + ID + "  -c MuMu -d YieldSummary/" + TagDir )
