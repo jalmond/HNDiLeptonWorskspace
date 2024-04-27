@@ -7,46 +7,56 @@
 TString Chi2Prompt = "CHI2/NDF WW";
 
 void SaveHistogram(HNLPlotter Plotter, vector<TH1D*>hists, vector<TString> legname, TString HistName, TString dirName, vector<TString> scales);
-void RunClosure(HNLPlotter Plotter,TString ID, TString Era, TString EtaBin, TString HistTag, TString Method,TString LabelForOutPut, vector<double> rbins);
+void RunClosure(HNLPlotter Plotter,TString ID, TString Era, TString DateTag, TString Dir, TString HName,TString LabelForOutPut, vector<double> rbins);
 
 void PlotClosureCF_Eta(){
 
   HNLPlotter Plotter("ClosureTest");
   Plotter.DoDebug=false;
   Plotter.CopyToWebsite = false;
+  
+  vector<TString> ShiftTypes = {
+    "_w_pbs_pteta3",  
+    "_w_nos_pteta3",  
+    "_w_pbs_invpteta",
+    "_w_pbs_invpteta2"
+    "_w_pbs_invpteta3", 
+    "_w_cs_invpteta3",  
+    "_w_cs2_invpteta3", 
+    "_w_cs3_invpteta3", 
+    "_w_nos_invpteta", 
+    "_w_nos_invpteta2", 
+    "_w_nos_invpteta3"};
 
 
   for(auto era : Plotter.Eras("2017")) {
     TString year = (era.Contains("16")) ? "2016" : era;
+    for(auto st : ShiftTypes){
 
-    for(auto etabin :  {"BB","EC"}){
+      RunClosure(Plotter, "HNL_ULID_"+year, era, "April25","Closure","NonCF_LepEta_"+st,"HNL_ChargeFlip_Closure_Z_LeptonEta_"+st, {2});
 
-      RunClosure(Plotter, "HNL_ULID_"+year, era,etabin, "NonCF_LepEta__W1","Closure","HNL_ChargeFlip_Closure_Z_LeptonEta_"+TString(etabin), {2});
-      RunClosure(Plotter, "HNL_ULID_"+year, era,etabin, "NonCF_LepEta__W2","Closure","HNL_ChargeFlip_Closure_Z_LeptonEta_"+TString(etabin), {2});
-      RunClosure(Plotter, "HNL_ULID_"+year, era,etabin, "NonCF_LepEta__W3","Closure","HNL_ChargeFlip_Closure_Z_LeptonEta_"+TString(etabin), {2});
-      RunClosure(Plotter, "HNL_ULID_"+year, era,etabin, "NonCF_LepEta__W4","Closure","HNL_ChargeFlip_Closure_Z_LeptonEta_"+TString(etabin), {2});
     }
   }
   
 }
 
-void RunClosure(HNLPlotter Plotter,TString ID, TString Era, TString EtaBin,TString HistString, TString Method, TString LabelForOutPut,vector<double> vrebin){
+void RunClosure(HNLPlotter Plotter,TString ID, TString Era, TString  DateTag,TString Method, TString HistString, TString LabelForOutPut,vector<double> vrebin){
   
   Plotter.SetupPlotter(Era,"","HNL_Lepton_ChargeFlip");
 
-  TString path= TString(std::getenv("FILE_MERGED_PATH")) + "/HNL_Lepton_ChargeFlip/"+Era+"/ClosureTest/HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_DYJetsToEE_MiNNLO.root";
+  TString path= TString(std::getenv("FILE_MERGED_PATH")) + "/HNL_Lepton_ChargeFlip/"+DateTag+"/"+Era+"/ClosureTest/HNL_Lepton_ChargeFlip_SkimTreeBDT_Closure.root";
 
   TH1D *hist_mass_CF             = Plotter.ConstructHist(path,ID+"/"+Method+"/CF_LepEta", vrebin);
   TH1D *hist_Prompt              = Plotter.ConstructHist(path,ID+"/"+Method+"/"+HistString, vrebin);
 
   TString HistStringNS = HistString;
-  HistStringNS = HistStringNS.ReplaceAll("LepPt","LepPt_NoShift");
+  HistStringNS = HistStringNS.ReplaceAll("LepEta","LepEta_NoShift");
 
   TH1D *hist_Prompt_NoShift      = Plotter.ConstructHist(path,ID+"/"+Method+"/"+HistStringNS, vrebin);
   cout << ID+"/"+Method+"/"+HistStringNS << endl;
   hist_Prompt_NoShift->SetLineStyle(4);
-  hist_mass_CF->GetYaxis()->SetTitle("Events / GeV");
-  hist_mass_CF->GetXaxis()->SetTitle("M_{Z} [GeV] ");
+  hist_mass_CF->GetYaxis()->SetTitle("Events");
+  hist_mass_CF->GetXaxis()->SetTitle("el #eta ");
  
   double chi2 = hist_mass_CF->Chi2Test(hist_Prompt,Chi2Prompt);
 
@@ -54,7 +64,7 @@ void RunClosure(HNLPlotter Plotter,TString ID, TString Era, TString EtaBin,TStri
   std::string trimmedString1 = std::to_string(chi2).substr(0, std::to_string(chi2).find(".") + precisionValCHI2 + 1); 
   TString Chi2Label =  "#Chi^{2}    = "+trimmedString1 ;
 
-  SaveHistogram( Plotter,{hist_mass_CF,hist_Prompt,hist_Prompt_NoShift}, {"SS Observed", "OS*R_{CF} Predicted","OS*R_{CF} Predicted [no shift]"}, ID+"_CF_Closure_"+HistString+"_"+Method+"_"+EtaBin+"_"+Era, LabelForOutPut, {Method,Chi2Label});
+  SaveHistogram( Plotter,{hist_mass_CF,hist_Prompt,hist_Prompt_NoShift}, {"SS Observed", "OS*R_{CF} Predicted","OS*R_{CF} Predicted [no shift]"}, ID+"_CF_Closure_"+HistString+"_"+Method+"_"+Era, LabelForOutPut, {Method,Chi2Label});
   
 
   return;
