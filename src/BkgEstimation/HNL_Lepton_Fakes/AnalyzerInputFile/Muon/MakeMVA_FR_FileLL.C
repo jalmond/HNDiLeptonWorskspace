@@ -45,34 +45,34 @@ void MakeFRFile(TString year, TString dataset="MuMu",TString PtType="Pt" ){
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   fout->cd();
 
-  std::vector<TString> IDs = {    "HNL_ULID_FO_v0_"+Year+"MuMu_AJ25_pt_eta",
-				  "HNL_ULID_FO_v1_a_"+Year+"MuMu_AJ25_pt_eta",
-				  "HNL_ULID_FO_v1_b_"+Year+"MuMu_AJ25_pt_eta",
-				  "HNL_ULID_FO_v1_c_"+Year+"MuMu_AJ25_pt_eta",
-				  "HNL_ULID_FO_v2_a_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v2_b_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v2_c_"+Year+"MuMu_AJ25_pt_eta",
-				  "HNL_ULID_FO_v3_a_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v3_b_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v3_c_"+Year+"MuMu_AJ25_pt_eta",
-				  "HNL_ULID_FO_v4_a_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v4_b_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v4_c_"+Year+"MuMu_AJ25_pt_eta",
-				  "HNL_ULID_FO_v5_a_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v5_b_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v5_c_"+Year+"MuMu_AJ25_pt_eta",
-				  "HNL_ULID_FO_v6_a_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v6_b_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v6_c_"+Year+"MuMu_AJ25_pt_eta",
-				  "HNL_ULID_FO_v7_a_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v7_b_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v7_c_"+Year+"MuMu_AJ25_pt_eta",
-				  "HNL_ULID_FO_v8_a_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v8_b_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v8_c_"+Year+"MuMu_AJ25_pt_eta",
-				  "HNL_ULID_FO_v9_a_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v9_b_"+Year+"MuMu_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v9_c_"+Year+"MuMu_AJ25_pt_eta",
+  std::vector<TString> IDs = {    "HNL_ULID_FO_v0_"+Year+"MuMu_AJ60_pt_eta",
+				  "HNL_ULID_FO_v1_a_"+Year+"MuMu_AJ60_pt_eta",
+				  "HNL_ULID_FO_v1_b_"+Year+"MuMu_AJ60_pt_eta",
+				  "HNL_ULID_FO_v1_c_"+Year+"MuMu_AJ60_pt_eta",
+				  "HNL_ULID_FO_v2_a_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v2_b_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v2_c_"+Year+"MuMu_AJ60_pt_eta",
+				  "HNL_ULID_FO_v3_a_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v3_b_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v3_c_"+Year+"MuMu_AJ60_pt_eta",
+				  "HNL_ULID_FO_v4_a_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v4_b_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v4_c_"+Year+"MuMu_AJ60_pt_eta",
+				  "HNL_ULID_FO_v5_a_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v5_b_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v5_c_"+Year+"MuMu_AJ60_pt_eta",
+				  "HNL_ULID_FO_v6_a_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v6_b_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v6_c_"+Year+"MuMu_AJ60_pt_eta",
+				  "HNL_ULID_FO_v7_a_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v7_b_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v7_c_"+Year+"MuMu_AJ60_pt_eta",
+				  "HNL_ULID_FO_v8_a_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v8_b_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v8_c_"+Year+"MuMu_AJ60_pt_eta",
+				  "HNL_ULID_FO_v9_a_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v9_b_"+Year+"MuMu_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v9_c_"+Year+"MuMu_AJ60_pt_eta",
 				  
 				  "HNL_ULID_FO_v0_"+Year+"MuMu_AJ30_pt_eta",
                                   "HNL_ULID_FO_v1_a_"+Year+"MuMu_AJ30_pt_eta",
@@ -161,45 +161,45 @@ void MakeFRFile(TString year, TString dataset="MuMu",TString PtType="Pt" ){
     CheckHist(h_pt_denom);
     CheckHist(h_pt_num);
     TString name = IDs[i] ;
-    vector<TString> AJs = {"AJ25", "AJ30","AJ40"};
+    vector<TString> AJs = {"AJ60", "AJ30","AJ40"};
     for (auto ij : AJs){
-      //HNL_ULID_2016_HNL_ULID_FO_v1_2016MuMu_AJ25_ptparton_eta_FR_cent
+      //HNL_ULID_2016_HNL_ULID_FO_v1_2016MuMu_AJ60_ptparton_eta_FR_cent
       
-      if(IDs[i] == "HNL_ULID_FO_v0_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v0_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v1_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v1_a_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v1_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v1_b_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v1_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v1_c_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v2_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v2_a_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v2_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v2_b_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v2_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v2_c_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v3_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v3_a_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v3_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v3_b_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v3_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v3_c_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v4_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v4_a_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v4_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v4_b_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v4_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v4_c_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v5_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v5_a_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v5_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v5_b_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v5_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v5_c_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v6_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v6_a_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v6_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v6_b_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v6_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v6_c_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v7_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v7_a_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v7_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v7_b_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v7_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v7_c_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v8_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v8_a_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v8_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v8_b_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v8_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v8_c_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v9_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v9_a_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v9_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v9_b_"+ij;
-      if(IDs[i] == "HNL_ULID_FO_v9_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v9_c_"+ij;
+      if(IDs[i] == "HNL_ULID_FO_v0_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v0_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v1_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v1_a_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v1_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v1_b_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v1_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v1_c_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v2_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v2_a_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v2_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v2_b_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v2_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v2_c_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v3_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v3_a_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v3_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v3_b_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v3_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v3_c_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v4_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v4_a_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v4_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v4_b_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v4_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v4_c_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v5_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v5_a_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v5_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v5_b_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v5_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v5_c_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v6_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v6_a_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v6_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v6_b_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v6_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v6_c_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v7_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v7_a_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v7_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v7_b_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v7_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v7_c_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v8_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v8_a_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v8_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v8_b_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v8_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v8_c_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v9_a_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v9_a_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v9_b_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v9_b_"+ij+"_Binv2";
+      if(IDs[i] == "HNL_ULID_FO_v9_c_"+Year+"MuMu_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v9_c_"+ij+"_Binv2";
     
       if(PtType=="PtParton")    name=name.ReplaceAll("pt_eta","ptparton_eta");
       if(PtType=="PtCorr")      name=name.ReplaceAll("pt_eta","ptcorr_eta");
       if(PtType=="MotherPt")    name=name.ReplaceAll("pt_eta","mjpt_eta");
     }
 
-    TH2D* eff_rate = (TH2D*)h_pt_num->Clone(("HNL_ULID_"+Year+"_"+name+"_FR_cent").Data());
+    TH2D* eff_rate = (TH2D*)h_pt_num->Clone(("HNL_ULID_"+Year+"_"+name).Data());
 
     eff_rate->Add(h_mcpt_num,-1.);
     

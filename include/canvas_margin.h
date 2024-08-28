@@ -32,7 +32,6 @@ void canvas_margin(TCanvas *c1, TPad *c1_up, TPad *c1_down){
 void hist_axis(TH1D *hist){
 
   hist->SetTitle("");
-
   
   hist->GetYaxis()->SetLabelSize(0.03);
   hist->GetYaxis()->SetTitleSize(0.04);

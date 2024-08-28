@@ -11,6 +11,44 @@ def PrintList(_list):
         print (x)
 
 
+def ChooseTag(channel):
+   
+    if channel == "Tchannel":
+        return "_VBFOnly"
+    elif channel == "Combinedchannel":
+        return "_Combined"
+    else:
+        return "_DY"
+
+def ChooseMassList(list1, list2,list3, channel,order_sc):
+
+    if order_sc == 1:
+        if channel == "Combinedchannel":
+            return list3
+        elif channel == "Tchannel":
+            return list2
+        else:            
+            return list1
+    else:
+        if channel == "Combinedchannel":
+            return list3
+        elif channel == "Tchannel":
+            return list1
+        else:
+            return list2
+
+def ChooseID(list1, list2, flavour,order_mu):
+    if order_mu == 1:
+        if flavour == "MuMu":
+            return list1
+        else:
+            return list2
+    else:
+        if flavour == "MuMu":
+            return list2
+        else:
+            return list1
+
 def NIteration(samples):
     niter =1
     for x in samples:
@@ -262,25 +300,30 @@ def GetSConfig(tag, configfile,_setup):
         exit()
                 
     
+def MakeDirectory(dirname):
+    os.system("mkdir -p " +dirname)
+
 #def GetHistNameSRHighMass(flavour,SR, mass,year, _id,Analyzer):
 #    histname = SR+"_highmass/"+SR+"_highmass_njets_"+Analyzer+"_"+flavour + "_"+_id + "_"
 #    return histname
 
-#def GetHistNameNoCut(flavour,_id,Analyzer):#
-#
-#    #histname = "CutFlow/NoCut_"+Analyzer+"_"+flavour+"_"+Analyzer
-#    #return histname
-#    histname = "FillEventCutflow/"+Analyzer+"_"+flavour + "_"+_id + "exo_17_028_dimu_same_sign";
-#    
-#    if flavour == "EE":
-#        histname = "FillEventCutflow/"+Analyzer+"_"+flavour+ "_"+_id + "exo_17_028_diel_same_sign";
-#    return histname
+def GetHistNameNoCut(flavour,_id,Analyzer):#
 
-#def GetHistNameSRMassBin(channel,SR, mass,year, _id,Analyzer):#
-#
-#    histname= SR
-#    histname+= "/"+ str(histname) +"_mn"+mass +"_nevent_"+str(Analyzer)+"_"+str(channel)+"_"+str(_id)+"_"
-#    return histname
+    histname = flavour+"_NoCut"
+    return histname
+
+def GetHistNameSRMassBin(channel,SR, mass,year, _id,Analyzer):#
+
+    histname= "EXO17028_"+channel + "/EXO17028/HNL_"+SR+"_17028"
+    if channel == "EE":
+        if SR == "SR1":
+            histname+= "/_mn"+mass +"_nevent"
+        else:
+            histname+= "/mn"+mass +"_nevent"
+    else:
+        histname+= "/mn"+mass +"_nevent"
+
+    return histname
 
 
 
@@ -362,14 +405,7 @@ def GetSignalEffSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
     den_histname= GetHistNameNoCut(channel, _id,Analyzer)
     
     filepaths = []
-    if VBF == "_DY":
-        filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/"+year+"/SIG/"+Analyzer+"_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
-    elif VBF == "_VBFOnly":
-        filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/"+year+"/SIG/"+Analyzer+"_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
-    else :
-        filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/"+year+"/SIG/"+Analyzer+"_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
-        if int(mass) > 250:
-            filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/"+year+"/SIG/"+Analyzer+"_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
+    filepaths.append(os.getenv("FILE_MERGED_PATH") + "/"+Analyzer+"/"+year+"/SIG/"+Analyzer+"_MN"+mass+".root")
 
     total=0
 
@@ -434,14 +470,7 @@ def GetSignalEventsSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
     histname=GetHistNameSRMassBin(channel,SR, mass,year,_id,Analyzer)
 
     filepaths = []
-    if VBF == "_DY":
-        filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
-    elif VBF == "_VBFOnly":
-        filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
-    else :
-        filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Schannel_"+channel+"_"+mass+"_nlo.root")
-        if int(mass) > 250:
-            filepaths.append(os.getenv("INFILE_MERGED_PATH") + "/"+Analyzer+"/2016/SIG/"+Analyzer+"_HN_Tchannel_"+channel+"_"+mass+"_nlo.root")
+    filepaths.append(os.getenv("FILE_MERGED_PATH") + "/"+Analyzer+"/"+year+"/SIG/"+Analyzer+"_MN"+mass+".root")
 
     total=0
 
@@ -459,24 +488,25 @@ def GetSignalEventsSRMassBin(channel,SR, mass,year, VBF,_id,Analyzer):
     # copy scale used by JS in 2016                                                                 \
                                                                                                      
     scale_ = 1.
-    if int(mass) <= 200:
+    if int(mass) <= 100:
         scale_ = 0.1
-    elif int(mass) <= 700:
+    elif int(mass) <= 300:
         scale_ = 1
-    elif int(mass) <=1000:
+    elif int(mass) <=700:
         scale_ = 10.
     else:
         scale_ = 100.
 
+    scale_ = scale_ * 0.0001
 
     #since only 2016 samples available use these and scale to lumi for now                          \
                                                                                                      
     # effective lumi: 36.47 fb-1 (2016) 41.54 fb-1 (2017) 59.96 fb-1 (2018)                         \
                                                                                                      
-    if year == "2017":
-        scale_ = scale_* 41.54/36.47
-    elif year == "2018":
-        scale_ = scale_ *59.96/36.47
+    #if year == "2017":
+    #    scale_ = scale_* 41.54/36.47
+    #elif year == "2018":
+    #    scale_ = scale_ *59.96/36.47
 
     return round(total*scale_,4)
 
@@ -484,9 +514,7 @@ def GetFakeCountSRMassBin(channel, SR, mass,year,_id,Analyzer):
     histname=GetHistNameSRMassBin(channel,SR, mass,year,_id,Analyzer)
     filepaths =[]
     if SR == "SR1" or SR == "SR2" or Analyzer == "HNtypeI_Dilepton":
-        filepaths.append(os.getenv("INFILE_MERGED_PATH")  + "/"+Analyzer+"/"+ year + "/"+Analyzer+"_SkimTree_SSNonIso_Fake"+channel+".root"  )
-    else:
-        filepaths.append(os.getenv("INFILE_MERGED_PATH")  + "/"+Analyzer+"/"+year + "/"+Analyzer+"_SkimTree_SSNonIso_FakeOS.root"  )
+        filepaths.append(os.getenv("FILE_MERGED_PATH")  + "/"+Analyzer+"/"+ year + "/"+Analyzer+"_NonPrompt.root"  )
 
 
     total=0
@@ -524,7 +552,7 @@ def GetCFCountSRMassBin(channel,SR, mass,year,_id,Analyzer):
     histname=GetHistNameSRMassBin(channel,SR, mass,year,_id,Analyzer)
     filepaths =[]
     if SR == "SR1" or SR == "SR2":
-        filepaths.append(os.getenv("INFILE_MERGED_PATH")+ "/"+Analyzer+"/"+ year + "/"+Analyzer+"_SkimTree_SSNonIso_CF.root"  )
+        filepaths.append(os.getenv("FILE_MERGED_PATH")+ "/"+Analyzer+"/"+ year + "/"+Analyzer+"_CF.root"  )
     else:
         return 0.
 
@@ -550,12 +578,10 @@ def GetPromptCountSRMassBin(channel,SR, mass,year,_id,Analyzer):
 
     histname=GetHistNameSRMassBin(channel,SR, mass,year,_id,Analyzer)
     filepaths =[]
-    if SR == "SR1" or SR == "SR2":
-        filepaths.append(os.getenv("INFILE_MERGED_PATH") +"/"+Analyzer+"/"+ year + "/"+Analyzer+"_SkimTree_SSNonIso_SSPrompt.root")
-
-    else:
-        filepaths.append(os.getenv("INFILE_MERGED_PATH") +"/"+Analyzer+"/"+ year + "/"+Analyzer+"_SkimTree_SSNonIso_OSPrompt.root")
-
+    filepaths.append(os.getenv("FILE_MERGED_PATH") +"/"+Analyzer+"/"+ year + "/"+Analyzer+"_Prompt.root")
+    
+    print (os.getenv("FILE_MERGED_PATH") +"/"+Analyzer+"/"+ year + "/"+Analyzer+"_Prompt.root")
+    print (histname)
 
     total=0
     for f in filepaths:
@@ -565,6 +591,7 @@ def GetPromptCountSRMassBin(channel,SR, mass,year,_id,Analyzer):
             if hist:
                 total += hist.Integral()
         _file.Close()
+    print(str(total))
 
     return round(total,4)
 

@@ -25,8 +25,8 @@ void MakeFRFileLL(){
 void MakeFRFile(TString year, TString dataset="EE",TString PtType="Pt" ){
 
 
-  TString path= TString(std::getenv("FILE_MERGED_PATH")) + "HNL_Lepton_FakeRate/"+year+"/RunRatesEE__/HNL_Lepton_FakeRate_Data_FakeElectron.root";
-  TString mcpath= TString(std::getenv("FILE_MERGED_PATH")) + "HNL_Lepton_FakeRate/"+year+"/RunRatesEE__/HNL_Lepton_FakeRate_MC.root";
+  TString path= TString(std::getenv("FILE_MERGED_PATH")) + "HNL_Lepton_FakeRate/April19/"+year+"/RunRatesEE__/HNL_Lepton_FakeRate_Data_FakeElectron.root";
+  TString mcpath= TString(std::getenv("FILE_MERGED_PATH")) + "HNL_Lepton_FakeRate/April19/"+year+"/RunRatesEE__/HNL_Lepton_FakeRate_MC.root";
 
     
   TFile * fdata = new TFile(path);
@@ -47,34 +47,34 @@ void MakeFRFile(TString year, TString dataset="EE",TString PtType="Pt" ){
 
 
 
-  std::vector<TString> IDs = {    "HNL_ULID_FO_v0_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v1_a_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v1_b_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v1_c_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v2_a_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v2_b_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v2_c_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v3_a_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v3_b_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v3_c_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v4_a_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v4_b_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v4_c_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v5_a_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v5_b_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v5_c_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v6_a_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v6_b_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v6_c_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v7_a_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v7_b_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v7_c_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v8_a_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v8_b_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v8_c_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v9_a_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v9_b_"+Year+"EE_AJ25_pt_eta",
-                                  "HNL_ULID_FO_v9_c_"+Year+"EE_AJ25_pt_eta",
+  std::vector<TString> IDs = {    "HNL_ULID_FO_v0_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v1_a_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v1_b_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v1_c_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v2_a_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v2_b_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v2_c_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v3_a_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v3_b_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v3_c_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v4_a_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v4_b_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v4_c_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v5_a_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v5_b_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v5_c_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v6_a_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v6_b_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v6_c_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v7_a_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v7_b_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v7_c_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v8_a_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v8_b_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v8_c_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v9_a_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v9_b_"+Year+"EE_AJ60_pt_eta",
+                                  "HNL_ULID_FO_v9_c_"+Year+"EE_AJ60_pt_eta",
                                   
                                   "HNL_ULID_FO_v0_"+Year+"EE_AJ30_pt_eta",
                                   "HNL_ULID_FO_v1_a_"+Year+"EE_AJ30_pt_eta",
@@ -166,7 +166,7 @@ void MakeFRFile(TString year, TString dataset="EE",TString PtType="Pt" ){
     CheckHist(h_pt_num);
     TString name = IDs[i] ;
 
-    vector<TString> AJs = {"AJ25", "AJ30","AJ40"};
+    vector<TString> AJs = {"AJ60", "AJ30","AJ40"};
     for (auto ij : AJs){
 
       if(IDs[i] == "HNL_ULID_FO_v0_"+Year+"EE_"+ij+"_pt_eta") name = "pt_eta_HNL_ULID_FO_v0_"+ij;
@@ -205,7 +205,7 @@ void MakeFRFile(TString year, TString dataset="EE",TString PtType="Pt" ){
     }
 
 
-    TString SaveName = ("HNL_ULID_"+Year+"_"+name);
+    TString SaveName = ("HNL_ULID_"+Year+"_"+name+"_El12");
     if(name.Contains("ULLI")) SaveName = ("HNL_ULLID_"+name);
 
 

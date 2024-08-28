@@ -77,6 +77,12 @@ public:
   void draw_comp_canvas(TH1D *hist_def, TH1D *hist_comp, TLegend *legend ,TFile *outputf);
 
 
+  void AddAK8();
+  void AddVBF();
+  void AddMisc();
+  void AddMass(int mass);
+  void AddLepton(int nlep);
+
   void AddHist(TString hn, TString htype, TString hunit,  vector<double> rb, double Xmin, double Xmax, double Ymax=1000000.);
   void AddCutFlow(TString hn);
   void SetupDefaultHist(TString sample, TString hn, TString histtag, TString legendname, TString htype, TString hunit,  vector<double> rb, double Xmin, double Xmax, double Ymax=1000000.);
@@ -189,7 +195,7 @@ public:
   TString infilepath, filename_prefix, filename_suffix, data_class, plotpath, thiscut_plotpath, def_infilepath, def_histpath,syncpath;
   vector<TString> HistPath, bkglist, samples_to_use, HistNames, x_title, units, PrimaryDataset, FullHistNames,SamplePaths, LegendNames,CutFlowHistNames;
   vector<double> bkgScale;
-  vector<int> Xmins,Xmaxs,Ymaxs;
+  vector<double> Xmins,Xmaxs,Ymaxs;
   vector<vector<double> > Rebins;
   vector<bool> drawdata, ApplyMCNormSF, drawratio;
   vector<TString> CutFlowResults, HistResults;

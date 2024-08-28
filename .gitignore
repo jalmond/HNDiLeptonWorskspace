@@ -1,4 +1,5 @@
 .DS_Store
+**.root
 src/HNL_SignalLeptonOpt/ScanID/**
 PyScripts/OptimisationHelper/LeptonID_Opt_Helper/results
 src/HNL_SignalLeptonOpt/ScanID/results

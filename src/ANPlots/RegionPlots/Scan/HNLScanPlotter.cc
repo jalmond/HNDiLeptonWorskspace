@@ -405,7 +405,8 @@ void HNLScanPlotter::draw_hist(){
       TString HPath  = HistPath[i_cut];
       HPath = HPath.ReplaceAll("/MuMu","_MuMu");
       HPath = HPath.ReplaceAll("/EE","_EE");
-      
+      HPath = HPath.ReplaceAll("/EMu","_EMu");
+    
       if(i_cut == 0 && HPath.Contains("/")){
 	TString HPath2 = HPath;
 	HPath2 = HPath2.ReplaceAll("/"," ");
@@ -2020,6 +2021,7 @@ double HNLScanPlotter::draw_canvas_fakescan(THStack *mc_stack, TH1D *mc_staterro
     SaveName =SaveName.ReplaceAll("AJ40/","AJ40_"); 
     SaveName =SaveName.ReplaceAll("MuMu/","MuMu_");
     SaveName =SaveName.ReplaceAll("EE/","EE_");
+    SaveName =SaveName.ReplaceAll("EMu/","EMu_");
     SaveName =SaveName.ReplaceAll("ChannelCutFlow/","");
 
     c1->SaveAs(SaveName);
@@ -2050,6 +2052,7 @@ double HNLScanPlotter::draw_canvas_fakescan(THStack *mc_stack, TH1D *mc_staterro
     histPath=histPath.ReplaceAll("ChannelCutFlow/","");
     histPath=histPath.ReplaceAll("/MuMu","");
     histPath=histPath.ReplaceAll("/EE","");
+    histPath=histPath.ReplaceAll("/EMu","");
 
     if(CopyToWebsite)    SaveAndCopyLXPLUSScan(c1,thiscut_plotpath+"/"+HistNames[i_var],histPath,HistNames[i_var],AnalyserName,MacroName,Era);
 
@@ -2487,6 +2490,7 @@ void HNLScanPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc
     HNAME_FIX2 = HNAME_FIX2.ReplaceAll(first_word+"/","");
     HNAME_FIX2 = HNAME_FIX2.ReplaceAll("/EE","");
     HNAME_FIX2 = HNAME_FIX2.ReplaceAll("/MuMu","");
+    HNAME_FIX2 = HNAME_FIX2.ReplaceAll("/EMu","");
   }
   
   c1->SaveAs(thiscut_plotpath+"/"+HNAME_FIX+"_"+HNAME_FIX2+".pdf");

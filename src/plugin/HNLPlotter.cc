@@ -568,6 +568,7 @@ TH1D* HNLPlotter::ConstructHist(TString filepath, TString fullhistname, vector<d
 
   if(vrebinTMP.size()==1) hist_temp->Rebin(vrebinTMP[0]);
   else{
+    cout << "Rebinning with VAR bins " << endl;;
     double TMParray[vrebinTMP.size()];
     std::copy(vrebinTMP.begin(), vrebinTMP.end(), TMParray);
     hist_temp = (TH1D *)hist_temp->Rebin(vrebinTMP.size()-1, "hnew1", TMParray);

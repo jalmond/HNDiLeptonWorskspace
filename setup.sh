@@ -22,7 +22,7 @@ export MVAOutputDir="/data6/Users/$USER/MVAOutput/"
 
 
 export FILE_MERGED_PATH=$HNDILEPTONWORKSPACE_DIR/InputFiles/MergedFiles/
-if [[ ! -d $FILE_MERGED_PATH ]]; then mkdir $FILE_MERGED_PATH ; fi
+
 
 export FILE_PATH=$HNDILEPTONWORKSPACE_DIR/InputFiles/rootfiles/
 export OUTFILE_PATH=$HNDILEPTONWORKSPACE_DIR/Output/rootfiles/
@@ -37,7 +37,7 @@ if [[ $HOSTNAME == "tamsa1" ]];
 then
     
     export INFILE_PATH=$SKFlatOutputDir/
-    export LIMIT_PATH=$HNDILEPTONWORKSPACE_DIR/LimitCode/CMS-StatisticalTools/:$HNDILEPTONWORKSPACE_DIR/Limits/MakeShapeInput:"/data6/Users/jalmond/Limits/CMSSW_10_2_13/src/HiggsAnalysis/CombinedLimit/data/2016_HNDiLepton/batch/"
+    export LIMIT_PATH=$HNDILEPTONWORKSPACE_DIR/LimitCode/CMS-StatisticalTools/:$HNDILEPTONWORKSPACE_DIR/Limits/MakeShapeInput:"/data9/Users/jalmond/Limits/CMSSW_11_3_4/src/HiggsAnalysis/CombinedLimit/batch/"
     
 
 

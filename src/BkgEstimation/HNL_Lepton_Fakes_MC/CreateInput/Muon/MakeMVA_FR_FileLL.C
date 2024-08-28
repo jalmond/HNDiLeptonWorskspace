@@ -6,38 +6,56 @@ TString DoubleToString(double d);
 
 
 void MakeMVA_FR_FileLL(){
-
-  MakeFRFile("2017","HNL_ID","Pt","MC");
-  MakeFRFile("2017","HNL_ID","PtParton","MC");
-  MakeFRFile("2017","HNL_ID","PtCorr","MC");
-
-  MakeFRFile("2017","HNL_ID_Weighted","Pt","MC");
-  MakeFRFile("2017","HNL_ID_Weighted","PtParton","MC");
-  MakeFRFile("2017","HNL_ID_Weighted","PtCorr","MC");
-
-  MakeFRFile("2017","HNL_IDv2","Pt","MC");
-  MakeFRFile("2017","HNL_IDv2","PtParton","MC");
-  MakeFRFile("2017","HNL_IDv2","PtCorr","MC");
   
-  MakeFRFile("2017","HNL_IDv2_Weighted","Pt","MC");
-  MakeFRFile("2017","HNL_IDv2_Weighted","PtParton","MC");
-  MakeFRFile("2017","HNL_IDv2_Weighted","PtCorr","MC");
+  for(auto iera : {"2016preVFP","2016postVFP","2017","2018"}){
+    
+    TString sEra = iera;
+    if(sEra.Contains("2016")) sEra = "2016";
+      
 
-  MakeFRFile("2017","HNL_IDv7","Pt","MC");
-  MakeFRFile("2017","HNL_IDv7","PtParton","MC");
-  MakeFRFile("2017","HNL_IDv7","PtCorr","MC");
+    vector<TString> vIDs = {
+      "HNL_ULID_FO_v0_"+sEra + "_MC",
+      "HNL_ULID_FO_v1_a_"+sEra + "_MC",
+      "HNL_ULID_FO_v1_b_"+sEra + "_MC",
+      "HNL_ULID_FO_v1_c_"+sEra + "_MC",
+      "HNL_ULID_FO_v2_a_"+sEra + "_MC",
+      "HNL_ULID_FO_v2_b_"+sEra + "_MC",
+      "HNL_ULID_FO_v2_c_"+sEra + "_MC",
+      "HNL_ULID_FO_v3_a_"+sEra + "_MC",
+      "HNL_ULID_FO_v3_b_"+sEra + "_MC",
+      "HNL_ULID_FO_v3_c_"+sEra + "_MC",
+      "HNL_ULID_FO_v4_a_"+sEra + "_MC",
+      "HNL_ULID_FO_v4_b_"+sEra + "_MC",
+      "HNL_ULID_FO_v4_c_"+sEra + "_MC",
+      "HNL_ULID_FO_v5_a_"+sEra + "_MC",
+      "HNL_ULID_FO_v5_b_"+sEra + "_MC",
+      "HNL_ULID_FO_v5_c_"+sEra + "_MC",
+      "HNL_ULID_FO_v6_a_"+sEra + "_MC",
+      "HNL_ULID_FO_v6_b_"+sEra + "_MC",
+      "HNL_ULID_FO_v6_c_"+sEra + "_MC",
+      "HNL_ULID_FO_v7_a_"+sEra + "_MC",
+      "HNL_ULID_FO_v7_b_"+sEra + "_MC",
+      "HNL_ULID_FO_v7_c_"+sEra + "_MC",
+      "HNL_ULID_FO_v8_a_"+sEra + "_MC",
+      "HNL_ULID_FO_v8_b_"+sEra + "_MC",
+      "HNL_ULID_FO_v8_c_"+sEra + "_MC",
+      "HNL_ULID_FO_v9_a_"+sEra + "_MC",
+      "HNL_ULID_FO_v9_b_"+sEra + "_MC",
+      "HNL_ULID_FO_v9_c_"+sEra + "_MC",
 
-  MakeFRFile("2017","HNL_IDv7_Weighted","Pt","MC");
-  MakeFRFile("2017","HNL_IDv7_Weighted","PtParton","MC");
-  MakeFRFile("2017","HNL_IDv7_Weighted","PtCorr","MC");
-
-
+    };
+    
+    for (auto id : vIDs){
+      MakeFRFile(iera,id,"Pt","MC");
+      MakeFRFile(iera,id,"PtParton","MC");
+    }
+  }
 }
 
 void MakeFRFile(TString year, TString dataset="MuMu",TString PtType="Pt" , TString sFile="MC"){
 
-  TString mcpath= "/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3/HNL_LeptonFakeRateMC/"+year+"/MCFakes__/HNL_LeptonFakeRateMC_SkimTree_FakeEventSkimBDT_MC.root";
-
+  TString mcpath= "/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_Lepton_FakeRate_MC/"+year+"/MCFakes__/HNL_Lepton_FakeRate_MC_QCDMu.root";
+  
 
   TFile * fmc = new TFile(mcpath);
 
@@ -49,39 +67,26 @@ void MakeFRFile(TString year, TString dataset="MuMu",TString PtType="Pt" , TStri
   if( era.Contains("2016post")) era = "2016b";
   TString Year=year;
   if( era.Contains("2016"))  Year= "2016";
-  TString outfile = "FR_"+sFile+"_Mu_"+dataset+era+"_HNL_ULID_"+PtType+".root";
+  TString outfile = "FR_"+sFile+"_Mu_"+dataset+"_"+era+"_HNL_ULID_"+PtType+".root";
 
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   fout->cd();
 
-  std::vector<TString> IDs = {"MCFake_J25_pt_eta",
-			      "MCFake_J30_pt_eta",
-			      "MCFake_J40_pt_eta",
-			      "MCFake_J60_pt_eta",
-			      "MCFake_J25_BJet1_pt_eta",
-                              "MCFake_J30_BJet1_pt_eta",
-                              "MCFake_J40_BJet1_pt_eta",
-                              "MCFake_J60_BJet1_pt_eta",
-			      "MCFake_J25_BJet2_pt_eta",
-                              "MCFake_J30_BJet2_pt_eta",
-                              "MCFake_J40_BJet2_pt_eta",
-                              "MCFake_J60_BJet2_pt_eta",
-			      "MCFake_J25_BJet3_pt_eta",
-                              "MCFake_J30_BJet3_pt_eta",
-                              "MCFake_J40_BJet3_pt_eta",
-                              "MCFake_J60_BJet3_pt_eta",
-  };
+  std::vector<TString> IDs = {"MCFake_AJ25_pt_eta",
+			      "MCFake_AJ30_pt_eta",
+			      "MCFake_AJ40_pt_eta",
+			      "MCFake_AJ60_pt_eta" };
 
   
   for(unsigned int i=0; i < IDs.size(); i++){
     
     TString ID = IDs[i];
     if(PtType=="PtParton")    ID=ID.ReplaceAll("pt","ptparton");
-    if(PtType=="PtCorr")      ID=ID.ReplaceAll("pt","ptcorr");
-   
+    //_MC_FO_2018_
     TString denom = "MuMu_"+dataset+"/"+PtType+"/Fake_"+PtType+"_Loose" +ID;
     TString num   = "MuMu_"+dataset+"/"+PtType+"/Fake_"+PtType+"_Tight" +ID;
-
+    
+    cout << mcpath << endl;
     cout << num << endl;
     TH2D* h_pt_num= (TH2D*)fmc->Get(num.Data());
     TH2D* h_pt_denom= (TH2D*)fmc->Get(denom.Data());
@@ -91,33 +96,14 @@ void MakeFRFile(TString year, TString dataset="MuMu",TString PtType="Pt" , TStri
 
     TString name = IDs[i] ;
 
-    if(IDs[i] == "MCFake_J25_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J25";
-    if(IDs[i] == "MCFake_J30_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J30";
-    if(IDs[i] == "MCFake_J40_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J40";
-    if(IDs[i] == "MCFake_J60_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J60";
+    if(IDs[i] == "MCFake_AJ25_pt_eta")          name =  "pt_eta_"+dataset+"_AJ25";
+    if(IDs[i] == "MCFake_AJ30_pt_eta")          name =  "pt_eta_"+dataset+"_AJ30";
+    if(IDs[i] == "MCFake_AJ40_pt_eta")          name =  "pt_eta_"+dataset+"_AJ40";
+    if(IDs[i] == "MCFake_AJ60_pt_eta")          name =  "pt_eta_"+dataset+"_AJ60";
     
-    if(IDs[i] == "MCFake_J25_BJet1_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J25_BJet1";
-    if(IDs[i] == "MCFake_J30_BJet1_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J30_BJet1";
-    if(IDs[i] == "MCFake_J40_BJet1_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J40_BJet1";
-    if(IDs[i] == "MCFake_J60_BJet1_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J60_BJet1";
-
-    if(IDs[i] == "MCFake_J25_BJet2_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J25_BJet2";
-    if(IDs[i] == "MCFake_J30_BJet2_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J30_BJet2";
-    if(IDs[i] == "MCFake_J40_BJet2_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J40_BJet2";
-    if(IDs[i] == "MCFake_J60_BJet2_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J60_BJet2";
-
-
-    if(IDs[i] == "MCFake_J25_BJet3_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J25_BJet3";
-    if(IDs[i] == "MCFake_J30_BJet3_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J30_BJet3";
-    if(IDs[i] == "MCFake_J40_BJet3_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J40_BJet3";
-    if(IDs[i] == "MCFake_J60_BJet3_pt_eta")          name =  "pt_eta_"+dataset+"_FO_J60_BJet3";
-
-
-    name = name.ReplaceAll("IDv2_FO","ID_FOv2");
-    name = name.ReplaceAll("IDv7_FO","ID_FOv7");
-
     if(PtType=="PtParton")    name=name.ReplaceAll("pt","ptparton");
-    if(PtType=="PtCorr")      name=name.ReplaceAll("pt","ptcorr");
+    name=name.ReplaceAll("HNL_ID","HNL_ULID");
+
 
     TH2D* eff_rate = (TH2D*)h_pt_num->Clone(("HNL_ULID_"+Year+"_MC_"+name+"_FR_cent").Data());
 

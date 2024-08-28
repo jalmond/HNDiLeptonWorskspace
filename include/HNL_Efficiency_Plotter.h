@@ -71,6 +71,10 @@ public:
   double coupling_constant(int mass);
   void fill_legend(TLegend *lg, TH1D *hist);
   void draw_legend(TLegend *lg, bool DrawData);
+
+  void draw_SignalEff_canvas(TGraphAsymmErrors *gSR1,TGraphAsymmErrors *gSR2,TGraphAsymmErrors *gSR3, TGraphAsymmErrors *gSR4,TString HistName, TString Era, TString Tag);
+void draw_IDSF_Syst_canvas(TH1D *hist_default, TH1D *hist_defaultStat, TString HistName, TString Era, double tmpy);
+
   void draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_allerror, TH1D *hist_data, vector<TH1D *> hist_signal, TLegend *legend, bool DrawData, TFile *outputf);
   void draw_comp_canvas(TH1D *hist_def, TH1D *hist_comp, TLegend *legend ,TFile *outputf);
 
@@ -158,6 +162,7 @@ public:
   double GetScale(TString samplename);
 
 
+  void draw_IDSF_Muon_canvas(TH1D *hist_default_MuonUnc1, TString HistName, TString Era, TString Tag,double tmp_ymax);
 
   void MakeAUCHist(map<TString,double> AUCMap,TString HistName, TString dirname, TString label);
 

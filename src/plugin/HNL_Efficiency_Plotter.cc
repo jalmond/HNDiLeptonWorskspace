@@ -1477,6 +1477,8 @@ void HNL_Efficiency_Plotter::draw_comp_canvas(TH1D *hist_def, TH1D *hist_comp, T
 
 
 }
+
+
 void HNL_Efficiency_Plotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_allerror, TH1D *hist_data, vector<TH1D *> hist_signal, TLegend *legend, bool DrawData, TFile *outputf){
 
   if(!hist_data) return;
@@ -2739,6 +2741,7 @@ void HNL_Efficiency_Plotter::draw_hists_canvas(vector<TH1D*> hists , vector<TStr
 
 
 
+
 void HNL_Efficiency_Plotter::draw_hists_canvas_pt(vector<TH1D*> hists , vector<TString> legNames,  TString HistName,TString dirName){
 
   if(!hists[0]) return;
@@ -3705,6 +3708,351 @@ void  HNL_Efficiency_Plotter::DrawEfficiency( vector<TH1D*> hists, vector<TStrin
 
 }
 
+
+void HNL_Efficiency_Plotter::draw_SignalEff_canvas(TGraphAsymmErrors *gSR1,TGraphAsymmErrors *gSR2,TGraphAsymmErrors *gSR3,TGraphAsymmErrors *gSR4 , TString HistName, TString Era, TString Tag){
+  cout    << "################### draw_hist_canvas [" << HistName << "]  ###################" << endl;
+
+  cout
+    << endl
+    << "################### Writing in Directory " << thiscut_plotpath << " ###################" << endl
+    << endl;
+
+
+  thiscut_plotpath = plotpath+"/"+ HistName;
+  mkdir(thiscut_plotpath);
+
+  hist_axis(gSR1);
+
+  if(!Tag.Contains("SR")){
+    
+    gSR1->SetLineWidth(2);
+    gSR1->SetMarkerSize(1.);
+    gSR1->SetLineColor(kBlack);
+    
+    gSR2->SetLineWidth(2);
+    gSR2->SetLineStyle(4);
+    gSR2->SetMarkerSize(1.);
+    gSR2->SetLineColor(kBlack);
+    
+    gSR3->SetLineWidth(2);
+    gSR3->SetMarkerSize(1.);
+    gSR3->SetLineColor(kBlue);
+    
+    gSR4->SetLineWidth(2);
+    gSR4->SetLineStyle(4);
+    gSR4->SetMarkerSize(1.);
+    gSR4->SetLineColor(kBlue);
+  }
+  else{
+
+    
+    gSR1->SetLineWidth(2);
+    gSR1->SetMarkerSize(1.);
+    gSR1->SetLineColor(kBlack);
+
+    gSR2->SetLineWidth(2);
+    gSR2->SetMarkerSize(1.);
+    gSR2->SetLineColor(kBlue);
+
+    gSR3->SetLineWidth(2);
+    gSR3->SetMarkerSize(1.);
+    gSR3->SetLineStyle(4);
+    gSR3->SetLineColor(kBlack);
+
+    gSR4->SetLineWidth(2);
+    gSR4->SetLineStyle(4);
+    gSR4->SetMarkerSize(1.);
+    gSR4->SetLineColor(kBlue);
+  }
+
+  TCanvas* c1 = new TCanvas(HistName, "", 1200, 800);
+  c1->Draw();
+  c1->cd();
+  canvas_margin(c1);
+  c1->SetRightMargin( 0.11 );                            
+  gSR1->GetHistogram()->GetYaxis()->SetRangeUser(0,120);
+  //  gSR1->GetHistogram()->GetXaxis()->SetRangeUser(85,20000);
+  gSR1->GetHistogram()->GetXaxis()->SetTitle("m_{N} Gev");
+  gSR1->GetHistogram()->GetYaxis()->SetTitle("#epsilon_{Signal}");
+  
+  TH1D *hist_empty = new TH1D("","",20000,0,20000);
+  hist_empty->SetName("DUMMY_FOR_AXIS");
+  hist_axis(hist_empty);
+  hist_empty->GetYaxis()->SetRangeUser(0,120);
+  hist_empty->GetXaxis()->SetRangeUser(100,20000);
+  if(Tag.Contains("SR1")){
+    hist_empty->GetYaxis()->SetRangeUser(0,80);
+    hist_empty->GetXaxis()->SetRangeUser(100,2000);
+  }
+  if(Tag.Contains("SR2")){
+    hist_empty->GetYaxis()->SetRangeUser(0,60);
+    hist_empty->GetXaxis()->SetRangeUser(500,20000);
+  }
+  hist_empty->GetXaxis()->SetTitle("m_{N} Gev");
+  hist_empty->GetYaxis()->SetTitle("#epsilon_{Signal} [%]");
+  hist_empty->Draw();
+  gSR1->Draw("same");
+  gSR2->Draw("same");
+  gSR3->Draw("same");
+  gSR4->Draw("same");
+  
+  cout << "gSR1 = " << gSR1->Integral() << " gSR2 = " << gSR2->Integral() << endl;
+
+  TLegend *lg = new TLegend(0.55, 0.8, 0.93, 0.93);
+  lg->SetFillStyle(0);
+  lg->SetBorderSize(0);
+  lg->SetTextSize(0.03);
+  if(!Tag.Contains("SR")){
+    lg->AddEntry(gSR1,"VBF+DY","l");
+    lg->AddEntry(gSR2,"VBF+DY [Prev. ID]","l");
+    lg->AddEntry(gSR3,"SSWW","l");
+    lg->AddEntry(gSR4,"SSWW   [Prev. ID]","l");
+  }
+  else{
+    lg->AddEntry(gSR1,"VBF+DY [ee]","l");
+    lg->AddEntry(gSR3,"VBF+DY [#mu#mu]","l");
+    lg->AddEntry(gSR2,"SSWW [ee]","l");
+    lg->AddEntry(gSR4,"SSWW [#mu#mu]","l");
+
+  }
+  lg->Draw();
+
+  TLatex channelname;
+  channelname.SetNDC();
+  channelname.SetTextSize(0.03);
+  if(Tag.Contains("SR1"))channelname.DrawLatex(0.2, 0.88,"SR1");
+  else   if(Tag.Contains("SR2"))channelname.DrawLatex(0.2, 0.88,"SR2");
+  else   if(Tag.Contains("SR3"))channelname.DrawLatex(0.2, 0.88,"SR3");
+  else if(Tag.Contains("SR1"))channelname.DrawLatex(0.2, 0.88,"Preselection");
+
+  mkdir(thiscut_plotpath);
+
+  TString HNAME = "SignalEff_"+Tag ;
+  c1->SetLogx();
+
+  c1->SaveAs(thiscut_plotpath+"/"+HNAME+".pdf");
+
+
+}
+
+void HNL_Efficiency_Plotter::draw_IDSF_Muon_canvas(TH1D *hist_default_MuonUnc, TString HistName, TString Era, TString Tag,double tmp_ymax){
+
+  cout    << "################### draw_hist_canvas [" << HistName << "]  ###################" << endl;
+
+  cout
+    << endl
+    << "################### Writing in Directory " << thiscut_plotpath << " ###################" << endl
+    << endl;
+
+
+  thiscut_plotpath = plotpath+"/"+ HistName;
+  mkdir(thiscut_plotpath);
+
+  /// Fix axis                                                                                                                                                                                                    
+  hist_axis(hist_default_MuonUnc);
+  TCanvas* c1 = new TCanvas(HistName, "", 1200, 800);
+  c1->Draw();
+  c1->cd();
+
+  canvas_margin(c1);
+  c1->SetRightMargin( 0.11 );                                                                                                                                                                                    \
+
+  TH1D *hist_empty = (TH1D*)hist_default_MuonUnc->Clone();
+  hist_empty->SetName("DUMMY_FOR_AXIS");
+
+  double dx = 7;
+  hist_empty->SetLineWidth(0);
+  hist_empty->SetLineColor(0);
+  hist_empty->SetMarkerSize(0);
+  hist_empty->SetMarkerColor(0);
+  double Ymin = default_y_min;
+  double YmaxScale = 1.2;
+
+  hist_empty->GetYaxis()->SetTitleOffset(1.20);
+
+  hist_empty->SetLineWidth(3.);
+  hist_empty->SetLineColor(kRed);
+  hist_empty->GetYaxis()->SetTitle("Stat. + Syst. Uncertainty (%)");
+
+  hist_empty->GetYaxis()->SetRangeUser(0,tmp_ymax);
+  hist_empty->Draw("axis");
+
+  TGraphAsymmErrors *gr1 = new TGraphAsymmErrors(hist_empty);
+  gr1->SetLineWidth(2.0);
+  gr1->SetMarkerSize(1.5);
+  //  gr1->SetMarkerStyle(4.);
+  gr1->SetLineColor(kRed);
+  gr1->SetMarkerColor(kRed);
+  gr1->Draw("lpsame0");
+
+
+
+  TLegend *lg= new TLegend(0.75, 0.60, 0.85, 0.750);
+  //  lg->SetFillStyle(0);                                                                                                                                                                                                                                                                                                 
+  lg->SetBorderSize(0);
+  lg->SetTextSize(0.03);
+
+  double nBins = 32.;
+  double nPtBins = 8.;
+  if(Tag == "ID"){
+    nBins = 36.;
+    nPtBins = 9.;
+  }
+  double nTLineLower = double(tmp_ymax*0.87);
+  
+  TLine* l = new TLine(0,nTLineLower,nBins,nTLineLower);
+  l->Draw();
+
+  TLine* lv1 = new TLine(nPtBins,0,nPtBins,tmp_ymax);
+  lv1->SetLineStyle(4);
+  lv1->Draw();
+
+  TLine* lv2 = new TLine(2*nPtBins,0,2*nPtBins,tmp_ymax);
+  lv2->SetLineStyle(4);
+  lv2->Draw();
+  TLine* lv3 = new TLine(3*nPtBins,0,3*nPtBins,tmp_ymax);
+  lv3->SetLineStyle(4);
+  lv3->Draw();
+
+
+  lg->Draw();
+
+  TLatex channelname;
+  channelname.SetNDC();
+  channelname.SetTextSize(0.03);
+  channelname.DrawLatex(0.22, 0.88,"0.0-0.9");
+  channelname.DrawLatex(0.4, 0.88,"0.9-1.2");
+  channelname.DrawLatex(0.58, 0.88,"1.2-2.1");
+  channelname.DrawLatex(0.76, 0.88,"2.1-2.4");
+
+  channelname.DrawLatex(0.92, 0.88,"#eta");
+  channelname.DrawLatex(0.92, 0.1,"p_{T} (GeV)");
+  channelname.SetTextSize(0.03);
+  channelname.DrawLatex(0.75, 0.8,Era);
+  
+  mkdir(thiscut_plotpath);
+
+  TString HNAME = "Muon_"+Era ;
+
+  c1->SaveAs(thiscut_plotpath+"/"+HNAME+"_"+Tag+"_Sys.pdf");
+
+
+
+}
+
+void HNL_Efficiency_Plotter::draw_IDSF_Syst_canvas(TH1D *hist_default_EtaPlus, TH1D *hist_default_EtaMinus, TString HistName, TString Era, double tmp_ymax){
+
+  cout    << "################### draw_hist_canvas [" << HistName << "]  ###################" << endl;
+
+
+  cout
+    << endl
+    << "################### Writing in Directory " << thiscut_plotpath << " ###################" << endl
+    << endl;
+
+
+  thiscut_plotpath = plotpath+"/"+ HistName;
+  mkdir(thiscut_plotpath);
+  
+  /// Fix axis 
+  hist_axis(hist_default_EtaPlus);
+  TCanvas* c1 = new TCanvas(HistName, "", 1200, 800);
+  c1->Draw();
+  c1->cd();
+
+  canvas_margin(c1);
+  c1->SetRightMargin( 0.11 );                                                                                                                                                                                                                                                
+
+  TH1D *hist_empty = (TH1D*)hist_default_EtaPlus->Clone();
+  hist_empty->SetName("DUMMY_FOR_AXIS");
+
+  double dx = 7;
+  hist_empty->SetLineWidth(0);
+  hist_empty->SetLineColor(0);
+  hist_empty->SetMarkerSize(0);
+  hist_empty->SetMarkerColor(0);
+  double Ymin = default_y_min;
+  double YmaxScale = 1.2;
+
+  hist_empty->GetYaxis()->SetTitleOffset(1.20);                                                                                                                                                                                                                                     
+  
+  hist_empty->SetLineWidth(3.);
+  hist_empty->SetLineColor(kRed);
+  hist_empty->GetYaxis()->SetTitle("Stat. + Syst. Uncertainty (%)");
+  
+  hist_empty->GetYaxis()->SetRangeUser(0,tmp_ymax);
+  hist_empty->Draw("axis");
+
+  TGraphAsymmErrors *gr1 = new TGraphAsymmErrors(hist_empty);
+  gr1->SetLineWidth(2.0);
+  gr1->SetMarkerSize(1.5);
+  gr1->SetMarkerStyle(4.);
+  gr1->SetLineColor(kRed);
+  gr1->Draw("psame0");
+  
+  TGraphAsymmErrors *gr2 = new TGraphAsymmErrors(hist_default_EtaMinus);
+  gr2->SetLineWidth(2.0);
+  gr2->SetMarkerSize(1.5);
+  gr2->SetMarkerStyle(22);
+  gr2->SetLineColor(kBlue);
+  gr2->SetLineStyle(4);
+  gr2->Draw("p0same");
+
+  TLegend *lg= new TLegend(0.75, 0.60, 0.85, 0.750);
+  //  lg->SetFillStyle(0);
+  lg->SetBorderSize(0);
+  lg->SetTextSize(0.03);
+  lg->AddEntry(gr1,"#eta plus","l");
+  lg->AddEntry(gr2,"#eta minus","l");
+    
+  TLine* l = new TLine(0,tmp_ymax-4,36,tmp_ymax-4);
+  l->Draw();
+  
+  TLine* lv1 = new TLine(9,0,9,tmp_ymax);
+  lv1->SetLineStyle(4);
+  lv1->Draw();
+  
+  TLine* lv2 = new TLine(18,0,18,tmp_ymax);
+  lv2->SetLineStyle(4);
+  lv2->Draw();
+  TLine* lv3 = new TLine(27,0,27,tmp_ymax);
+  lv3->SetLineStyle(4);
+  lv3->Draw();
+
+
+  lg->Draw();
+
+  TLatex channelname;
+  channelname.SetNDC();
+  channelname.SetTextSize(0.03);
+  if(HistName.Contains("Muon")){
+    channelname.DrawLatex(0.22, 0.88,"0.0-0.8");  
+    channelname.DrawLatex(0.4, 0.88,"0.8-1.2");  
+    channelname.DrawLatex(0.58, 0.88,"1.2-2.1");  
+    channelname.DrawLatex(0.76, 0.88,"2.1-2.4");  
+  }
+  else{
+    channelname.DrawLatex(0.22, 0.88,"0.0-0.8");
+    channelname.DrawLatex(0.4, 0.88,"0.8-1.479");
+    channelname.DrawLatex(0.58, 0.88,"1.566-2.");
+    channelname.DrawLatex(0.76, 0.88,"2.-2.5");
+
+  }
+  channelname.DrawLatex(0.92, 0.88,"#eta");
+  channelname.DrawLatex(0.92, 0.1,"p_{T} (GeV)");
+  channelname.SetTextSize(0.03);
+  if(HistName.Contains("Muon"))channelname.DrawLatex(0.7, 0.8,Era);
+  else channelname.DrawLatex(0.75, 0.8,Era);
+
+  mkdir(thiscut_plotpath);
+  
+  TString HNAME = "Electron_"+Era ;
+  if(HistName.Contains("Muon"))  HNAME = "Muon_"+Era ;
+  c1->SaveAs(thiscut_plotpath+"/"+HNAME+"_IDSys.pdf");
+
+
+
+}
 
 void HNL_Efficiency_Plotter::draw_hist_canvas(TH1D *hist_default,  TString HistName){
 
