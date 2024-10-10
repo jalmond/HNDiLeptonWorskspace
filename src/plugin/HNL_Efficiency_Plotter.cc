@@ -3835,6 +3835,81 @@ void HNL_Efficiency_Plotter::draw_SignalEff_canvas(TGraphAsymmErrors *gSR1,TGrap
 
 }
 
+
+
+void HNL_Efficiency_Plotter::draw_SignalEff_canvas(TGraphAsymmErrors *gSR1,TGraphAsymmErrors *gSR2 , TString HistName, TString Era, TString Tag){
+  cout    << "################### draw_hist_canvas [" << HistName << "]  ###################" << endl;
+
+  cout
+    << endl
+    << "################### Writing in Directory " << thiscut_plotpath << " ###################" << endl
+    << endl;
+
+
+  thiscut_plotpath = plotpath+"/"+ HistName;
+  mkdir(thiscut_plotpath);
+
+  hist_axis(gSR1);
+
+  gSR1->SetLineWidth(2);
+  gSR1->SetMarkerSize(1.);
+  gSR1->SetLineColor(kBlack);
+  
+  gSR2->SetLineWidth(2);
+  gSR2->SetMarkerSize(1.);
+  gSR2->SetLineColor(kBlue);
+  
+  TCanvas* c1 = new TCanvas(HistName, "", 1200, 800);
+  c1->Draw();
+  c1->cd();
+  canvas_margin(c1);
+  c1->SetRightMargin( 0.11 );
+  gSR1->GetHistogram()->GetYaxis()->SetRangeUser(0,20);
+  //  gSR1->GetHistogram()->GetXaxis()->SetRangeUser(85,20000);                                                                                                        
+  
+  gSR1->GetHistogram()->GetXaxis()->SetTitle("m_{N} Gev");
+  gSR1->GetHistogram()->GetYaxis()->SetTitle("#epsilon_{Signal}");
+
+  TH1D *hist_empty = new TH1D("","",20000,0,20000);
+  hist_empty->SetName("DUMMY_FOR_AXIS");
+  hist_axis(hist_empty);
+  hist_empty->GetYaxis()->SetRangeUser(0,20);
+  hist_empty->GetXaxis()->SetRangeUser(10,100);
+  
+  hist_empty->GetXaxis()->SetTitle("m_{N} Gev");
+  hist_empty->GetYaxis()->SetTitle("#epsilon_{Signal} [%]");
+  hist_empty->Draw();
+  
+  gSR1->Draw("same");
+  gSR2->Draw("same");
+
+  cout << "gSR1 = " << gSR1->Integral() << " gSR2 = " << gSR2->Integral() << endl;
+  
+  TLegend *lg = new TLegend(0.55, 0.8, 0.93, 0.93);
+  lg->SetFillStyle(0);
+  lg->SetBorderSize(0);
+  lg->SetTextSize(0.03);
+  lg->AddEntry(gSR1,"Top ID [ee]","l");
+  lg->AddEntry(gSR2,"POG ID [ee]","l");
+  
+  lg->Draw();
+  
+  TLatex channelname;
+  channelname.SetNDC();
+  channelname.SetTextSize(0.03);
+  channelname.DrawLatex(0.2, 0.88,"Preselection");
+  
+  mkdir(thiscut_plotpath);
+  
+  TString HNAME = "SignalEff_"+Tag ;
+  //  c1->SetLogx();
+
+  c1->SaveAs(thiscut_plotpath+"/"+HNAME+".pdf");
+  
+
+}
+
+
 void HNL_Efficiency_Plotter::draw_IDSF_Muon_canvas(TH1D *hist_default_MuonUnc, TString HistName, TString Era, TString Tag,double tmp_ymax){
 
   cout    << "################### draw_hist_canvas [" << HistName << "]  ###################" << endl;
@@ -4053,6 +4128,118 @@ void HNL_Efficiency_Plotter::draw_IDSF_Syst_canvas(TH1D *hist_default_EtaPlus, T
 
 
 }
+
+
+
+void HNL_Efficiency_Plotter::draw_IDEff_canvas(TH1D *hist_default,  TH1D *hist_comp , TString HistName, TString hname_1, TString hname_2,TString Era, double tmp_ymax){
+
+  cout    << "################### draw_hist_canvas [" << HistName << "]  ###################" << endl;
+
+
+  cout
+    << endl
+    << "################### Writing in Directory " << thiscut_plotpath << " ###################" << endl
+    << endl;
+
+
+  thiscut_plotpath = plotpath+"/"+ HistName;
+  mkdir(thiscut_plotpath);
+
+  /// Fix axis                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+  hist_axis(hist_default);
+  TCanvas* c1 = new TCanvas(HistName, "", 1200, 800);
+  c1->Draw();
+  c1->cd();
+
+  canvas_margin(c1);
+  c1->SetRightMargin( 0.11 );
+
+  TH1D *hist_empty = (TH1D*)hist_default->Clone();
+  hist_empty->SetName("DUMMY_FOR_AXIS");
+
+  double dx = 7;
+  hist_empty->SetLineWidth(0);
+  hist_empty->SetLineColor(0);
+  hist_empty->SetMarkerSize(0);
+  hist_empty->SetMarkerColor(0);
+  double Ymin = default_y_min;
+  double YmaxScale = 1.2;
+
+  hist_empty->GetYaxis()->SetTitleOffset(1.20);
+
+  hist_empty->SetLineWidth(3.);
+  hist_empty->SetLineColor(kRed);
+  hist_empty->GetYaxis()->SetTitle("ratio eff [official/Private]");
+
+  hist_empty->GetYaxis()->SetRangeUser(0.4,tmp_ymax);
+  hist_empty->Draw("axis");
+
+  //  cout << "hist_empty error = " << hist_empty->GetBinError(10) << endl;
+
+  TGraphAsymmErrors *gr1 = new TGraphAsymmErrors(hist_empty);
+  gr1->SetLineWidth(2.0);
+  gr1->SetMarkerSize(1.5);
+  gr1->SetMarkerStyle(4.);
+  gr1->SetLineColor(kRed);
+  gr1->Draw("p0same");
+
+  TGraphAsymmErrors *gr2 = new TGraphAsymmErrors(hist_comp);
+  gr2->SetLineWidth(2.0);
+  gr2->SetMarkerSize(1.5);
+  gr2->SetMarkerStyle(22);
+  gr2->SetLineColor(kBlue);
+  gr2->SetLineStyle(4);
+  gr2->Draw("pEsame");
+
+  TLegend *lg= new TLegend(0.6, 0.60, 0.75, 0.80);
+  //  lg->SetFillStyle(0);                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+  lg->SetBorderSize(0);
+  lg->SetTextSize(0.03);
+  lg->AddEntry(gr1,hname_1,"l");
+  lg->AddEntry(gr2,hname_2,"l");
+
+  TLine* l = new TLine(0,tmp_ymax-4,60,tmp_ymax-4);
+  l->Draw();
+
+  for(int x =1; x < 8 ; x++){
+    TLine* lv1 = new TLine(x*6,0,x*6,tmp_ymax);
+    lv1->SetLineStyle(4);
+    lv1->Draw();
+  }
+
+  TLine* l1 = new TLine(0,1 ,48,1);
+  l1->Draw();
+
+
+  lg->Draw();
+
+  TLatex channelname;
+  channelname.SetNDC();
+  channelname.SetTextSize(.02);
+  channelname.DrawLatex(0.18, 0.88,"#eta bin 1");
+  channelname.DrawLatex(0.27, 0.88,"#eta bin 2");
+  channelname.DrawLatex(0.36, 0.88,"#eta bin 3");
+  channelname.DrawLatex(0.45, 0.88,"#eta bin 4");
+  channelname.DrawLatex(0.54, 0.88,"#eta bin 5");
+  channelname.DrawLatex(0.63, 0.88,"#eta bin 6");
+  channelname.DrawLatex(0.72, 0.88,"#eta bin 7");
+  channelname.DrawLatex(0.85, 0.88,"#eta bin 8");
+
+  channelname.DrawLatex(0.92, 0.1,"p_{T} (GeV)");
+  channelname.SetTextSize(0.03);
+  if(HistName.Contains("Muon"))channelname.DrawLatex(0.7, 0.8,Era);
+  else channelname.DrawLatex(0.75, 0.8,Era);
+
+  mkdir(thiscut_plotpath);
+
+  TString HNAME = "Electron_"+Era ;
+  if(HistName.Contains("Muon"))  HNAME = "Muon_"+Era ;
+  c1->SaveAs(thiscut_plotpath+"/"+HNAME+"_IDSys.pdf");
+
+
+
+}
+
 
 void HNL_Efficiency_Plotter::draw_hist_canvas(TH1D *hist_default,  TString HistName){
 

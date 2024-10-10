@@ -7,7 +7,7 @@
 
 void EnergyCFShiftChi2(){
 
-  TString LabelForWeb = "HNL_ChargeFlip_2023_TEST";
+  TString LabelForWeb = "HNL_ChargeFlip_2024";
 
   vector<TString> eras =  {"2018"};//, "2016b", "2017", "2018"};
   vector<TString> EtaBins = {"BB","EE1","EE2"};

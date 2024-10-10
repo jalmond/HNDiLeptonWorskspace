@@ -7,10 +7,10 @@ TString DoubleToString(double d);
 
 void MakeFRFileLLOther(){
 
-  MakeFRFile("2016preVFP","EE","PtCone");
-  MakeFRFile("2016postVFP","EE","PtCone");
-  MakeFRFile("2017","EE","PtCone");
-  MakeFRFile("2018","EE","PtCone");
+  MakeFRFile("2016preVFP","EE","Pt");
+  MakeFRFile("2016postVFP","EE","Pt");
+  MakeFRFile("2017","EE","Pt");
+  MakeFRFile("2018","EE","Pt");
 
 }
 
@@ -18,9 +18,9 @@ void MakeFRFile(TString year, TString dataset="EE",TString PtType="Pt" ){
 
 
   
-  TString path= "/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3/HNL_LeptonFakeRate/"+year+"/RunRatesNonSNU_EE__/HNL_LeptonFakeRate_Data_FakeElectron.root";
+  TString path= "/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_Lepton_FakeRate/"+year+"/RunRatesHEEP__/HNL_Lepton_FakeRate_Data_FakeElectron.root";
 
-  TString mcpath= "/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/Run2UltraLegacy_v3/HNL_LeptonFakeRate/"+year+"/RunRatesNonSNU_EE__/HNL_LeptonFakeRate_MC.root";
+  TString mcpath= "/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_Lepton_FakeRate/"+year+"/RunRatesHEEP__/HNL_Lepton_FakeRate_MC.root";
 
     
   TFile * fdata = new TFile(path);
@@ -34,13 +34,15 @@ void MakeFRFile(TString year, TString dataset="EE",TString PtType="Pt" ){
   if( era.Contains("2016post")) era = "2016b";
   TString Year=year;
   if( era.Contains("2016"))  Year= "2016";
-  TString outfile = "FR_EGamma_"+era+"_HNL_"+PtType+".root";
+  TString outfile = "FR_EGamma_HEEP_"+era+"_HNL_"+PtType+".root";
 
   TFile* fout = new TFile(outfile.Data(),"RECREATE");
   fout->cd();
 
-  std::vector<TString> IDs = {"PekingEE_Central_pt_eta",
-			      "HNTightV2EE_Central_pt_eta"};
+  std::vector<TString> IDs = {"passHEEPID_v1EE_AJ40_pt_eta",
+			      "passHEEPID_v2EE_AJ40_pt_eta",
+			      "passHEEPID_v3EE_AJ40_pt_eta"};
+
   
   for(unsigned int i=0; i < IDs.size(); i++){
     
@@ -71,7 +73,11 @@ void MakeFRFile(TString year, TString dataset="EE",TString PtType="Pt" ){
     TString name = IDs[i] ;
     if(IDs[i] == "PekingEE_Central_pt_eta")    name = "Peking_pt_eta";
     if(IDs[i] == "HNTightV2EE_Central_pt_eta") name = "HNTightV2_pt_eta";
-    
+    if(IDs[i] == "passHEEPID_v1EE_AJ40_pt_eta") name = "passHEEPID_v1_pt_eta";
+    if(IDs[i] == "passHEEPID_v2EE_AJ40_pt_eta") name = "passHEEPID_v2_pt_eta";
+    if(IDs[i] == "passHEEPID_v3EE_AJ40_pt_eta") name = "passHEEPID_v3_pt_eta";
+
+
     if(PtType=="PtCone")    name=name.ReplaceAll("pt_eta","ptcone_eta");
 
     TH2D* eff_rate = (TH2D*)h_pt_num->Clone((name+"_FR_cent").Data());

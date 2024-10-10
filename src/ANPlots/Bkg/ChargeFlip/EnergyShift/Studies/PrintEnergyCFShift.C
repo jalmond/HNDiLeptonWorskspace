@@ -15,13 +15,13 @@ void PrintEnergyCFShift(){
 
   for(auto era : Plotter.Eras()) {
     TString year = (era.Contains("16")) ? "2016" : era;
-    for(auto etabin :  {"EC"}){
+    for(auto etabin :  {"BB"}){
       //EnergyCFShiftProccessor(Plotter, "HNTightV2", era,etabin, "HNL_ChargeFlip_EnergyShift");
       //EnergyCFShiftProccessor(Plotter, "POGTight", era,etabin, "HNL_ChargeFlip_EnergyShift");
       //     EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin, "HNL_ChargeFlip_EnergyShift");
-      vector<TString> HistStrings = {"_Pt1" ,"_Pt2", "_Pt3", "_Pt4","_Pt5"};
+      vector<TString> HistStrings = {"_PtBin1" ,"_PtBin2", "_PtBin3", "_PtBin4","_PtBin5"};
       //for(auto HistString : HistStrings)	EnergyCFShiftProccessor(Plotter, "HNL_ULID_"+year, era,etabin+HistString, "HNL_ChargeFlip_EnergyShift");
-      for(auto HistString : HistStrings)	EnergyCFShiftProccessor(Plotter, "POGTight", era,etabin+HistString, "HNL_ChargeFlip_EnergyShift");
+      for(auto HistString : HistStrings)	EnergyCFShiftProccessor(Plotter, "POGTight", era, etabin+HistString, "HNL_ChargeFlip_EnergyShift");
     }
     return;
   }
@@ -35,7 +35,8 @@ void EnergyCFShiftProccessor(HNLPlotter Plotter,TString ID, TString Era, TString
 
   Plotter.SetupPlotter(Era,"","HNL_Lepton_ChargeFlip");
 
-  TString path="/data6/Users/jalmond/2020/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_Lepton_ChargeFlip/"+Era+"/Shift/HNL_Lepton_ChargeFlip_SkimTreeBDT_Shift.root";
+  TString pathCF="/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_Lepton_ChargeFlip/"+Era+"/EnergyShift/HNL_Lepton_ChargeFlip_BDT_CF.root";
+  TString pathPrompt="/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_Lepton_ChargeFlip/"+Era+"/EnergyShift/HNL_Lepton_ChargeFlip_BDT_Prompt.root";
 
   vector<TString> ShiftVals = {};
   for (unsigned int ishift = 0 ; ishift < 150; ishift++){
@@ -51,9 +52,12 @@ void EnergyCFShiftProccessor(HNLPlotter Plotter,TString ID, TString Era, TString
    				   
   for(auto ShiftVal : ShiftVals){
 
-    TH1D *hist_CF             = Plotter.ConstructHist(path,ID+"/EnergyShift/"+HistString+"_CF");
-    TH1D *hist_PromptScaled   = Plotter.ConstructHist(path,ID+"/EnergyShift/"+HistString+"_PromptShifted_"+ShiftVal);
-    
+    TH1D *hist_CF             = Plotter.ConstructHist(pathCF,ID+"/EnergyShift/"+HistString+"_CF");
+    TH1D *hist_PromptScaled   = Plotter.ConstructHist(pathPrompt,ID+"/EnergyShift/"+HistString+"_PromptShifted_"+ShiftVal);
+
+    cout << ID+"/EnergyShift/"+HistString+"_CF" << hist_CF << endl;
+    cout <<ID+"/EnergyShift/"+HistString+"_PromptShifted_"+ShiftVal << hist_PromptScaled << endl;
+    cout << hist_CF->Integral() << " " << hist_PromptScaled ->Integral() << endl;
     hist_CF->Scale(1./hist_CF->Integral());
     hist_PromptScaled->Scale(1./hist_PromptScaled->Integral());
 

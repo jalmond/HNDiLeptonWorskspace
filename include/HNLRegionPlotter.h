@@ -77,11 +77,11 @@ public:
   void draw_comp_canvas(TH1D *hist_def, TH1D *hist_comp, TLegend *legend ,TFile *outputf);
 
 
-  void AddAK8();
-  void AddVBF();
-  void AddMisc();
-  void AddMass(int mass);
-  void AddLepton(int nlep);
+  void AddAK8(TString CR);
+  void AddVBF(TString CR);
+  void AddMisc(TString CR);
+  void AddMass(int mass,TString CR);
+  void AddLepton(int nlep,TString CR);
 
   void AddHist(TString hn, TString htype, TString hunit,  vector<double> rb, double Xmin, double Xmax, double Ymax=1000000.);
   void AddCutFlow(TString hn);

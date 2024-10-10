@@ -8,11 +8,14 @@
 void DrawConfig(TString flavour, TString year, TString filepath);
 
 void DrawSFPlotsEE(){
-  
-  DrawConfig("Electron","2016preVFP", "Electron/IDEff_HNL_v1_2016a.root");
-  DrawConfig("Electron","2016postVFP", "Electron/IDEff_HNL_v1_2016b.root");
-  DrawConfig("Electron","2017", "Electron/IDEff_HNL_v1_2017.root");
-  DrawConfig("Electron","2018", "Electron/IDEff_HNL_v1_2018.root");
+  ///data9/Users/jihkim_public/240830_EGM/ID/HNL_2018.root  
+  ///  DrawConfig("Electron","2016preVFP", "Electron/IDEff_HNL_v1_2016a.root");
+  //DrawConfig("Electron","2016postVFP", "Electron/IDEff_HNL_v1_2016b.root");
+  //DrawConfig("Electron","2017", "Electron/IDEff_HNL_v1_2017.root");
+  // DrawConfig("Electron","2016preVFP", "HNL_2016a.root");
+  //DrawConfig("Electron","2016postVFP", "HNL_2016b.root");
+  //DrawConfig("Electron","2017", "HNL_2017.root");
+  DrawConfig("Electron","2018", "TightID_2018.root");
 
 }
 
@@ -26,9 +29,12 @@ void DrawConfig(TString flavour, TString era, TString filepath){
     Plotter.SetupPlotter(year,"",flavour+"_ID_SF_Uncertainty");
     Plotter.CopyToWebsite = false;
     
-    TString path="/data6/Users/jalmond/2020/HL_SKFlatAnalyzer_UL_LONG/SKFlatAnalyzer/data/Run2UltraLegacy_v3/"+year+"/ID/"+filepath;
+    ////    TString path="/data9/Users/jihkim_public/240830_EGM/ID/"+filepath;
+    TString path="/data9/Users/jihkim_public/240830_EGM/ID/"+filepath;   
+    ///data9/Users/jihkim_public/240830_EGM/ID/"+filepath;
+    ///data6/Users/jalmond/2020/HL_SKFlatAnalyzer_UL_LONG/SKFlatAnalyzer/data/Run2UltraLegacy_v3/"+year+"/ID/"+filepath;
 
-    
+   
     TH2D *hist_Cent       = Plotter.Construct2DHist(path,"sf");
     TH2D *hist_Cent_Syst  = Plotter.Construct2DHist(path,"sf_sys");
 
@@ -77,7 +83,7 @@ void DrawConfig(TString flavour, TString era, TString filepath){
       }
     }
 
-    Plotter.draw_IDSF_Syst_canvas(h_lepIDSF_plusEta,h_lepIDSF_minusEta, flavour+"_IDSF_EtaSplit",year,35);
+    Plotter.draw_IDSF_Syst_canvas(h_lepIDSF_plusEta,h_lepIDSF_minusEta, flavour+"_IDSF_EtaSplit_POG",year,35);
     
   }
   

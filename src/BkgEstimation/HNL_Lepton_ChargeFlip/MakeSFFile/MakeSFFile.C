@@ -9,17 +9,11 @@ void MakeSFFileConfig(TString year, TString hist, TString DateTag, TString InFil
 
 void MakeSFFile(){
   
-  MakeSFFileConfig("2016a","Rates","May8", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version4_AllDY_Electron_");
-  MakeSFFileConfig("2016b","Rates","May8", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version4_AllDY_Electron_");
-  MakeSFFileConfig("2017","Rates","May8", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version4_AllDY_Electron_");
-  MakeSFFileConfig("2018","Rates","May8", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version4_AllDY_Electron_");
-  
-
-  MakeSFFileConfig("2016a","Rates","May8", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_DYTop_Rates.root","HNL_CF_Version4_DYTop_Electron_");
-  MakeSFFileConfig("2016b","Rates","May8", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_DYTop_Rates.root","HNL_CF_Version4_DYTop_Electron_");
-  MakeSFFileConfig("2017","Rates","May8", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_DYTop_Rates.root","HNL_CF_Version4_DYTop_Electron_");
-  MakeSFFileConfig("2018","Rates","May8", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_DYTop_Rates.root","HNL_CF_Version4_DYTop_Electron_");
-
+  MakeSFFileConfig("2016a","Rates","Sep16", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version6_Electron_");
+  MakeSFFileConfig("2016b","Rates","Sep16", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version6_Electron_");
+  MakeSFFileConfig("2017","Rates","Sep16", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version6_Electron_");
+  MakeSFFileConfig("2018","Rates","Sep16", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version6_Electron_");
+ 
 }
 
 void MakeSFFileConfig(TString era, TString HistDir, TString DateTag, TString InFile, TString OutFile ){
@@ -41,11 +35,11 @@ void MakeSFFileConfig(TString era, TString HistDir, TString DateTag, TString InF
   if(era.Contains("16")) year = "2016";
   
 
-  std::vector<TString> IDs={"HNL_TC1_ULID_"+year, "POGTight","HNTightV2", "TopHN"};
+  std::vector<TString> IDs={"POGTight","HNTightV2", "TopHN", "HNL_ULID" ,"passHEEPID_v1","passHEEPID_v2","passHEEPID_v3"};
 			    
   vector<TString> HistBins  = {"CFRate_InvPtEta1","CFRate_PtEta1","CFRate_InvPtEta3","CFRate_PtEta3","CFRate_InvPtEtaBB1","CFRate_InvPtEtaBB2","CFRate_InvPtEta2BB2","CFRate_InvPtEtaEC1","CFRate_InvPtEtaEC2"};
 
-  vector<TString> MethodBins  = {"CS_Central","NoS","PBSExtrap_Central","PBSExtrap_MSigma","PBSExtrap_PSigma", "CS_MSigma","CS_PSigma"};
+  vector<TString> MethodBins  = {"NoS","PBSExtrap_Central","PBSExtrap_MSigma","PBSExtrap_PSigma"};
 
 
   for(unsigned int i=0; i < IDs.size(); i++){
@@ -65,6 +59,7 @@ void MakeSFFileConfig(TString era, TString HistDir, TString DateTag, TString InF
 	if(name == "HNL_TC1_ULID_"+year) name = "HNL_ULID_"+year;
 	TH2D* mc_eff_rate = (TH2D*)h_mc_num->Clone((HistBin+"_"+Method+"_"+name).Data());
 	mc_eff_rate->Divide(mc_eff_rate,h_mc_denom,1.,1.,"cl=0.683 b(1,1) mode");
+	
 	mc_eff_rate->Write();
 	
       }

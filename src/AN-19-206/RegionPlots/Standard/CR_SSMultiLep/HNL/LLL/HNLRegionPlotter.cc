@@ -1,13 +1,14 @@
-#include "HNLPlotter.h"
+#include "HNLRegionPlotter.h"
 #include <stdlib.h>
 
-HNLPlotter::HNLPlotter(TString macroname){
+HNLRegionPlotter::HNLRegionPlotter(TString macroname){
   
   TH1::SetDefaultSumw2(true);
   TH1::AddDirectory(kFALSE);
-  
+
   setTDRStyle();
-  
+
+  DateFileTag="";
   RunScan=false;
   RatioRange=1.5;
   DrawSmallLegend=false;
@@ -50,7 +51,7 @@ HNLPlotter::HNLPlotter(TString macroname){
   gStyle->SetOptStat(0);
   DoDebug = false;
   gErrorIgnoreLevel = kError;
-  SkimName="SkimTree_HNMultiLeptonBDT";    
+
   AnalyserName="HNL_Validation";                                                                                                    
   MacroName=macroname;
   Era="2017";
@@ -84,14 +85,14 @@ HNLPlotter::HNLPlotter(TString macroname){
 
 
 
-void HNLPlotter::DrawStackPlots(){
+void HNLRegionPlotter::DrawStackPlots(){
   DrawDataAll(false);
   make_bkglist();
   draw_hist();
   return;
 }
 
-void HNLPlotter::DrawStackCutFlowWithData(){
+void HNLRegionPlotter::DrawStackCutFlowWithData(){
 
   DrawDataAll(true);
   make_bkglist();
@@ -99,7 +100,7 @@ void HNLPlotter::DrawStackCutFlowWithData(){
   return;
 }
 
-void HNLPlotter::DrawStackPlotsWithData(){
+void HNLRegionPlotter::DrawStackPlotsWithData(){
 
   DrawDataAll(true);
   make_bkglist();
@@ -107,13 +108,13 @@ void HNLPlotter::DrawStackPlotsWithData(){
   return;
 }
 
-void HNLPlotter::DrawComparisonPlots(){
+void HNLRegionPlotter::DrawComparisonPlots(){
   if(!comp_default_set) return;
   if(FullHistNames.size() ==0) return;
   draw_comphist();
 }
 
-void HNLPlotter::SetupDefaultHist(TString sample, TString hn, TString histtag, TString legend, TString htype, TString hunit, vector<double> rb, double Xmin, double Xmax, double Ymax){
+void HNLRegionPlotter::SetupDefaultHist(TString sample, TString hn, TString histtag, TString legend, TString htype, TString hunit, vector<double> rb, double Xmin, double Xmax, double Ymax){
   
   if(comp_default_set) return;
   comp_default_set=true;
@@ -132,7 +133,7 @@ void HNLPlotter::SetupDefaultHist(TString sample, TString hn, TString histtag, T
 
 }
 
-void HNLPlotter::SetupComparisonHist(TString sample, TString hist, TString histtag, TString legend){
+void HNLRegionPlotter::SetupComparisonHist(TString sample, TString hist, TString histtag, TString legend){
 
   FullHistNames.push_back(hist);
   SamplePaths.push_back(infilepath + "/"+filename_prefix + "_"+SkimName+"_"+sample+".root");
@@ -141,7 +142,7 @@ void HNLPlotter::SetupComparisonHist(TString sample, TString hist, TString histt
 
 }
 
-void HNLPlotter::AddCutFlow(TString histname){
+void HNLRegionPlotter::AddCutFlow(TString histname){
   HistNames.push_back(histname);
   x_title.push_back("");
   units.push_back("");
@@ -151,7 +152,66 @@ void HNLPlotter::AddCutFlow(TString histname){
   Ymaxs.push_back(0);
 }
 
-void HNLPlotter::AddHist(TString hn, TString htype, TString hunit, vector<double> rb, double Xmin, double Xmax, double Ymax){
+void HNLRegionPlotter::AddAK8(TString CR){
+
+  AddHist("AK8/AK8J_Tagger_particleNet_WvsQCD" ,"PNET WvsQCD", "",{2},0,1);
+  AddHist("AK8/AK8J_Mass/l1J" ,"m_{l_{1}J} GeV", "GeV", {0,100,200,300,400,800,1200,2500},0.,2500.);
+  AddHist("AK8/AK8J_Mass/l2J" ,"m_{l_{2}J} GeV", "GeV", {0,400,800,1200,2500},0.,2500.);
+  AddHist("AK8/AK8J_Mass/llJ" ,"m_{llJ} GeV", "GeV", {0,400,800,1200,2500},0.,2500.);
+  AddHist("AK8/AK8J_Eta" ,"#eta AK8", "int", {2},-3.,3.);
+}
+void HNLRegionPlotter::AddVBF(TString CR){
+  AddHist("VBF/MaxDEta_jet1_jet2","#Delta (#eta) JJ","int", {10},0,10);
+  AddHist("VBF/Lead_MJJ","m_{JJ} GeV","GeV", {0,250,500,800,1200,1700,3000},0,3000);
+  AddHist("VBF/Lead_zeppenfeld","zeppenfeld","int", {10},0,5);
+  AddHist("VBF/MaxDEtaJets_MJJ","m_{JJ} GeV [MaxDeta]","GeV", {0,500,1200,1700,3000},0,3000);
+}
+void HNLRegionPlotter::AddMisc(TString CR){
+  AddHist("DeltaR/dR_ll" ,"#DeltaR_{LL}"  , "", {5.}, 0, 5);
+  AddHist("DeltaPhi/dPhi_lep1_lep2" ,"#Delta#phi_{LL}"  , "", {5.}, 0, 5);
+  AddHist("NObj/N_AK4J"  ,"N_{AK4J}"  , "",    {1.}, 0, 4);
+  AddHist("NObj/N_BJet"  ,"N_{BJ}"  , "",    {1.}, 0, 4);
+  AddHist("SKEvent/Ev_MET"  ,"Ev_MET"  , "",    {2.}, 0, 400);
+
+  //  AddHist("SKEvent/Ev_MET2_ST"  ,"MET^{2}/S_{T}","GeV",  {0,2,4,6,8,10,15,20,30,40}, 0, 40);
+  if(CR.Contains("WZ"))  AddHist("SKEvent/Ev_MET2_ST"  ,"MET^{2}/S_{T}","GeV",  {0,5,10,15,20,30,40,50,75,100}, 0, 100);
+  else  AddHist("SKEvent/Ev_MET2_ST"  ,"MET^{2}/S_{T}","GeV",  {0,2,4,6,8,10,15,20}, 0, 20);        
+  AddHist("SKEvent/HToLepPt1","H_{T}/p^{lep_{1}}_{T} GeV", "GeV", {0,2,3,4,5,10},0, 10);
+}
+
+void HNLRegionPlotter::AddMass(int nlep, TString CR){
+  if(CR.Contains("ZZ"))AddHist("Mass/M_ll"  ,"M_{ll}"  , "GeV",    {2},0,500);
+  else AddHist("Mass/M_ll"  ,"M_{ll}"  , "GeV",    {2},0,200);
+  AddHist("Mass/DiJet_M_l1W"  ,"M_{l1W}"  , "GeV",    {1}, 0, 2500);
+  AddHist("Mass/DiJet_M_l2W"  ,"M_{l2W}"  , "GeV",    {1}, 0, 2500);
+  AddHist("Mass/DiJet_M_llW"  ,"M_{l2W}"  , "GeV",    {1}, 0, 2500);
+  AddHist("Mass/DiJet_M_l1jj"  ,"M_{l1W}"  , "GeV",    {0,150,200,300,400,600,1000}, 0, 1000);
+  AddHist("Mass/DiJet_M_lljj"  ,"M_{llW}"  , "GeV",    {0,150,200,300,400,600,1000}, 0, 1000);
+  if(nlep==3)   AddHist("Mass/M_lll"  ,"M_{lll}"  , "GeV",   {1},70,105);
+  if(nlep==4)   AddHist("Meass/M_llll"  ,"M_{llll}"  , "GeV",    {2},0,400);
+  if(nlep==4)   AddHist("Mass/M_BestZ"  ,"M_{bestZ}"  , "GeV",    {2}, 0, 400);
+  if(nlep==4)   AddHist("Mass/M_OtherZ"  ,"M_{OtherZ}"  , "GeV",    {2}, 0, 400);
+  if(nlep==3)   AddHist("Mass/M_minOSSF"  ,"M_{minOS}"  , "GeV",    {2}, 0, 400);
+  if(nlep==3)   AddHist("Mass/M_minSSSF"  ,"M_{minSS}"  , "GeV",    {2}, 0, 400);
+  if(nlep==3)   AddHist("Mass/Mt_minSSSF"  ,"MT_{minSS}"  , "GeV",    {2}, 0, 400);
+  if(nlep==3)   AddHist("Mass/Mt_minOSSF"  ,"MT_{minSS}"  , "GeV",    {2}, 0, 400);
+
+
+}
+void HNLRegionPlotter::AddLepton(int nlep,TString CR){
+
+  AddHist("Leptons/Lep_1_pt" ,"P^{1}_{T} GeV" , "GeV", {0, 20.,40., 50.,75.,100.,150., 200.,500}, 0, 500);
+  AddHist("Leptons/Lep_2_pt" ,"P^{2}_{T} GeV" , "GeV", {0.,10.,15., 25.,30,40,50,75,100., 200.}, 0, 200);
+  if(nlep==3) AddHist("Leptons/Lep_3_pt" ,"P^{3}_{T} GeV" , "GeV", {0.,10.,15., 25.,50,75,100., 200.}, 0, 200);
+  if(nlep==4) AddHist("Leptons/Lep_3_pt" ,"P^{3}_{T} GeV" , "GeV", {0.,10.,15., 25.,50,75,100., 200.}, 0, 200);
+  if(nlep==4) AddHist("Leptons/Lep_4_pt" ,"P^{4}_{T} GeV" , "GeV", {0.,10.,15., 25.,50,75,100., 200.}, 0, 200);
+  AddHist("Leptons/Lepton_pt" ,"P_{T} " , "int", {0.,15.,20.,30.,40., 60.,100.,250.}, 10, 250);
+  AddHist("Leptons/Lepton_eta" ,"#eta Lepton" , "int", {2},-2.5,2.5);
+
+
+}
+
+void HNLRegionPlotter::AddHist(TString hn, TString htype, TString hunit, vector<double> rb, double Xmin, double Xmax, double Ymax){
 
   HistNames.push_back(hn);
   x_title.push_back(GetTitleByType(htype));
@@ -163,7 +223,7 @@ void HNLPlotter::AddHist(TString hn, TString htype, TString hunit, vector<double
 
   return;
 }
-void HNLPlotter::BasicSetup(SetupHelper logy, SetupHelper ratio,  TString channel){
+void HNLRegionPlotter::BasicSetup(SetupHelper logy, SetupHelper ratio,  TString channel){
   
   /// setups up default options
   
@@ -175,7 +235,7 @@ void HNLPlotter::BasicSetup(SetupHelper logy, SetupHelper ratio,  TString channe
   LeptonChannel(channel);
 }
 
-void HNLPlotter::SetupPlotter(TString era, TString Skim, TString Analyzer, TString FlagDir){
+void HNLRegionPlotter::SetupPlotter(TString era, TString Skim, TString Analyzer, TString FlagDir){
   SkimName=Skim;
   Era=era;
   AnalyserName=Analyzer;
@@ -183,7 +243,7 @@ void HNLPlotter::SetupPlotter(TString era, TString Skim, TString Analyzer, TStri
   SetupPlotter(FlagDir);
 }
 
-void HNLPlotter::SetupPlotter(TString FlagDir=""){
+void HNLRegionPlotter::SetupPlotter(TString FlagDir=""){
   
   TString s_hostname = GetHostname(); 
   TString ENV_MERGEDFILE_PATH = getenv("FILE_MERGED_PATH"); 
@@ -193,7 +253,12 @@ void HNLPlotter::SetupPlotter(TString FlagDir=""){
 
   TString output = ENV_PLOT_PATH + "/"+AnalyserName+"/"; 
   cout << "SetupPlotter [output] = " << output << endl;
-  MakeDir(ENV_PLOT_PATH + FLATVERSION); 
+
+
+  if(DateFileTag != ""){
+    MakeDir(output);
+    output+=DateFileTag+"/";
+  }
   MakeDir(output);  output+="/"+MacroName+"/"; 
   MakeDir(output);  output+=Era+"/";                                                                                                          
   MakeDir(output);                                                                                                                                 
@@ -203,7 +268,8 @@ void HNLPlotter::SetupPlotter(TString FlagDir=""){
 
   if(DoDebug)cout << MacroName << " Output dir = " << output << endl;
 
-  infilepath = ENV_MERGEDFILE_PATH + "/"+AnalyserName+"/"+  Era+FlagDir;
+  infilepath = ENV_MERGEDFILE_PATH + "/"+AnalyserName+"/"+ DateFileTag + "/"+ Era+FlagDir;
+
 
   SetupSampleInfo();
                                  
@@ -211,7 +277,7 @@ void HNLPlotter::SetupPlotter(TString FlagDir=""){
 
 }
 
-TString HNLPlotter::GetTitleByType(TString htype ){
+TString HNLRegionPlotter::GetTitleByType(TString htype ){
   
   if(htype == "MET")   return "#slash{E}_{T}^{miss} [GeV]";
   if(htype == "METPhi") return "#phi(#slash{E}_{T}^{miss})";
@@ -227,7 +293,7 @@ TString HNLPlotter::GetTitleByType(TString htype ){
 
 
 
-HNLPlotter::~HNLPlotter(){
+HNLRegionPlotter::~HNLRegionPlotter(){
 
   system("rm -rf "+path_rebins);
   system("rm -rf "+path_y_axis);
@@ -235,7 +301,7 @@ HNLPlotter::~HNLPlotter(){
   
 }
 
-void HNLPlotter::make_cutflow(TString Hist_For_CutFlow){
+void HNLRegionPlotter::make_cutflow(TString Hist_For_CutFlow){
   
   make_bkglist();
 
@@ -397,7 +463,7 @@ void HNLPlotter::make_cutflow(TString Hist_For_CutFlow){
 	//MC_stacked_staterr->Add(hist_final);
 	
 	double ThisSyst = 0.;
-	if( current_sample.Contains("fake") ) ThisSyst = 0.3;
+	if( current_sample.Contains("NonPrompt") ) ThisSyst = 0.3;
 	else if( current_sample.Contains("chargeflip") ) ThisSyst = 0.1;
 	else{
 	  double mcnorm = 0.2;
@@ -471,7 +537,7 @@ void HNLPlotter::make_cutflow(TString Hist_For_CutFlow){
 
 
 
-TH1D* HNLPlotter::ConstructHist(TString filepath, TString fullhistname, bool DEBUGout){
+TH1D* HNLRegionPlotter::ConstructHist(TString filepath, TString fullhistname, bool DEBUGout){
 
   TH1D* hist_temp;
   
@@ -531,7 +597,7 @@ TH1D* HNLPlotter::ConstructHist(TString filepath, TString fullhistname, bool DEB
 
 
 
-TH1D* HNLPlotter::ConstructHist(TString filepath, TString fullhistname, vector<double> vrebinTMP,  bool DEBUGout){
+TH1D* HNLRegionPlotter::ConstructHist(TString filepath, TString fullhistname, vector<double> vrebinTMP,  bool DEBUGout){
 
   TH1D* hist_temp;
 
@@ -568,7 +634,6 @@ TH1D* HNLPlotter::ConstructHist(TString filepath, TString fullhistname, vector<d
 
   if(vrebinTMP.size()==1) hist_temp->Rebin(vrebinTMP[0]);
   else{
-    cout << "Rebinning with VAR bins " << endl;;
     double TMParray[vrebinTMP.size()];
     std::copy(vrebinTMP.begin(), vrebinTMP.end(), TMParray);
     hist_temp = (TH1D *)hist_temp->Rebin(vrebinTMP.size()-1, "hnew1", TMParray);
@@ -594,7 +659,7 @@ TH1D* HNLPlotter::ConstructHist(TString filepath, TString fullhistname, vector<d
 
 }
 
-TH2D* HNLPlotter::Construct2DHist(TString filepath, TString fullhistname){
+TH2D* HNLRegionPlotter::Construct2DHist(TString filepath, TString fullhistname){
 
   TH2D* hist_temp;
 
@@ -634,7 +699,7 @@ TH2D* HNLPlotter::Construct2DHist(TString filepath, TString fullhistname){
 }
 
 
-TH1D* HNLPlotter::MakeHist(TString filepath, TString fullhistname){
+TH1D* HNLRegionPlotter::MakeHist(TString filepath, TString fullhistname){
 
   TH1D* hist_temp;
 
@@ -702,7 +767,7 @@ TH1D* HNLPlotter::MakeHist(TString filepath, TString fullhistname){
   return hist_final;
 }
 
-void HNLPlotter::draw_comphist(){
+void HNLRegionPlotter::draw_comphist(){
 
   if(DoDebug) {
     cout << "Comparison Plotter: " << endl ; 
@@ -739,7 +804,7 @@ void HNLPlotter::draw_comphist(){
 }
 
 
-void HNLPlotter::draw_hist(){
+void HNLRegionPlotter::draw_hist(){
   
   /// Loop over Cut/Regions set in Plotter.HistPath
   for(i_cut = 0; i_cut < HistPath.size(); i_cut++){
@@ -977,9 +1042,10 @@ void HNLPlotter::draw_hist(){
 
           //==== Now Add systematic to histograms
 
+	  
           double ThisSyst = 0.;
-          if( current_sample.Contains("fake") ) ThisSyst = 0.3;
-          else if( current_sample.Contains("chargeflip") ) ThisSyst = 0.1;
+          if( current_sample.Contains("NonPrompt") ) ThisSyst = 0.3;
+          else if( current_sample.Contains("chargeflip") ) ThisSyst = 0.2;
           else{
             double mcnorm = 0.2;
 	    double lumi =  0.04;///analysisInputs.CalculatedSysts["Luminosity"];
@@ -1095,7 +1161,7 @@ void HNLPlotter::draw_hist(){
 
 
 
-void HNLPlotter::draw_cutflow(){
+void HNLRegionPlotter::draw_cutflow(){
   
   /// Loop over Cut/Regions set in Plotter.HistPath
   for(i_cut = 0; i_cut < HistPath.size(); i_cut++){
@@ -1373,7 +1439,7 @@ void HNLPlotter::draw_cutflow(){
   
 }
 
-void HNLPlotter::make_bkglist(){
+void HNLRegionPlotter::make_bkglist(){
   
   if(bkglist.size() > 0) {
     cout << "NOTE make_bkglist called multiple times, exiting..." << endl;
@@ -1394,9 +1460,9 @@ void HNLPlotter::make_bkglist(){
   for(unsigned int i=0; i<bkglist.size(); i++) cout << " " << bkglist[i] << endl;
 }
 
-void HNLPlotter::SetRebins(TString filepath){
+void HNLRegionPlotter::SetRebins(TString filepath){
 
-  cout << "[HNLPlotter::SetRebins] Get rebins from " << filepath << endl;
+  cout << "[HNLRegionPlotter::SetRebins] Get rebins from " << filepath << endl;
 
   map< TString, map<TString, int> > ALL_rebins;
 
@@ -1426,9 +1492,9 @@ void HNLPlotter::SetRebins(TString filepath){
 }
 
 
-void HNLPlotter::SetYAxis(TString filepath){
+void HNLRegionPlotter::SetYAxis(TString filepath){
 
-  cout << "[HNLPlotter::SetYAxis] Get Yaxis from " << filepath << endl;
+  cout << "[HNLRegionPlotter::SetYAxis] Get Yaxis from " << filepath << endl;
 
   map< TString, map<TString, double> > ALL_y_maxs;
 
@@ -1457,9 +1523,9 @@ void HNLPlotter::SetYAxis(TString filepath){
   
 }
 
-void HNLPlotter::SetXAxis(TString filepath){
+void HNLRegionPlotter::SetXAxis(TString filepath){
 
-  cout << "[HNLPlotter::SetXAxis] Get Xaxis from " << filepath << endl;
+  cout << "[HNLRegionPlotter::SetXAxis] Get Xaxis from " << filepath << endl;
 
   map< TString, map<TString, vector<double>> > ALL_x_axis;
 
@@ -1491,7 +1557,7 @@ void HNLPlotter::SetXAxis(TString filepath){
 
 }
 
-vector<double> HNLPlotter::GetRebinVariableBins(){
+vector<double> HNLRegionPlotter::GetRebinVariableBins(){
 
   TString cut = HistPath[i_cut];
   TString var = HistNames[i_var];
@@ -1504,7 +1570,7 @@ vector<double> HNLPlotter::GetRebinVariableBins(){
   else return {1.};
 }
 
-void HNLPlotter::MakeRebins(){
+void HNLRegionPlotter::MakeRebins(){
 
   temp_rebins.clear();
   temp_vrebins.clear();
@@ -1540,7 +1606,7 @@ void HNLPlotter::MakeRebins(){
 
 }
 
-void HNLPlotter::MakeYAxis(){
+void HNLRegionPlotter::MakeYAxis(){
 
 
  temp_y_maxs.clear();
@@ -1568,7 +1634,7 @@ void HNLPlotter::MakeYAxis(){
 
 }
 
-void HNLPlotter::MakeXAxis(){
+void HNLRegionPlotter::MakeXAxis(){
 
   temp_x_mins.clear();
   temp_x_maxs.clear();
@@ -1599,7 +1665,7 @@ void HNLPlotter::MakeXAxis(){
 
 }
 
-TString HNLPlotter::find_MCsector(){
+TString HNLRegionPlotter::find_MCsector(){
   for(unsigned int i=0; i<MCsector_first_index.size()-1; i++){
     if(MCsector_first_index.at(i) <= i_file && i_file < MCsector_first_index.at(i+1)){
       if(DoDebug) cout << "[find_MCsector] returned MCsector is " << samples_to_use.at(i) << endl;
@@ -1610,7 +1676,7 @@ TString HNLPlotter::find_MCsector(){
   return samples_to_use.back();
 }
 
-void HNLPlotter::clear_legend_info(){
+void HNLRegionPlotter::clear_legend_info(){
   hist_for_legend_bkg.clear();
   hist_for_legend_signal.clear();
   MCsector_survive.clear();
@@ -1620,7 +1686,7 @@ void HNLPlotter::clear_legend_info(){
 
 }
 
-double HNLPlotter::coupling_constant(int mass){
+double HNLRegionPlotter::coupling_constant(int mass){
 
   TString cut = HistPath[i_cut];
 
@@ -1635,7 +1701,7 @@ double HNLPlotter::coupling_constant(int mass){
 
 }
 
-void HNLPlotter::fill_legend(TLegend* lg, TH1D* hist){
+void HNLRegionPlotter::fill_legend(TLegend* lg, TH1D* hist){
   //==== here, hist_for_legned = {"A", "B", "D"}
   //==== now, push_back data and signal to make
   //==== hist_for_legned = {"A", "B", "D", "data", "HN40", "HN50", "HN60"}
@@ -1667,7 +1733,7 @@ void HNLPlotter::fill_legend(TLegend* lg, TH1D* hist){
 
 }
 
-void HNLPlotter::draw_legend(TLegend* lg, bool DrawData){
+void HNLRegionPlotter::draw_legend(TLegend* lg, bool DrawData){
   // Example :
   //                      0    1    2    3
   // samples_to_use   = {"A", "B", "C", "D"}
@@ -1726,7 +1792,7 @@ void HNLPlotter::draw_legend(TLegend* lg, bool DrawData){
 }
 
 
-void HNLPlotter::draw_comp_canvas(TH1D *hist_def, TH1D *hist_comp, TLegend *legend ,TFile *outputf){
+void HNLRegionPlotter::draw_comp_canvas(TH1D *hist_def, TH1D *hist_comp, TLegend *legend ,TFile *outputf){
 
   if(!hist_def) return;  
   if(!hist_comp) return;  
@@ -1895,7 +1961,7 @@ void HNLPlotter::draw_comp_canvas(TH1D *hist_def, TH1D *hist_comp, TLegend *lege
 
 
 }
-void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_allerror, TH1D *hist_data, vector<TH1D *> hist_signal, TLegend *legend, bool DrawData, TFile *outputf){
+void HNLRegionPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_allerror, TH1D *hist_data, vector<TH1D *> hist_signal, TLegend *legend, bool DrawData, TFile *outputf){
 
   if(!hist_data) return;
 
@@ -2245,6 +2311,7 @@ void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_all
     if(Era=="2018") latex_Lumi.DrawLatex(0.7, 0.96, "59.9 fb^{-1} (13 TeV)");
     if(Era=="Run2") latex_Lumi.DrawLatex(0.7, 0.96, "137.9 fb^{-1} (13 TeV)"); 
 
+    cout << i_cut << " LeptonChannels " << LeptonChannels.size() << " " << RegionType.size() << endl;
     TString str_channel = GetStringChannelRegion(LeptonChannels.at(i_cut), RegionType.at(i_cut));
     TLatex channelname;
     channelname.SetNDC();
@@ -2272,55 +2339,26 @@ void HNLPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_all
   if(DoDebug) cout << "thiscut_plotpath "<< endl;
 
   mkdir(thiscut_plotpath);
-  if(HistNames[i_var].Contains("/")){
-    TString HNAME = HistNames[i_var];
-    string shname = string(HNAME);
-    istringstream iss(shname);
-    string first_word="";
-    iss >> first_word;
-    
-    TString newdir = thiscut_plotpath+"/"+TString(first_word);
-    mkdir(newdir);
-  }
 
-  //thiscut_plotpath = plotpath+"/"+HistPath[i_cut];
-
+  TString HistNames_NoDir = HistNames[i_var];
+  HistNames_NoDir=HistNames_NoDir.ReplaceAll("/","_");
   
-  c1->SaveAs(thiscut_plotpath+"/"+HistNames[i_var]+".pdf");
-  c1->SaveAs(thiscut_plotpath+"/"+HistNames[i_var]+".png");
-  HistResults.push_back(thiscut_plotpath+"/"+HistNames[i_var]+".pdf");
+  
+  c1->SaveAs(thiscut_plotpath+"/"+HistNames_NoDir+".pdf");
+  //c1->SaveAs(thiscut_plotpath+"/"+HistNames[i_var]+".png");
+  //  cout << "Saving " << thiscut_plotpath+"/"+HistNames[i_var]+".png" << endl;
+  //  HistResults.push_back(thiscut_plotpath+"/"+HistNames[i_var]+".pdf");
   
   outputf->cd();
   c1->Write();
 
 
-  if(!RunScan){
-    TString FixName = HistPath[i_cut];
-    FixName = FixName.ReplaceAll("/","_");
-    LxplusHistResults.push_back("https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/"+AnalyserName+"/" + MacroName +"/"+ Era +"/" +FixName + "/"+HistNames[i_var]+".pdf"); 
-    if(CopyToWebsite) SaveAndCopyLXPLUS(c1,thiscut_plotpath+"/"+HistNames[i_var],HistPath[i_cut],AnalyserName,MacroName,Era);    
-  }
-  else{
-    TString FixName = HistPath[i_cut];
-    FixName = FixName.ReplaceAll("/","_");
-    LxplusHistResults.push_back("https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/"+AnalyserName+"/" + MacroName +"/"+ Era +"/"+HistPath[i_cut] + "/" +FixName + ".pdf");                          
-    //cout << "-----> https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/"+AnalyserName+"/" + MacroName +"/"+ Era +"/" +FixName + "/"+HistNames[i_var]+".pdf" << endl;
-    
-    //        "ChannelCutFlow/HNL_ULID_HNL_ULID_FO_v9_c_Standard_PtParton_AJ30/"+channel};
-    TString histPath = HistPath[i_cut];
-    histPath=histPath.ReplaceAll("ChannelCutFlow/","");
-    histPath=histPath.ReplaceAll("/MuMu","");
-    histPath=histPath.ReplaceAll("/EE","");
-    
-    if(CopyToWebsite)    SaveAndCopyLXPLUSScan(c1,thiscut_plotpath+"/"+HistNames[i_var],histPath,HistNames[i_var],AnalyserName,MacroName,Era);
-    
-  }
   
   delete legend;
   delete c1;
 }
 
-int HNLPlotter::n_rebin(){
+int HNLRegionPlotter::n_rebin(){
   
   TString cut = HistPath[i_cut];
   TString var = HistNames[i_var];
@@ -2336,7 +2374,7 @@ int HNLPlotter::n_rebin(){
   
 }
 
-double HNLPlotter::y_max(){
+double HNLRegionPlotter::y_max(){
   
   TString cut = HistPath[i_cut];
   TString var = HistNames[i_var];
@@ -2352,10 +2390,12 @@ double HNLPlotter::y_max(){
 
 }
 
-void HNLPlotter::SetXaxisRange(TH1D* hist){
+void HNLRegionPlotter::SetXaxisRange(TH1D* hist){
   
   if(FullHistNames.size() > 0) {
     hist->GetXaxis()->SetRangeUser(Xmins[0], Xmaxs[0]);
+    cout << "SetXaxisRange {Init} " << Xmins[0] << " --- " << Xmins[1] << endl;
+
     return;
   }
   TString cut = HistPath[i_cut];
@@ -2376,11 +2416,11 @@ void HNLPlotter::SetXaxisRange(TH1D* hist){
     this_x_max = it->second;
     //temp_x_maxs.erase( it );
   }
-  
+  cout << "SetXaxisRange " << this_x_min << " --- " << this_x_max << endl;
   hist->GetXaxis()->SetRangeUser(this_x_min, this_x_max);
 }
 
-void HNLPlotter::SetXaxisRange(THStack* mc_stack){
+void HNLRegionPlotter::SetXaxisRange(THStack* mc_stack){
   
   TString cut = HistPath[i_cut];
   TString var = HistNames[i_var];
@@ -2404,7 +2444,7 @@ void HNLPlotter::SetXaxisRange(THStack* mc_stack){
   mc_stack->GetXaxis()->SetRangeUser(this_x_min, this_x_max);
 }
 
-void HNLPlotter::SetXaxisRangeBoth(THStack* mc_stack, TH1D* hist){
+void HNLRegionPlotter::SetXaxisRangeBoth(THStack* mc_stack, TH1D* hist){
 
   TString cut = HistPath[i_cut];
   TString var = HistNames[i_var];
@@ -2429,7 +2469,7 @@ void HNLPlotter::SetXaxisRangeBoth(THStack* mc_stack, TH1D* hist){
   hist->GetXaxis()->SetRangeUser(this_x_min, this_x_max);
 }
 
-TH1D* HNLPlotter::MakeOverflowBin(TH1D* hist){
+TH1D* HNLRegionPlotter::MakeOverflowBin(TH1D* hist){
 
 
   //==== 0    1                                    n_bin_origin
@@ -2526,11 +2566,11 @@ TH1D* HNLPlotter::MakeOverflowBin(TH1D* hist){
   
 }
 
-TString HNLPlotter::DoubleToString(double dx){
+TString HNLRegionPlotter::DoubleToString(double dx){
 
-  //cout << "[HNLPlotter::DoubleToString] var = " << HistNames[i_var] << endl;
-  //cout << "[HNLPlotter::DoubleToString] unit = " << units[i_var] << endl;
-  //cout << "[HNLPlotter::DoubleToString] dx = " << dx << endl;
+  //cout << "[HNLRegionPlotter::DoubleToString] var = " << HistNames[i_var] << endl;
+  //cout << "[HNLRegionPlotter::DoubleToString] unit = " << units[i_var] << endl;
+  //cout << "[HNLRegionPlotter::DoubleToString] dx = " << dx << endl;
 
   //==== onebin
   if(units[i_var]=="int"){
@@ -2564,7 +2604,7 @@ TString HNLPlotter::DoubleToString(double dx){
 }
 
 
-TString HNLPlotter::legend_coupling_label(int mass){
+TString HNLRegionPlotter::legend_coupling_label(int mass){
  
   //cout << "mass = " << mass << endl;
   //cout << " coupling = " << coupling_const.at(signal_survive_index[mass]) << endl;
@@ -2593,7 +2633,7 @@ TString HNLPlotter::legend_coupling_label(int mass){
 
 }
 
-void HNLPlotter::mkdir(TString path){
+void HNLRegionPlotter::mkdir(TString path){
   
   if( !gSystem->mkdir(path, kTRUE) ){
     cout
@@ -2605,14 +2645,14 @@ void HNLPlotter::mkdir(TString path){
   
 }
 
-double HNLPlotter::GetHistValue(TH1D * ht, TString hn){
+double HNLRegionPlotter::GetHistValue(TH1D * ht, TString hn){
   
   if(hn=="NEvents") return ht->GetBinContent(1);
   else return ht->Integral(0,ht->GetNbinsX()+1);
   
 }
 
-double HNLPlotter::GetHistError(TH1D * ht, TString hn){
+double HNLRegionPlotter::GetHistError(TH1D * ht, TString hn){
 
   if(hn=="NEvents") return ht->GetBinError(1);
   else {
@@ -2623,12 +2663,12 @@ double HNLPlotter::GetHistError(TH1D * ht, TString hn){
   return 0;
 
 }
-TString HNLPlotter::FixLatex(TString origSt){
+TString HNLRegionPlotter::FixLatex(TString origSt){
   TString fixSt=origSt;
   if(fixSt.Contains("P_T")) fixSt.ReplaceAll("P_T","$\\mathrm{P}_{T}$");
   return fixSt;
 }
-void HNLPlotter::MakeTexFile(map< TString, TH1D * > hs, TString Hist_For_CutFlow){
+void HNLRegionPlotter::MakeTexFile(map< TString, TH1D * > hs, TString Hist_For_CutFlow){
 
   if(DoDebug) cout << "Running MakeTexFile : size = " << hs.size() << endl; 
   
@@ -2755,12 +2795,12 @@ void HNLPlotter::MakeTexFile(map< TString, TH1D * > hs, TString Hist_For_CutFlow
 
 
 
-void HNLPlotter::Summary(){
+void HNLRegionPlotter::Summary(){
   
   cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
   cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
   cout << " "<< endl;
-  cout << "HNLPlotter Ran StackPlots : With Data. Results sent to : " << endl;
+  cout << "HNLRegionPlotter Ran StackPlots : With Data. Results sent to : " << endl;
 
   if(CopyToWebsite){
     cout << "Hists sent to : "  << endl;
@@ -2773,7 +2813,7 @@ void HNLPlotter::Summary(){
 }
 
 
-TString HNLPlotter::GetStringChannelRegion(int A, TString B){
+TString HNLRegionPlotter::GetStringChannelRegion(int A, TString B){
 
   //==== channel type
 
@@ -2787,11 +2827,18 @@ TString HNLPlotter::GetStringChannelRegion(int A, TString B){
   if(A==22) channel = "e^{#pm}e^{#pm}";
   if(A==23) channel = "e^{#pm}#mu^{#pm}";
   if(A==24) channel = "#mu^{#pm}e^{#pm}";
-
+  
   if(A==30) channel = "3l";
   if(A==40) channel = "4l";
-  if(A==27) channel = "eeee";
-  if(A==28) channel = "#mu#mu#mu#mu";
+  if(A==32) channel = "eee";
+  if(A==31) channel = "#mu#mu#mu";
+  if(A==33) channel = "e#mul";
+
+  if(A==42) channel = "eeee";
+  if(A==41) channel = "#mu#mu#mu#mu";
+  if(A==43) channel = "e#mull";
+
+
 
   TString region = "";
   //==== B = 1 : Preselection 
@@ -2809,12 +2856,14 @@ TString HNLPlotter::GetStringChannelRegion(int A, TString B){
   else region = B;
 
   //return channel+" "+region;
-  return "#splitline{"+channel+"}{"+region+"}";
+  return channel;
 
+  //return "#splitline{"+channel+"}{"+region+"}";
+  
 
 }
 
-bool HNLPlotter::ZeroDataCheckCut(double xlow, double xhigh){
+bool HNLRegionPlotter::ZeroDataCheckCut(double xlow, double xhigh){
 
   if(HistPath[i_cut].Contains("_Low_")){
     if(HistNames[i_var]=="m_lljj_lljjWclosest"){
@@ -2829,13 +2878,13 @@ bool HNLPlotter::ZeroDataCheckCut(double xlow, double xhigh){
 
 }
 
-void HNLPlotter::ScaleSample(TString samplename, double scale_value){
+void HNLRegionPlotter::ScaleSample(TString samplename, double scale_value){
 
   map_sample_string_to_scale[samplename]=scale_value;
   
 
 }
-double HNLPlotter::GetScale(TString samplename){
+double HNLRegionPlotter::GetScale(TString samplename){
 
   map<TString, double>::iterator it = map_sample_string_to_scale.find(samplename);
 
@@ -2848,13 +2897,19 @@ double HNLPlotter::GetScale(TString samplename){
   return 1;
 }
 
-void HNLPlotter::SetupSampleInfo(){
+void HNLRegionPlotter::SetupSampleInfo(){
 
   map_sample_string_to_list.clear();
   map_sample_string_to_legendinfo.clear();
 
 
   map_sample_string_to_list["Prompt"] = {"Prompt"};
+  map_sample_string_to_list["Prompt1"] = {"Prompt"};
+  map_sample_string_to_list["Prompt2"] = {"Prompt2"};
+  map_sample_string_to_list["Prompt3"] = {"Prompt3"};
+  map_sample_string_to_list["Prompt4"] = {"Prompt4"};
+  map_sample_string_to_list["Prompt5"] = {"Prompt5"};
+  map_sample_string_to_list["Prompt6"] = {"Prompt6"};
 
   map_sample_string_to_list["DY"] = {"DYJets"};//,"DYJets10to50_MG"};
   map_sample_string_to_list["WJets"] = {"WJets"};
@@ -2873,7 +2928,12 @@ void HNLPlotter::SetupSampleInfo(){
   map_sample_string_to_list["WZ1_Standard"] = {"Prompt_Standard_WZTo3LNu_mllmin4p0_powheg"};
   map_sample_string_to_list["WZ2_Standard"] = {"Prompt_Standard_WZ_pythia"};
   map_sample_string_to_list["WZ3_Standard"] = {"Prompt_Standard_WZTo3LNu_amcatnlo"};
-
+  
+  map_sample_string_to_list["ZZ_SS"] = {"ZZ"};
+  map_sample_string_to_list["WZ_SS"] = {"WZ"};
+  map_sample_string_to_list["WW_SS"] = {"WW"};
+  map_sample_string_to_list["Top_SS"] = {"Top"};
+  map_sample_string_to_list["Other_SS"] = {"Other"};
 
   //Prompt_TrigSF_WZTo3LNu
   map_sample_string_to_list["ZZ_excl"] = {"ZZTo4L_powheg", "ggZZto2e2mu", "ggZZto2e2nu", "ggZZto2e2tau", "ggZZto2mu2nu", "ggZZto2mu2tau", "ggZZto4e", "ggZZto4mu", "ggZZto4tau"};
@@ -2892,8 +2952,18 @@ void HNLPlotter::SetupSampleInfo(){
   map_sample_string_to_list["NonPrompt"] = {"NonPrompt"};
   map_sample_string_to_list["chargeflip"] = {"CF"};
   map_sample_string_to_list["Conv"] = {"Conv"};
+  map_sample_string_to_list["ConvGENTV1"] = {"ConvGENTV1"};
+  map_sample_string_to_list["ConvGENTV4"] = {"ConvGENTV4"};
+  map_sample_string_to_list["ConvV1"] = {"ConvV1"};
+  map_sample_string_to_list["ConvV4"] = {"ConvV4"};
 
   map_sample_string_to_legendinfo["Prompt"] = make_pair("Prompt", kGreen);
+  map_sample_string_to_legendinfo["Prompt1"] = make_pair("Prompt", kGreen);
+  map_sample_string_to_legendinfo["Prompt2"] = make_pair("Prompt2", kGreen);
+  map_sample_string_to_legendinfo["Prompt3"] = make_pair("Prompt3", kGreen);
+  map_sample_string_to_legendinfo["Prompt4"] = make_pair("Prompt4", kGreen);
+  map_sample_string_to_legendinfo["Prompt5"] = make_pair("Prompt5", kGreen);
+  map_sample_string_to_legendinfo["Prompt6"] = make_pair("Prompt6", kGreen);
   map_sample_string_to_legendinfo["DY"] = make_pair("DY", kYellow);
   map_sample_string_to_legendinfo["WJets"] = make_pair("WJets", kGreen);
   map_sample_string_to_legendinfo["VV_excl"] = make_pair("diboson", kSpring-1);
@@ -2908,6 +2978,15 @@ void HNLPlotter::SetupSampleInfo(){
   map_sample_string_to_legendinfo["WZ1_NoIDSF"] = make_pair("WZ", kYellow);
   map_sample_string_to_legendinfo["WZ2_NoIDSF"] = make_pair("WZ", kYellow);
   map_sample_string_to_legendinfo["WZ3_NoIDSF"] = make_pair("WZ", kYellow);
+  
+  /////// AN Plots
+  
+  map_sample_string_to_legendinfo["WZ_SS"] = make_pair("WZ", kGreen);
+  map_sample_string_to_legendinfo["WW_SS"] = make_pair("W^{+}W^{+}", kOrange);
+  map_sample_string_to_legendinfo["ZZ_SS"] = make_pair("ZZ", kRed);
+  map_sample_string_to_legendinfo["Top_SS"] = make_pair("Top", kRed-6);
+  map_sample_string_to_legendinfo["Other_SS"] = make_pair("Other", kCyan);
+
 
   map_sample_string_to_legendinfo["ZZ_excl"] = make_pair("ZZ", kRed-7);
   map_sample_string_to_legendinfo["VVV"] = make_pair("triboson", kSpring+10);
@@ -2918,8 +2997,14 @@ void HNLPlotter::SetupSampleInfo(){
   map_sample_string_to_legendinfo["ttH"] = make_pair("ttH", kOrange);
   map_sample_string_to_legendinfo["top"] = make_pair("top", kRed);
   map_sample_string_to_legendinfo["Xgamma"] = make_pair("X + #gamma", kSpring-7);
-  map_sample_string_to_legendinfo["Conv"] = make_pair("X + #gamma", kSpring-7);
-  map_sample_string_to_legendinfo["Xgamma_noDY"] = make_pair("X + #gamma", kSpring-7);
+  map_sample_string_to_legendinfo["Conv"] = make_pair("TX/W + #gamma", kSpring-7);
+
+  map_sample_string_to_legendinfo["ConvGENTV1"] = make_pair("Z + #gamma ConvGENTV1", kSpring-7);
+  map_sample_string_to_legendinfo["ConvGENTV4"] = make_pair("Z + #gamma ConvGENTV4", kSpring-7);
+
+  map_sample_string_to_legendinfo["ConvV1"] = make_pair("Z + #gamma ConvV1", kSpring-7);
+  map_sample_string_to_legendinfo["ConvV4"] = make_pair("Z + #gamma ConvV4", kSpring-7);
+
   map_sample_string_to_legendinfo["WW_double"] = make_pair("DoubleWW", 74);
   map_sample_string_to_legendinfo["ttV_lep"] = make_pair("ttV", kOrange);
   map_sample_string_to_legendinfo["NonPrompt"] = make_pair("Misid. lepton bkgd.", 870);
@@ -2931,46 +3016,49 @@ void HNLPlotter::SetupSampleInfo(){
 }
 
 
-void HNLPlotter::LeptonChannel(TString ch){
+void HNLRegionPlotter::LeptonChannel(TString ch){
 
   LeptonChannels.clear();
   for(int i=0; i < HistPath.size() ; i++){
     if(ch=="MuMu") LeptonChannels.push_back(21);
     if(ch=="EE") LeptonChannels.push_back(22);
     if(ch=="EMu") LeptonChannels.push_back(23);
-    if(ch=="MuE") LeptonChannels.push_back(24);
-    if(ch=="MuMuMu") LeptonChannels.push_back(25);
-    if(ch=="EEE") LeptonChannels.push_back(26);
-    if(ch=="EMuL") LeptonChannels.push_back(27);
-    if(ch=="EEEE") LeptonChannels.push_back(28);
-    if(ch=="MuMuMuMu") LeptonChannels.push_back(29);
+    if(ch=="LL") LeptonChannels.push_back(20);
+    if(ch=="MuMuMu") LeptonChannels.push_back(31);
+    if(ch=="EEE") LeptonChannels.push_back(32);
+    if(ch=="EMuL") LeptonChannels.push_back(33);
+    if(ch=="LLL") LeptonChannels.push_back(30);
+    if(ch=="EEEE") LeptonChannels.push_back(42);
+    if(ch=="MuMuMuMu") LeptonChannels.push_back(41);
+    if(ch=="EMuLL") LeptonChannels.push_back(43);
+    if(ch=="LLLL") LeptonChannels.push_back(40);
 
   }
-  
+  for(auto i  : LeptonChannels) cout << "Added LeptonChannels " << i << endl;
 }
-void HNLPlotter::UseLogyAll(double v){
+void HNLRegionPlotter::UseLogyAll(double v){
   UseLogy.clear();
   for(int i=0; i < HistPath.size() ; i++) UseLogy.push_back(v);
 }
 
-void HNLPlotter::ApplyMCNormSFAll(bool v){
+void HNLRegionPlotter::ApplyMCNormSFAll(bool v){
   ApplyMCNormSF.clear();
   for(int i=0; i < HistPath.size()  ; i++)ApplyMCNormSF.push_back(v);
 }
-void HNLPlotter::DrawRatioAll(bool v){
+void HNLRegionPlotter::DrawRatioAll(bool v){
 
   drawratio.clear();
   for(int i=0; i < HistPath.size()  ; i++) drawratio.push_back(v);
 
 }
 
-void HNLPlotter::DrawDataAll(bool v){
+void HNLRegionPlotter::DrawDataAll(bool v){
 
   drawdata.clear();
   for(int i=0; i < HistPath.size()  ; i++) drawdata.push_back(v);
 }
 
-vector<double> HNLPlotter::GetRebinZeroBackground(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_allerror, TH1D *hist_data, vector<TH1D *> &hist_signal){
+vector<double> HNLRegionPlotter::GetRebinZeroBackground(THStack *mc_stack, TH1D *mc_staterror, TH1D *mc_allerror, TH1D *hist_data, vector<TH1D *> &hist_signal){
 
   int original_nbins = mc_allerror->GetXaxis()->GetNbins();
   vector<double> original_binval;
@@ -3041,7 +3129,7 @@ vector<double> HNLPlotter::GetRebinZeroBackground(THStack *mc_stack, TH1D *mc_st
 }
 
 
-TString HNLPlotter::Scan2DHists(TH2D* h1, TH2D* h2){
+TString HNLRegionPlotter::Scan2DHists(TH2D* h1, TH2D* h2){
   
   //// scan h1 which is prompt  Fake vs CF
 
@@ -3074,7 +3162,7 @@ TString HNLPlotter::Scan2DHists(TH2D* h1, TH2D* h2){
   return IDOpt;
 }
 
-TH1D* HNLPlotter::GetCutEfficiency(TH1D *hist_default){
+TH1D* HNLRegionPlotter::GetCutEfficiency(TH1D *hist_default){
 
   TH1D *hist_new = new  TH1D ( "1bin","", 1, -1, 1);
 
@@ -3086,7 +3174,7 @@ TH1D* HNLPlotter::GetCutEfficiency(TH1D *hist_default){
 }
 
 
-TH1D* HNLPlotter::GetScanEfficiency(TH1D *hist_default){
+TH1D* HNLRegionPlotter::GetScanEfficiency(TH1D *hist_default){
 
   TH1D *hist_new = (TH1D*)hist_default->Clone();
   
@@ -3115,7 +3203,7 @@ TH1D* HNLPlotter::GetScanEfficiency(TH1D *hist_default){
 }
 
 
-TH1D* HNLPlotter::GetScanEfficiency2D(TH1D *hist_default, TH1D *hist_comp){
+TH1D* HNLRegionPlotter::GetScanEfficiency2D(TH1D *hist_default, TH1D *hist_comp){
 
   TH1D *hist_new = (TH1D*)hist_default->Clone();
 
@@ -3144,7 +3232,7 @@ TH1D* HNLPlotter::GetScanEfficiency2D(TH1D *hist_default, TH1D *hist_comp){
 }
 
 
-void HNLPlotter::Draw_Graph(vector<TGraph*> vgr , vector<TString> legNames,  TString HistName,TString dirName, vector<TString> tlat){
+void HNLRegionPlotter::Draw_Graph(vector<TGraph*> vgr , vector<TString> legNames,  TString HistName,TString dirName, vector<TString> tlat){
 
   thiscut_plotpath = plotpath+"/"+ dirName;
   mkdir(thiscut_plotpath);
@@ -3191,7 +3279,7 @@ void HNLPlotter::Draw_Graph(vector<TGraph*> vgr , vector<TString> legNames,  TSt
     TGraph *gr = vgr[ig];
     gr->SetLineWidth(4.0);
     gr->SetMarkerSize(0.);
-    gr->SetLineColor(HNLPlotter::GetColor(ig));
+    gr->SetLineColor(HNLRegionPlotter::GetColor(ig));
     gr->Draw("plsame");
     lg->AddEntry(gr, legNames[ig], "pl");
     TH1F* h = gr->GetHistogram();
@@ -3234,7 +3322,7 @@ void HNLPlotter::Draw_Graph(vector<TGraph*> vgr , vector<TString> legNames,  TSt
 
 }
 
-void HNLPlotter::draw_hists_canvas(vector<TH1D*> hists , vector<TString> legNames,  TString HistName,TString dirName){
+void HNLRegionPlotter::draw_hists_canvas(vector<TH1D*> hists , vector<TString> legNames,  TString HistName,TString dirName){
 
   if(!hists[0]) return;
 
@@ -3301,8 +3389,8 @@ void HNLPlotter::draw_hists_canvas(vector<TH1D*> hists , vector<TString> legName
     if(ig >= hists.size() /2)    gr->SetLineStyle(2.0);
 
     gr->SetMarkerSize(0.);
-    if(ig < hists.size() /2) gr->SetLineColor(HNLPlotter::GetColor(ig));
-    else gr->SetLineColor(HNLPlotter::GetColor(ig- (hists.size() /2)));
+    if(ig < hists.size() /2) gr->SetLineColor(HNLRegionPlotter::GetColor(ig));
+    else gr->SetLineColor(HNLRegionPlotter::GetColor(ig- (hists.size() /2)));
     gr->Draw("plsame");
     if(ig >= hists.size() /2)    lg2->AddEntry(gr, legNames[ig], "pl");
     else     lg->AddEntry(gr, legNames[ig], "pl");
@@ -3348,7 +3436,7 @@ void HNLPlotter::draw_hists_canvas(vector<TH1D*> hists , vector<TString> legName
 
 
 
-void HNLPlotter::draw_hists_canvas_pt(vector<TH1D*> hists , vector<TString> legNames,  TString HistName,TString dirName){
+void HNLRegionPlotter::draw_hists_canvas_pt(vector<TH1D*> hists , vector<TString> legNames,  TString HistName,TString dirName){
 
   if(!hists[0]) return;
 
@@ -3408,7 +3496,7 @@ void HNLPlotter::draw_hists_canvas_pt(vector<TH1D*> hists , vector<TString> legN
 
   TGraphAsymmErrors *gr1 = new TGraphAsymmErrors(hist_default);
   gr1->SetLineWidth(2.0);
-  gr1->SetMarkerColor(HNLPlotter::GetColor(0));
+  gr1->SetMarkerColor(HNLRegionPlotter::GetColor(0));
   gr1->SetLineColor(kRed);
   gr1->Draw("pl0same");
   lg->AddEntry(gr1, legNames[0], "pl");
@@ -3418,8 +3506,8 @@ void HNLPlotter::draw_hists_canvas_pt(vector<TH1D*> hists , vector<TString> legN
     gr->SetLineWidth(2.0);
     gr->SetMarkerStyle(33+ig);
     //    gr->SetMarkerSize(0.);
-    gr->SetMarkerColor(HNLPlotter::GetColor(ig+1));
-    gr->SetLineColor(HNLPlotter::GetColor(ig+1));
+    gr->SetMarkerColor(HNLRegionPlotter::GetColor(ig+1));
+    gr->SetLineColor(HNLRegionPlotter::GetColor(ig+1));
     gr->Draw("pl0same");
 
     lg->AddEntry(gr, legNames[ig], "pl");
@@ -3465,7 +3553,7 @@ void HNLPlotter::draw_hists_canvas_pt(vector<TH1D*> hists , vector<TString> legN
 
 
 
-double  HNLPlotter::draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> IDs, vector<TString> legNames,  TString HistName, TString dirName){
+double  HNLRegionPlotter::draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> IDs, vector<TString> legNames,  TString HistName, TString dirName){
   
   if(!hists[0]) return -1;
   
@@ -3695,7 +3783,7 @@ double  HNLPlotter::draw_SvsB_canvas(vector<TH1D*> hists , vector<TString> IDs, 
 }
 
 
-void HNLPlotter::MakeAUCHist(map<TString,double> AUCMap,TString HistName,TString dirName, TString Label){
+void HNLRegionPlotter::MakeAUCHist(map<TString,double> AUCMap,TString HistName,TString dirName, TString Label){
   
   thiscut_plotpath = plotpath+"/"+ dirName;
   mkdir(thiscut_plotpath);
@@ -3787,7 +3875,7 @@ void HNLPlotter::MakeAUCHist(map<TString,double> AUCMap,TString HistName,TString
 
 }
 
-void HNLPlotter::SaveHist(TH1D* hist, TString legname, TString HistName, TString dirName){
+void HNLRegionPlotter::SaveHist(TH1D* hist, TString legname, TString HistName, TString dirName){
 
   cout    << "################### SaveHist [" << HistName << "]  ###################" << endl;
   cout
@@ -3852,7 +3940,7 @@ void HNLPlotter::SaveHist(TH1D* hist, TString legname, TString HistName, TString
 
 }
 
-TString HNLPlotter::SaveProfile(double Cut, vector<TProfile*>hists, vector<TString> legname, TString HistName, TString dirName, vector<TString> scales){
+TString HNLRegionPlotter::SaveProfile(double Cut, vector<TProfile*>hists, vector<TString> legname, TString HistName, TString dirName, vector<TString> scales){
 
   cout    << "################### SaveProfile [" << HistName << "] cut =" <<Cut << "  ###################" << endl;
   cout
@@ -3899,7 +3987,7 @@ TString HNLPlotter::SaveProfile(double Cut, vector<TProfile*>hists, vector<TStri
   
   double SF(0);
   for(int i=0 ; i < hists.size(); i++){
-    hists[i]->SetLineColor(HNLPlotter::GetColor(i));
+    hists[i]->SetLineColor(HNLRegionPlotter::GetColor(i));
     hists[i]->SetLineWidth(3.);
     TF1 *g1    = new TF1("g1","pol1");//,0,Cut);
     TF1 *g2    = new TF1("g2","pol1");//,Cut,Cut+0.16);
@@ -3947,7 +4035,7 @@ TString HNLPlotter::SaveProfile(double Cut, vector<TProfile*>hists, vector<TStri
 
 
 
-void HNLPlotter::SaveHists(vector<TH1D*>hists, vector<TString> legname, TString HistName, TString dirName, vector<TString> scales, bool drawError){
+void HNLRegionPlotter::SaveHists(vector<TH1D*>hists, vector<TString> legname, TString HistName, TString dirName, vector<TString> scales, bool drawError){
 
   cout    << "################### SaveHist [" << HistName << "]  ###################" << endl;
   cout
@@ -4001,7 +4089,7 @@ void HNLPlotter::SaveHists(vector<TH1D*>hists, vector<TString> legname, TString 
 
 
   for(int i=0 ; i < hists.size(); i++){
-    hists[i]->SetLineColor(HNLPlotter::GetColor(i));
+    hists[i]->SetLineColor(HNLRegionPlotter::GetColor(i));
     hists[i]->SetLineWidth(3.);
     hists[i]->Draw("histsame");
     if(drawError)hists[i]->Draw("histsameE0");
@@ -4036,7 +4124,7 @@ void HNLPlotter::SaveHists(vector<TH1D*>hists, vector<TString> legname, TString 
 
 }
 
-double HNLPlotter::GetCutFromEff(TH2D* h , int xbin, double WP){
+double HNLRegionPlotter::GetCutFromEff(TH2D* h , int xbin, double WP){
 
   TAxis *axis = h->GetYaxis();
   double HistIntegral = h->Integral(xbin,xbin,0,axis->GetNbins()+1);
@@ -4053,14 +4141,14 @@ double HNLPlotter::GetCutFromEff(TH2D* h , int xbin, double WP){
   return -1;
 }
 
-Double_t HNLPlotter::fitf(Double_t *x,Double_t *par) {
+Double_t HNLRegionPlotter::fitf(Double_t *x,Double_t *par) {
 
   Double_t fitval = par[0] - par[1]*TMath::Exp( -(x[0] / par[2]));
   return fitval;
 }
 
 
-void HNLPlotter::Draw_MVA_WP(vector<TH2D*>hists, vector<TString> histsname,  double WP,TString HistName, TString dirName){
+void HNLRegionPlotter::Draw_MVA_WP(vector<TH2D*>hists, vector<TString> histsname,  double WP,TString HistName, TString dirName){
 
   cout    << "################### SaveHist [" << HistName << "]  ###################" << endl;
   cout
@@ -4178,7 +4266,7 @@ void HNLPlotter::Draw_MVA_WP(vector<TH2D*>hists, vector<TString> histsname,  dou
 
   
 }
-void HNLPlotter::SaveHistsWithRatio(vector<TH1D*>hists, vector<TString> legname, TString HistName, TString dirName, vector<TString> scales){
+void HNLRegionPlotter::SaveHistsWithRatio(vector<TH1D*>hists, vector<TString> legname, TString HistName, TString dirName, vector<TString> scales){
 
   cout    << "################### SaveHist [" << HistName << "]  ###################" << endl;
   cout
@@ -4250,7 +4338,7 @@ void HNLPlotter::SaveHistsWithRatio(vector<TH1D*>hists, vector<TString> legname,
   hist_empty->Draw("histsame");
 
   for(int i=0 ; i < hists.size(); i++){
-    hists[i]->SetLineColor(HNLPlotter::GetColor(i));
+    hists[i]->SetLineColor(HNLRegionPlotter::GetColor(i));
     hists[i]->SetLineWidth(3.);
     hists[i]->Draw("histsame");
     lg->AddEntry(hists[i], legname[i],"l");
@@ -4328,7 +4416,7 @@ void HNLPlotter::SaveHistsWithRatio(vector<TH1D*>hists, vector<TString> legname,
 }
 
 
-void  HNLPlotter::DrawEfficiency( vector<TH1D*> hists, vector<TString> legNames, TString HistName, TString dirName){
+void  HNLRegionPlotter::DrawEfficiency( vector<TH1D*> hists, vector<TString> legNames, TString HistName, TString dirName){
 
 
   cout    << "################### draw_hist_canvas [" << HistName << "]  ###################" << endl;
@@ -4381,7 +4469,7 @@ void  HNLPlotter::DrawEfficiency( vector<TH1D*> hists, vector<TString> legNames,
   hist_empty->Draw("histsame");
   
   for(int i=0 ; i < hists.size(); i++){
-    hists[i]->SetLineColor(HNLPlotter::GetColor(i));
+    hists[i]->SetLineColor(HNLRegionPlotter::GetColor(i));
     hists[i]->SetLineWidth(3.);
     hists[i]->Draw("histsame");
     lg->AddEntry(hists[i], legNames[i],"l");
@@ -4416,7 +4504,7 @@ void  HNLPlotter::DrawEfficiency( vector<TH1D*> hists, vector<TString> legNames,
 }
 
 
-void HNLPlotter::draw_hist_canvas(TH1D *hist_default,  TString HistName){
+void HNLRegionPlotter::draw_hist_canvas(TH1D *hist_default,  TString HistName){
 
   
   cout    << "################### draw_hist_canvas [" << HistName << "]  ###################" << endl;
