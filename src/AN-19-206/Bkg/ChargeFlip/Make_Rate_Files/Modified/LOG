@@ -1,0 +1,107 @@
+
+Processing MakeSFFile_Modified.C...
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles//HNL_Lepton_ChargeFlip/Rates/Oct1/2016a/HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root
+
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles//HNL_Lepton_ChargeFlip/Rates/Oct1/2016b/HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root
+
+
+
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles//HNL_Lepton_ChargeFlip/Rates/Oct1/2017/HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root
+
+
+
+Updated to Value 6.17357e-06 +/- 1.36054e-06
+CFRate_InvPtEta3_PBSExtrap_Central_HNL_ULID Bin 181.818 eta 0.95  Value 0.000201238 +/- 1.66529e-05
+Updated to Value 0.000170991 +/- 3.02473e-05
+CFRate_InvPtEta3_PBSExtrap_Central_HNL_ULID Bin 26.6667 eta 0.95  Value 1.67049e-05 +/- 1.95515e-06
+Updated to Value 1.33518e-05 +/- 3.35317e-06
+CFRate_InvPtEta3_PBSExtrap_Central_HNL_ULID Bin 30.7692 eta 1.878  Value 0.000172441 +/- 4.45203e-06
+Updated to Value 0.000162627 +/- 9.81452e-06
+CFRate_InvPtEta3_PBSExtrap_Central_HNL_ULID Bin 571.429 eta 2.35  Value 0.0173053 +/- 0.00458485
+Updated to Value 0.0168546 +/- 0.0120762
+CFRate_InvPtEta3_PBSExtrap_Central_HNL_ULID Bin 470.588 eta 2.35  Value 0.0175801 +/- 0.00422617
+Updated to Value 0.0175611 +/- 0.0125061
+CFRate_InvPtEta3_PBSExtrap_Central_HNL_ULID Bin 421.053 eta 2.35  Value 0.0182675 +/- 0.00325084
+Updated to Value 0.0161689 +/- 0.0126917
+CFRate_InvPtEta3_PBSExtrap_Central_HNL_ULID Bin 26.6667 eta 2.35  Value 0.000188086 +/- 1.15312e-05
+Updated to Value 0.000157833 +/- 3.02533e-05
+CFRate_InvPtEta3_CS_Central_HNL_ULID Bin 26.6667 eta 0.4  Value 8.08824e-06 +/- 7.67699e-07
+Updated to Value 6.67349e-06 +/- 1.41475e-06
+CFRate_InvPtEta3_CS_Central_HNL_ULID Bin 181.818 eta 0.95  Value 0.000205389 +/- 1.69964e-05
+Updated to Value 0.000173624 +/- 3.17647e-05
+CFRate_InvPtEta3_CS_Central_HNL_ULID Bin 26.6667 eta 0.95  Value 1.78427e-05 +/- 2.08831e-06
+Updated to Value 1.4477e-05 +/- 3.36567e-06
+CFRate_InvPtEta3_CS_Central_HNL_ULID Bin 30.7692 eta 1.878  Value 0.000178 +/- 4.59552e-06
+Updated to Value 0.00016864 +/- 9.35937e-06
+CFRate_InvPtEta3_CS_Central_HNL_ULID Bin 571.429 eta 2.35  Value 0.0178344 +/- 0.00472375
+Updated to Value 0.0176727 +/- 0.0125977
+CFRate_InvPtEta3_CS_Central_HNL_ULID Bin 470.588 eta 2.35  Value 0.0185387 +/- 0.00445443
+Updated to Value 0.0182991 +/- 0.0130398
+CFRate_InvPtEta3_CS_Central_HNL_ULID Bin 421.053 eta 2.35  Value 0.0189255 +/- 0.0033668
+Updated to Value 0.0168755 +/- 0.0132343
+CFRate_InvPtEta3_CS_Central_HNL_ULID Bin 26.6667 eta 2.35  Value 0.000202071 +/- 1.23885e-05
+Updated to Value 0.000172903 +/- 2.91679e-05
+CFRate_InvPtEta3_PBSExtrap_PSigma_HNL_ULID Bin 26.6667 eta 0.4  Value 7.75578e-06 +/- 7.36143e-07
+Updated to Value 6.3608e-06 +/- 1.39498e-06
+CFRate_InvPtEta3_PBSExtrap_PSigma_HNL_ULID Bin 181.818 eta 0.95  Value 0.000198698 +/- 1.64427e-05
+Updated to Value 0.00016877 +/- 2.99278e-05
+CFRate_InvPtEta3_PBSExtrap_PSigma_HNL_ULID Bin 26.6667 eta 0.95  Value 1.71717e-05 +/- 2.00977e-06
+Updated to Value 1.37869e-05 +/- 3.38482e-06
+CFRate_InvPtEta3_PBSExtrap_PSigma_HNL_ULID Bin 30.7692 eta 1.878  Value 0.000176184 +/- 4.54865e-06
+Updated to Value 0.000167157 +/- 9.02664e-06
+CFRate_InvPtEta3_PBSExtrap_PSigma_HNL_ULID Bin 571.429 eta 2.35  Value 0.0167665 +/- 0.0044433
+Updated to Value 0.0158849 +/- 0.0112941
+CFRate_InvPtEta3_PBSExtrap_PSigma_HNL_ULID Bin 470.588 eta 2.35  Value 0.0167323 +/- 0.00402408
+Updated to Value 0.0166896 +/- 0.0117157
+CFRate_InvPtEta3_PBSExtrap_PSigma_HNL_ULID Bin 421.053 eta 2.35  Value 0.0174944 +/- 0.00311447
+Updated to Value 0.0153442 +/- 0.0118936
+CFRate_InvPtEta3_PBSExtrap_PSigma_HNL_ULID Bin 26.6667 eta 2.35  Value 0.000194257 +/- 1.19095e-05
+Updated to Value 0.000162373 +/- 3.18836e-05
+CFRate_InvPtEta3_CS_PSigma_HNL_ULID Bin 26.6667 eta 0.4  Value 7.76477e-06 +/- 7.36997e-07
+Updated to Value 6.41615e-06 +/- 1.34862e-06
+CFRate_InvPtEta3_CS_PSigma_HNL_ULID Bin 181.818 eta 0.95  Value 0.000211558 +/- 1.75068e-05
+Updated to Value 0.000178341 +/- 3.32171e-05
+CFRate_InvPtEta3_CS_PSigma_HNL_ULID Bin 26.6667 eta 0.95  Value 1.71628e-05 +/- 2.00873e-06
+Updated to Value 1.38893e-05 +/- 3.27343e-06
+CFRate_InvPtEta3_CS_PSigma_HNL_ULID Bin 30.7692 eta 1.878  Value 0.000172942 +/- 4.46494e-06
+Updated to Value 0.000163123 +/- 9.81897e-06
+CFRate_InvPtEta3_CS_PSigma_HNL_ULID Bin 470.588 eta 2.35  Value 0.019883 +/- 0.00477416
+Updated to Value 0.0197182 +/- 0.00616334
+CFRate_InvPtEta3_CS_PSigma_HNL_ULID Bin 421.053 eta 2.35  Value 0.0208193 +/- 0.00370013
+Updated to Value 0.0182441 +/- 0.0066331
+CFRate_InvPtEta3_CS_PSigma_HNL_ULID Bin 26.6667 eta 2.35  Value 0.000194379 +/- 1.1917e-05
+Updated to Value 0.00016551 +/- 2.8869e-05
+CFRate_InvPtEta3_PBSExtrap_MSigma_HNL_ULID Bin 26.6667 eta 0.4  Value 7.19377e-06 +/- 6.828e-07
+Updated to Value 5.941e-06 +/- 1.25276e-06
+CFRate_InvPtEta3_PBSExtrap_MSigma_HNL_ULID Bin 181.818 eta 0.95  Value 0.000206362 +/- 1.70769e-05
+Updated to Value 0.000174686 +/- 3.16759e-05
+CFRate_InvPtEta3_PBSExtrap_MSigma_HNL_ULID Bin 26.6667 eta 0.95  Value 1.59693e-05 +/- 1.86905e-06
+Updated to Value 1.28014e-05 +/- 3.16795e-06
+CFRate_InvPtEta3_PBSExtrap_MSigma_HNL_ULID Bin 30.7692 eta 1.878  Value 0.00016875 +/- 4.35673e-06
+Updated to Value 0.000158561 +/- 1.01885e-05
+CFRate_InvPtEta3_PBSExtrap_MSigma_HNL_ULID Bin 571.429 eta 2.35  Value 0.0180879 +/- 0.00479026
+Updated to Value 0.0183468 +/- 0.0132165
+CFRate_InvPtEta3_PBSExtrap_MSigma_HNL_ULID Bin 470.588 eta 2.35  Value 0.0189944 +/- 0.00456286
+Updated to Value 0.0189464 +/- 0.013666
+CFRate_InvPtEta3_PBSExtrap_MSigma_HNL_ULID Bin 421.053 eta 2.35  Value 0.019546 +/- 0.00347609
+Updated to Value 0.0174455 +/- 0.0138636
+CFRate_InvPtEta3_PBSExtrap_MSigma_HNL_ULID Bin 26.6667 eta 2.35  Value 0.000183025 +/- 1.12209e-05
+Updated to Value 0.000153167 +/- 2.9858e-05
+CFRate_InvPtEta3_CS_MSigma_HNL_ULID Bin 26.6667 eta 0.4  Value 8.31171e-06 +/- 7.88909e-07
+Updated to Value 6.8521e-06 +/- 1.45961e-06
+CFRate_InvPtEta3_CS_MSigma_HNL_ULID Bin 181.818 eta 0.95  Value 0.000201238 +/- 1.66529e-05
+Updated to Value 0.000170619 +/- 3.0619e-05
+CFRate_InvPtEta3_CS_MSigma_HNL_ULID Bin 26.6667 eta 0.95  Value 1.83064e-05 +/- 2.14259e-06
+Updated to Value 1.48832e-05 +/- 3.42326e-06
+CFRate_InvPtEta3_CS_MSigma_HNL_ULID Bin 30.7692 eta 1.878  Value 0.000181446 +/- 4.68449e-06
+Updated to Value 0.000172382 +/- 9.06396e-06
+CFRate_InvPtEta3_CS_MSigma_HNL_ULID Bin 571.429 eta 2.35  Value 0.0171779 +/- 0.00455139
+Updated to Value 0.0165298 +/- 0.0118056
+CFRate_InvPtEta3_CS_MSigma_HNL_ULID Bin 470.588 eta 2.35  Value 0.0173116 +/- 0.00416218
+Updated to Value 0.0172923 +/- 0.0122351
+CFRate_InvPtEta3_CS_MSigma_HNL_ULID Bin 421.053 eta 2.35  Value 0.0180547 +/- 0.00321332
+Updated to Value 0.0159362 +/- 0.0124198
+CFRate_InvPtEta3_CS_MSigma_HNL_ULID Bin 26.6667 eta 2.35  Value 0.000207453 +/- 1.27184e-05
+Updated to Value 0.000178023 +/- 2.94295e-05
+CFRate_InvPtEta3_CS_MSigma_HNL_ULID Bin 18.1818 eta 2.35  Value 0.000179657 +/- 1.06786e-05
+Updated to Value 0.000178023 +/- 4.41443e-05

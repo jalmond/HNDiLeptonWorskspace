@@ -35,26 +35,23 @@ void EnergyCFShiftProccessor(HNLPlotter Plotter,TString ID, TString Era, TString
   TString pathP= TString(std::getenv("FILE_MERGED_PATH")) + "/HNL_Lepton_ChargeFlip/EnergyShift/"+dateTag+"/"+Era+"/HNL_Lepton_ChargeFlip_SkimTree_BDT_Prompt.root";
   TString pathCF= TString(std::getenv("FILE_MERGED_PATH")) + "/HNL_Lepton_ChargeFlip/EnergyShift/"+dateTag+"/"+Era+"/HNL_Lepton_ChargeFlip_SkimTree_BDT_CF.root";
 
-
+  
+  cout << pathCF << endl;
   Plotter.RebinX    = 1;
   Plotter.Normalise = 1;
 
   vector <TGraph*> vgr;
   vector<TString> labels;
 
-   				   
-  TH1D *hist_CF             = Plotter.ConstructHist(pathCF,ID+"/EnergyShift/BB1_"+HistString+"_CF");
-  TH1D *hist_BB2_CF             = Plotter.ConstructHist(pathCF,ID+"/EnergyShift/BB2_"+HistString+"_CF");
+
+  TH1D *hist_CF             = Plotter.ConstructHist(pathCF,ID+"/EnergyShift/BB_"+HistString+"_CF");
   TH1D *hist_EC_CF             = Plotter.ConstructHist(pathCF,ID+"/EnergyShift/EC_"+HistString+"_CF");
 
-  TH1D *hist_PromptScaled   = Plotter.ConstructHist(pathP,ID+"/EnergyShift/BB1_"+HistString+"_Prompt");
-  TH1D *hist_BB2_PromptScaled   = Plotter.ConstructHist(pathP,ID+"/EnergyShift/BB2_"+HistString+"_Prompt");
+  TH1D *hist_PromptScaled   = Plotter.ConstructHist(pathP,ID+"/EnergyShift/BB_"+HistString+"_Prompt");
   TH1D *hist_EC_PromptScaled   = Plotter.ConstructHist(pathP,ID+"/EnergyShift/EC_"+HistString+"_Prompt");
   
-  hist_CF->Add(hist_BB2_CF);
   hist_CF->Add(hist_EC_CF);
   
-  hist_PromptScaled->Add(hist_BB2_PromptScaled);
   hist_PromptScaled->Add(hist_EC_PromptScaled);
 
   hist_CF->Scale(1./hist_CF->Integral());
@@ -62,13 +59,13 @@ void EnergyCFShiftProccessor(HNLPlotter Plotter,TString ID, TString Era, TString
 
   hist_CF->GetXaxis()->SetRangeUser(-0.2,0.1);
   hist_PromptScaled->GetXaxis()->SetRangeUser(-0.2,0.1);
-  hist_PromptScaled->Rebin(2);
+  //  hist_PromptScaled->Rebin(2);
   hist_CF->GetYaxis()->SetTitle("Events [Normalised]");
-  if(HistString=="Pt") hist_CF->GetXaxis()->SetTitle("P_{T} (Reco-Gen)/Gen)");
-  if(HistString=="Eta") hist_CF->GetXaxis()->SetTitle("#eta (Reco-Gen)/Gen)");
-  if(HistString=="Phi") hist_CF->GetXaxis()->SetTitle("#phi (Reco-Gen)/Gen)");
+  if(HistString=="Pt") hist_CF->GetXaxis()->SetTitle("P_{T} (Reco-Gen)/Gen");
+  if(HistString=="Eta") hist_CF->GetXaxis()->SetTitle("#eta (Reco-Gen)/Gen");
+  if(HistString=="Phi") hist_CF->GetXaxis()->SetTitle("#phi (Reco-Gen)/Gen");
     
-  SaveHistogram( Plotter,{hist_CF,hist_PromptScaled}, {"El_{CF} ", "El_{Prompt} "}, ID+"_CF_EnergyShift_"+HistString, LabelForOutPut, {}, "");
+  SaveHistogram( Plotter,{hist_CF,hist_PromptScaled}, {"Electron_{Flipped} ", "Electron_{Prompt} "}, ID+"_CF_EnergyShift_"+HistString, LabelForOutPut, {}, "");
   
 
   return;
@@ -91,12 +88,15 @@ void SaveHistogram(HNLPlotter plotter,vector<TH1D*>hists, vector<TString> legnam
   TLegend *lg = new TLegend(0.55, 0.80, 0.93, 0.93);
   lg->SetFillStyle(0);
   lg->SetBorderSize(0);
-  lg->SetTextSize(plotter.Legend_Size);
+  lg->SetTextSize(plotter.Legend_Size*1.4);
 
   TCanvas* c1 = new TCanvas(HistName, "", plotter.Canvas_X,plotter.Canvas_Y);
   c1->Draw();
   c1->cd();
   if(plotter.SetLogY)c1->SetLogy();
+  //  if(dirName.Contains("Phi")) c1->SetLogx();
+  //  if(dirName.Contains("Eta")) c1->SetLogx();
+ 
   canvas_margin(c1);
 
   TH1D *hist_empty= (TH1D*)hist_default->Clone();
@@ -118,11 +118,13 @@ void SaveHistogram(HNLPlotter plotter,vector<TH1D*>hists, vector<TString> legnam
   hist_axis(hist_empty);
 
 
-  if(HistName=="Pt")  YmaxScale=0.3;
+  if(HistName.Contains("Pt"))  YmaxScale=0.3;
   hist_empty->GetYaxis()->SetRangeUser(Ymin, YmaxScale);
+  
 
   if(plotter.XaxisMin != -999) hist_empty->GetXaxis()->SetRangeUser(plotter.XaxisMin, plotter.XaxisMax);
 
+  if(HistName.Contains("Phi"))   hist_empty->GetXaxis()->SetRangeUser(-0.01,0.01);
   hist_empty->Draw("histsame");
   if(drawError)hist_empty->Draw("histsameE0");
 
@@ -157,6 +159,8 @@ void SaveHistogram(HNLPlotter plotter,vector<TH1D*>hists, vector<TString> legnam
   for(unsigned int il =0 ; il < scales.size(); il++) latex_result.DrawLatex(0.2, 0.9-0.05*il, scales[il]);
 
   if(plotter.SetLogY)c1->SetLogy();
+  //  if(HistName.Contains("Phi"))c1->SetLogx();
+  cout << plotter.thiscut_plotpath+"/"+HistName+".pdf" << endl;
   c1->SaveAs(plotter.thiscut_plotpath+"/"+HistName+".pdf");
 
   cout << "Run rsync -av -e \"ssh -p 1240 \" jalmond@147.47.242.42:" << plotter.syncpath <<  " TamsaOutput/Plots/" << endl;
@@ -248,5 +252,6 @@ void Draw_Graph(HNLPlotter plotter, TString Era, vector<TGraph*> vgr , vector<TS
 
   cout << "Run rsync -av -e \"ssh -p 1240 \" jalmond@147.47.242.42:" << plotter.syncpath <<  " TamsaOutput/Plots/" << endl;
 
+  cout << plotter.thiscut_plotpath+"/"+HistName+".png" << endl;
 
 }

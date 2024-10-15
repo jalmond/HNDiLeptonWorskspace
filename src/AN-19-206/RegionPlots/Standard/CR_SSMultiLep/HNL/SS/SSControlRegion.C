@@ -10,18 +10,21 @@ void SSControlRegionJob(TString  DateTag,int nlep,vector<TString> Eras, TString 
 
 void SSControlRegion(){
 
-  TString DATE = "Oct9";
+  TString DATE = "Oct11";
   vector<TString> Eras =  {"2016postVFP","2017","2018","2016preVFP","Run2"};
-
+  Eras =  {"Run2"};
+  
 
   vector<TString> DiLepReg = {"HNL_HighMassSR3_TwoLepton_CR", "HNL_HighMassBJet_TwoLepton_CR","HNL_HighMassNP_TwoLepton_CR","HNL_HighMassSR1_TwoLepton_CR","HNL_HighMassSR2_TwoLepton_CR","HNL_HighMassSR3LowJet_TwoLepton_CR","HNL_HighMassSR3_2J_TwoLepton_CR","HNL_WpWpNP2_TwoLepton_CR","HNL_WpWpNP3_TwoLepton_CR","HNL_WpWpNP_TwoLepton_CR","HNL_WpWp_TwoLepton_CR1","HNL_WpWp_TwoLepton_CR2","HNL_HighMassSR1_HighPt_TwoLepton_CR","HNL_HighMassSR2_HighPt_TwoLepton_CR","HNL_HighMassSR3_HighPt_TwoLepton_CR","HNL_HighMassSSZPeak_TwoLepton_CR","HNL_HighMassSSZPeak_HighPtHighEta_TwoLepton_CR","HNL_HighMassSSZPeak_HighPt_TwoLepton_CR","HNL_HighMassSSZPeak_HighPtHighEtaLowNJet_TwoLepton_CR"};
 
-  DiLepReg = {"HNL_HighMassNP_TwoLepton_CR"};
-  
+  DiLepReg = {"HNL_HighMassSSZPeak_VBF_TwoLepton_CR"};
+
+    //"HNL_WpWpNP2_TwoLepton_CR","HNL_WpWpNP3_TwoLepton_CR","HNL_WpWpNP_TwoLepton_CR","HNL_WpWp_TwoLepton_CR1","HNL_WpWp_TwoLepton_CR2","HNL_HighMassSR1_TwoLepton_CR","HNL_HighMassSR2_TwoLepton_CR","HNL_HighMassSR3_TwoLepton_CR"}; 
+
   SSControlRegionJob(DATE,2, Eras, "LL",{"WZ_SS","ZZ_SS","WW_SS","Top_SS","Other_SS","NonPrompt","Conv","chargeflip"} , DiLepReg , "HNL_ControlRegion_SSCRPlots", "List3","SSMultiLep");
-  SSControlRegionJob(DATE,2, Eras, "EE",{"WZ_SS","ZZ_SS","WW_SS","Top_SS","Other_SS","NonPrompt","Conv","chargeflip"} , DiLepReg , "HNL_ControlRegion_SSCRPlots", "List3","SSMultiLep");
-  SSControlRegionJob(DATE,2, Eras, "MuMu",{"WZ_SS","ZZ_SS","WW_SS","Top_SS","Other_SS","NonPrompt","Conv","chargeflip"} , DiLepReg , "HNL_ControlRegion_SSCRPlots", "List3","SSMultiLep");
-  SSControlRegionJob(DATE,2, Eras, "EMu",{"WZ_SS","ZZ_SS","WW_SS","Top_SS","Other_SS","NonPrompt","Conv","chargeflip"} , DiLepReg , "HNL_ControlRegion_SSCRPlots", "List3","SSMultiLep");
+  //  SSControlRegionJob(DATE,2, Eras, "EE",{"WZ_SS","ZZ_SS","WW_SS","Top_SS","Other_SS","NonPrompt","Conv","chargeflip"} , DiLepReg , "HNL_ControlRegion_SSCRPlots", "List3","SSMultiLep");
+  //SSControlRegionJob(DATE,2, Eras, "MuMu",{"WZ_SS","ZZ_SS","WW_SS","Top_SS","Other_SS","NonPrompt","Conv","chargeflip"} , DiLepReg , "HNL_ControlRegion_SSCRPlots", "List3","SSMultiLep");
+  //SSControlRegionJob(DATE,2, Eras, "EMu",{"WZ_SS","ZZ_SS","WW_SS","Top_SS","Other_SS","NonPrompt","Conv","chargeflip"} , DiLepReg , "HNL_ControlRegion_SSCRPlots", "List3","SSMultiLep");
 
  
 
@@ -43,7 +46,7 @@ void RunFunction(TString DateFileTag,int nlep,vector<TString> eras,vector<TStrin
     for (auto channel : channels){
       
       /// list of IDs
-      vector<TString> Dirs = {  "HNL_ULID", "HNTightV2"};
+      vector<TString> Dirs = {  "HNL_ULID"};//, "HNTightV2"};
 
       //// Run Yield print code                                                                                                                                                                                                                                                        
       //for (auto ID : Dirs) system("python PrintNTUP.py -f SSMultiLep -e "+year+" -r "+Region+" -i " + ID + "  -c "+channel+" -d "+ DateFileTag  + " -a HNL_ControlRegion_Plotter -p "+PlotterTag);

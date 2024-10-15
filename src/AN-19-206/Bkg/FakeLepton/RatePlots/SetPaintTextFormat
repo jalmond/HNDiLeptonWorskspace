@@ -1,0 +1,10 @@
+../../../../../src/plugin/HNL_Efficiency_Plotter.cc:  gStyle->SetOptStat(0);
+../../../../../src/plugin/HNL_Efficiency_Plotter.cc:  gStyle->SetErrorX(0);
+../../../../../src/plugin/HNL_Efficiency_Plotter.cc:  //  gStyle->SetPaintTextFormat(“4.3f”);
+../../../../../src/plugin/HNLPlotter.cc:  gStyle->SetOptStat(0);
+../../../../../src/plugin/HNLPlotter.cc:  gStyle->SetErrorX(0);
+../../../../../src/plugin/HNLPlotter.cc:  //  gStyle->SetPaintTextFormat(“4.3f”);
+../../../../../src/plugin/HNLRegionPlotter.cc:  gStyle->SetOptStat(0);
+../../../../../src/plugin/HNLRegionPlotter.cc:  gStyle->SetErrorX(0);
+../../../../../src/plugin/HNLRegionPlotter.cc:  //  gStyle->SetPaintTextFormat(“4.3f”);
+../../../../../src/plugin/HNLStackPlotter.cc:  gStyle->SetOptStat(0);

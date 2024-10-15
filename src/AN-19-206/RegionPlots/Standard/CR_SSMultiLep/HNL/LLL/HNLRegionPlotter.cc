@@ -162,16 +162,19 @@ void HNLRegionPlotter::AddAK8(TString CR){
 }
 void HNLRegionPlotter::AddVBF(TString CR){
   AddHist("VBF/MaxDEta_jet1_jet2","#Delta (#eta) JJ","int", {10},0,10);
-  AddHist("VBF/Lead_MJJ","m_{JJ} GeV","GeV", {0,250,500,800,1200,1700,3000},0,3000);
+  AddHist("VBF/Lead_MJJ","m_{JJ} GeV","GeV", {500,750,1200,1700,3000},0,3000);
   AddHist("VBF/Lead_zeppenfeld","zeppenfeld","int", {10},0,5);
   AddHist("VBF/MaxDEtaJets_MJJ","m_{JJ} GeV [MaxDeta]","GeV", {0,500,1200,1700,3000},0,3000);
 }
 void HNLRegionPlotter::AddMisc(TString CR){
   AddHist("DeltaR/dR_ll" ,"#DeltaR_{LL}"  , "", {5.}, 0, 5);
   AddHist("DeltaPhi/dPhi_lep1_lep2" ,"#Delta#phi_{LL}"  , "", {5.}, 0, 5);
-  AddHist("NObj/N_AK4J"  ,"N_{AK4J}"  , "",    {1.}, 0, 4);
+  AddHist("DeltaR/Jet_dR_jj" ,"#Delta#phi_{jj}"  , "", {5.}, 0, 5);
+  AddHist("NObj/N_AK4J"  ,"N_{AK4J}"  , "",    {1.}, 0, 10);
   AddHist("NObj/N_BJet"  ,"N_{BJ}"  , "",    {1.}, 0, 4);
   AddHist("SKEvent/Ev_MET"  ,"Ev_MET"  , "",    {2.}, 0, 400);
+  AddHist("AK4Jets/Jet_eta"  ,"Jet Eta"  , "",    {5.}, -5, 5);
+  AddHist("AK4Jets/Jet_pt"  ,"Jet Eta"  , "",    {2.}, 0, 200);
 
   //  AddHist("SKEvent/Ev_MET2_ST"  ,"MET^{2}/S_{T}","GeV",  {0,2,4,6,8,10,15,20,30,40}, 0, 40);
   if(CR.Contains("WZ"))  AddHist("SKEvent/Ev_MET2_ST"  ,"MET^{2}/S_{T}","GeV",  {0,5,10,15,20,30,40,50,75,100}, 0, 100);
@@ -200,6 +203,14 @@ void HNLRegionPlotter::AddMass(int nlep, TString CR){
 }
 void HNLRegionPlotter::AddLepton(int nlep,TString CR){
 
+  AddHist("LeptonMVA/Lepton__lep0_mva_Mu_Fake_QCD_BvsC_v5","BvsC MVA" , "int", {2},-1, 1);
+  AddHist("LeptonMVA/Lepton__lep1_mva_Mu_Fake_QCD_BvsC_v5","BvsC MVA" , "int", {2},-1, 1);
+  AddHist("LeptonMVA/Lepton__lep0_mva_Mu_Fake_QCD_LFvsHF_v5","BvsC MVA" , "int", {2},-1, 1);
+  AddHist("LeptonMVA/Lepton__lep1_mva_Mu_Fake_QCD_LFvsHF_v5","BvsC MVA" , "int", {2},-1, 1);
+  AddHist("LeptonMVA/Lepton__lep0_mva_Mu_HF_Fake_POG","BvsC MVA" , "int", {2},-1, 1);
+  AddHist("LeptonMVA/Lepton__lep1_mva_Mu_HF_Fake_POG","BvsC MVA" , "int", {2},-1, 1);
+
+
   AddHist("Leptons/Lep_1_pt" ,"P^{1}_{T} GeV" , "GeV", {0, 20.,40., 50.,75.,100.,150., 200.,500}, 0, 500);
   AddHist("Leptons/Lep_2_pt" ,"P^{2}_{T} GeV" , "GeV", {0.,10.,15., 25.,30,40,50,75,100., 200.}, 0, 200);
   if(nlep==3) AddHist("Leptons/Lep_3_pt" ,"P^{3}_{T} GeV" , "GeV", {0.,10.,15., 25.,50,75,100., 200.}, 0, 200);
@@ -207,7 +218,10 @@ void HNLRegionPlotter::AddLepton(int nlep,TString CR){
   if(nlep==4) AddHist("Leptons/Lep_4_pt" ,"P^{4}_{T} GeV" , "GeV", {0.,10.,15., 25.,50,75,100., 200.}, 0, 200);
   AddHist("Leptons/Lepton_pt" ,"P_{T} " , "int", {0.,15.,20.,30.,40., 60.,100.,250.}, 10, 250);
   AddHist("Leptons/Lepton_eta" ,"#eta Lepton" , "int", {2},-2.5,2.5);
-
+  AddHist("Leptons/Lep_1_eta" ,"#eta Lepton" , "int", {2},-2.5,2.5);
+  AddHist("Leptons/Lep_2_eta" ,"#eta Lepton" , "int", {2},-2.5,2.5);
+  if(nlep==3)AddHist("Leptons/Lep_3_eta" ,"#eta Lepton" , "int", {2},-2.5,2.5);
+  AddHist("Leptons/SumQ" ,"Sum Charge" , "int", {1},-5,5);
 
 }
 
@@ -2931,6 +2945,7 @@ void HNLRegionPlotter::SetupSampleInfo(){
   
   map_sample_string_to_list["ZZ_SS"] = {"ZZ"};
   map_sample_string_to_list["WZ_SS"] = {"WZ"};
+  map_sample_string_to_list["WZ2_SS"] = {"WZ2"};
   map_sample_string_to_list["WW_SS"] = {"WW"};
   map_sample_string_to_list["Top_SS"] = {"Top"};
   map_sample_string_to_list["Other_SS"] = {"Other"};
@@ -2982,6 +2997,7 @@ void HNLRegionPlotter::SetupSampleInfo(){
   /////// AN Plots
   
   map_sample_string_to_legendinfo["WZ_SS"] = make_pair("WZ", kGreen);
+  map_sample_string_to_legendinfo["WZ2_SS"] = make_pair("WZ2", kGreen);
   map_sample_string_to_legendinfo["WW_SS"] = make_pair("W^{+}W^{+}", kOrange);
   map_sample_string_to_legendinfo["ZZ_SS"] = make_pair("ZZ", kRed);
   map_sample_string_to_legendinfo["Top_SS"] = make_pair("Top", kRed-6);

@@ -161,9 +161,9 @@ void HNLRegionPlotter::AddAK8(TString CR){
   AddHist("AK8/AK8J_Eta" ,"#eta AK8", "int", {2},-3.,3.);
 }
 void HNLRegionPlotter::AddVBF(TString CR){
-  AddHist("VBF/MaxDEta_jet1_jet2","#Delta (#eta) JJ","int", {10},0,5);
+  AddHist("VBF/MaxDEta_jet1_jet2","#Delta (#eta) JJ","int", {10},0,10);
   AddHist("VBF/Lead_MJJ","m_{JJ} GeV","GeV", {0,500,1200,1700,3000},0,3000);
-  AddHist("VBF/Lead_zeppenfeld","zeppenfeld","int", {10},0,5);
+  AddHist("VBF/Lead_zeppenfeld","zeppenfeld","int", {10},0,10);
   AddHist("VBF/MaxDEtaJets_MJJ","m_{JJ} GeV [MaxDeta]","GeV", {0,500,1200,1700,3000},0,3000);
 }
 void HNLRegionPlotter::AddMisc(TString CR){
@@ -175,6 +175,8 @@ void HNLRegionPlotter::AddMisc(TString CR){
 
   //  AddHist("SKEvent/Ev_MET2_ST"  ,"MET^{2}/S_{T}","GeV",  {0,2,4,6,8,10,15,20,30,40}, 0, 40);
   if(CR.Contains("WZ"))  AddHist("SKEvent/Ev_MET2_ST"  ,"MET^{2}/S_{T}","GeV",  {0,5,10,15,20,30,40,50,75,100}, 0, 100);
+  else if(CR.Contains("WW"))  AddHist("SKEvent/Ev_MET2_ST"  ,"MET^{2}/S_{T}","GeV",  {0,5,10,15,20,30,40,50}, 0, 100);
+  else if(CR.Contains("SR"))  AddHist("SKEvent/Ev_MET2_ST"  ,"MET^{2}/S_{T}","GeV",  {0,5,10,15,20,30,40,50}, 0, 100);
   else  AddHist("SKEvent/Ev_MET2_ST"  ,"MET^{2}/S_{T}","GeV",  {0,2,4,6,8,10,15,20}, 0, 20);        
   AddHist("SKEvent/HToLepPt1","H_{T}/p^{lep_{1}}_{T} GeV", "GeV", {0,2,3,4,5,10},0, 10);
 }

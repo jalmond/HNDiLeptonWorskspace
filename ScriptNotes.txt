@@ -1,0 +1,29 @@
+Charge Flip:
+
+- Shift Energy:
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_Lepton_ChargeFlip/EnergyShift
+
+
+
+- Rates
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_Lepton_ChargeFlip/Rates
+
+
+- Closure
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_Lepton_ChargeFlip/ClosureTest
+
+- ScaleFactor
+Files: /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_Lepton_ChargeFlip/ScaleFactor
+Plotter Code: /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/src/AN-19-206/Bkg/ChargeFlip/ScaleFactor/Fitter
+
+NewFitShift : Standard SF fits 
+NewFitClosure: Check BE closure  
+NewFitMassVar: systematic  
+NewFitShiftVarChi: minimise chi in closure 
+NewFitSub: Subtract  ZG 
+
+
+
+
+- ClosureData
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_Lepton_ChargeFlip/ScaleFactor

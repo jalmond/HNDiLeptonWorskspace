@@ -116,9 +116,19 @@ NonPromptPath = FilePath + args.Era + "/"+ args.Flag + "/HNL_ControlRegion_Plott
 CFPath = FilePath + args.Era + "/"+ args.Flag + "/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_CF.root"
 ConvPath = FilePath + args.Era + "/"+ args.Flag + "/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_Conv.root"
 WZPath = FilePath + args.Era + "/"+ args.Flag + "/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_WZ.root"
+if args.List == "List1":
+    WZPath = FilePath + args.Era + "/"+ args.Flag + "/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_WZ2.root"
+if args.List =="List2":
+    WZPath = FilePath + args.Era + "/"+ args.Flag + "/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_WZ2.root"
+
 WWPath = FilePath + args.Era + "/"+ args.Flag + "/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_WW.root"
 ZZPath = FilePath + args.Era + "/"+ args.Flag + "/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_ZZ.root"
 TopPath = FilePath + args.Era + "/"+ args.Flag + "/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_Top.root"
+if args.List =="List4":
+    TopPath = FilePath + args.Era + "/"+ args.Flag + "/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_Top2.root"
+if args.List =="List2":
+    TopPath = FilePath + args.Era + "/"+ args.Flag + "/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_Top2.root"
+
 OtherPath = FilePath + args.Era + "/"+ args.Flag + "/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_Other.root"
 
 HistName = "/"+Region+"/"+args.ID+"/"+args.Channel+"/NObj/N_Mu"

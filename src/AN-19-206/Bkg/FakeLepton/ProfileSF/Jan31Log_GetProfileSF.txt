@@ -1,0 +1,1946 @@
+
+Processing GetProfileSF.C...
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v0_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      0.15707
+NDf                       =            8
+p0                        =      29.3548   +/-   0.205385    
+p1                        =     0.138772   +/-   0.385669    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0466363
+NDf                       =            2
+p0                        =      17.9443   +/-   1.36795     
+p1                        =      7.13443   +/-   1.70727     
+SF = 0.783613
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v0_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v0_"+GetYearString())) return 0.783613;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_a_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      0.48767
+NDf                       =            8
+p0                        =      35.4513   +/-   0.361896    
+p1                        =     -4.02031   +/-   0.679565    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.054878
+NDf                       =            2
+p0                        =      17.9712   +/-   1.48391     
+p1                        =      7.09737   +/-   1.85199     
+SF = 0.708957
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_a_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v1_a_"+GetYearString())) return 0.708957;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_b_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      0.48767
+NDf                       =            8
+p0                        =      35.4513   +/-   0.361896    
+p1                        =     -4.02031   +/-   0.679565    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.054878
+NDf                       =            2
+p0                        =      17.9712   +/-   1.48391     
+p1                        =      7.09737   +/-   1.85199     
+SF = 0.708957
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_b_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v1_b_"+GetYearString())) return 0.708957;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_c_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      0.48767
+NDf                       =            8
+p0                        =      35.4513   +/-   0.361896    
+p1                        =     -4.02031   +/-   0.679565    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.054878
+NDf                       =            2
+p0                        =      17.9712   +/-   1.48391     
+p1                        =      7.09737   +/-   1.85199     
+SF = 0.708957
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_c_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v1_c_"+GetYearString())) return 0.708957;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_a_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.250742
+NDf                       =            8
+p0                        =      30.4668   +/-   0.259498    
+p1                        =    -0.588712   +/-   0.487283    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0499223
+NDf                       =            2
+p0                        =      17.9144   +/-   1.41532     
+p1                        =      7.17217   +/-   1.76639     
+SF = 0.768181
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_a_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v2_a_"+GetYearString())) return 0.768181;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_b_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.250742
+NDf                       =            8
+p0                        =      30.4668   +/-   0.259498    
+p1                        =    -0.588712   +/-   0.487283    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0499223
+NDf                       =            2
+p0                        =      17.9144   +/-   1.41532     
+p1                        =      7.17217   +/-   1.76639     
+SF = 0.768181
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_b_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v2_b_"+GetYearString())) return 0.768181;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_c_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.250742
+NDf                       =            8
+p0                        =      30.4668   +/-   0.259498    
+p1                        =    -0.588712   +/-   0.487283    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0499223
+NDf                       =            2
+p0                        =      17.9144   +/-   1.41532     
+p1                        =      7.17217   +/-   1.76639     
+SF = 0.768181
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_c_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v2_c_"+GetYearString())) return 0.768181;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_a_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.164388
+NDf                       =            8
+p0                        =      30.1147   +/-   0.210114    
+p1                        =    -0.232423   +/-   0.394551    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0524774
+NDf                       =            2
+p0                        =       17.906   +/-   1.45109     
+p1                        =       7.1772   +/-   1.81103     
+SF = 0.770471
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_a_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v3_a_"+GetYearString())) return 0.770471;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_b_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.164388
+NDf                       =            8
+p0                        =      30.1147   +/-   0.210114    
+p1                        =    -0.232423   +/-   0.394551    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0524774
+NDf                       =            2
+p0                        =       17.906   +/-   1.45109     
+p1                        =       7.1772   +/-   1.81103     
+SF = 0.770471
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_b_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v3_b_"+GetYearString())) return 0.770471;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_c_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.164388
+NDf                       =            8
+p0                        =      30.1147   +/-   0.210114    
+p1                        =    -0.232423   +/-   0.394551    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0524774
+NDf                       =            2
+p0                        =       17.906   +/-   1.45109     
+p1                        =       7.1772   +/-   1.81103     
+SF = 0.770471
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_c_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v3_c_"+GetYearString())) return 0.770471;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_a_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.161802
+NDf                       =            8
+p0                        =       29.648   +/-   0.208456    
+p1                        =     0.396942   +/-   0.391436    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0496318
+NDf                       =            2
+p0                        =      17.8982   +/-   1.4112      
+p1                        =      7.18868   +/-   1.76125     
+SF = 0.770838
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_a_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v4_a_"+GetYearString())) return 0.770838;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_b_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =       0.1642
+NDf                       =            8
+p0                        =      29.6451   +/-   0.209994    
+p1                        =     0.400119   +/-   0.394325    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0496318
+NDf                       =            2
+p0                        =      17.8982   +/-   1.4112      
+p1                        =      7.18868   +/-   1.76125     
+SF = 0.770852
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_b_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v4_b_"+GetYearString())) return 0.770852;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_c_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.162266
+NDf                       =            8
+p0                        =      29.6466   +/-   0.208754    
+p1                        =     0.398807   +/-   0.391996    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0496318
+NDf                       =            2
+p0                        =      17.8982   +/-   1.4112      
+p1                        =      7.18868   +/-   1.76125     
+SF = 0.770838
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_c_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v4_c_"+GetYearString())) return 0.770838;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_a_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.157242
+NDf                       =            8
+p0                        =      29.6906   +/-   0.205497    
+p1                        =     0.290484   +/-   0.385881    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0493342
+NDf                       =            2
+p0                        =      17.8958   +/-   1.40696     
+p1                        =      7.19154   +/-   1.75596     
+SF = 0.771703
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_a_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v5_a_"+GetYearString())) return 0.771703;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_b_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.160869
+NDf                       =            8
+p0                        =      29.6836   +/-   0.207853    
+p1                        =     0.295945   +/-   0.390305    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0493342
+NDf                       =            2
+p0                        =      17.8958   +/-   1.40696     
+p1                        =      7.19154   +/-   1.75596     
+SF = 0.771782
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_b_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v5_b_"+GetYearString())) return 0.771782;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_c_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.157268
+NDf                       =            8
+p0                        =        29.69   +/-   0.205514    
+p1                        =     0.291099   +/-   0.385912    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0493342
+NDf                       =            2
+p0                        =      17.8958   +/-   1.40696     
+p1                        =      7.19154   +/-   1.75596     
+SF = 0.771706
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_c_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v5_c_"+GetYearString())) return 0.771706;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_a_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      0.14214
+NDf                       =            8
+p0                        =      29.6368   +/-   0.195379    
+p1                        =     0.250256   +/-   0.366881    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0485921
+NDf                       =            2
+p0                        =      17.9096   +/-   1.39634     
+p1                        =      7.17481   +/-   1.7427      
+SF = 0.773904
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_a_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v6_a_"+GetYearString())) return 0.773904;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_b_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.144521
+NDf                       =            8
+p0                        =      29.6184   +/-   0.19701     
+p1                        =     0.270471   +/-   0.369942    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0484641
+NDf                       =            2
+p0                        =      17.9132   +/-   1.3945      
+p1                        =      7.17007   +/-   1.7404      
+SF = 0.774012
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_b_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v6_b_"+GetYearString())) return 0.774012;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_c_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.142885
+NDf                       =            8
+p0                        =      29.6344   +/-   0.195891    
+p1                        =     0.252839   +/-   0.367842    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0485921
+NDf                       =            2
+p0                        =      17.9096   +/-   1.39634     
+p1                        =      7.17481   +/-   1.7427      
+SF = 0.773918
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_c_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v6_c_"+GetYearString())) return 0.773918;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_a_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.161698
+NDf                       =            8
+p0                        =      29.4938   +/-   0.208388    
+p1                        =     0.151084   +/-   0.39131     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0481166
+NDf                       =            2
+p0                        =      17.8853   +/-   1.38949     
+p1                        =      7.20642   +/-   1.73415     
+SF = 0.779457
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_a_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v7_a_"+GetYearString())) return 0.779457;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_b_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.163901
+NDf                       =            8
+p0                        =      29.4723   +/-   0.209803    
+p1                        =     0.175776   +/-   0.393966    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.047989
+NDf                       =            2
+p0                        =      17.8889   +/-   1.38765     
+p1                        =      7.20169   +/-   1.73185     
+SF = 0.779563
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_b_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v7_b_"+GetYearString())) return 0.779563;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_c_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.161097
+NDf                       =            8
+p0                        =      29.4905   +/-   0.208001    
+p1                        =     0.153893   +/-   0.390582    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0481166
+NDf                       =            2
+p0                        =      17.8853   +/-   1.38949     
+p1                        =      7.20642   +/-   1.73415     
+SF = 0.779489
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_c_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v7_c_"+GetYearString())) return 0.779489;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_a_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.149625
+NDf                       =            8
+p0                        =       29.303   +/-   0.200458    
+p1                        =     0.189905   +/-   0.376418    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.047026
+NDf                       =            2
+p0                        =      17.9351   +/-   1.37365     
+p1                        =      7.14398   +/-   1.71439     
+SF = 0.783934
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_a_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v8_a_"+GetYearString())) return 0.783934;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_b_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.152749
+NDf                       =            8
+p0                        =      29.2604   +/-   0.202539    
+p1                        =     0.234763   +/-   0.380326    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0470133
+NDf                       =            2
+p0                        =      17.9399   +/-   1.37347     
+p1                        =      7.13756   +/-   1.71416     
+SF = 0.784215
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_b_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v8_b_"+GetYearString())) return 0.784215;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_c_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.149037
+NDf                       =            8
+p0                        =      29.2869   +/-   0.200064    
+p1                        =     0.204984   +/-   0.375678    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0471388
+NDf                       =            2
+p0                        =      17.9363   +/-   1.3753      
+p1                        =       7.1423   +/-   1.71644     
+SF = 0.784074
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_c_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v8_c_"+GetYearString())) return 0.784074;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v9_a_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      0.15207
+NDf                       =            8
+p0                        =      29.3245   +/-   0.202089    
+p1                        =     0.160198   +/-   0.379481    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0472341
+NDf                       =            2
+p0                        =      17.9418   +/-   1.37669     
+p1                        =      7.13711   +/-   1.71818     
+SF = 0.783988
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v9_a_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v9_a_"+GetYearString())) return 0.783988;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v9_b_2016DATA_2016] cut =0.72  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.151234
+NDf                       =            8
+p0                        =      29.2555   +/-   0.201533    
+p1                        =     0.240714   +/-   0.378436    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0475112
+NDf                       =            2
+p0                        =      17.9359   +/-   1.38072     
+p1                        =      7.14252   +/-   1.72321     
+SF = 0.784214
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2016//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v9_b_2016DATA_2016.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2016/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2016 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v9_b_"+GetYearString())) return 0.784214;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v0_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.863474
+NDf                       =            8
+p0                        =      65.8019   +/-   0.411214    
+p1                        =     0.559958   +/-   0.904258    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0291318
+NDf                       =            2
+p0                        =      40.9162   +/-   0.973402    
+p1                        =      11.7227   +/-   1.34935     
+SF = 0.73184
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v0_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v0_"+GetYearString())) return 0.731840;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_a_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.28567
+NDf                       =            8
+p0                        =       74.328   +/-   0.501774    
+p1                        =     -4.09086   +/-   1.1034      
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0267518
+NDf                       =            2
+p0                        =      40.6577   +/-   0.932792    
+p1                        =      11.6544   +/-   1.29305     
+SF = 0.670988
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_a_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v1_a_"+GetYearString())) return 0.670988;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_b_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.28567
+NDf                       =            8
+p0                        =       74.328   +/-   0.501774    
+p1                        =     -4.09086   +/-   1.1034      
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0267518
+NDf                       =            2
+p0                        =      40.6577   +/-   0.932792    
+p1                        =      11.6544   +/-   1.29305     
+SF = 0.670988
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_b_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v1_b_"+GetYearString())) return 0.670988;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_c_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.28567
+NDf                       =            8
+p0                        =       74.328   +/-   0.501774    
+p1                        =     -4.09086   +/-   1.1034      
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0267518
+NDf                       =            2
+p0                        =      40.6577   +/-   0.932792    
+p1                        =      11.6544   +/-   1.29305     
+SF = 0.670988
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_c_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v1_c_"+GetYearString())) return 0.670988;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_a_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.22385
+NDf                       =            8
+p0                        =      69.1517   +/-   0.489562    
+p1                        =     -2.29361   +/-   1.07655     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0263766
+NDf                       =            2
+p0                        =      40.6675   +/-   0.926229    
+p1                        =      11.7553   +/-   1.28395     
+SF = 0.712
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_a_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v2_a_"+GetYearString())) return 0.712000;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_b_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.21457
+NDf                       =            8
+p0                        =      69.1514   +/-   0.487702    
+p1                        =     -2.29704   +/-   1.07246     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0266024
+NDf                       =            2
+p0                        =      40.6713   +/-   0.930184    
+p1                        =      11.7491   +/-   1.28944     
+SF = 0.712025
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_b_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v2_b_"+GetYearString())) return 0.712025;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_c_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =       1.2241
+NDf                       =            8
+p0                        =      69.1531   +/-   0.489611    
+p1                        =     -2.29828   +/-   1.07665     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0263766
+NDf                       =            2
+p0                        =      40.6675   +/-   0.926229    
+p1                        =      11.7553   +/-   1.28395     
+SF = 0.712017
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_c_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v2_c_"+GetYearString())) return 0.712017;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_a_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.12749
+NDf                       =            8
+p0                        =      67.8419   +/-   0.469893    
+p1                        =     -1.51518   +/-   1.03329     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0256854
+NDf                       =            2
+p0                        =      40.5119   +/-   0.914012    
+p1                        =      12.1105   +/-   1.26702     
+SF = 0.721715
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_a_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v3_a_"+GetYearString())) return 0.721715;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_b_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.10646
+NDf                       =            8
+p0                        =       67.837   +/-   0.465492    
+p1                        =     -1.52388   +/-   1.02361     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0258469
+NDf                       =            2
+p0                        =      40.5157   +/-   0.91688     
+p1                        =      12.1043   +/-   1.271       
+SF = 0.721826
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_b_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v3_b_"+GetYearString())) return 0.721826;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_c_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.13773
+NDf                       =            8
+p0                        =      67.8405   +/-   0.472024    
+p1                        =     -1.51703   +/-   1.03798     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0256854
+NDf                       =            2
+p0                        =      40.5119   +/-   0.914012    
+p1                        =      12.1105   +/-   1.26702     
+SF = 0.721743
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_c_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v3_c_"+GetYearString())) return 0.721743;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_a_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.19268
+NDf                       =            8
+p0                        =      66.1906   +/-   0.483287    
+p1                        =     0.390664   +/-   1.06275     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0263297
+NDf                       =            2
+p0                        =      40.5036   +/-   0.925405    
+p1                        =      12.2003   +/-   1.28281     
+SF = 0.727142
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_a_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v4_a_"+GetYearString())) return 0.727142;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_b_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =       1.1843
+NDf                       =            8
+p0                        =      66.1631   +/-   0.481586    
+p1                        =     0.400204   +/-   1.05901     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0255747
+NDf                       =            2
+p0                        =      40.5003   +/-   0.91204     
+p1                        =      12.2028   +/-   1.26429     
+SF = 0.727351
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_b_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v4_b_"+GetYearString())) return 0.727351;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_c_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.21162
+NDf                       =            8
+p0                        =       66.176   +/-   0.487109    
+p1                        =     0.402526   +/-   1.07115     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.025387
+NDf                       =            2
+p0                        =      40.4964   +/-   0.908687    
+p1                        =       12.209   +/-   1.25964     
+SF = 0.727195
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_c_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v4_c_"+GetYearString())) return 0.727195;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_a_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.21745
+NDf                       =            8
+p0                        =      65.9657   +/-   0.48828     
+p1                        =     0.556088   +/-   1.07373     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.027626
+NDf                       =            2
+p0                        =      40.5343   +/-   0.947912    
+p1                        =      12.1739   +/-   1.31401     
+SF = 0.728656
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_a_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v5_a_"+GetYearString())) return 0.728656;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_b_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.23385
+NDf                       =            8
+p0                        =      65.9053   +/-   0.491558    
+p1                        =     0.583651   +/-   1.08094     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0261789
+NDf                       =            2
+p0                        =      40.5271   +/-   0.922751    
+p1                        =      12.1802   +/-   1.27913     
+SF = 0.729078
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_b_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v5_b_"+GetYearString())) return 0.729078;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_c_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.25597
+NDf                       =            8
+p0                        =      65.9323   +/-   0.495944    
+p1                        =     0.587252   +/-   1.09058     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0258209
+NDf                       =            2
+p0                        =      40.5208   +/-   0.916419    
+p1                        =      12.1904   +/-   1.27036     
+SF = 0.728758
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_c_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v5_c_"+GetYearString())) return 0.728758;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_a_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.14543
+NDf                       =            8
+p0                        =      65.8132   +/-   0.473617    
+p1                        =     0.531224   +/-   1.04148     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0305898
+NDf                       =            2
+p0                        =      40.5364   +/-   0.997463    
+p1                        =      12.1815   +/-   1.3827      
+SF = 0.730617
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_a_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v6_a_"+GetYearString())) return 0.730617;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_b_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =       1.1843
+NDf                       =            8
+p0                        =      65.7312   +/-   0.481587    
+p1                        =     0.559613   +/-   1.05901     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0274038
+NDf                       =            2
+p0                        =      40.5367   +/-   0.944092    
+p1                        =      12.1733   +/-   1.30872     
+SF = 0.731246
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_b_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v6_b_"+GetYearString())) return 0.731246;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_c_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.16901
+NDf                       =            8
+p0                        =      65.7676   +/-   0.478468    
+p1                        =     0.568654   +/-   1.05215     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0268345
+NDf                       =            2
+p0                        =      40.5199   +/-   0.934234    
+p1                        =      12.1991   +/-   1.29505     
+SF = 0.730775
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_c_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v6_c_"+GetYearString())) return 0.730775;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_a_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.11822
+NDf                       =            8
+p0                        =      65.6402   +/-   0.467959    
+p1                        =     0.499762   +/-   1.02904     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0302228
+NDf                       =            2
+p0                        =      40.6385   +/-   0.991462    
+p1                        =      12.0478   +/-   1.37438     
+SF = 0.733005
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_a_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v7_a_"+GetYearString())) return 0.733005;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_b_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.12965
+NDf                       =            8
+p0                        =      65.4996   +/-   0.470343    
+p1                        =     0.591317   +/-   1.03428     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0276173
+NDf                       =            2
+p0                        =      40.6338   +/-   0.947763    
+p1                        =      12.0443   +/-   1.31381     
+SF = 0.733813
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_b_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v7_b_"+GetYearString())) return 0.733813;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_c_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.13491
+NDf                       =            8
+p0                        =      65.5591   +/-   0.471437    
+p1                        =     0.581596   +/-   1.03669     
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      0.02646
+NDf                       =            2
+p0                        =      40.6214   +/-   0.927691    
+p1                        =      12.0662   +/-   1.28598     
+SF = 0.733244
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_c_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v7_c_"+GetYearString())) return 0.733244;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_a_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.943212
+NDf                       =            8
+p0                        =      65.3515   +/-   0.429782    
+p1                        =      0.82681   +/-   0.945089    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0310818
+NDf                       =            2
+p0                        =      40.7822   +/-   1.00545     
+p1                        =      11.8684   +/-   1.39378     
+SF = 0.734326
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_a_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v8_a_"+GetYearString())) return 0.734326;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_b_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.971375
+NDf                       =            8
+p0                        =       65.093   +/-   0.436151    
+p1                        =      1.01167   +/-   0.959095    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0294452
+NDf                       =            2
+p0                        =      40.7278   +/-   0.978625    
+p1                        =      11.9249   +/-   1.35659     
+SF = 0.735616
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_b_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v8_b_"+GetYearString())) return 0.735616;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_c_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      0.96611
+NDf                       =            8
+p0                        =      65.2068   +/-   0.434967    
+p1                        =     0.963658   +/-   0.956492    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0271354
+NDf                       =            2
+p0                        =      40.7148   +/-   0.939456    
+p1                        =      11.9515   +/-   1.30229     
+SF = 0.734749
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_c_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v8_c_"+GetYearString())) return 0.734749;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v9_a_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      0.97956
+NDf                       =            8
+p0                        =      65.5002   +/-   0.437985    
+p1                        =     0.674043   +/-   0.963127    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0332965
+NDf                       =            2
+p0                        =      40.8859   +/-   1.04066     
+p1                        =      11.7419   +/-   1.44258     
+SF = 0.734106
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v9_a_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v9_a_"+GetYearString())) return 0.734106;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v9_b_2017DATA_2017] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      1.01722
+NDf                       =            8
+p0                        =       65.086   +/-   0.446325    
+p1                        =       1.0364   +/-   0.981468    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =       0.0293
+NDf                       =            2
+p0                        =      40.7329   +/-   0.976207    
+p1                        =      11.9181   +/-   1.35324     
+SF = 0.735528
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2017//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v9_b_2017DATA_2017.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2017/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2017 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v9_b_"+GetYearString())) return 0.735528;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v0_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =        0.554
+NDf                       =            8
+p0                        =      67.9152   +/-   0.329381    
+p1                        =      1.35941   +/-   0.724307    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =   0.00966914
+NDf                       =            2
+p0                        =      47.5083   +/-   0.560793    
+p1                        =      5.97642   +/-   0.777381    
+SF = 0.746282
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v0_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v0_"+GetYearString())) return 0.746282;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_a_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.440977
+NDf                       =            8
+p0                        =      77.6447   +/-   0.293867    
+p1                        =     -4.86001   +/-   0.646214    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0100377
+NDf                       =            2
+p0                        =      47.1526   +/-   0.571382    
+p1                        =      5.99834   +/-   0.792059    
+SF = 0.684136
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_a_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v1_a_"+GetYearString())) return 0.684136;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_b_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.440977
+NDf                       =            8
+p0                        =      77.6447   +/-   0.293867    
+p1                        =     -4.86001   +/-   0.646214    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0100377
+NDf                       =            2
+p0                        =      47.1526   +/-   0.571382    
+p1                        =      5.99834   +/-   0.792059    
+SF = 0.684136
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_b_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v1_b_"+GetYearString())) return 0.684136;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_c_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.440977
+NDf                       =            8
+p0                        =      77.6447   +/-   0.293867    
+p1                        =     -4.86001   +/-   0.646214    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0100377
+NDf                       =            2
+p0                        =      47.1526   +/-   0.571382    
+p1                        =      5.99834   +/-   0.792059    
+SF = 0.684136
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v1_c_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v1_c_"+GetYearString())) return 0.684136;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_a_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.766689
+NDf                       =            8
+p0                        =      71.5177   +/-   0.387483    
+p1                        =     -1.68969   +/-   0.852075    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0143448
+NDf                       =            2
+p0                        =      47.3935   +/-   0.683055    
+p1                        =      5.79229   +/-   0.946863    
+SF = 0.725486
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_a_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v2_a_"+GetYearString())) return 0.725486;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_b_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.769133
+NDf                       =            8
+p0                        =       71.517   +/-   0.3881      
+p1                        =     -1.69172   +/-   0.853432    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0143448
+NDf                       =            2
+p0                        =      47.3935   +/-   0.683055    
+p1                        =      5.79229   +/-   0.946863    
+SF = 0.725507
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_b_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v2_b_"+GetYearString())) return 0.725507;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_c_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.768168
+NDf                       =            8
+p0                        =      71.5183   +/-   0.387857    
+p1                        =     -1.69247   +/-   0.852896    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0143448
+NDf                       =            2
+p0                        =      47.3935   +/-   0.683055    
+p1                        =      5.79229   +/-   0.946863    
+SF = 0.725499
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v2_c_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v2_c_"+GetYearString())) return 0.725499;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_a_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.472234
+NDf                       =            8
+p0                        =       70.197   +/-   0.304104    
+p1                        =    -0.984393   +/-   0.668724    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0115141
+NDf                       =            2
+p0                        =       47.406   +/-   0.61196     
+p1                        =       5.9186   +/-   0.848309    
+SF = 0.735893
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_a_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v3_a_"+GetYearString())) return 0.735893;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_b_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.485562
+NDf                       =            8
+p0                        =      70.1971   +/-   0.308365    
+p1                        =    -0.998924   +/-   0.678095    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0110245
+NDf                       =            2
+p0                        =      47.4045   +/-   0.598808    
+p1                        =      5.91905   +/-   0.830077    
+SF = 0.735973
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_b_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v3_b_"+GetYearString())) return 0.735973;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_c_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.486073
+NDf                       =            8
+p0                        =      70.2005   +/-   0.308528    
+p1                        =    -0.999692   +/-   0.678452    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0115141
+NDf                       =            2
+p0                        =       47.406   +/-   0.61196     
+p1                        =       5.9186   +/-   0.848309    
+SF = 0.73596
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v3_c_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v3_c_"+GetYearString())) return 0.735960;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_a_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.413949
+NDf                       =            8
+p0                        =      68.0297   +/-   0.284719    
+p1                        =      1.62826   +/-   0.626097    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =      0.01367
+NDf                       =            2
+p0                        =      47.3393   +/-   0.666796    
+p1                        =      6.09445   +/-   0.924324    
+SF = 0.741833
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_a_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v4_a_"+GetYearString())) return 0.741833;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_b_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.431837
+NDf                       =            8
+p0                        =      68.0054   +/-   0.290806    
+p1                        =      1.63334   +/-   0.639482    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0131763
+NDf                       =            2
+p0                        =      47.3459   +/-   0.654643    
+p1                        =       6.0824   +/-   0.907478    
+SF = 0.742044
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_b_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v4_b_"+GetYearString())) return 0.742044;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_c_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.420754
+NDf                       =            8
+p0                        =      68.0156   +/-   0.28705     
+p1                        =        1.635   +/-   0.631222    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0137228
+NDf                       =            2
+p0                        =      47.3474   +/-   0.668081    
+p1                        =      6.08195   +/-   0.926106    
+SF = 0.74194
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v4_c_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v4_c_"+GetYearString())) return 0.741940;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_a_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.421315
+NDf                       =            8
+p0                        =      68.0998   +/-   0.287241    
+p1                        =      1.28893   +/-   0.631642    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0137427
+NDf                       =            2
+p0                        =      47.3209   +/-   0.668567    
+p1                        =      6.14337   +/-   0.926779    
+SF = 0.743603
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_a_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v5_a_"+GetYearString())) return 0.743603;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_b_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.419615
+NDf                       =            8
+p0                        =      68.0415   +/-   0.286661    
+p1                        =      1.31836   +/-   0.630367    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0132638
+NDf                       =            2
+p0                        =      47.3282   +/-   0.656814    
+p1                        =      6.13034   +/-   0.910487    
+SF = 0.744014
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_b_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v5_b_"+GetYearString())) return 0.744014;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_c_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.414789
+NDf                       =            8
+p0                        =      68.0665   +/-   0.285008    
+p1                        =      1.31133   +/-   0.626732    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0138018
+NDf                       =            2
+p0                        =      47.3292   +/-   0.670002    
+p1                        =      6.13059   +/-   0.928768    
+SF = 0.74381
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v5_c_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v5_c_"+GetYearString())) return 0.743810;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_a_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.370618
+NDf                       =            8
+p0                        =       67.931   +/-   0.269405    
+p1                        =       1.3664   +/-   0.592422    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0140463
+NDf                       =            2
+p0                        =      47.3295   +/-   0.675911    
+p1                        =      6.14501   +/-   0.936959    
+SF = 0.745032
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_a_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v6_a_"+GetYearString())) return 0.745032;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_b_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.353736
+NDf                       =            8
+p0                        =       67.825   +/-   0.263198    
+p1                        =      1.44668   +/-   0.578773    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.013498
+NDf                       =            2
+p0                        =      47.3627   +/-   0.662587    
+p1                        =      6.09189   +/-   0.918489    
+SF = 0.745613
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_b_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v6_b_"+GetYearString())) return 0.745613;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_c_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.362959
+NDf                       =            8
+p0                        =      67.8806   +/-   0.266607    
+p1                        =       1.3949   +/-   0.586269    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.013966
+NDf                       =            2
+p0                        =      47.3508   +/-   0.673976    
+p1                        =      6.11132   +/-   0.934277    
+SF = 0.745377
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v6_c_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v6_c_"+GetYearString())) return 0.745377;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_a_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.417087
+NDf                       =            8
+p0                        =      67.5842   +/-   0.285796    
+p1                        =      1.65833   +/-   0.628465    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0124271
+NDf                       =            2
+p0                        =      47.3904   +/-   0.635762    
+p1                        =      6.07782   +/-   0.881304    
+SF = 0.74703
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_a_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v7_a_"+GetYearString())) return 0.747030;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_b_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.404771
+NDf                       =            8
+p0                        =      67.4228   +/-   0.281545    
+p1                        =      1.78812   +/-   0.619117    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0128178
+NDf                       =            2
+p0                        =      47.3963   +/-   0.645677    
+p1                        =       6.0564   +/-   0.895048    
+SF = 0.747768
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_b_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v7_b_"+GetYearString())) return 0.747768;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_c_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.418676
+NDf                       =            8
+p0                        =       67.497   +/-   0.28634     
+p1                        =      1.73013   +/-   0.629662    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0128921
+NDf                       =            2
+p0                        =      47.4233   +/-   0.647546    
+p1                        =      6.02471   +/-   0.897639    
+SF = 0.747462
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v7_c_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v7_c_"+GetYearString())) return 0.747462;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_a_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.564555
+NDf                       =            8
+p0                        =      67.3578   +/-   0.332504    
+p1                        =      1.87815   +/-   0.731175    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0133179
+NDf                       =            2
+p0                        =      47.4391   +/-   0.658153    
+p1                        =      6.02792   +/-   0.912344    
+SF = 0.748208
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_a_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v8_a_"+GetYearString())) return 0.748208;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_b_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.523002
+NDf                       =            8
+p0                        =      67.0614   +/-   0.320033    
+p1                        =      2.12977   +/-   0.703752    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0139747
+NDf                       =            2
+p0                        =      47.4208   +/-   0.674185    
+p1                        =      6.03013   +/-   0.934567    
+SF = 0.74944
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_b_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v8_b_"+GetYearString())) return 0.749440;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_c_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.535719
+NDf                       =            8
+p0                        =      67.1896   +/-   0.323901    
+p1                        =      2.03861   +/-   0.712257    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0138769
+NDf                       =            2
+p0                        =      47.4426   +/-   0.671822    
+p1                        =      6.01003   +/-   0.931291    
+SF = 0.748806
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v8_c_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v8_c_"+GetYearString())) return 0.748806;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v9_a_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.523339
+NDf                       =            8
+p0                        =      67.5014   +/-   0.320136    
+p1                        =      1.74072   +/-   0.703979    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0122146
+NDf                       =            2
+p0                        =      47.4547   +/-   0.630301    
+p1                        =      6.01697   +/-   0.873735    
+SF = 0.747726
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v9_a_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v9_a_"+GetYearString())) return 0.747726;
+################### SaveProfile [MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v9_b_2018DATA_2018] cut =0.64  ###################
+
+################### Writing in Directory  ###################
+
+Ymin = 1e-06 YmaxScale = 100
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =     0.501165
+NDf                       =            8
+p0                        =      67.0644   +/-   0.313281    
+p1                        =      2.13343   +/-   0.688903    
+
+****************************************
+Minimizer is Linear / Migrad
+Chi2                      =    0.0138353
+NDf                       =            2
+p0                        =      47.4142   +/-   0.670816    
+p1                        =      6.03961   +/-   0.929897    
+SF = 0.749375
+ssh jalmond@lxplus.cern.ch 'cp  /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/SignalStudies/SignalSplit/index.php /afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31/'
+scp /data6/Users/jalmond/2020/HNDiLeptonWorskspace/Output/Plots/Run2UltraLegacy_v3/HNL_Lepton_FakeRate//HNL_Lepton_FakeRate/2018//HNL_GetProfileSF_Muon_PostJanJetX_Jan31/MeasurementRegion_QCD_MuMu_HNL_ULID_FO_v9_b_2018DATA_2018.pdf jalmond@lxplus.cern.ch:/afs/cern.ch/user/j/jalmond/www/SNU/WebPlots/HNL/HNL_Lepton_FakeRate/HNL_Lepton_FakeRate/2018/HNL_GetProfileSF_Muon_PostJanJetX_Jan31//
+https://jalmond.web.cern.ch/jalmond/SNU/WebPlots/HNL/HNL_Lepton_FakeRate//
+if(DataYear == 2018 && IsMuon && (LooseID == "MuMu_HNL_ULID_FO_v9_b_"+GetYearString())) return 0.749375;
