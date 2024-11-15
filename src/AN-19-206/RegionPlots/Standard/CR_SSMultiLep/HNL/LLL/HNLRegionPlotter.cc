@@ -154,11 +154,12 @@ void HNLRegionPlotter::AddCutFlow(TString histname){
 
 void HNLRegionPlotter::AddAK8(TString CR){
 
-  AddHist("AK8/AK8J_Tagger_particleNet_WvsQCD" ,"PNET WvsQCD", "",{2},0,1);
-  AddHist("AK8/AK8J_Mass/l1J" ,"m_{l_{1}J} GeV", "GeV", {0,100,200,300,400,800,1200,2500},0.,2500.);
-  AddHist("AK8/AK8J_Mass/l2J" ,"m_{l_{2}J} GeV", "GeV", {0,400,800,1200,2500},0.,2500.);
-  AddHist("AK8/AK8J_Mass/llJ" ,"m_{llJ} GeV", "GeV", {0,400,800,1200,2500},0.,2500.);
-  AddHist("AK8/AK8J_Eta" ,"#eta AK8", "int", {2},-3.,3.);
+  //  AddHist("AK8/AK8J_Tagger_particleNet_WvsQCD" ,"PNET WvsQCD", "",{2},0,1);
+  //  AddHist("AK8/AK8J_Mass/l1J" ,"m_{l_{1}J} GeV", "GeV", {0,100,200,300,400,800,1200,2500},0.,2500.);
+  //  AddHist("AK8/AK8J_Mass/l2J" ,"m_{l_{2}J} GeV", "GeV", {0,400,800,1200,2500},0.,2500.);
+  //  AddHist("AK8/AK8J_Mass/llJ" ,"m_{llJ} GeV", "GeV", {0,400,800,1200,2500},0.,2500.);
+  //  AddHist("AK8/AK8J_Eta" ,"#eta AK8", "int", {2},-3.,3.);
+  AddHist("Master/M1J","m_{l_{1}J} GeV", "GeV", {1},0.,2500.);
 }
 void HNLRegionPlotter::AddVBF(TString CR){
   AddHist("VBF/MaxDEta_jet1_jet2","#Delta (#eta) JJ","int", {10},0,10);
@@ -211,16 +212,22 @@ void HNLRegionPlotter::AddLepton(int nlep,TString CR){
   AddHist("LeptonMVA/Lepton__lep1_mva_Mu_HF_Fake_POG","BvsC MVA" , "int", {2},-1, 1);
 
 
-  AddHist("Leptons/Lep_1_pt" ,"P^{1}_{T} GeV" , "GeV", {0, 20.,40., 50.,75.,100.,150., 200.,500}, 0, 500);
-  AddHist("Leptons/Lep_2_pt" ,"P^{2}_{T} GeV" , "GeV", {0.,10.,15., 25.,30,40,50,75,100., 200.}, 0, 200);
+  AddHist("Master/Lep1_pt" ,"P^{1}_{T} GeV" , "GeV", {0, 20.,40., 50.,75.,100.,150., 200.,500}, 0, 500);
+  AddHist("Master/Lep2_pt" ,"P^{2}_{T} GeV" , "GeV", {0.,10.,15., 25.,30,40,50,75,100., 200.}, 0, 200);
   if(nlep==3) AddHist("Leptons/Lep_3_pt" ,"P^{3}_{T} GeV" , "GeV", {0.,10.,15., 25.,50,75,100., 200.}, 0, 200);
   if(nlep==4) AddHist("Leptons/Lep_3_pt" ,"P^{3}_{T} GeV" , "GeV", {0.,10.,15., 25.,50,75,100., 200.}, 0, 200);
   if(nlep==4) AddHist("Leptons/Lep_4_pt" ,"P^{4}_{T} GeV" , "GeV", {0.,10.,15., 25.,50,75,100., 200.}, 0, 200);
   AddHist("Leptons/Lepton_pt" ,"P_{T} " , "int", {0.,15.,20.,30.,40., 60.,100.,250.}, 10, 250);
   AddHist("Leptons/Lepton_eta" ,"#eta Lepton" , "int", {2},-2.5,2.5);
+
+  AddHist("Leptons/Lepton_eta" ,"#eta Lepton" , "int", {2},-2.5,2.5);
   AddHist("Leptons/Lep_1_eta" ,"#eta Lepton" , "int", {2},-2.5,2.5);
   AddHist("Leptons/Lep_2_eta" ,"#eta Lepton" , "int", {2},-2.5,2.5);
   if(nlep==3)AddHist("Leptons/Lep_3_eta" ,"#eta Lepton" , "int", {2},-2.5,2.5);
+
+  AddHist("Leptons/Lep_1_phi" ,"#phi Lepton" , "int", {2},-5,5);
+  AddHist("Leptons/Lep_2_phi" ,"#phi Lepton" , "int", {2},-5,5);
+  if(nlep==3)AddHist("Leptons/Lep_3_phi" ,"#phi Lepton" , "int", {2},-5,5);
   AddHist("Leptons/SumQ" ,"Sum Charge" , "int", {1},-5,5);
 
 }

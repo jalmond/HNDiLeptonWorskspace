@@ -7,7 +7,7 @@
 void SaveHistogram(HNLPlotter Plotter, vector<TH1D*>hists, vector<TString> legname, TString HistName, TString dirName, vector<TString> scales);
 
 
-void FakeRatePlotterData(){
+void FakeRatePlotterDataEl(){
   
   vector<TString> Eras = {"2018","2017","2016a","2016b"};//postVFP","2016preVFP"};//"2016","2017","2018"};
 
@@ -19,16 +19,14 @@ void FakeRatePlotterData(){
 
     TString year = (Era.Contains("16")) ? "2016" : Era;
 
-    vector<TString> IDs = {"HNL_ULID_"+year+"_HNL_ULID_FO_v1_a_AJ40_pt_",
-			   "HNL_ULID_"+year+"_HNL_ULID_FO_v2_a_AJ40_pt_",
-			   "HNL_ULID_"+year+"_HNL_ULID_FO_v3_a_AJ40_pt_"};
+    vector<TString> IDs = {"HNL_ULID_"+year+"_HNL_ULID_FO_v9_a_"+year+"EE_AJ40_pt_"};
     for( auto ID : IDs){
       for( auto  var : Vars){
 	HNLPlotter Plotter("HNL_Lepton_FakeRate");
 	Plotter.SetupPlotter(Era,"","HNL_Lepton_FakeRate");
 	Plotter.CopyToWebsite = true;
 	
-	TString pathData="/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/src/BkgEstimation/HNL_Lepton_Fakes/AnalyzerInputFile/Muon/FR_Mu_"+Era+"_HNL_ULID_PtParton_1D.root";
+	TString pathData="/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/src/BkgEstimation/HNL_Lepton_Fakes/AnalyzerInputFile/EGamma/FR_EGamma_"+Era+"_HNL_ULID_PtParton_1D.root";
 
 	  
 	vector<TH1D*> hists;
@@ -42,8 +40,9 @@ void FakeRatePlotterData(){
 
 	///// Set up axis 
 	hist_BB->GetYaxis()->SetTitle("Fake Rates");
-	hist_BB->GetYaxis()->SetRangeUser(0,0.7);
-	
+	hist_BB->GetYaxis()->SetRangeUser(0,0.6);
+	hist_BB->GetXaxis()->SetRangeUser(15,80.);
+
 
 	hists.push_back(hist_BB);
 	hists.push_back(hist_EC);
@@ -52,7 +51,7 @@ void FakeRatePlotterData(){
 	TString LabelForWeb = "FRate_2024_ANv3";
 	TString Label = Era+" (AJ40)" ;
 
-	SaveHistogram(Plotter, hists, {"Barrel","Endcap"}, "HNL_Lepton_Fake_1D_"+Era+ID+"_DATA", LabelForWeb, {Label});
+	SaveHistogram(Plotter, hists, {"Barrel","Endcap"}, "HNL_Lepton_Fake_1D_"+Era+"_DATA", LabelForWeb, {Label});
 
 	
       }
@@ -79,7 +78,7 @@ void SaveHistogram(HNLPlotter plotter,vector<TH1D*>hists, vector<TString> legnam
   //const char * format = (char*)'4.3f';                                                                                                                                                                                                                                                                                                                                                                                                                       
   //  gStyle->SetPaintTextFormat((char*)'4.1f');                                                                                                                                                                                                                                                                                                                                                                                                               
 
-  TCanvas* c1 = new TCanvas(HistName, "Data fake rate map for muons ID ",1100, 800);
+  TCanvas* c1 = new TCanvas(HistName, "Data fake rate map for electrons ID ",1100, 800);
 
   c1->Draw();
   c1->cd();
@@ -91,9 +90,9 @@ void SaveHistogram(HNLPlotter plotter,vector<TH1D*>hists, vector<TString> legnam
 
 
   TH1D *hist_empty= (TH1D*)hist_default->Clone();
-  hist_empty->SetTitle("Data fake rate map for  muons ID ");
+  hist_empty->SetTitle("Data fake rate map for  electrons ID ");
 
-  hist_empty->GetXaxis()->SetRangeUser(10,60);
+  hist_empty->GetXaxis()->SetRangeUser(15,80);
   hist_empty->SetName("DUMMY_FOR_AXIS");
   hist_empty->SetMarkerSize(0.8);
   hist_empty->SetLineColor(kRed);
@@ -109,11 +108,11 @@ void SaveHistogram(HNLPlotter plotter,vector<TH1D*>hists, vector<TString> legnam
   hist_empty->GetXaxis()->SetTitleSize(0.04);
   hist_empty->GetXaxis()->SetTitleOffset(1.20);
 
-  hist_empty->SetName("Data fake rate map for muons ID");
+  hist_empty->SetName("Data fake rate map for electrons ID");
   gStyle->SetPaintTextFormat("4.2f");
 
   c1->Update();
-  hist_empty->SetTitle("Data fake rate map for muons ID");
+  hist_empty->SetTitle("Data fake rate map for electrons ID");
   hist_empty->GetXaxis()->SetTitle("p^{parton}_{T} (GeV) ");
   hist_empty->SetLineWidth(2.);
   hist_empty->Draw("colzE");
@@ -141,7 +140,7 @@ void SaveHistogram(HNLPlotter plotter,vector<TH1D*>hists, vector<TString> legnam
   TLatex latex_title;
   latex_title.SetNDC();
   latex_title.SetTextSize(plotter.LatexTextCMS_Size);
-  latex_title.DrawLatex(0.25, 0.95, "Data fake rate map for muons ID " );
+  latex_title.DrawLatex(0.25, 0.95, "Data fake rate map for electrons ID " );
 
   TLatex latex_result;
   latex_result.SetNDC();
@@ -151,8 +150,8 @@ void SaveHistogram(HNLPlotter plotter,vector<TH1D*>hists, vector<TString> legnam
   for(unsigned int il =0 ; il < Labels.size(); il++) latex_result.DrawLatex(0.15, 0.8-0.05*il, Labels[il]);
 
 
-  c1->SetTitle("Data fake rate map for  muons ID ");
-  c1->SaveAs(plotter.thiscut_plotpath+"/"+HistName+"_muon.pdf");
+  c1->SetTitle("Data fake rate map for  electrons ID ");
+  c1->SaveAs(plotter.thiscut_plotpath+"/"+HistName+"_electron.pdf");
 
   cout << "Run rsync -av -e \"ssh -p 1240 \" jalmond@147.47.242.42:" << plotter.syncpath <<  " TamsaOutput/Plots/" << endl;
 

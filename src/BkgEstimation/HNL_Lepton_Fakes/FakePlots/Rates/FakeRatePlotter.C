@@ -9,7 +9,7 @@ void FakeRatePlotter(){
   
   vector<TString> Eras = {"2017"};//postVFP","2016preVFP"};//"2016","2017","2018"};
 
-  TString LabelForWeb = "HNL_LeptonFakeStudy_2023_FakeRates";
+  TString LabelForWeb = "HNL_LeptonFakeStudy_2024_FakeRates";
 
   vector<TString> EtaBins = {"BB","EC"};
   for (auto year : Eras){

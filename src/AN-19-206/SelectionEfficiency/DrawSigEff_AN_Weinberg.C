@@ -5,14 +5,9 @@
 #include "HNL_Efficiency_Plotter.cc"                                                                       
 
 
-//vector<double> GetMassListDY = {"85","90", "95","100", "125", "150","200", "250" ,"1000",  "1100", "1200","1300", "1500", "1700", "2000",  "2500", "3000", "300", "400", "500", "600", "700", "800", "900"};
-//vector<double> GetMassListVBF = {"1000",  "1100", "1200","1300", "1500", "1700", "2000",  "2500", "3000", "300", "400", "500", "600", "700", "800", "900"};
-//vector<double> GetMassListWW = {"1000",  "1100", "1300", "1500", "2000",  "2500", "500"};
-
-
 void DrawConfig(TString DatTag,TString flavour, TString year, TString filepath, TString ID);
 
-void DrawSigEff_AN_WW(){
+void DrawSigEff_AN_Weinberg(){
   
   DrawConfig("Nov8","MuMu","2018","HNL_SR","HNL_ULID");
   DrawConfig("Nov8","EE","2018","HNL_SR","HNL_ULID");

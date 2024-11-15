@@ -14,11 +14,11 @@ void DrawConfig(TString DatTag,TString flavour, TString year, TString filepath, 
 
 void DrawSigEff_AN(){
   
-  DrawConfig("Oct9","MuMu","2017","HNL_SR","HNL_ULID");
-  DrawConfig("Oct9","EE","2017","HNL_SR","HNL_ULID");
+  DrawConfig("Nov8","MuMu","2018","HNL_SR","HNL_ULID");
+  DrawConfig("Nov8","EE","2018","HNL_SR","HNL_ULID");
 
-  DrawConfig("Oct9","MuMu","2017","HNL_SR","HNTightV2");
-  DrawConfig("Oct9","EE","2017","HNL_SR","HNTightV2");
+  //  DrawConfig("Oct9","MuMu","2017","HNL_SR","HNTightV2");
+  //DrawConfig("Oct9","EE","2017","HNL_SR","HNTightV2");
 
 }
 
@@ -35,7 +35,7 @@ void DrawConfig(TString DateTag,TString Flavour, TString era, TString filepath, 
     
     if(year.Contains("2016")) year = "2016";
 
-    TString path="/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalRegion_Plotter/"+year+"/";
+    TString path="/data6/Users/jalmond/SKFlatOutput/Run2UltraLegacy_v3/HNL_SignalRegion_Plotter/"+year+"/RunNoSyst__/";
     
     
     vector<TString> GetMassListDY = {"90","95","100", "125", "150","200", "250",  "300", "400", "500", "600", "700", "800", "900","1000",  "1100", "1200","1300", "1500", "1700", "2000",  "2500", "3000"};
@@ -69,7 +69,7 @@ void DrawConfig(TString DateTag,TString Flavour, TString era, TString filepath, 
       
       TH1D *hist_NoCut        = Plotter.ConstructHist(path_mass,"ChannelCutFlow/"+ID+"/"+Flavour +"/ChannelDependant_Inclusive");
       TH1D *hist_NumPresel    = Plotter.ConstructHist(path_mass,"ChannelCutFlow/"+ID+"/"+Flavour+"/ChannelDependant_Presel");
-      TH1D *hist_SR          = Plotter.ConstructHist(path_mass,"ChannelCutFlow/"+ID+"/"+Flavour+"/SR_Summary");
+      TH1D *hist_SR          = Plotter.ConstructHist(path_mass,"ChannelCutFlow/"+ID+"/"+Flavour+"/SR_SummaryBDT");
 
       cout << path_mass << endl;
       cout << "DY " << GetMassListDY[i] << endl;
@@ -79,9 +79,9 @@ void DrawConfig(TString DateTag,TString Flavour, TString era, TString filepath, 
       cout << "Presel Yield = " << hist_NumPresel->Integral() << endl;
 
       double EffPre = (hist_NumPresel) ?  hist_NumPresel->Integral() / hist_NoCut->Integral() : 0;
-      double EffSR1 = (hist_SR)    ?  hist_SR->GetBinContent(1) / hist_NoCut->Integral() : 0;
-      double EffSR2 = (hist_SR) ?  hist_SR->GetBinContent(2) / hist_NoCut->Integral() : 0;
-      double EffSR3 = (hist_SR) ?  hist_SR->GetBinContent(3) / hist_NoCut->Integral() : 0;
+      double EffSR1 = (hist_SR)    ?  hist_SR->GetBinContent(3) / hist_NoCut->Integral() : 0;
+      double EffSR2 = (hist_SR) ?  hist_SR->GetBinContent(4) / hist_NoCut->Integral() : 0;
+      double EffSR3 = (hist_SR) ?  hist_SR->GetBinContent(5) / hist_NoCut->Integral() : 0;
       
       cout << "DY " << GetMassListDY[i] << " Eff = " << EffPre << endl;
 
@@ -151,7 +151,7 @@ void DrawConfig(TString DateTag,TString Flavour, TString era, TString filepath, 
     cout << Plotter.plotpath << endl;
     Plotter.mkdir(Plotter.plotpath);
 
-    TString HNAME = "SignalEff_DY_"+Flavour + "_"+ID ;
+    TString HNAME = DateTag+"_SignalEff_DY_"+Flavour + "_"+ID ;
     cout << Plotter.plotpath+"/"+HNAME+".pdf" << endl;
     c1->SaveAs(Plotter.plotpath+"/"+HNAME+".pdf");
     
