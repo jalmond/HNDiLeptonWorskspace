@@ -123,7 +123,7 @@ for Channel in Channels:
                 "ZMass_OS_CF_PTB_m3SF_weighted",
                 "ZMass_OS_CF_PTB_m4SF_weighted"]                
 
-    HistsPTB = [                "ZMass_OS_CF_PTBSF_weighted"]
+    HistsPTB = [  "ZMass_OS_CF_PTB_weighted"]
 
     HistsCS = [  "ZMass_OS_CF_CS_0p8_weighted",
                  "ZMass_OS_CF_CS_1_weighted",
@@ -138,7 +138,7 @@ for Channel in Channels:
 
     for Histx in HistsPTB:
       print("Running FitResults_Shift_PTB_"+Channel)
-      RunFit("Oct9",Channel, era, HNLID,Histx,"FitResults_Shift_PTB_"+Channel)
+      RunFit("Jan3",Channel, era, HNLID,Histx,"FitResults_Shift_PTB_"+Channel)
     #for Histx in HistsCS:
      #  RunFit("Oct9",Channel, era, HNLID,Histx,"FitResults_Shift_CS_"+Channel)                                                                                                                                                                                                         
 

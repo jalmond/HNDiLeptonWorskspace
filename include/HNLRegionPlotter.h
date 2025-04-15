@@ -188,6 +188,7 @@ public:
   void BasicSetup(SetupHelper logy, SetupHelper ratio, TString channel);
   
   //==== variables
+  bool VERBOSE;
   bool DoDebug;
   bool SetLabels;
   bool comp_default_set;

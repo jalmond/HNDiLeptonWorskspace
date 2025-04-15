@@ -1,0 +1,27 @@
+MuMu_2018_SR3 Bin (SR3_bin13      ): Content = 333.49    , Error = 57.026, Error Perc. =17.1
+MuMu_2018_SR3 Bin (SR3_bin10      ): Content = 301.324   , Error = 52.608, Error Perc. =17.459
+MuMu_2018_SR3 Bin (SR3_bin1       ): Content = 280.012   , Error = 52.673, Error Perc. =18.811
+MuMu_2018_SR3 Bin (SR3_bin14      ): Content = 273.673   , Error = 50.136, Error Perc. =18.32
+MuMu_2018_SR3 Bin (SR3_bin11      ): Content = 231.666   , Error = 47.574, Error Perc. =20.536
+MuMu_2018_SR3 Bin (SR3_bin12      ): Content = 213.7     , Error = 44.705, Error Perc. =20.92
+MuMu_2018_SR3 Bin (SR3_bin4       ): Content = 160.607   , Error = 37.996, Error Perc. =23.658
+MuMu_2018_SR3 Bin (SR3_bin2       ): Content = 128.212   , Error = 36.97 , Error Perc. =28.835
+MuMu_2018_SR2 Bin (SR2_HTLTbin3   ): Content = 102.174   , Error = 30.814, Error Perc. =30.158
+MuMu_2018_SR3 Bin (SR3_bin19      ): Content = 74.754    , Error = 26.585, Error Perc. =35.563
+MuMu_2018_SR3 Bin (SR3_bin3       ): Content = 61.943    , Error = 26.836, Error Perc. =43.324
+MuMu_2018_SR3 Bin (SR3_bin8       ): Content = 56.615    , Error = 23.191, Error Perc. =40.963
+MuMu_2018_SR2 Bin (SR2_HTLTbin5   ): Content = 47.372    , Error = 21.282, Error Perc. =44.925
+MuMu_2018_SR2 Bin (SR2_HTLTbin2   ): Content = 46.214    , Error = 20.744, Error Perc. =44.887
+MuMu_2018_SR3 Bin (SR3_bin7       ): Content = 45.899    , Error = 20.644, Error Perc. =44.977
+MuMu_2018_SR3 Bin (SR3_bin20      ): Content = 42.512    , Error = 19.064, Error Perc. =44.844
+MuMu_2018_SR3 Bin (SR3_bin18      ): Content = 38.589    , Error = 19.296, Error Perc. =50.004
+MuMu_2018_SR3 Bin (SR3_bin15      ): Content = 38.147    , Error = 22.9  , Error Perc. =60.031
+MuMu_2018_SR1 Bin (SR1_MNbin1     ): Content = 28.807    , Error = 16.637, Error Perc. =57.753
+MuMu_2018_SR3 Bin (SR3_bin9       ): Content = 27.174    , Error = 15.742, Error Perc. =57.93
+MuMu_2018_SR2 Bin (SR2_HTLTbin1   ): Content = 18.419    , Error = 13.028, Error Perc. =70.731
+MuMu_2018_SR1 Bin (SR1_MNbin2     ): Content = 17.394    , Error = 12.326, Error Perc. =70.864
+MuMu_2018_SR3 Bin (SR3_bin17      ): Content = 10.316    , Error = 10.316, Error Perc. =100.0
+MuMu_2018_SR3 Bin (SR3_bin6       ): Content = 9.978     , Error = 9.978 , Error Perc. =100.0
+MuMu_2018_SR3 Bin (SR3_bin5       ): Content = 9.408     , Error = 9.408 , Error Perc. =100.0
+MuMu_2018_SR2 Bin (SR2_HTLTbin4   ): Content = 8.036     , Error = 8.036 , Error Perc. =100.0
+MuMu_2018_SR3 Bin (SR3_bin16      ): Content = 0.0       , Error = 0.0   , Error Perc. =0.0

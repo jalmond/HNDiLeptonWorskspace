@@ -1,0 +1,37 @@
+Running command for year=2016postVFP, channel=EMu, list=List1, region=PassCR1_MET
+Histogram /PassCR1_MET/HNL_ULIDv2/EMu/NObj/N_Mu not found in /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/SSControl/Mar25/2016postVFP/SSMultiLep__/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_CF.root
+Total Background Integral: 8.735710542629022
+Total Prompt Integral: 6.553485683494728
+Hist does not exist: /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/SSControl/Mar25/2016postVFP/SSMultiLep__/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_CF.root /PassCR1_MET/HNL_ULIDv2/EMu/NObj/N_Mu
+Significance: 0.08166915152321116
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Mar25/HNL_ControlRegion_LLCRPlots_LL__/2016postVFP/PassCR1_MET/HNL_ULIDv2/EMu/BkgYields_List1.txt
+HNL_ULIDv2 PassCR1_MET 
+==================================================
+NBkg[Prompt]         = 6.55 +/- 0.91
+NBkg[CF]             = 0.00 +/- 0.20
+NBkg[Conv]           = 0.42 +/- 0.25
+NBkg[Fake]           = 1.76 +/- 0.30
+__________________________________________________
+NBkg[Total]          = 8.74 +/- 1.21
+__________________________________________________
+NData                = 9.00 +/- 3.00
+__________________________________________________
+Significance         = 0.08 +/- 0.00
+__________________________________________________
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+WZ                   = 1.57 +/- 0.28
+qqZZ                 = 0.01 +/- 0.00
+ggZZ                 = 0.00 +/- 0.00
+WW                   = 1.38 +/- 0.28
+Top                  = 2.24 +/- 0.46
+Other                = 1.35 +/- 0.68
+----------------------------------------------------------------------------------------------------
+NBkg[Prompt]         = 6.55 +/- 0.91
+----------------------------------------------------------------------------------------------------
+NBkg[Conv]           = 0.42 +/- 0.25
+----------------------------------------------------------------------------------------------------
+
+
+==================================================

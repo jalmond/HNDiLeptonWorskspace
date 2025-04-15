@@ -1,0 +1,14 @@
+200_EE_2018_SR3BDT Bin (SR3BDT_bin1    , Total     ): Content = 653.169   , Error = 8.886 , Error Perc. =1.36
+200_EE_2018_SR3BDT Bin (SR3BDT_bin2    , Total     ): Content = 376.716   , Error = 6.526 , Error Perc. =1.732
+200_EE_2018_SR3BDT Bin (SR3BDT_bin3    , Total     ): Content = 359.323   , Error = 6.167 , Error Perc. =1.716
+200_EE_2018_SR3BDT Bin (SR3BDT_bin4    , Total     ): Content = 131.831   , Error = 3.757 , Error Perc. =2.85
+200_EE_2018_SR3BDT Bin (SR3BDT_bin5    , Total     ): Content = 91.534    , Error = 3.072 , Error Perc. =3.356
+200_EE_2018_SR3BDT Bin (SR3BDT_bin6    , Total     ): Content = 26.043    , Error = 1.614 , Error Perc. =6.197
+200_EE_2018_SR3BDT Bin (SR3BDT_bin7    , Total     ): Content = 20.355    , Error = 1.4   , Error Perc. =6.878
+200_EE_2018_SR3BDT Bin (SR3BDT_bin8    , Total     ): Content = 13.489    , Error = 1.111 , Error Perc. =8.236
+200_EE_2018_SR3BDT Bin (SR3BDT_bin9    , Total     ): Content = 8.551     , Error = 0.92  , Error Perc. =10.759
+200_EE_2018_SR3BDT Bin (SR3BDT_bin10   , Total     ): Content = 5.702     , Error = 0.79  , Error Perc. =13.855
+200_EE_2018_SR3BDT Bin (SR3BDT_bin11   , Total     ): Content = 4.099     , Error = 0.658 , Error Perc. =16.053
+200_EE_2018_SR3BDT Bin (SR3BDT_bin12   , Total     ): Content = 2.249     , Error = 0.474 , Error Perc. =21.076
+200_EE_2018_SR3BDT Bin (SR3BDT_bin13   , Total     ): Content = 1.277     , Error = 0.357 , Error Perc. =27.956
+200_EE_2018_SR3BDT Bin (SR3BDT_bin14   , Total     ): Content = 1.962     , Error = 0.513 , Error Perc. =26.147

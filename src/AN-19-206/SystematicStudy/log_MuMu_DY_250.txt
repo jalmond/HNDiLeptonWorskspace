@@ -1,0 +1,315 @@
+TFile**		/data9/Users/jalmond_public/SUS-24-014/HNL_SignalRegion_Plotter_ANv3/2017/RunSyst__//HNL_SignalRegion_Plotter_SkimTree_HNMultiLepBDT_DYTypeI_DF_M250_private.root	
+ TFile*		/data9/Users/jalmond_public/SUS-24-014/HNL_SignalRegion_Plotter_ANv3/2017/RunSyst__//HNL_SignalRegion_Plotter_SkimTree_HNMultiLepBDT_DYTypeI_DF_M250_private.root	
+  KEY: TDirectoryFile	AllChannel;1	AllChannel
+  KEY: TDirectoryFile	AllSR;1	AllSR/HNL_ULIDv2/EE/AK4Jets
+  KEY: TDirectoryFile	ChannelCutFlow;1	ChannelCutFlow/HNL_ULIDv2/EE
+  KEY: TDirectoryFile	DiJetSR3;1	DiJetSR3/HNL_ULIDv2/EE/AK4Jets
+  KEY: TDirectoryFile	InclusiveSR1;1	InclusiveSR1/HNL_ULIDv2/EE/AK4Jets
+  KEY: TDirectoryFile	InclusiveSR2;1	InclusiveSR2/HNL_ULIDv2/EE/AK4Jets
+  KEY: TDirectoryFile	InclusiveSR3;1	InclusiveSR3/HNL_ULIDv2/EE/AK4Jets
+  KEY: TDirectoryFile	LimitExtraction;1	LimitExtraction/HNL_ULIDv2/EE/LimitBins
+  KEY: TDirectoryFile	LimitExtractionBDT;1	LimitExtractionBDT/HNL_ULIDv2/EE/M100/LimitBins
+  KEY: TDirectoryFile	OneJetSR3;1	OneJetSR3/HNL_ULIDv2/EE/AK4Jets
+  KEY: TDirectoryFile	PassSR1;1	PassSR1/HNL_ULIDv2/EE/AK4Jets
+  KEY: TDirectoryFile	PassSR2;1	PassSR2/HNL_ULIDv2/EE/AK4Jets
+  KEY: TDirectoryFile	PassSR3;1	PassSR3/HNL_ULIDv2/EE/AK4Jets
+  KEY: TDirectoryFile	PassSR3BDTBDT;1	PassSR3BDTBDT/HNL_ULIDv2/EE/AK4Jets
+  KEY: TDirectoryFile	Preselection;1	Preselection/HNL_ULIDv2/EE/AK4Jets
+  KEY: TDirectoryFile	Signal_NoCut;1	Signal_NoCut/HNL_ULIDv2/EE/AK4Jets
+  KEY: TDirectoryFile	ZeroJetSR3;1	ZeroJetSR3/HNL_ULIDv2/EE/DeltaEta
+  KEY: TDirectoryFile	weights;1	weights/HNL_ULIDv2/EE
+  KEY: TDirectoryFile	HNL_ULIDv2;1	HNL_ULIDv2/EE
+  KEY: TDirectoryFile	Timer;1	Timer
+Successfully opened ROOT file: /data9/Users/jalmond_public/SUS-24-014/HNL_SignalRegion_Plotter_ANv3/2017/RunSyst__//HNL_SignalRegion_Plotter_SkimTree_HNMultiLepBDT_DYTypeI_DF_M250_private.root
+Histogram: ChannelCutFlow/HNL_ULIDv2/MuMu/SR_Summary
+2017 Central Bin 1: Label = Preselection, Content = 3333.6837876811624
+2017 Central Bin 3: Label = SR1, Content = 303.9487072620541
+2017 Central Bin 4: Label = SR2, Content = 22.931714976206422
+2017 Central Bin 5: Label = SR3_HighMass, Content = 1807.1103904135525
+Histogram: ChannelCutFlow/Syst_JetEnDownHNL_ULIDv2/MuMu/SR_Summary
+2017 JESDown Bin 1: Label = Preselection, Content = 3333.499490035698
+2017 JESDown Bin 3: Label = SR1, Content = 301.6538500096649
+2017 JESDown Bin 4: Label = SR2, Content = 17.926657523959875
+2017 JESDown Bin 5: Label = SR3_HighMass, Content = 1818.414462255314
+Histogram: ChannelCutFlow/Syst_JetPNETDownHNL_ULIDv2/MuMu/SR_Summary
+2017 PNETDown Bin 1: Label = Preselection, Content = 3312.986785285175
+2017 PNETDown Bin 3: Label = SR1, Content = 283.79263609461486
+2017 PNETDown Bin 4: Label = SR2, Content = 22.931714976206422
+2017 PNETDown Bin 5: Label = SR3_HighMass, Content = 1807.1103904135525
+Histogram: ChannelCutFlow/Syst_BTagSFHTagDownHNL_ULIDv2/MuMu/SR_Summary
+2017 BTagSFHTagDown Bin 1: Label = Preselection, Content = 3334.484374558553
+2017 BTagSFHTagDown Bin 3: Label = SR1, Content = 304.1575436387211
+2017 BTagSFHTagDown Bin 4: Label = SR2, Content = 22.84548012726009
+2017 BTagSFHTagDown Bin 5: Label = SR3_HighMass, Content = 1820.3679436296225
+Histogram: ChannelCutFlow/Syst_BTagSFLTagDownHNL_ULIDv2/MuMu/SR_Summary
+2017 BTagSFLTagDown Bin 1: Label = Preselection, Content = 3345.6705209668726
+2017 BTagSFLTagDown Bin 3: Label = SR1, Content = 304.44296302832663
+2017 BTagSFLTagDown Bin 4: Label = SR2, Content = 23.004850137978792
+2017 BTagSFLTagDown Bin 5: Label = SR3_HighMass, Content = 1822.7128329817206
+Histogram not found or is not a valid TH1.
+Histogram not found or is not a valid TH1.
+Histogram: ChannelCutFlow/Syst_JetPUIDDownHNL_ULIDv2/MuMu/SR_Summary
+2017 JetPUIdDown Bin 1: Label = Preselection, Content = 3322.960435559973
+2017 JetPUIdDown Bin 3: Label = SR1, Content = 303.4103937577456
+2017 JetPUIdDown Bin 4: Label = SR2, Content = 22.813107268884778
+2017 JetPUIdDown Bin 5: Label = SR3_HighMass, Content = 1801.2064974047244
+Histogram: ChannelCutFlow/Syst_JetResDownHNL_ULIDv2/MuMu/SR_Summary
+2017 JetResDown Bin 1: Label = Preselection, Content = 3334.259146329947
+2017 JetResDown Bin 3: Label = SR1, Content = 303.67803273536265
+2017 JetResDown Bin 4: Label = SR2, Content = 21.319008104503155
+2017 JetResDown Bin 5: Label = SR3_HighMass, Content = 1805.4754889877513
+Histogram: ChannelCutFlow/Syst_METUnclDownHNL_ULIDv2/MuMu/SR_Summary
+2017 METUnclDown Bin 1: Label = Preselection, Content = 3333.6837876811624
+2017 METUnclDown Bin 3: Label = SR1, Content = 303.9487072620541
+2017 METUnclDown Bin 4: Label = SR2, Content = 22.931714976206422
+2017 METUnclDown Bin 5: Label = SR3_HighMass, Content = 1802.4964575730264
+Histogram: ChannelCutFlow/Syst_PDFDownHNL_ULIDv2/MuMu/SR_Summary
+2017 PDFDown Bin 1: Label = Preselection, Content = 3333.6837876811624
+2017 PDFDown Bin 3: Label = SR1, Content = 303.9487072620541
+2017 PDFDown Bin 4: Label = SR2, Content = 22.931714976206422
+2017 PDFDown Bin 5: Label = SR3_HighMass, Content = 1761.932630924508
+Histogram: ChannelCutFlow/Syst_PUDownHNL_ULIDv2/MuMu/SR_Summary
+2017 PUDown Bin 1: Label = Preselection, Content = 3344.5121658719145
+2017 PUDown Bin 3: Label = SR1, Content = 304.60451100207865
+2017 PUDown Bin 4: Label = SR2, Content = 22.62597019225359
+2017 PUDown Bin 5: Label = SR3_HighMass, Content = 1816.087707115803
+Histogram: ChannelCutFlow/Syst_PrefireDownHNL_ULIDv2/MuMu/SR_Summary
+2017 PrefireDown Bin 1: Label = Preselection, Content = 3351.895109174773
+2017 PrefireDown Bin 3: Label = SR1, Content = 305.5806444231421
+2017 PrefireDown Bin 4: Label = SR2, Content = 23.335402347147465
+2017 PrefireDown Bin 5: Label = SR3_HighMass, Content = 1816.9358788095415
+Histogram: ChannelCutFlow/Syst_ScaleDownHNL_ULIDv2/MuMu/SR_Summary
+2017 ScaleDown Bin 1: Label = Preselection, Content = 3015.676142686687
+2017 ScaleDown Bin 3: Label = SR1, Content = 275.68922578915954
+2017 ScaleDown Bin 4: Label = SR2, Content = 20.323844268918037
+2017 ScaleDown Bin 5: Label = SR3_HighMass, Content = 1635.5602947941516
+Histogram: ChannelCutFlow/Syst_JetEnUpHNL_ULIDv2/MuMu/SR_Summary
+2017 JESUp Bin 1: Label = Preselection, Content = 3333.0836635883898
+2017 JESUp Bin 3: Label = SR1, Content = 305.47631032578647
+2017 JESUp Bin 4: Label = SR2, Content = 27.383313236758113
+2017 JESUp Bin 5: Label = SR3_HighMass, Content = 1790.2892902549356
+Histogram: ChannelCutFlow/Syst_JetPNETUpHNL_ULIDv2/MuMu/SR_Summary
+2017 PNETUp Bin 1: Label = Preselection, Content = 3354.787628894672
+2017 PNETUp Bin 3: Label = SR1, Content = 324.48555267974734
+2017 PNETUp Bin 4: Label = SR2, Content = 22.931714976206422
+2017 PNETUp Bin 5: Label = SR3_HighMass, Content = 1807.1103904135525
+Histogram: ChannelCutFlow/Syst_BTagSFHTagUpHNL_ULIDv2/MuMu/SR_Summary
+2017 BTagSFHTagUp Bin 1: Label = Preselection, Content = 3332.8970652800053
+2017 BTagSFHTagUp Bin 3: Label = SR1, Content = 303.74639460630715
+2017 BTagSFHTagUp Bin 4: Label = SR2, Content = 23.016082411631942
+2017 BTagSFHTagUp Bin 5: Label = SR3_HighMass, Content = 1793.8961371760815
+Histogram: ChannelCutFlow/Syst_BTagSFLTagUpHNL_ULIDv2/MuMu/SR_Summary
+2017 BTagSFLTagUp Bin 1: Label = Preselection, Content = 3321.763286006637
+2017 BTagSFLTagUp Bin 3: Label = SR1, Content = 303.4565150011331
+2017 BTagSFLTagUp Bin 4: Label = SR2, Content = 22.863172559067607
+2017 BTagSFLTagUp Bin 5: Label = SR3_HighMass, Content = 1791.6360726803541
+Histogram not found or is not a valid TH1.
+Histogram not found or is not a valid TH1.
+Histogram: ChannelCutFlow/Syst_JetPUIDUpHNL_ULIDv2/MuMu/SR_Summary
+2017 JetPUIdUp Bin 1: Label = Preselection, Content = 3344.439915915951
+2017 JetPUIdUp Bin 3: Label = SR1, Content = 304.4881978761405
+2017 JetPUIdUp Bin 4: Label = SR2, Content = 23.050797501578927
+2017 JetPUIdUp Bin 5: Label = SR3_HighMass, Content = 1813.0314577873796
+Histogram: ChannelCutFlow/Syst_JetResUpHNL_ULIDv2/MuMu/SR_Summary
+2017 JetResUp Bin 1: Label = Preselection, Content = 3333.2260062126443
+2017 JetResUp Bin 3: Label = SR1, Content = 303.61209495924413
+2017 JetResUp Bin 4: Label = SR2, Content = 24.12261955626309
+2017 JetResUp Bin 5: Label = SR3_HighMass, Content = 1785.3032689839602
+Histogram: ChannelCutFlow/Syst_METUnclUpHNL_ULIDv2/MuMu/SR_Summary
+2017 METUnclUp Bin 1: Label = Preselection, Content = 3333.6837876811624
+2017 METUnclUp Bin 3: Label = SR1, Content = 303.9487072620541
+2017 METUnclUp Bin 4: Label = SR2, Content = 22.931714976206422
+2017 METUnclUp Bin 5: Label = SR3_HighMass, Content = 1807.4663301892579
+Histogram: ChannelCutFlow/Syst_PDFUpHNL_ULIDv2/MuMu/SR_Summary
+2017 PDFUp Bin 1: Label = Preselection, Content = 3333.6837876811624
+2017 PDFUp Bin 3: Label = SR1, Content = 303.9487072620541
+2017 PDFUp Bin 4: Label = SR2, Content = 22.931714976206422
+2017 PDFUp Bin 5: Label = SR3_HighMass, Content = 1852.2881489042193
+Histogram: ChannelCutFlow/Syst_PUUpHNL_ULIDv2/MuMu/SR_Summary
+2017 PUUp Bin 1: Label = Preselection, Content = 3321.999591381289
+2017 PUUp Bin 3: Label = SR1, Content = 303.8831290230155
+2017 PUUp Bin 4: Label = SR2, Content = 23.27528726309538
+2017 PUUp Bin 5: Label = SR3_HighMass, Content = 1799.4039124343544
+Histogram: ChannelCutFlow/Syst_PrefireUpHNL_ULIDv2/MuMu/SR_Summary
+2017 PrefireUp Bin 1: Label = Preselection, Content = 3315.4028339935467
+2017 PrefireUp Bin 3: Label = SR1, Content = 302.3176281172782
+2017 PrefireUp Bin 4: Label = SR2, Content = 22.528203180525452
+2017 PrefireUp Bin 5: Label = SR3_HighMass, Content = 1797.2600468271412
+Histogram: ChannelCutFlow/Syst_ScaleUpHNL_ULIDv2/MuMu/SR_Summary
+2017 ScaleUp Bin 1: Label = Preselection, Content = 3658.654535832815
+2017 ScaleUp Bin 3: Label = SR1, Content = 332.30476566776633
+2017 ScaleUp Bin 4: Label = SR2, Content = 25.38002549484372
+2017 ScaleUp Bin 5: Label = SR3_HighMass, Content = 1982.255049747415
+--------------------------------------------------
+First element: Central
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private Central Systemaic Diff [Preselection]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private Central Systemaic Diff [SR1]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private Central Systemaic Diff [SR2]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private Central Systemaic Diff [SR3_HighMass]=  0.0
+--------------------------------------------------
+First element: JESDown
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private JESDown Systemaic Diff [Preselection]=  0.005528348133843064
+RESULT  MuMu DYTypeI_DF_M250_private JESDown Systemaic Diff [SR1]=  0.7550146447606543
+RESULT  MuMu DYTypeI_DF_M250_private JESDown Systemaic Diff [SR2]=  21.82591863469311
+RESULT  MuMu DYTypeI_DF_M250_private JESDown Systemaic Diff [SR3_HighMass]=  -0.6255330001823767
+--------------------------------------------------
+First element: PNETDown
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private PNETDown Systemaic Diff [Preselection]=  0.6208447985519339
+RESULT  MuMu DYTypeI_DF_M250_private PNETDown Systemaic Diff [SR1]=  6.631405459494633
+RESULT  MuMu DYTypeI_DF_M250_private PNETDown Systemaic Diff [SR2]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private PNETDown Systemaic Diff [SR3_HighMass]=  0.0
+--------------------------------------------------
+First element: BTagSFHTagDown
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFHTagDown Systemaic Diff [Preselection]=  -0.024015081464812127
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFHTagDown Systemaic Diff [SR1]=  -0.06870776932996758
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFHTagDown Systemaic Diff [SR2]=  0.3760505877375864
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFHTagDown Systemaic Diff [SR3_HighMass]=  -0.7336327258367525
+--------------------------------------------------
+First element: BTagSFLTagDown
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFLTagDown Systemaic Diff [Preselection]=  -0.35956419532063855
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFLTagDown Systemaic Diff [SR1]=  -0.1626115704602693
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFLTagDown Systemaic Diff [SR2]=  -0.3189258276071083
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFLTagDown Systemaic Diff [SR3_HighMass]=  -0.8633917801002422
+--------------------------------------------------
+First element: ElectronEnDown
+Sub-list elements:
+--------------------------------------------------
+First element: ElectronResDown
+Sub-list elements:
+--------------------------------------------------
+First element: JetPUIdDown
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private JetPUIdDown Systemaic Diff [Preselection]=  0.32166674478290025
+RESULT  MuMu DYTypeI_DF_M250_private JetPUIdDown Systemaic Diff [SR1]=  0.1771066931514742
+RESULT  MuMu DYTypeI_DF_M250_private JetPUIdDown Systemaic Diff [SR2]=  0.5172212695156442
+RESULT  MuMu DYTypeI_DF_M250_private JetPUIdDown Systemaic Diff [SR3_HighMass]=  0.32670350633516865
+--------------------------------------------------
+First element: JetResDown
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private JetResDown Systemaic Diff [Preselection]=  -0.017258944921838548
+RESULT  MuMu DYTypeI_DF_M250_private JetResDown Systemaic Diff [SR1]=  0.08905269876935407
+RESULT  MuMu DYTypeI_DF_M250_private JetResDown Systemaic Diff [SR2]=  7.032648336055924
+RESULT  MuMu DYTypeI_DF_M250_private JetResDown Systemaic Diff [SR3_HighMass]=  0.09047047897428051
+--------------------------------------------------
+First element: METUnclDown
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private METUnclDown Systemaic Diff [Preselection]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private METUnclDown Systemaic Diff [SR1]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private METUnclDown Systemaic Diff [SR2]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private METUnclDown Systemaic Diff [SR3_HighMass]=  0.25532102880944096
+--------------------------------------------------
+First element: PDFDown
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private PDFDown Systemaic Diff [Preselection]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private PDFDown Systemaic Diff [SR1]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private PDFDown Systemaic Diff [SR2]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private PDFDown Systemaic Diff [SR3_HighMass]=  2.4999999849874
+--------------------------------------------------
+First element: PUDown
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private PUDown Systemaic Diff [Preselection]=  -0.3248171956430346
+RESULT  MuMu DYTypeI_DF_M250_private PUDown Systemaic Diff [SR1]=  -0.21576131905016727
+RESULT  MuMu DYTypeI_DF_M250_private PUDown Systemaic Diff [SR2]=  1.333283551928266
+RESULT  MuMu DYTypeI_DF_M250_private PUDown Systemaic Diff [SR3_HighMass]=  -0.4967774381616996
+--------------------------------------------------
+First element: PrefireDown
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private PrefireDown Systemaic Diff [Preselection]=  -0.546282210715554
+RESULT  MuMu DYTypeI_DF_M250_private PrefireDown Systemaic Diff [SR1]=  -0.5369120256468074
+RESULT  MuMu DYTypeI_DF_M250_private PrefireDown Systemaic Diff [SR2]=  -1.7603889258169358
+RESULT  MuMu DYTypeI_DF_M250_private PrefireDown Systemaic Diff [SR3_HighMass]=  -0.5437126834149986
+--------------------------------------------------
+First element: ScaleDown
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private ScaleDown Systemaic Diff [Preselection]=  9.53922643082098
+RESULT  MuMu DYTypeI_DF_M250_private ScaleDown Systemaic Diff [SR1]=  9.29745078617169
+RESULT  MuMu DYTypeI_DF_M250_private ScaleDown Systemaic Diff [SR2]=  11.37233176844501
+RESULT  MuMu DYTypeI_DF_M250_private ScaleDown Systemaic Diff [SR3_HighMass]=  9.493061216926668
+--------------------------------------------------
+First element: JESUp
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private JESUp Systemaic Diff [Preselection]=  0.01800183013728196
+RESULT  MuMu DYTypeI_DF_M250_private JESUp Systemaic Diff [SR1]=  -0.5025858071557199
+RESULT  MuMu DYTypeI_DF_M250_private JESUp Systemaic Diff [SR2]=  -19.41240881970929
+RESULT  MuMu DYTypeI_DF_M250_private JESUp Systemaic Diff [SR3_HighMass]=  0.9308285895455182
+--------------------------------------------------
+First element: PNETUp
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private PNETUp Systemaic Diff [Preselection]=  -0.6330486800065982
+RESULT  MuMu DYTypeI_DF_M250_private PNETUp Systemaic Diff [SR1]=  -6.7566812843810276
+RESULT  MuMu DYTypeI_DF_M250_private PNETUp Systemaic Diff [SR2]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private PNETUp Systemaic Diff [SR3_HighMass]=  0.0
+--------------------------------------------------
+First element: BTagSFHTagUp
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFHTagUp Systemaic Diff [Preselection]=  0.023599190902989786
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFHTagUp Systemaic Diff [SR1]=  0.06656144636025818
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFHTagUp Systemaic Diff [SR2]=  -0.36790722156219147
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFHTagUp Systemaic Diff [SR3_HighMass]=  0.7312366365425538
+--------------------------------------------------
+First element: BTagSFLTagUp
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFLTagUp Systemaic Diff [Preselection]=  0.3575774558635336
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFLTagUp Systemaic Diff [SR1]=  0.16193267125714783
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFLTagUp Systemaic Diff [SR2]=  0.2988979115165713
+RESULT  MuMu DYTypeI_DF_M250_private BTagSFLTagUp Systemaic Diff [SR3_HighMass]=  0.8563017409056628
+--------------------------------------------------
+First element: ElectronEnUp
+Sub-list elements:
+--------------------------------------------------
+First element: ElectronResUp
+Sub-list elements:
+--------------------------------------------------
+First element: JetPUIdUp
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private JetPUIdUp Systemaic Diff [Preselection]=  -0.32264992482295973
+RESULT  MuMu DYTypeI_DF_M250_private JetPUIdUp Systemaic Diff [SR1]=  -0.1774939656582486
+RESULT  MuMu DYTypeI_DF_M250_private JetPUIdUp Systemaic Diff [SR2]=  -0.5192918431790261
+RESULT  MuMu DYTypeI_DF_M250_private JetPUIdUp Systemaic Diff [SR3_HighMass]=  -0.3276538835279563
+--------------------------------------------------
+First element: JetResUp
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private JetResUp Systemaic Diff [Preselection]=  0.013732000323773974
+RESULT  MuMu DYTypeI_DF_M250_private JetResUp Systemaic Diff [SR1]=  0.11074641699980736
+RESULT  MuMu DYTypeI_DF_M250_private JetResUp Systemaic Diff [SR2]=  -5.193264355903304
+RESULT  MuMu DYTypeI_DF_M250_private JetResUp Systemaic Diff [SR3_HighMass]=  1.206739861896422
+--------------------------------------------------
+First element: METUnclUp
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private METUnclUp Systemaic Diff [Preselection]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private METUnclUp Systemaic Diff [SR1]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private METUnclUp Systemaic Diff [SR2]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private METUnclUp Systemaic Diff [SR3_HighMass]=  -0.019696626038645526
+--------------------------------------------------
+First element: PDFUp
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private PDFUp Systemaic Diff [Preselection]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private PDFUp Systemaic Diff [SR1]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private PDFUp Systemaic Diff [SR2]=  0.0
+RESULT  MuMu DYTypeI_DF_M250_private PDFUp Systemaic Diff [SR3_HighMass]=  -2.4999999297402153
+--------------------------------------------------
+First element: PUUp
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private PUUp Systemaic Diff [Preselection]=  0.35048903987383584
+RESULT  MuMu DYTypeI_DF_M250_private PUUp Systemaic Diff [SR1]=  0.02157542949575708
+RESULT  MuMu DYTypeI_DF_M250_private PUUp Systemaic Diff [SR2]=  -1.4982406995963649
+RESULT  MuMu DYTypeI_DF_M250_private PUUp Systemaic Diff [SR3_HighMass]=  0.4264530833356872
+--------------------------------------------------
+First element: PrefireUp
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private PrefireUp Systemaic Diff [Preselection]=  0.5483709569326423
+RESULT  MuMu DYTypeI_DF_M250_private PrefireUp Systemaic Diff [SR1]=  0.5366297358092131
+RESULT  MuMu DYTypeI_DF_M250_private PrefireUp Systemaic Diff [SR2]=  1.7596232819902413
+RESULT  MuMu DYTypeI_DF_M250_private PrefireUp Systemaic Diff [SR3_HighMass]=  0.5450880941566094
+--------------------------------------------------
+First element: ScaleUp
+Sub-list elements:
+RESULT  MuMu DYTypeI_DF_M250_private ScaleUp Systemaic Diff [Preselection]=  -9.748097565597092
+RESULT  MuMu DYTypeI_DF_M250_private ScaleUp Systemaic Diff [SR1]=  -9.329224875190745
+RESULT  MuMu DYTypeI_DF_M250_private ScaleUp Systemaic Diff [SR2]=  -10.676526030336708
+RESULT  MuMu DYTypeI_DF_M250_private ScaleUp Systemaic Diff [SR3_HighMass]=  -9.691973454581326

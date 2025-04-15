@@ -2,6 +2,8 @@
 #include <stdlib.h>
 
 HNLRegionPlotter::HNLRegionPlotter(TString macroname){
+
+  VERBOSE=false;
   
   TH1::SetDefaultSumw2(true);
   TH1::AddDirectory(kFALSE);
@@ -171,30 +173,31 @@ void HNLRegionPlotter::AddMisc(TString CR){
   AddHist("DeltaR/dR_ll" ,"#DeltaR_{LL}"  , "", {5.}, 0, 5);
   AddHist("DeltaPhi/dPhi_lep1_lep2" ,"#Delta#phi_{LL}"  , "", {5.}, 0, 5);
   AddHist("DeltaR/Jet_dR_jj" ,"#Delta#phi_{jj}"  , "", {5.}, 0, 5);
-  AddHist("NObj/N_AK4J"  ,"N_{AK4J}"  , "",    {1.}, 0, 10);
+  AddHist("Standard/N_AK4J"  ,"N_{AK4J}"  , "",    {1.}, 4, 10);
   AddHist("NObj/N_BJet"  ,"N_{BJ}"  , "",    {1.}, 0, 4);
   AddHist("SKEvent/Ev_MET"  ,"Ev_MET"  , "",    {2.}, 0, 400);
   AddHist("AK4Jets/Jet_eta"  ,"Jet Eta"  , "",    {5.}, -5, 5);
-  AddHist("AK4Jets/Jet_pt"  ,"Jet Eta"  , "",    {2.}, 0, 200);
+  AddHist("AK4Jets/Jet_pt"  ,"Jet Pt"  , "",    {1.}, 0, 200);
+  
 
   //  AddHist("SKEvent/Ev_MET2_ST"  ,"MET^{2}/S_{T}","GeV",  {0,2,4,6,8,10,15,20,30,40}, 0, 40);
-  if(CR.Contains("WZ"))  AddHist("SKEvent/Ev_MET2_ST"  ,"MET^{2}/S_{T}","GeV",  {0,5,10,15,20,30,40,50,75,100}, 0, 100);
-  else  AddHist("SKEvent/Ev_MET2_ST"  ,"MET^{2}/S_{T}","GeV",  {0,2,4,6,8,10,15,20}, 0, 20);        
-  AddHist("SKEvent/HToLepPt1","H_{T}/p^{lep_{1}}_{T} GeV", "GeV", {0,2,3,4,5,10},0, 10);
+  AddHist("MainPlots/Ev_MET2_ST"  ,"MET^{2}/S_{T}","GeV",  {0,5,10,15,20,30,40,50,75,100}, 0, 100);
+  AddHist("MainPlots/HT_PT1","H_{T}/p^{lep_{1}}_{T} GeV", "GeV", {0,2,3,4,5,10},0, 10);
+  AddHist("MainPlots/L_T","L_{T}  GeV", "GeV", {0,50,100,200,500,1000},0, 1000);
 }
 
 void HNLRegionPlotter::AddMass(int nlep, TString CR){
-  if(CR.Contains("ZZ"))AddHist("Mass/M_ll"  ,"M_{ll}"  , "GeV",    {2},0,500);
-  else AddHist("Mass/M_ll"  ,"M_{ll}"  , "GeV",    {2},0,200);
+  if(CR.Contains("ZZ"))AddHist("Standard/M_ll"  ,"M_{ll}"  , "GeV",    {2},0,500);
+  else AddHist("Standard/M_ll"  ,"M_{ll}"  , "GeV",    {2},0,200);
   AddHist("Mass/DiJet_M_l1W"  ,"M_{l1W}"  , "GeV",    {1}, 0, 2500);
   AddHist("Mass/DiJet_M_l2W"  ,"M_{l2W}"  , "GeV",    {1}, 0, 2500);
   AddHist("Mass/DiJet_M_llW"  ,"M_{l2W}"  , "GeV",    {1}, 0, 2500);
   AddHist("Mass/DiJet_M_l1jj"  ,"M_{l1W}"  , "GeV",    {0,150,200,300,400,600,1000}, 0, 1000);
   AddHist("Mass/DiJet_M_lljj"  ,"M_{llW}"  , "GeV",    {0,150,200,300,400,600,1000}, 0, 1000);
   if(nlep==3)   AddHist("Mass/M_lll"  ,"M_{lll}"  , "GeV",   {1},70,105);
-  if(nlep==4)   AddHist("Meass/M_llll"  ,"M_{llll}"  , "GeV",    {2},0,400);
-  if(nlep==4)   AddHist("Mass/M_BestZ"  ,"M_{bestZ}"  , "GeV",    {2}, 0, 400);
-  if(nlep==4)   AddHist("Mass/M_OtherZ"  ,"M_{OtherZ}"  , "GeV",    {2}, 0, 400);
+  if(nlep==4)   AddHist("Mass/M_llll"  ,"M_{llll}"  , "GeV",    {2},0,400);
+  if(nlep==4)   AddHist("Mass/M_BestZ"  ,"M_{bestZ}"  , "GeV",    {1}, 0, 400);
+  if(nlep==4)   AddHist("Mass/M_OtherZ"  ,"M_{OtherZ}"  , "GeV",    {1}, 0, 400);
   if(nlep==3)   AddHist("Mass/M_minOSSF"  ,"M_{minOS}"  , "GeV",    {2}, 0, 400);
   if(nlep==3)   AddHist("Mass/M_minSSSF"  ,"M_{minSS}"  , "GeV",    {2}, 0, 400);
   if(nlep==3)   AddHist("Mass/Mt_minSSSF"  ,"MT_{minSS}"  , "GeV",    {2}, 0, 400);
@@ -204,15 +207,7 @@ void HNLRegionPlotter::AddMass(int nlep, TString CR){
 }
 void HNLRegionPlotter::AddLepton(int nlep,TString CR){
 
-  AddHist("LeptonMVA/Lepton__lep0_mva_Mu_Fake_QCD_BvsC_v5","BvsC MVA" , "int", {2},-1, 1);
-  AddHist("LeptonMVA/Lepton__lep1_mva_Mu_Fake_QCD_BvsC_v5","BvsC MVA" , "int", {2},-1, 1);
-  AddHist("LeptonMVA/Lepton__lep0_mva_Mu_Fake_QCD_LFvsHF_v5","BvsC MVA" , "int", {2},-1, 1);
-  AddHist("LeptonMVA/Lepton__lep1_mva_Mu_Fake_QCD_LFvsHF_v5","BvsC MVA" , "int", {2},-1, 1);
-  AddHist("LeptonMVA/Lepton__lep0_mva_Mu_HF_Fake_POG","BvsC MVA" , "int", {2},-1, 1);
-  AddHist("LeptonMVA/Lepton__lep1_mva_Mu_HF_Fake_POG","BvsC MVA" , "int", {2},-1, 1);
-
-
-  AddHist("Master/Lep1_pt" ,"P^{1}_{T} GeV" , "GeV", {0, 20.,40., 50.,75.,100.,150., 200.,500}, 0, 500);
+  AddHist("Master/Lep1_pt" ,"P^{1}_{T} GeV" , "GeV", {0, 20., 50.,75.,100.,125., 200.,500}, 0, 500);
   AddHist("Master/Lep2_pt" ,"P^{2}_{T} GeV" , "GeV", {0.,10.,15., 25.,30,40,50,75,100., 200.}, 0, 200);
   if(nlep==3) AddHist("Leptons/Lep_3_pt" ,"P^{3}_{T} GeV" , "GeV", {0.,10.,15., 25.,50,75,100., 200.}, 0, 200);
   if(nlep==4) AddHist("Leptons/Lep_3_pt" ,"P^{3}_{T} GeV" , "GeV", {0.,10.,15., 25.,50,75,100., 200.}, 0, 200);
@@ -270,11 +265,12 @@ void HNLRegionPlotter::SetupPlotter(TString FlagDir=""){
   TString ENV_MERGEDFILE_PATH = getenv("FILE_MERGED_PATH"); 
   TString ENV_PLOT_PATH = getenv("PLOT_PATH"); 
   TString FLATVERSION = getenv("FLATVERSION"); 
-  TString input_path = ENV_MERGEDFILE_PATH +"/"+AnalyserName+"/"; 
+  TString input_path = ENV_MERGEDFILE_PATH +"/"+AnalyserName+"/SSControl/"; 
 
   TString output = ENV_PLOT_PATH + "/"+AnalyserName+"/"; 
   cout << "SetupPlotter [output] = " << output << endl;
 
+  MakeDir(output);
 
   if(DateFileTag != ""){
     MakeDir(output);
@@ -289,7 +285,7 @@ void HNLRegionPlotter::SetupPlotter(TString FlagDir=""){
 
   if(DoDebug)cout << MacroName << " Output dir = " << output << endl;
 
-  infilepath = ENV_MERGEDFILE_PATH + "/"+AnalyserName+"/"+ DateFileTag + "/"+ Era+FlagDir;
+  infilepath = ENV_MERGEDFILE_PATH + "/"+AnalyserName+"/SSControl/"+ DateFileTag + "/"+ Era+FlagDir;
 
 
   SetupSampleInfo();
@@ -361,14 +357,14 @@ void HNLRegionPlotter::make_cutflow(TString Hist_For_CutFlow){
 	TString tmp = bkglist[i_file];
 	if(bkglist[i_file].Contains("fake") || bkglist[i_file].Contains("chargeflip")) tmp += "_"+PrimaryDataset[i_cut];
 	filepath = infilepath + "/"+filename_prefix+"_"+SkimName+"_"+tmp+filename_suffix;
-	cout << "filepath = " << filepath << endl;
+	//	cout << "filepath = " << filepath << endl;
 	current_sample = bkglist[i_file];
       }
       //==== data for i_file = bkglist.size()                                                                                                                                                                                            
       else if( i_file == bkglist.size() ){
 	filepath = infilepath + "/"+filename_prefix + "_"+SkimName+"_data.root";
 	current_sample = "data";
-	cout << "filepath =  " << filepath <<endl;
+	//	cout << "filepath =  " << filepath <<endl;
 	
       }
       //==== signal starting from i_file = bkglist.size()+1                                                                                                                                                                              
@@ -856,7 +852,7 @@ void HNLRegionPlotter::draw_hist(){
         continue;
       }
       
-      cout << "[Drawing " << HistNames[i_var] << "]" << endl;
+      if(VERBOSE)cout << "[Drawing " << HistNames[i_var] << "]" << endl;
       
       TH1D* MC_stacked_staterr = NULL;
       TH1D* MC_stacked_allerr = NULL;
@@ -893,18 +889,18 @@ void HNLRegionPlotter::draw_hist(){
         //==== root file path name
         //==== bkg
         if( i_file < bkglist.size() ){
-	  cout << bkglist[i_file] << endl;
+	  //cout << bkglist[i_file] << endl;
           TString tmp = bkglist[i_file];
           if(bkglist[i_file].Contains("fake") || bkglist[i_file].Contains("chargeflip")) tmp += "_"+PrimaryDataset[i_cut];
           filepath = infilepath + "/"+filename_prefix+"_"+SkimName+"_"+tmp+filename_suffix;
-	  cout << "filepath = " << filepath << endl;
+	  //	  cout << "filepath = " << filepath << endl;
           current_sample = bkglist[i_file];
         }
         //==== data for i_file = bkglist.size()
         else if( i_file == bkglist.size() ){
           filepath = infilepath + "/"+filename_prefix + "_"+SkimName+"_data.root";
           current_sample = "data";
-	  cout << "filepath =  " << filepath <<endl;
+	  //	  cout << "filepath =  " << filepath <<endl;
 	    
         }
         //==== signal starting from i_file = bkglist.size()+1
@@ -952,7 +948,7 @@ void HNLRegionPlotter::draw_hist(){
 	    << "filepath = " << filepath << endl
 	    << "hisname = " << HistPath[i_cut]+"/"+HistNames[i_var] << endl;
         }
-	DoDebug=true; 
+
         //==== get root file
         if(gSystem->AccessPathName(filepath)){
           if(DoDebug){
@@ -982,7 +978,7 @@ void HNLRegionPlotter::draw_hist(){
 
         //==== full histogram name
         TString fullhistname = HistNames[i_var];
-        
+	
         //==== get histogram
         TH1D* hist_temp = (TH1D*)dir->Get(fullhistname);
         if(!hist_temp || hist_temp->GetEntries() == 0){
@@ -1204,7 +1200,7 @@ void HNLRegionPlotter::draw_cutflow(){
     for(i_var = 0; i_var < HistNames.size(); i_var++){
 
       
-      cout << "[Drawing " << HistNames[i_var] << "]" << endl;
+      if(VERBOSE)cout << "[Drawing " << HistNames[i_var] << "]" << endl;
       
       TH1D* MC_stacked_staterr = NULL;
       TH1D* MC_stacked_allerr = NULL;
@@ -1246,14 +1242,14 @@ void HNLRegionPlotter::draw_cutflow(){
           TString tmp = bkglist[i_file];
           if(bkglist[i_file].Contains("fake") || bkglist[i_file].Contains("chargeflip")) tmp += "_"+PrimaryDataset[i_cut];
           filepath = infilepath + "/"+filename_prefix+"_"+SkimName+"_"+tmp+filename_suffix;
-	  cout << "filepath = " << filepath << endl;
+	  //	  cout << "filepath = " << filepath << endl;
           current_sample = bkglist[i_file];
         }
         //==== data for i_file = bkglist.size()
         else if( i_file == bkglist.size() ){
           filepath = infilepath + "/"+filename_prefix + "_"+SkimName+"_data.root";
           current_sample = "data";
-	  cout << "filepath =  " << filepath <<endl;
+	  //	  cout << "filepath =  " << filepath <<endl;
 	  
         }
 	
@@ -1595,7 +1591,7 @@ void HNLRegionPlotter::MakeRebins(){
 
   temp_rebins.clear();
   temp_vrebins.clear();
-  cout << "Rebins.size() = " << Rebins.size() << endl;
+  //  cout << "Rebins.size() = " << Rebins.size() << endl;
   //  if(Rebins.size() > 0){
   //  for(unsigned int i =0; i < Rebins.size(); i++) temp_rebins[HistNames[i]] = Rebins[i];
   //  return;
@@ -1968,6 +1964,7 @@ void HNLRegionPlotter::draw_comp_canvas(TH1D *hist_def, TH1D *hist_comp, TLegend
   if(Era=="Run2") latex_Lumi.DrawLatex(0.7, 0.96, "137.9 fb^{-1} (13 TeV)");
 
   mkdir(thiscut_plotpath);
+  cout << thiscut_plotpath+"/"+HistNames[0]+"_vs_"+HistNames[i_var+1]+".pdf" << endl;
   c1->SaveAs(thiscut_plotpath+"/"+HistNames[0]+"_vs_"+HistNames[i_var+1]+".pdf");
   c1->SaveAs(thiscut_plotpath+"/"+HistNames[0]+"_vs_"+HistNames[i_var+1]+".png");
   outputf->cd();
@@ -1987,7 +1984,7 @@ void HNLRegionPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *
   if(!hist_data) return;
 
   for(unsigned int i=1; i < mc_staterror->GetNbinsX()+1; i++){
-    cout << "PreBin " << i << " Get Bin Content " << mc_staterror->GetBinContent(i) << endl;
+    if(VERBOSE)cout << "PreBin " << i << " Get Bin Content " << mc_staterror->GetBinContent(i) << endl;
   }
 
 
@@ -2073,7 +2070,7 @@ void HNLRegionPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *
   hist_empty->SetMarkerColor(0);
   double Ymin = default_y_min;
   double YmaxScale = 2.;
-  cout << UseLogy.size() << endl;
+  //  cout << UseLogy.size() << endl;
   if(UseLogy.at(i_cut)>0){
     Ymin = UseLogy.at(i_cut);
     YmaxScale = 100;
@@ -2232,7 +2229,7 @@ void HNLRegionPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *
     ratio_allerr->SetName(name_suffix+"_allerr");
     for(int i=1; i<=ratio_point->GetXaxis()->GetNbins(); i++){
       
-      cout << "DATA bin " << i << hist_data->GetBinContent(i) << " bkg = " << mc_allerror->GetBinContent(i) << endl;
+      if(VERBOSE) cout << "DATA bin " << i << hist_data->GetBinContent(i) << " bkg = " << mc_allerror->GetBinContent(i) << endl;
       
       //==== FIXME for zero? how?
       if(mc_allerror->GetBinContent(i)!=0){
@@ -2265,7 +2262,7 @@ void HNLRegionPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *
         //==== BinError = Bkgd(Stat+Syst)Error/Bkgd
         ratio_allerr->SetBinContent( i, 1. );
         ratio_allerr->SetBinError( i, mc_allerror->GetBinError(i)/ mc_allerror->GetBinContent(i) );
-	cout << "ratio_allerr bin " << i << " mc_allerror->GetBinError(i)/ mc_allerror->GetBinContent(i) = " << mc_allerror->GetBinError(i)/ mc_allerror->GetBinContent(i) << " mc_allerror->GetBinContent(i) = " << mc_allerror->GetBinContent(i) << endl;
+	if(VERBOSE) cout << "ratio_allerr bin " << i << " mc_allerror->GetBinError(i)/ mc_allerror->GetBinContent(i) = " << mc_allerror->GetBinError(i)/ mc_allerror->GetBinContent(i) << " mc_allerror->GetBinContent(i) = " << mc_allerror->GetBinContent(i) << endl;
       }
     }
 
@@ -2278,7 +2275,7 @@ void HNLRegionPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *
     if(DoDebug) cout << "x_title " << x_title.size() << " " << i_var << endl;
 
     if(x_title[i_var] != ""){
-      cout << "x_title[i_var]  = " << x_title[i_var]  << endl;
+      if(VERBOSE)  cout << "x_title[i_var]  = " << x_title[i_var]  << endl;
       ratio_allerr->GetXaxis()->SetTitle(x_title[i_var]);
     }
     ratio_allerr->GetYaxis()->SetTitle("#frac{Obs.}{Pred.}");
@@ -2332,7 +2329,7 @@ void HNLRegionPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *
     if(Era=="2018") latex_Lumi.DrawLatex(0.7, 0.96, "59.9 fb^{-1} (13 TeV)");
     if(Era=="Run2") latex_Lumi.DrawLatex(0.7, 0.96, "137.9 fb^{-1} (13 TeV)"); 
 
-    cout << i_cut << " LeptonChannels " << LeptonChannels.size() << " " << RegionType.size() << endl;
+    if(VERBOSE) cout << i_cut << " LeptonChannels " << LeptonChannels.size() << " " << RegionType.size() << endl;
     TString str_channel = GetStringChannelRegion(LeptonChannels.at(i_cut), RegionType.at(i_cut));
     TLatex channelname;
     channelname.SetNDC();
@@ -2365,6 +2362,7 @@ void HNLRegionPlotter::draw_canvas(THStack *mc_stack, TH1D *mc_staterror, TH1D *
   HistNames_NoDir=HistNames_NoDir.ReplaceAll("/","_");
   
   
+  cout << thiscut_plotpath+"/"+HistNames_NoDir+".pdf" << endl;
   c1->SaveAs(thiscut_plotpath+"/"+HistNames_NoDir+".pdf");
   //c1->SaveAs(thiscut_plotpath+"/"+HistNames[i_var]+".png");
   //  cout << "Saving " << thiscut_plotpath+"/"+HistNames[i_var]+".png" << endl;
@@ -2415,7 +2413,7 @@ void HNLRegionPlotter::SetXaxisRange(TH1D* hist){
   
   if(FullHistNames.size() > 0) {
     hist->GetXaxis()->SetRangeUser(Xmins[0], Xmaxs[0]);
-    cout << "SetXaxisRange {Init} " << Xmins[0] << " --- " << Xmins[1] << endl;
+    if(VERBOSE) cout << "SetXaxisRange {Init} " << Xmins[0] << " --- " << Xmins[1] << endl;
 
     return;
   }
@@ -2437,7 +2435,7 @@ void HNLRegionPlotter::SetXaxisRange(TH1D* hist){
     this_x_max = it->second;
     //temp_x_maxs.erase( it );
   }
-  cout << "SetXaxisRange " << this_x_min << " --- " << this_x_max << endl;
+  if(VERBOSE) cout << "SetXaxisRange " << this_x_min << " --- " << this_x_max << endl;
   hist->GetXaxis()->SetRangeUser(this_x_min, this_x_max);
 }
 
@@ -2910,10 +2908,10 @@ double HNLRegionPlotter::GetScale(TString samplename){
   map<TString, double>::iterator it = map_sample_string_to_scale.find(samplename);
 
   if(it != map_sample_string_to_scale.end()) {
-    cout << "Scale " << samplename <<  " -->" << it->second << endl;
+    //    cout << "Scale " << samplename <<  " -->" << it->second << endl;
     return it->second;
   }
-  cout << "Scale " <<samplename <<  " -->" << 1 << endl;
+  //  cout << "Scale " <<samplename <<  " -->" << 1 << endl;
 
   return 1;
 }
@@ -2950,11 +2948,13 @@ void HNLRegionPlotter::SetupSampleInfo(){
   map_sample_string_to_list["WZ2_Standard"] = {"Prompt_Standard_WZ_pythia"};
   map_sample_string_to_list["WZ3_Standard"] = {"Prompt_Standard_WZTo3LNu_amcatnlo"};
   
-  map_sample_string_to_list["ZZ_SS"] = {"ZZ"};
-  map_sample_string_to_list["WZ_SS"] = {"WZ"};
-  map_sample_string_to_list["WZ2_SS"] = {"WZ2"};
+  map_sample_string_to_list["qqZZ"] = {"qqZZ"};
+  map_sample_string_to_list["ggZZ"] = {"ggZZ"};
+  map_sample_string_to_list["WZ"] = {"WZ"};
+  map_sample_string_to_list["WZ_Alt"] = {"WZAlt"};
   map_sample_string_to_list["WW_SS"] = {"WW"};
-  map_sample_string_to_list["Top_SS"] = {"Top"};
+  map_sample_string_to_list["Top"] = {"Top"};
+  map_sample_string_to_list["Top_Alt"] = {"TopAlt"};
   map_sample_string_to_list["Other_SS"] = {"Other"};
 
   //Prompt_TrigSF_WZTo3LNu
@@ -2974,10 +2974,10 @@ void HNLRegionPlotter::SetupSampleInfo(){
   map_sample_string_to_list["NonPrompt"] = {"NonPrompt"};
   map_sample_string_to_list["chargeflip"] = {"CF"};
   map_sample_string_to_list["Conv"] = {"Conv"};
-  map_sample_string_to_list["ConvGENTV1"] = {"ConvGENTV1"};
-  map_sample_string_to_list["ConvGENTV4"] = {"ConvGENTV4"};
-  map_sample_string_to_list["ConvV1"] = {"ConvV1"};
-  map_sample_string_to_list["ConvV4"] = {"ConvV4"};
+  map_sample_string_to_list["WG"] = {"WG"};
+  map_sample_string_to_list["ZG"] = {"ZG"};
+  map_sample_string_to_list["Other_Conv"] = {"Other_Conv"};
+
 
   map_sample_string_to_legendinfo["Prompt"] = make_pair("Prompt", kGreen);
   map_sample_string_to_legendinfo["Prompt1"] = make_pair("Prompt", kGreen);
@@ -3003,11 +3003,13 @@ void HNLRegionPlotter::SetupSampleInfo(){
   
   /////// AN Plots
   
-  map_sample_string_to_legendinfo["WZ_SS"] = make_pair("WZ", kGreen);
-  map_sample_string_to_legendinfo["WZ2_SS"] = make_pair("WZ2", kGreen);
+  map_sample_string_to_legendinfo["WZ"] = make_pair("WZ", kGreen);
+  map_sample_string_to_legendinfo["WZ_Alt"] = make_pair("WZAlt", kGreen);
   map_sample_string_to_legendinfo["WW_SS"] = make_pair("W^{+}W^{+}", kOrange);
-  map_sample_string_to_legendinfo["ZZ_SS"] = make_pair("ZZ", kRed);
-  map_sample_string_to_legendinfo["Top_SS"] = make_pair("Top", kRed-6);
+  map_sample_string_to_legendinfo["qqZZ"] = make_pair("qqZZ", kRed);
+  map_sample_string_to_legendinfo["ggZZ"] = make_pair("ggZZ", kSpring-7);
+  map_sample_string_to_legendinfo["Top"] = make_pair("Top", kRed-6);
+  map_sample_string_to_legendinfo["Top_Alt"] = make_pair("TopAlt", kRed-6);
   map_sample_string_to_legendinfo["Other_SS"] = make_pair("Other", kCyan);
 
 
@@ -3019,14 +3021,11 @@ void HNLRegionPlotter::SetupSampleInfo(){
   map_sample_string_to_legendinfo["ttV"] = make_pair("ttV", kOrange);
   map_sample_string_to_legendinfo["ttH"] = make_pair("ttH", kOrange);
   map_sample_string_to_legendinfo["top"] = make_pair("top", kRed);
-  map_sample_string_to_legendinfo["Xgamma"] = make_pair("X + #gamma", kSpring-7);
   map_sample_string_to_legendinfo["Conv"] = make_pair("TX/W + #gamma", kSpring-7);
+  map_sample_string_to_legendinfo["Other_Conv"] = make_pair("X+ #gamma", kSpring-7);
+  map_sample_string_to_legendinfo["WG"] = make_pair("W#gamma", kRed);
+  map_sample_string_to_legendinfo["ZG"] = make_pair("Z#gamma", kOrange);
 
-  map_sample_string_to_legendinfo["ConvGENTV1"] = make_pair("Z + #gamma ConvGENTV1", kSpring-7);
-  map_sample_string_to_legendinfo["ConvGENTV4"] = make_pair("Z + #gamma ConvGENTV4", kSpring-7);
-
-  map_sample_string_to_legendinfo["ConvV1"] = make_pair("Z + #gamma ConvV1", kSpring-7);
-  map_sample_string_to_legendinfo["ConvV4"] = make_pair("Z + #gamma ConvV4", kSpring-7);
 
   map_sample_string_to_legendinfo["WW_double"] = make_pair("DoubleWW", 74);
   map_sample_string_to_legendinfo["ttV_lep"] = make_pair("ttV", kOrange);

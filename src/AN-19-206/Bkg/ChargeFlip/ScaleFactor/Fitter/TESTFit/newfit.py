@@ -102,7 +102,7 @@ for Channel in Channels:
     year = era
     if "2016" in era:
       year = "2016"
-    HNLID = "HNL_ULID"
+    HNLID = "HNL_HighPt_ULID"
    
-    RunFit("Oct7",Channel, era, HNLID,"ZMass_OS_CF_PTB_weighted")
+    RunFit("Jan3",Channel, era, HNLID,"ZMass_OS_CF_PTB_weighted")
 

@@ -8,14 +8,13 @@ WZZ
 WpWp_EWK
 WpWp_QCD
 ttWToLNu
-ttWToQQ
 ttZToLLNuNu
-ttZToQQ_ll
 GluGluHToZZTo4L
 GluGluHToTauTau_M125
 GluGluToZZto2e2mu
 GluGluToZZto4e
 GluGluToZZto4mu
+GluGluToZZto4tau
 TTTT
 TTZZ
 tZq
@@ -27,3 +26,5 @@ VHToNonbb
 ttHToNonbb
 tHq
 ZZTo4L_powheg
+GluGluToZZto2mu2tau
+GluGluToZZto2e2tau

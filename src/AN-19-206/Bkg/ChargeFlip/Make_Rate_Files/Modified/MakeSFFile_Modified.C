@@ -9,10 +9,10 @@ void MakeSFFileConfig(TString year, TString hist, TString DateTag, TString InFil
 
 void MakeSFFile_Modified(){
   
-  MakeSFFileConfig("2016a","Rates","Oct1", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version6_Electron_");
-  MakeSFFileConfig("2016b","Rates","Oct1", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version6_Electron_");
-  MakeSFFileConfig("2017","Rates","Oct1", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version6_Electron_");
-  MakeSFFileConfig("2018","Rates","Oct1", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version6_Electron_");
+  MakeSFFileConfig("2016a","Rates","Jan3", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version8_Electron_");
+  MakeSFFileConfig("2016b","Rates","Jan3", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version8_Electron_");
+  MakeSFFileConfig("2017","Rates","Jan3", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version8_Electron_");
+  MakeSFFileConfig("2018","Rates","Jan3", "HNL_Lepton_ChargeFlip_SkimTree_DileptonBDT_AllDY_Rates.root","HNL_CF_Version8_Electron_");
  
 }
 
@@ -152,7 +152,7 @@ void MakeSFFileConfig(TString era, TString HistDir, TString DateTag, TString InF
   if(era.Contains("16")) year = "2016";
   
 
-  std::vector<TString> IDs={"POGTight","HNTightV2", "TopHN", "HNL_ULID" ,"passHEEPID_v1","passHEEPID_v2","passHEEPID_v3"};
+  std::vector<TString> IDs={"POGTight","HNTightV2", "TopHN", "HNL_ULID", "HNL_HighPt_ULID" ,"passHEEPID_v1","passHEEPID_v3"};
 
   //  Make 1D rates
   

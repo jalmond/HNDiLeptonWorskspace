@@ -16,7 +16,7 @@ ROOT.gROOT.SetBatch(ROOT.kTRUE)
 def GetListFromFile(listpath):
     
     if not os.path.exists(listpath):
-        print("File " + listpath + " MISSING ")
+        print(("File " + listpath + " MISSING "))
         exit()
 
     List = []
@@ -39,7 +39,7 @@ def GetHistError(HistName,InDir, Uncert):
     f = ROOT.TFile(InDir)
     hist=f.Get(HistName)
     if not hist:
-        print("Hist does not exist " + str(InDir) + " " + str(HistName))
+        print(("Hist does not exist " + str(InDir) + " " + str(HistName)))
         #        print("run python HistPrinter.py -input " + str(InDir))
         return 0
 
@@ -106,7 +106,7 @@ NonPromptInt = 0
 ConvInt = 0
 CFInt = 0
 
-FilePath="/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/"+DateDir+"/"
+FilePath="/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/SSControl/"+DateDir+"/"
 
 DataPath = FilePath + args.Era + "/"+ args.Flag + "/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_data.root"
 NonPromptPath = FilePath + args.Era + "/"+ args.Flag + "/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_NonPrompt.root"
@@ -184,8 +184,8 @@ outfile_path = outfile_path + "/"  +args.Channel
 MakeDir(outfile_path)
 outfile_path = outfile_path + "/BkgYields_"+args.List+".txt"
 
-print ("@@@"*50)
-print ("outfile_path = " + outfile_path)
+print(("@@@"*50))
+print(("outfile_path = " + outfile_path))
 
 f = open(outfile_path, "w")
 
@@ -235,20 +235,20 @@ f.write("--"*50 +"\n")
 f.close()
 
 
-print "Summary Table ["+Region+"/"+args.ID+"/"+args.Channel+"]"
-print "-"*50
-print "Data = " + str(DataInt)
-print "Total Bkg =  " + str(BkgInt) 
-print "="*50
-print "Significance =  " + str(Signif)
-print "="*50
-print "-"*50
-print "Prompt = " + str(TotalPrompt)
-print "NonPrompt = " + str(NonPromptInt)
+print("Summary Table ["+Region+"/"+args.ID+"/"+args.Channel+"]")
+print("-"*50)
+print("Data = " + str(DataInt))
+print("Total Bkg =  " + str(BkgInt)) 
+print("="*50)
+print("Significance =  " + str(Signif))
+print("="*50)
+print("-"*50)
+print("Prompt = " + str(TotalPrompt))
+print("NonPrompt = " + str(NonPromptInt))
 if TotalConv > 0:
-    print "Conv = " + str(TotalConv)
+    print("Conv = " + str(TotalConv))
 if CFInt > 0:
-    print "CF = " + str(CFInt)
+    print("CF = " + str(CFInt))
 
 
 print (outfile_path)

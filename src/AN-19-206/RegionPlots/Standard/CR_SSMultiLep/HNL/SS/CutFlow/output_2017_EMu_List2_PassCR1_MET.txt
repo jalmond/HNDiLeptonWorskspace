@@ -1,0 +1,39 @@
+Running command for year=2017, channel=EMu, list=List2, region=PassCR1_MET
+Histogram /PassCR1_MET/HNL_ULIDv2/EMu/NObj/N_Mu not found in /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/SSControl/Mar25/2017/SSMultiLep__/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_CF.root
+Histogram /PassCR1_MET/HNL_ULIDv2/EMu/NObj/N_Mu not found in /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/SSControl/Mar25/2017/SSMultiLep__/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_ggZZ.root
+Total Background Integral: 16.44912582822144
+Total Prompt Integral: 11.783426321897423
+Hist does not exist: /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/SSControl/Mar25/2017/SSMultiLep__/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_CF.root /PassCR1_MET/HNL_ULIDv2/EMu/NObj/N_Mu
+Hist does not exist: /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/SSControl/Mar25/2017/SSMultiLep__/HNL_ControlRegion_Plotter_SkimTree_HNMultiLepBDT_ggZZ.root /PassCR1_MET/HNL_ULIDv2/EMu/NObj/N_Mu
+Significance: 1.044269758622684
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Mar25/HNL_ControlRegion_LLCRPlots_LL__/2017/PassCR1_MET/HNL_ULIDv2/EMu/BkgYields_List2.txt
+HNL_ULIDv2 PassCR1_MET 
+==================================================
+NBkg[Prompt]         = 11.78 +/- 1.91
+NBkg[CF]             = 0.00 +/- 0.20
+NBkg[Conv]           = 0.63 +/- 0.25
+NBkg[Fake]           = 4.04 +/- 0.30
+__________________________________________________
+NBkg[Total]          = 16.45 +/- 2.50
+__________________________________________________
+NData                = 22.00 +/- 4.69
+__________________________________________________
+Significance         = 1.04 +/- 0.00
+__________________________________________________
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+WZ                   = 2.04 +/- 0.45
+qqZZ                 = 0.03 +/- 0.01
+ggZZ                 = 0.00 +/- 0.00
+WW                   = 2.67 +/- 0.54
+Top                  = 3.89 +/- 0.78
+Other                = 3.15 +/- 1.59
+----------------------------------------------------------------------------------------------------
+NBkg[Prompt]         = 11.78 +/- 1.91
+----------------------------------------------------------------------------------------------------
+NBkg[Conv]           = 0.63 +/- 0.25
+----------------------------------------------------------------------------------------------------
+
+
+==================================================

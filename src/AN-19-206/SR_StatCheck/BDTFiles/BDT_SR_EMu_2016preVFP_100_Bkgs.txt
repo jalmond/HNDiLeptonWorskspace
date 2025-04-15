@@ -1,0 +1,12 @@
+100_EMu_2016preVFP_SR3BDT Bin (SR3BDT_bin1    , Total     ): Content = 72.323    , Error = 2.923 , Error Perc. =4.042
+100_EMu_2016preVFP_SR3BDT Bin (SR3BDT_bin2    , Total     ): Content = 302.237   , Error = 6.72  , Error Perc. =2.223
+100_EMu_2016preVFP_SR3BDT Bin (SR3BDT_bin3    , Total     ): Content = 611.993   , Error = 10.963, Error Perc. =1.791
+100_EMu_2016preVFP_SR3BDT Bin (SR3BDT_bin4    , Total     ): Content = 131.075   , Error = 5.144 , Error Perc. =3.924
+100_EMu_2016preVFP_SR3BDT Bin (SR3BDT_bin5    , Total     ): Content = 91.685    , Error = 4.315 , Error Perc. =4.706
+100_EMu_2016preVFP_SR3BDT Bin (SR3BDT_bin6    , Total     ): Content = 20.397    , Error = 2.157 , Error Perc. =10.575
+100_EMu_2016preVFP_SR3BDT Bin (SR3BDT_bin7    , Total     ): Content = 16.482    , Error = 1.857 , Error Perc. =11.267
+100_EMu_2016preVFP_SR3BDT Bin (SR3BDT_bin8    , Total     ): Content = 7.852     , Error = 1.256 , Error Perc. =15.996
+100_EMu_2016preVFP_SR3BDT Bin (SR3BDT_bin9    , Total     ): Content = 5.589     , Error = 1.05  , Error Perc. =18.787
+100_EMu_2016preVFP_SR3BDT Bin (SR3BDT_bin10   , Total     ): Content = 3.187     , Error = 0.842 , Error Perc. =26.42
+100_EMu_2016preVFP_SR3BDT Bin (SR3BDT_bin11   , Total     ): Content = 1.626     , Error = 0.591 , Error Perc. =36.347
+100_EMu_2016preVFP_SR3BDT Bin (SR3BDT_bin12   , Total     ): Content = 0.708     , Error = 0.355 , Error Perc. =50.141

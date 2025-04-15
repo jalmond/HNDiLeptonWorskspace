@@ -1,0 +1,32 @@
+EMu_2017_SR3 Bin (SR3_bin16      ): Content = 481.881   , Error = 55.857, Error Perc. =11.591
+EMu_2017_SR3 Bin (SR3_bin17      ): Content = 435.247   , Error = 54.007, Error Perc. =12.408
+EMu_2017_SR3 Bin (SR3_bin15      ): Content = 268.021   , Error = 40.616, Error Perc. =15.154
+EMu_2017_SR3 Bin (SR3_bin3       ): Content = 150.043   , Error = 31.932, Error Perc. =21.282
+EMu_2017_SR3 Bin (SR3_bin2       ): Content = 120.31    , Error = 28.055, Error Perc. =23.319
+EMu_2017_SR3 Bin (SR3_bin18      ): Content = 118.398   , Error = 28.118, Error Perc. =23.749
+EMu_2017_SR3 Bin (SR3_bin4       ): Content = 97.016    , Error = 26.32 , Error Perc. =27.13
+EMu_2017_SR3 Bin (SR3_bin1       ): Content = 91.124    , Error = 23.785, Error Perc. =26.102
+EMu_2017_SR3 Bin (SR3_bin22      ): Content = 90.621    , Error = 24.799, Error Perc. =27.366
+EMu_2017_SR3 Bin (SR3_bin20      ): Content = 61.679    , Error = 18.943, Error Perc. =30.712
+EMu_2017_SR3 Bin (SR3_bin19      ): Content = 61.15     , Error = 20.561, Error Perc. =33.624
+EMu_2017_SR3 Bin (SR3_bin21      ): Content = 58.556    , Error = 18.768, Error Perc. =32.051
+EMu_2017_SR3 Bin (SR3_bin5       ): Content = 55.751    , Error = 17.757, Error Perc. =31.851
+EMu_2017_SR3 Bin (SR3_bin23      ): Content = 47.689    , Error = 19.809, Error Perc. =41.538
+EMu_2017_SR3 Bin (SR3_bin12      ): Content = 44.232    , Error = 16.799, Error Perc. =37.979
+EMu_2017_SR3 Bin (SR3_bin13      ): Content = 41.461    , Error = 17.284, Error Perc. =41.687
+EMu_2017_SR3 Bin (SR3_bin6       ): Content = 38.357    , Error = 16.613, Error Perc. =43.312
+EMu_2017_SR2 Bin (SR2_HTLTbin5   ): Content = 32.917    , Error = 12.767, Error Perc. =38.785
+EMu_2017_SR2 Bin (SR2_HTLTbin2   ): Content = 25.404    , Error = 11.567, Error Perc. =45.532
+EMu_2017_SR3 Bin (SR3_bin11      ): Content = 17.5      , Error = 10.147, Error Perc. =57.983
+EMu_2017_SR3 Bin (SR3_bin7       ): Content = 16.514    , Error = 9.607 , Error Perc. =58.175
+EMu_2017_SR2 Bin (SR2_HTLTbin3   ): Content = 11.273    , Error = 7.973 , Error Perc. =70.727
+EMu_2017_SR1 Bin (SR1_MNbin1     ): Content = 10.428    , Error = 7.382 , Error Perc. =70.79
+EMu_2017_SR1 Bin (SR1_MNbin4     ): Content = 5.31      , Error = 5.31  , Error Perc. =100.0
+EMu_2017_SR2 Bin (SR2_HTLTbin4   ): Content = 5.297     , Error = 5.297 , Error Perc. =100.0
+EMu_2017_SR1 Bin (SR1_MNbin3     ): Content = 4.473     , Error = 4.473 , Error Perc. =100.0
+EMu_2017_SR1 Bin (SR1_MNbin2     ): Content = 0.0       , Error = 0.0   , Error Perc. =0.0
+EMu_2017_SR2 Bin (SR2_HTLTbin1   ): Content = 0.0       , Error = 0.0   , Error Perc. =0.0
+EMu_2017_SR3 Bin (SR3_bin8       ): Content = 0.0       , Error = 0.0   , Error Perc. =0.0
+EMu_2017_SR3 Bin (SR3_bin9       ): Content = 0.0       , Error = 0.0   , Error Perc. =0.0
+EMu_2017_SR3 Bin (SR3_bin10      ): Content = 0.0       , Error = 0.0   , Error Perc. =0.0
+EMu_2017_SR3 Bin (SR3_bin14      ): Content = 0.0       , Error = 0.0   , Error Perc. =0.0

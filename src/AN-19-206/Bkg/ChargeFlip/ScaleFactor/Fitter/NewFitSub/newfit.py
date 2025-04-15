@@ -94,8 +94,7 @@ def RunFit(DateTag,channel, era, ID, HistName):
 
 
 
-Channels = ["BE"]
-#"BB","EE"]
+Channels = ["BB","EE"]
 
 Eras = ["2016a","2016b","2017", "2018"]
 
@@ -106,9 +105,11 @@ for Channel in Channels:
     year = era
     if "2016" in era:
       year = "2016"
-    HNLID = "HNL_ULID"
+    HNLID = "HNL_HighPt_ULID"
 
-    Hists = ["ZMass_OS_CF_PTB_weighted","ZMass_OS_CF_PTBSF_weighted"]
+    #Hists = ["ZMass_OS_CF_PTB_weighted","ZMass_OS_CF_PTBSF_weighted"]
+    Hists = ["ZMass_OS_CF_PTB_weighted"]
+    #,"ZMass_OS_CF_PTBSF_weighted"]
 
     for Histx in Hists:
-      RunFit("Oct9",Channel, era, HNLID,Histx)
+      RunFit("Jan3",Channel, era, HNLID,Histx)

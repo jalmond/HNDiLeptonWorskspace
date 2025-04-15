@@ -1,0 +1,962 @@
+
+Processing OSControlRegion.C...
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  26966822.9427
+==================================================
+HNL_OS_FullMass__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  -0.0753430883618
+==================================================
+--------------------------------------------------
+Prompt = 26965121.0156
+NonPrompt = 1555.1786905
+Conv = 146.74835878
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  26961162.7254
+==================================================
+HNL_OS_FullMass__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  -0.0739518216873
+==================================================
+--------------------------------------------------
+Prompt = 26959460.7983
+NonPrompt = 1555.1786905
+Conv = 146.74835878
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  25274206.8867
+==================================================
+HNL_OS_Z__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  -0.0720316506903
+==================================================
+--------------------------------------------------
+Prompt = 25273673.3563
+NonPrompt = 480.227560607
+Conv = 53.3028713302
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  25270653.3108
+==================================================
+HNL_OS_Z__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  -0.0711020770894
+==================================================
+--------------------------------------------------
+Prompt = 25270119.7803
+NonPrompt = 480.227560607
+Conv = 53.3028713302
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25965334.1498
+==================================================
+HNL_OS_FullMass__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.180275216254
+==================================================
+--------------------------------------------------
+Prompt = 25963617.5777
+NonPrompt = 1575.11085587
+Conv = 141.461285997
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25959870.2003
+==================================================
+HNL_OS_FullMass__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.181724124199
+==================================================
+--------------------------------------------------
+Prompt = 25958153.6281
+NonPrompt = 1575.11085587
+Conv = 141.461285997
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24338502.5094
+==================================================
+HNL_OS_Z__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.182118181854
+==================================================
+--------------------------------------------------
+Prompt = 24337963.5485
+NonPrompt = 487.601301888
+Conv = 51.3596518992
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24335059.0885
+==================================================
+HNL_OS_Z__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.183089617443
+==================================================
+--------------------------------------------------
+Prompt = 24334520.1275
+NonPrompt = 487.601301888
+Conv = 51.3596518992
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25627542.4172
+==================================================
+HNL_OS_FullMass__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.270999712753
+==================================================
+--------------------------------------------------
+Prompt = 25625819.2813
+NonPrompt = 1583.36121339
+Conv = 139.774636729
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25622159.9846
+==================================================
+HNL_OS_FullMass__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.272464986963
+==================================================
+--------------------------------------------------
+Prompt = 25620436.8488
+NonPrompt = 1583.36121339
+Conv = 139.774636729
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24020351.4599
+==================================================
+HNL_OS_Z__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.273043395093
+==================================================
+--------------------------------------------------
+Prompt = 24019810.1186
+NonPrompt = 490.60278614
+Conv = 50.7384645526
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24016963.2491
+==================================================
+HNL_OS_Z__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.274024774984
+==================================================
+--------------------------------------------------
+Prompt = 24016421.9078
+NonPrompt = 490.60278614
+Conv = 50.7384645526
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  24910067.5094
+==================================================
+HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.471836152437
+==================================================
+--------------------------------------------------
+Prompt = 24908331.7555
+NonPrompt = 1601.52394362
+Conv = 134.229975733
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  24904807.8126
+==================================================
+HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.473351822058
+==================================================
+--------------------------------------------------
+Prompt = 24903072.0587
+NonPrompt = 1601.52394362
+Conv = 134.229975733
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  23368632.0412
+==================================================
+HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.467027258577
+==================================================
+--------------------------------------------------
+Prompt = 23368085.7336
+NonPrompt = 497.419592208
+Conv = 48.8879487085
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  23365319.7248
+==================================================
+HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.468040973844
+==================================================
+--------------------------------------------------
+Prompt = 23364773.4173
+NonPrompt = 497.419592208
+Conv = 48.8879487085
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25627923.5672
+==================================================
+HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.270896011841
+==================================================
+--------------------------------------------------
+Prompt = 25626200.4566
+NonPrompt = 1583.32908527
+Conv = 139.781434081
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25622542.4008
+==================================================
+HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.272360897683
+==================================================
+--------------------------------------------------
+Prompt = 25620819.2903
+NonPrompt = 1583.32908527
+Conv = 139.781434081
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24020694.8033
+==================================================
+HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.272943973519
+==================================================
+--------------------------------------------------
+Prompt = 24020153.4711
+NonPrompt = 490.589467091
+Conv = 50.7426920648
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24017307.4711
+==================================================
+HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.273925070804
+==================================================
+--------------------------------------------------
+Prompt = 24016766.139
+NonPrompt = 490.589467091
+Conv = 50.7426920648
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__NoCorr_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  27290544.1595
+==================================================
+HNL_OS_FullMass__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  -0.153947466814
+==================================================
+--------------------------------------------------
+Prompt = 27288842.2826
+NonPrompt = 1555.94245258
+Conv = 145.934372744
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  27284716.5222
+==================================================
+HNL_OS_FullMass__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  -0.152549004061
+==================================================
+--------------------------------------------------
+Prompt = 27283014.6454
+NonPrompt = 1555.94245258
+Conv = 145.934372744
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  25597467.8938
+==================================================
+HNL_OS_Z__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  -0.155510731926
+==================================================
+--------------------------------------------------
+Prompt = 25596933.1284
+NonPrompt = 481.585098142
+Conv = 53.1802740028
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  25593779.9507
+==================================================
+HNL_OS_Z__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  -0.154570275879
+==================================================
+--------------------------------------------------
+Prompt = 25593245.1853
+NonPrompt = 481.585098142
+Conv = 53.1802740028
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  26277130.8779
+==================================================
+HNL_OS_FullMass__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.098597846672
+==================================================
+--------------------------------------------------
+Prompt = 26275414.3774
+NonPrompt = 1575.82398633
+Conv = 140.676569445
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  26271506.2145
+==================================================
+HNL_OS_FullMass__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.100054004977
+==================================================
+--------------------------------------------------
+Prompt = 26269789.7139
+NonPrompt = 1575.82398633
+Conv = 140.676569445
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24649841.7966
+==================================================
+HNL_OS_Z__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.0954094896532
+==================================================
+--------------------------------------------------
+Prompt = 24649301.6421
+NonPrompt = 488.918521468
+Conv = 51.235909668
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24646269.4952
+==================================================
+HNL_OS_Z__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.0963919306963
+==================================================
+--------------------------------------------------
+Prompt = 24645729.3407
+NonPrompt = 488.918521468
+Conv = 51.235909668
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25935256.2519
+==================================================
+HNL_OS_FullMass__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.188246687445
+==================================================
+--------------------------------------------------
+Prompt = 25933533.1918
+NonPrompt = 1584.05958713
+Conv = 139.000541156
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25929715.7917
+==================================================
+HNL_OS_FullMass__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.189719220026
+==================================================
+--------------------------------------------------
+Prompt = 25927992.7316
+NonPrompt = 1584.05958713
+Conv = 139.000541156
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24327620.9868
+==================================================
+HNL_OS_Z__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.185183403218
+==================================================
+--------------------------------------------------
+Prompt = 24327078.4685
+NonPrompt = 491.900300953
+Conv = 50.6180506634
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24324106.2201
+==================================================
+HNL_OS_Z__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.186175828277
+==================================================
+--------------------------------------------------
+Prompt = 24323563.7017
+NonPrompt = 491.900300953
+Conv = 50.6180506634
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25209486.3974
+==================================================
+HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.386602009255
+==================================================
+--------------------------------------------------
+Prompt = 25207750.7236
+NonPrompt = 1602.17967772
+Conv = 133.494162112
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25204070.7354
+==================================================
+HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.388125583554
+==================================================
+--------------------------------------------------
+Prompt = 25202335.0616
+NonPrompt = 1602.17967772
+Conv = 133.494162112
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  23667546.4377
+==================================================
+HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.376717242949
+==================================================
+--------------------------------------------------
+Prompt = 23666998.9835
+NonPrompt = 498.669572495
+Conv = 48.7845807821
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  23664109.021
+==================================================
+HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.377742780554
+==================================================
+--------------------------------------------------
+Prompt = 23663561.5668
+NonPrompt = 498.669572495
+Conv = 48.7845807821
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25935641.5268
+==================================================
+HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.188144338978
+==================================================
+--------------------------------------------------
+Prompt = 25933918.4906
+NonPrompt = 1584.02944566
+Conv = 139.00668314
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25930102.3827
+==================================================
+HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.189616477913
+==================================================
+--------------------------------------------------
+Prompt = 25928379.3466
+NonPrompt = 1584.02944566
+Conv = 139.00668314
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24327968.3493
+==================================================
+HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.185085345022
+==================================================
+--------------------------------------------------
+Prompt = 24327425.8403
+NonPrompt = 491.887068081
+Conv = 50.6219058741
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24324454.5043
+==================================================
+HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.186077481395
+==================================================
+--------------------------------------------------
+Prompt = 24323911.9953
+NonPrompt = 491.887068081
+Conv = 50.6219058741
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr1_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  27310335.5091
+==================================================
+HNL_OS_FullMass__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  -0.158692335171
+==================================================
+--------------------------------------------------
+Prompt = 27308633.6323
+NonPrompt = 1555.94245258
+Conv = 145.934372744
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  27304973.2511
+==================================================
+HNL_OS_FullMass__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  -0.157407446354
+==================================================
+--------------------------------------------------
+Prompt = 27303271.3743
+NonPrompt = 1555.94245258
+Conv = 145.934372744
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  25617963.2768
+==================================================
+HNL_OS_Z__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  -0.160732280875
+==================================================
+--------------------------------------------------
+Prompt = 25617428.5114
+NonPrompt = 481.585098142
+Conv = 53.1802740028
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  25614607.1203
+==================================================
+HNL_OS_Z__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  -0.159877816504
+==================================================
+--------------------------------------------------
+Prompt = 25614072.3549
+NonPrompt = 481.585098142
+Conv = 53.1802740028
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  26296312.9388
+==================================================
+HNL_OS_FullMass__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.093636550357
+==================================================
+--------------------------------------------------
+Prompt = 26294596.4383
+NonPrompt = 1575.82398633
+Conv = 140.676569445
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  26291136.1148
+==================================================
+HNL_OS_FullMass__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.0949747802704
+==================================================
+--------------------------------------------------
+Prompt = 26289419.6143
+NonPrompt = 1575.82398633
+Conv = 140.676569445
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24669663.5949
+==================================================
+HNL_OS_Z__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.0899633553808
+==================================================
+--------------------------------------------------
+Prompt = 24669123.4404
+NonPrompt = 488.918521468
+Conv = 51.235909668
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24666410.9253
+==================================================
+HNL_OS_Z__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.0908564404166
+==================================================
+--------------------------------------------------
+Prompt = 24665870.7709
+NonPrompt = 488.918521468
+Conv = 51.235909668
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25954209.4663
+==================================================
+HNL_OS_FullMass__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.183214120437
+==================================================
+--------------------------------------------------
+Prompt = 25952486.4062
+NonPrompt = 1584.05958713
+Conv = 139.000541156
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25949110.4213
+==================================================
+HNL_OS_FullMass__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.184567322079
+==================================================
+--------------------------------------------------
+Prompt = 25947387.3611
+NonPrompt = 1584.05958713
+Conv = 139.000541156
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24347213.8196
+==================================================
+HNL_OS_Z__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.17965646139
+==================================================
+--------------------------------------------------
+Prompt = 24346671.3013
+NonPrompt = 491.900300953
+Conv = 50.6180506634
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24344013.8136
+==================================================
+HNL_OS_Z__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.180558542134
+==================================================
+--------------------------------------------------
+Prompt = 24343471.2952
+NonPrompt = 491.900300953
+Conv = 50.6180506634
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSF_RecoSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25227122.6812
+==================================================
+HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.381644999934
+==================================================
+--------------------------------------------------
+Prompt = 25225387.0073
+NonPrompt = 1602.17967772
+Conv = 133.494162112
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25222138.7108
+==================================================
+HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.383045133109
+==================================================
+--------------------------------------------------
+Prompt = 25220403.0369
+NonPrompt = 1602.17967772
+Conv = 133.494162112
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  23685845.8164
+==================================================
+HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.371262733579
+==================================================
+--------------------------------------------------
+Prompt = 23685298.3623
+NonPrompt = 498.669572495
+Conv = 48.7845807821
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  23682716.313
+==================================================
+HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.372194948866
+==================================================
+--------------------------------------------------
+Prompt = 23682168.8589
+NonPrompt = 498.669572495
+Conv = 48.7845807821
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSFTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25954600.1946
+==================================================
+HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.183110474613
+==================================================
+--------------------------------------------------
+Prompt = 25952877.1585
+NonPrompt = 1584.02944566
+Conv = 139.00668314
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  25949502.0628
+==================================================
+HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.184463393072
+==================================================
+--------------------------------------------------
+Prompt = 25947779.0267
+NonPrompt = 1584.02944566
+Conv = 139.00668314
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24347566.0403
+==================================================
+HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  0.179557191801
+==================================================
+--------------------------------------------------
+Prompt = 24347023.5313
+NonPrompt = 491.887068081
+Conv = 50.6219058741
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  24344366.637
+==================================================
+HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  0.180459076493
+==================================================
+--------------------------------------------------
+Prompt = 24343824.128
+NonPrompt = 491.887068081
+Conv = 50.6219058741
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr2_TriggerSF_RecoSF_IDSF_3binTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  28644890.9923
+==================================================
+HNL_OS_FullMass__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  -0.463440219431
+==================================================
+--------------------------------------------------
+Prompt = 28643189.1155
+NonPrompt = 1555.94245258
+Conv = 145.934372744
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_FullMass__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 26663698.0
+Total Bkg =  28638824.635
+==================================================
+HNL_OS_FullMass__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  -0.462119543929
+==================================================
+--------------------------------------------------
+Prompt = 28637122.7582
+NonPrompt = 1555.94245258
+Conv = 145.934372744
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_FullMass__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  26872291.9054
+==================================================
+HNL_OS_Z__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu Significance =  -0.465099566932
+==================================================
+--------------------------------------------------
+Prompt = 26871757.14
+NonPrompt = 481.585098142
+Conv = 53.1802740028
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2/MuMu/BkgYields_List3.txt
+CFPath /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/InputFiles/MergedFiles/HNL_ControlRegion_Plotter/OS_Control/Feb10/OS/2017/HNL_ControlRegion_Plotter_SkimTree_DileptonBDT_CF.root
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+outfile_path = /data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt
+Summary Table [HNL_OS_Z__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu]
+--------------------------------------------------
+Data = 25001781.0
+Total Bkg =  26868469.1402
+==================================================
+HNL_OS_Z__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu Significance =  -0.464215230394
+==================================================
+--------------------------------------------------
+Prompt = 26867934.3749
+NonPrompt = 481.585098142
+Conv = 53.1802740028
+/data6/Users/jalmond/2020/Plotter/HNDiLeptonWorskspace/Output/Plots/HNL_ControlRegion_Plotter/Feb10/HNL_ControlRegion_OSCRPlots_FullWeights/2017/HNL_OS_Z__Corr3_DefaultWeightTwoLepton_CR/HNL_ULIDv2_PtBinnedDY/MuMu/BkgYields_List3.txt

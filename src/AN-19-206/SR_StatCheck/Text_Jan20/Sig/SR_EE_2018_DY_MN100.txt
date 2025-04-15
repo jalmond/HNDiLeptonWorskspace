@@ -1,0 +1,30 @@
+EE_2018_SR3 Bin (SR3_bin14      ): Content = 177.32    , Error = 38.864, Error Perc. =21.917
+EE_2018_SR3 Bin (SR3_bin17      ): Content = 168.641   , Error = 40.618, Error Perc. =24.085
+EE_2018_SR3 Bin (SR3_bin18      ): Content = 165.514   , Error = 39.832, Error Perc. =24.066
+EE_2018_SR3 Bin (SR3_bin23      ): Content = 132.24    , Error = 34.293, Error Perc. =25.932
+EE_2018_SR3 Bin (SR3_bin2       ): Content = 85.026    , Error = 27.142, Error Perc. =31.922
+EE_2018_SR3 Bin (SR3_bin16      ): Content = 77.312    , Error = 25.899, Error Perc. =33.499
+EE_2018_SR3 Bin (SR3_bin11      ): Content = 70.323    , Error = 27.903, Error Perc. =39.678
+EE_2018_SR3 Bin (SR3_bin22      ): Content = 67.838    , Error = 24.181, Error Perc. =35.645
+EE_2018_SR3 Bin (SR3_bin3       ): Content = 62.942    , Error = 23.843, Error Perc. =37.881
+EE_2018_SR3 Bin (SR3_bin4       ): Content = 62.925    , Error = 23.886, Error Perc. =37.959
+EE_2018_SR3 Bin (SR3_bin12      ): Content = 48.937    , Error = 20.065, Error Perc. =41.002
+EE_2018_SR3 Bin (SR3_bin13      ): Content = 42.756    , Error = 19.129, Error Perc. =44.74
+EE_2018_SR2 Bin (SR2_HTLTbin2   ): Content = 32.451    , Error = 16.368, Error Perc. =50.439
+EE_2018_SR3 Bin (SR3_bin15      ): Content = 25.636    , Error = 14.801, Error Perc. =57.735
+EE_2018_SR3 Bin (SR3_bin19      ): Content = 16.899    , Error = 18.004, Error Perc. =106.539
+EE_2018_SR3 Bin (SR3_bin1       ): Content = 16.775    , Error = 16.585, Error Perc. =98.867
+EE_2018_SR3 Bin (SR3_bin24      ): Content = 15.669    , Error = 11.229, Error Perc. =71.664
+EE_2018_SR2 Bin (SR2_HTLTbin3   ): Content = 14.89     , Error = 10.554, Error Perc. =70.88
+EE_2018_SR3 Bin (SR3_bin5       ): Content = 9.8       , Error = 9.8   , Error Perc. =100.0
+EE_2018_SR3 Bin (SR3_bin20      ): Content = 8.744     , Error = 8.744 , Error Perc. =100.0
+EE_2018_SR2 Bin (SR2_HTLTbin4   ): Content = 8.392     , Error = 8.392 , Error Perc. =100.0
+EE_2018_SR2 Bin (SR2_HTLTbin5   ): Content = 8.167     , Error = 8.167 , Error Perc. =100.0
+EE_2018_SR2 Bin (SR2_HTLTbin1   ): Content = 0.0       , Error = 0.0   , Error Perc. =0.0
+EE_2018_SR3 Bin (SR3_bin6       ): Content = 0.0       , Error = 0.0   , Error Perc. =0.0
+EE_2018_SR3 Bin (SR3_bin7       ): Content = 0.0       , Error = 0.0   , Error Perc. =0.0
+EE_2018_SR3 Bin (SR3_bin8       ): Content = 0.0       , Error = 0.0   , Error Perc. =0.0
+EE_2018_SR3 Bin (SR3_bin9       ): Content = 0.0       , Error = 0.0   , Error Perc. =0.0
+EE_2018_SR3 Bin (SR3_bin10      ): Content = 0.0       , Error = 0.0   , Error Perc. =0.0
+EE_2018_SR3 Bin (SR3_bin21      ): Content = 0.0       , Error = 0.0   , Error Perc. =0.0
+EE_2018_SR3 Bin (SR3_bin25      ): Content = 0.0       , Error = 0.0   , Error Perc. =0.0

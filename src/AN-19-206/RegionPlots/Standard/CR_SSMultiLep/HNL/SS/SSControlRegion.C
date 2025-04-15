@@ -10,25 +10,19 @@ void SSControlRegionJob(TString  DateTag,int nlep,vector<TString> Eras, TString 
 
 void SSControlRegion(){
 
-  TString DATE = "Oct11";
-  vector<TString> Eras =  {"2016postVFP","2017","2018","2016preVFP","Run2"};
-  Eras =  {"Run2"};
+  TString DATE = "Mar27";
+  vector<TString> Eras =  {"2017"};// ,"2016preVFP" ,"2017","2018","Run2"};
+  
+  vector<TString> DiLepReg = {"PassCR1_MET", "PassCR1_BJet", "PassCR2_BJet","PassCR2_MET","PassCR3_MET_HighJet","PassCR3_BJet_HighJet","HNL_HighMassSSZPeak_AK4_TwoLepton_CR","HNL_HighMassSSZPeak_AK8_TwoLepton_CR","NoWeight_PassCR1"};
+
+
   
 
-  vector<TString> DiLepReg = {"HNL_HighMassSR3_TwoLepton_CR", "HNL_HighMassBJet_TwoLepton_CR","HNL_HighMassNP_TwoLepton_CR","HNL_HighMassSR1_TwoLepton_CR","HNL_HighMassSR2_TwoLepton_CR","HNL_HighMassSR3LowJet_TwoLepton_CR","HNL_HighMassSR3_2J_TwoLepton_CR","HNL_WpWpNP2_TwoLepton_CR","HNL_WpWpNP3_TwoLepton_CR","HNL_WpWpNP_TwoLepton_CR","HNL_WpWp_TwoLepton_CR1","HNL_WpWp_TwoLepton_CR2","HNL_HighMassSR1_HighPt_TwoLepton_CR","HNL_HighMassSR2_HighPt_TwoLepton_CR","HNL_HighMassSR3_HighPt_TwoLepton_CR","HNL_HighMassSSZPeak_TwoLepton_CR","HNL_HighMassSSZPeak_HighPtHighEta_TwoLepton_CR","HNL_HighMassSSZPeak_HighPt_TwoLepton_CR","HNL_HighMassSSZPeak_HighPtHighEtaLowNJet_TwoLepton_CR"};
-
-  DiLepReg = {"HNL_HighMassSSZPeak_VBF_TwoLepton_CR"};
-
-    //"HNL_WpWpNP2_TwoLepton_CR","HNL_WpWpNP3_TwoLepton_CR","HNL_WpWpNP_TwoLepton_CR","HNL_WpWp_TwoLepton_CR1","HNL_WpWp_TwoLepton_CR2","HNL_HighMassSR1_TwoLepton_CR","HNL_HighMassSR2_TwoLepton_CR","HNL_HighMassSR3_TwoLepton_CR"}; 
-
-  SSControlRegionJob(DATE,2, Eras, "LL",{"WZ_SS","ZZ_SS","WW_SS","Top_SS","Other_SS","NonPrompt","Conv","chargeflip"} , DiLepReg , "HNL_ControlRegion_SSCRPlots", "List3","SSMultiLep");
-  //  SSControlRegionJob(DATE,2, Eras, "EE",{"WZ_SS","ZZ_SS","WW_SS","Top_SS","Other_SS","NonPrompt","Conv","chargeflip"} , DiLepReg , "HNL_ControlRegion_SSCRPlots", "List3","SSMultiLep");
-  //SSControlRegionJob(DATE,2, Eras, "MuMu",{"WZ_SS","ZZ_SS","WW_SS","Top_SS","Other_SS","NonPrompt","Conv","chargeflip"} , DiLepReg , "HNL_ControlRegion_SSCRPlots", "List3","SSMultiLep");
-  //SSControlRegionJob(DATE,2, Eras, "EMu",{"WZ_SS","ZZ_SS","WW_SS","Top_SS","Other_SS","NonPrompt","Conv","chargeflip"} , DiLepReg , "HNL_ControlRegion_SSCRPlots", "List3","SSMultiLep");
-
- 
-
-
+  //  for(auto iflav : {"LL","MuMu","EE","EMu"}){
+  for(auto iflav : {"EE","EMu"}){
+    SSControlRegionJob(DATE,2, Eras, iflav, {"WZ_Alt","qqZZ","ggZZ","WW_SS","Top","Other_SS","NonPrompt","Conv","chargeflip"} , DiLepReg , "HNL_ControlRegion_SSCRPlots_List1", "List1","SSMultiLep__");
+    SSControlRegionJob(DATE,2, Eras, iflav,{"WZ","qqZZ","ggZZ","WW_SS","Top","Other_SS","NonPrompt","Conv","chargeflip"} , DiLepReg , "HNL_ControlRegion_SSCRPlots_List3", "List3","SSMultiLep__");
+  }
  
 }
 
@@ -46,18 +40,9 @@ void RunFunction(TString DateFileTag,int nlep,vector<TString> eras,vector<TStrin
     for (auto channel : channels){
       
       /// list of IDs
-      vector<TString> Dirs = {  "HNL_ULID"};//, "HNTightV2"};
+      vector<TString> Dirs = { "HNL_ULIDv2", "HNTightV2", "HNL_ULIDv2_AK8Loose","POGTight"};
 
-      //// Run Yield print code                                                                                                                                                                                                                                                        
-      //for (auto ID : Dirs) system("python PrintNTUP.py -f SSMultiLep -e "+year+" -r "+Region+" -i " + ID + "  -c "+channel+" -d "+ DateFileTag  + " -a HNL_ControlRegion_Plotter -p "+PlotterTag);
-    
-
-      if(year == "Run2"){
-	for (auto ID : Dirs) system("python PrintBackgrounds_Run2.py -f "+Flag+" -e "+year+" -r "+Region+" -i " + ID + "  -c "+channel+" -d "+ DateFileTag  + " -a HNL_ControlRegion_Plotter -p "+PlotterTag + " -l " + InputList );
-      }
-      else {
-	for (auto ID : Dirs) system("python PrintBackgrounds_AN.py -f "+Flag+" -e "+year+" -r "+Region+" -i " + ID + "  -c "+channel+" -d "+ DateFileTag  + " -a HNL_ControlRegion_Plotter -p "+PlotterTag + " -l " + InputList );
-      }
+      //// Run Yield print code                                                                                                                                                                                                                                                              
       HNLRegionPlotter Plotter(PlotterTag);
       //// change def
       Plotter.DoDebug=true;
@@ -82,12 +67,46 @@ void RunFunction(TString DateFileTag,int nlep,vector<TString> eras,vector<TStrin
       
       Plotter.BasicSetup(HNLRegionPlotter::NoLOGY, HNLRegionPlotter::DrawRatio, channel); //// If same setup for all hists in HistPath then use InitialSetup else need to set vector individually
       
-      ///// HISTs Setup
-      Plotter.AddAK8(Region);
-      Plotter.AddVBF(Region);
-      Plotter.AddMisc(Region);
-      Plotter.AddMass(nlep,Region);
-      Plotter.AddLepton(nlep,Region);
+
+      Plotter.AddHist("MainPlots/Lepton_1_pt" ,"P^{1}_{T} GeV" , "GeV", {0, 20., 50.,75.,100.,125., 200.,500}, 0, 500);
+      Plotter.AddHist("MainPlots/Lepton_2_pt" ,"P^{2}_{T} GeV" , "GeV", {0.,10.,15., 25.,30,40,50,75,100., 200.}, 0, 200);
+
+      Plotter.AddHist("Leptons/Lep_1_eta" ,"#eta Lepton" , "int", {2},-2.5,2.5);
+      Plotter.AddHist("Leptons/Lep_2_eta" ,"#eta Lepton" , "int", {2},-2.5,2.5);
+
+      Plotter.AddHist("Leptons/SumQ" ,"Sum Charge" , "int", {1},-5,5);
+
+      Plotter.AddHist("Mass/DiJet_M_l1jj"  ,"M_{l1W}"  , "GeV",    {0,150,200,300,400,600,2000}, 0, 2000);
+      Plotter.AddHist("Mass/DiJet_M_lljj"  ,"M_{llW}"  , "GeV",    {0,150,200,300,400,600,2000}, 0, 2000);
+      Plotter.AddHist("DeltaR/dR_ll" ,"#DeltaR_{LL}"  , "", {5.}, 0, 5);
+      Plotter.AddHist("DeltaPhi/dPhi_lep1_lep2" ,"#Delta#phi_{LL}"  , "", {5.}, 0, 5);
+      Plotter.AddHist("DiLepton/ll_Pt" ,"Z Pt"  , "", {2.}, 0, 500);
+
+      Plotter.AddHist("Standard/N_AK4J"  ,"N_{AK4J}"  , "",    {1.}, 0, 10);
+      Plotter.AddHist("Standard/N_AK4J_30"  ,"N_{AK4J}"  , "",    {1.}, 0, 10);
+      Plotter.AddHist("Standard/N_AK4J_tau"  ,"N_{AK4J}"  , "",    {1.}, 0, 10);
+
+      Plotter.AddHist("Standard/Ev_MET"  ,"Ev_MET"  , "",    {2.}, 0, 400);
+      Plotter.AddHist("Standard/M_ll"  ,"M_{ll}"  , "GeV",    {2},0,500);
+      
+      Plotter.AddHist("NObj/N_BJet"  ,"N_{BJ}"  , "",    {1.}, 0, 4);
+      Plotter.AddHist("NObj/N_tau"  ,"N_{tau}"  , "",    {1.}, 0, 4);
+      Plotter.AddHist("AK4Jets/Jet_eta"  ,"Jet Eta"  , "",    {5.}, -5, 5);
+      Plotter.AddHist("AK4Jets/Jet_pt"  ,"Jet Pt"  , "",    {1.}, 0, 200);
+
+      Plotter.AddHist("AK8/AK8J_Mass/l1J"  ,"Jet Eta"  , "",    {2.}, 0, 1000);
+      Plotter.AddHist("AK8/AK8J_Mass/llJ"  ,"Jet Eta"  , "",    {2.}, 0, 1000);
+      Plotter.AddHist("AK8/AK8J_Eta"  ,"Jet Eta"  , "",    {1.}, -5, 5);
+      Plotter.AddHist("AK8/AK8J_Eta"  ,"Jet Eta"  , "",    {1.}, -5, 5);
+      Plotter.AddHist("AK8/AK8J_Tagger_particleNet_WvsQCD"  ,"Jet Pt"  , "",    {2.}, 0, 1);
+
+      Plotter.AddHist("MainPlots/Ev_MET2_ST"  ,"MET^{2}/S_{T}","GeV",  {0,5,10,15,20,30,40,50,75,100}, 0, 100);
+      Plotter.AddHist("MainPlots/HT_PT1","H_{T}/p^{lep_{1}}_{T} GeV", "GeV", {0,2,3,4,5,10},0, 10);
+      Plotter.AddHist("MainPlots/L_T","L_{T}  GeV", "GeV", {0,50,100,200,500,1000},0, 1000);
+
+      Plotter.AddHist("VBF/Lead_MJJ"  ,""  , "",    {1.}, 0, 3000);
+      Plotter.AddHist("VBF/Lead_zeppenfeld"  ,""  , "",    {1.}, 0, 2);
+
       
       ////// Make list and run plotting
       Plotter.DrawStackPlotsWithData();
