@@ -25,7 +25,7 @@ void setTDRStyle() {
   //  cout << "SETTING UP setTDRStyle "<< endl;
 
   TStyle *tdrStyle = new TStyle("tdrStyle","Style for P-TDR");
-  char* ch = "4.4f";
+  const char* ch = "4.4f";  // Correct
   tdrStyle->SetPaintTextFormat(ch);
   // For the canvas:
   tdrStyle->SetCanvasBorderMode(0);
